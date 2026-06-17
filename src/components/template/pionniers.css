@@ -5,11 +5,11 @@
    Ciblage par variables CSS (tokens) → recolore tout d'un coup.
    ============================================================ */
 :root {
-  /* Verts d'origine → bordeaux / ambre */
-  --token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3: #6e201b; /* vert moyen → bordeaux (boutons/CTA) */
-  --token-5991b8f4-4409-4988-9af9-ed84b35a240c: #4a1512; /* vert foncé → bordeaux profond */
-  --token-ce7cac9b-68d2-43aa-b17a-9ff7b974f476: #f6e2bb; /* vert clair (pastilles) → ambre clair */
-  --token-84a6585a-d5ec-4d8a-bff9-2620e834b6f0: #f5a300; /* jaune → ambre */
+  /* Verts d'origine → bordeaux / ambre (!important pour gagner sur framer.css) */
+  --token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3: #6e201b !important; /* vert moyen → bordeaux (boutons/CTA) */
+  --token-5991b8f4-4409-4988-9af9-ed84b35a240c: #4a1512 !important; /* vert foncé → bordeaux profond */
+  --token-ce7cac9b-68d2-43aa-b17a-9ff7b974f476: #f6e2bb !important; /* vert clair (pastilles) → ambre clair */
+  --token-84a6585a-d5ec-4d8a-bff9-2620e834b6f0: #f5a300 !important; /* jaune → ambre */
 
   /* Variables sémantiques utilisées par mon tunnel */
   --pio-amber: #f5a300;

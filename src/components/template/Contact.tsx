@@ -1,7 +1,6 @@
 // Page Contact (port fidèle d'un template Framer "Sportix"). Header + corps + footer
 // sont inline dans ce composant. Contenu à personnaliser (infos ci-dessous, liens nav/footer,
 // images). Styles : framer.css importé une seule fois dans le layout global.
-import './framer.css';
 import HeroTunnel from './HeroTunnel'
 import { PriceCard } from './PriceCard'
 import { MENSUEL, COURTES } from './formules'
@@ -341,7 +340,7 @@ export default function Contact() {
                       <div className={"framer-19lfn6h"} data-framer-name={"Heading"} style={{ transform: "none" }}>
                         <h2 style={{ "--font-selector": "SW50ZXItQm9sZA==", "--framer-font-family": "&quot", "--framer-font-size": "50px", "--framer-font-weight": "700", "--framer-letter-spacing": "-1.5px", "--framer-text-color": "var(--token-97fc87a4-7472-48e0-baff-d882386fd651, rgb(0, 0, 0))" }} className={"framer-text"}>
                           <span style={{ "--font-selector": "SW50ZXI=", "--framer-font-family": "&quot", "--framer-font-weight": "400" }} className={"framer-text"}>
-                            Nous{" "}
+                            Le{" "}
                           </span>
                           football américain au cœur de la
                           <span style={{ "--font-selector": "SW50ZXI=", "--framer-font-family": "&quot", "--framer-font-weight": "400" }} className={"framer-text"}>
@@ -354,7 +353,7 @@ export default function Contact() {
                       <div className={"framer-19lfn6h"} data-framer-name={"Heading"} style={{ transform: "none" }}>
                         <h2 style={{ "--font-selector": "SW50ZXItQm9sZA==", "--framer-font-family": "&quot", "--framer-font-size": "40px", "--framer-font-weight": "700", "--framer-letter-spacing": "-1.5px", "--framer-text-color": "var(--token-97fc87a4-7472-48e0-baff-d882386fd651, rgb(0, 0, 0))" }} className={"framer-text"}>
                           <span style={{ "--font-selector": "SW50ZXI=", "--framer-font-family": "&quot", "--framer-font-weight": "400" }} className={"framer-text"}>
-                            Nous{" "}
+                            Le{" "}
                           </span>
                           football américain au cœur de la
                           <span style={{ "--font-selector": "SW50ZXI=", "--framer-font-family": "&quot", "--framer-font-weight": "400" }} className={"framer-text"}>
@@ -818,13 +817,13 @@ export default function Contact() {
                         </div>
                         <div className={"framer-1blde6r"} data-framer-name={"Heading"} style={{ "--extracted-tcooor": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                           <div className={"framer-text framer-styles-preset-1p8sfvs"} data-styles-preset={"Lsvad3fWJ"} style={{ "--framer-text-color": "var(--extracted-tcooor, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                            Offre limitée
+                            Séance d&#39;essai offerte
                           </div>
                         </div>
                       </div>
                       <div className={"framer-5q6jwk"} data-framer-name={"Body"} style={{ "--extracted-r6o4lv": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                         <p className={"framer-text framer-styles-preset-1116k3j"} data-styles-preset={"CclRS3ecL"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                          Inscrivez-vous aujourd'hui et profitez d'un bilan coaching offert !
+                          Viens tester le football américain ou le flag : ta première séance est gratuite et sans engagement.
                         </p>
                       </div>
                     </div>
@@ -832,7 +831,7 @@ export default function Contact() {
                       <a className={"framer-mAcoc framer-X8adU framer-5jm32v framer-v-5jm32v framer-5eqsdb"} data-framer-name={"Default"} style={{ backdropFilter: "blur(0px)", backgroundColor: "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", borderBottomLeftRadius: "70px", borderBottomRightRadius: "70px", borderTopLeftRadius: "70px", borderTopRightRadius: "70px" }} href={"#rejoindre"}>
                         <div className={"framer-145drjp"} style={{ "--extracted-r6o4lv": "var(--variable-reference-ypfpfVkT4-gRwIgGm9Y)", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", "--variable-reference-fpKzsO89l-gRwIgGm9Y": "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", "--variable-reference-ypfpfVkT4-gRwIgGm9Y": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", transform: "none" }}>
                           <p className={"framer-text framer-styles-preset-13c7ysj"} data-styles-preset={"QchegEuzx"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--variable-reference-ypfpfVkT4-gRwIgGm9Y))" }}>
-                            Je commence maintenant
+                            Je tente l&#39;essai
                           </p>
                         </div>
                       </a>
@@ -859,13 +858,13 @@ export default function Contact() {
                         </div>
                         <div className={"framer-1blde6r"} data-framer-name={"Heading"} style={{ "--extracted-tcooor": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                           <div className={"framer-text framer-styles-preset-1p8sfvs"} data-styles-preset={"Lsvad3fWJ"} style={{ "--framer-text-color": "var(--extracted-tcooor, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                            Offre limitée
+                            Séance d&#39;essai offerte
                           </div>
                         </div>
                       </div>
                       <div className={"framer-5q6jwk"} data-framer-name={"Body"} style={{ "--extracted-r6o4lv": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                         <p className={"framer-text framer-styles-preset-1116k3j"} data-styles-preset={"CclRS3ecL"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                          Inscrivez-vous aujourd'hui et profitez d'un bilan coaching offert !
+                          Viens tester le football américain ou le flag : ta première séance est gratuite et sans engagement.
                         </p>
                       </div>
                     </div>
@@ -873,7 +872,7 @@ export default function Contact() {
                       <a className={"framer-mAcoc framer-X8adU framer-5jm32v framer-v-5jm32v framer-5eqsdb"} data-framer-name={"Default"} style={{ backdropFilter: "blur(0px)", backgroundColor: "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", borderBottomLeftRadius: "70px", borderBottomRightRadius: "70px", borderTopLeftRadius: "70px", borderTopRightRadius: "70px" }} href={"#rejoindre"}>
                         <div className={"framer-145drjp"} style={{ "--extracted-r6o4lv": "var(--variable-reference-ypfpfVkT4-gRwIgGm9Y)", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", "--variable-reference-fpKzsO89l-gRwIgGm9Y": "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", "--variable-reference-ypfpfVkT4-gRwIgGm9Y": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", transform: "none" }}>
                           <p className={"framer-text framer-styles-preset-13c7ysj"} data-styles-preset={"QchegEuzx"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--variable-reference-ypfpfVkT4-gRwIgGm9Y))" }}>
-                            Je commence maintenant
+                            Je tente l&#39;essai
                           </p>
                         </div>
                       </a>
@@ -900,13 +899,13 @@ export default function Contact() {
                         </div>
                         <div className={"framer-1blde6r"} data-framer-name={"Heading"} style={{ "--extracted-tcooor": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                           <div className={"framer-text framer-styles-preset-1p8sfvs"} data-styles-preset={"Lsvad3fWJ"} style={{ "--framer-text-color": "var(--extracted-tcooor, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                            Offre limitée
+                            Séance d&#39;essai offerte
                           </div>
                         </div>
                       </div>
                       <div className={"framer-5q6jwk"} data-framer-name={"Body"} style={{ "--extracted-r6o4lv": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                         <p className={"framer-text framer-styles-preset-1116k3j"} data-styles-preset={"CclRS3ecL"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                          Inscrivez-vous aujourd'hui et profitez d'un bilan coaching offert !
+                          Viens tester le football américain ou le flag : ta première séance est gratuite et sans engagement.
                         </p>
                       </div>
                     </div>
@@ -914,7 +913,7 @@ export default function Contact() {
                       <a className={"framer-mAcoc framer-X8adU framer-5jm32v framer-v-tp32ut framer-5eqsdb"} data-framer-name={"Phone"} style={{ backdropFilter: "blur(0px)", backgroundColor: "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", borderBottomLeftRadius: "70px", borderBottomRightRadius: "70px", borderTopLeftRadius: "70px", borderTopRightRadius: "70px" }} href={"#rejoindre"}>
                         <div className={"framer-145drjp"} style={{ "--extracted-r6o4lv": "var(--variable-reference-ypfpfVkT4-gRwIgGm9Y)", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", "--variable-reference-fpKzsO89l-gRwIgGm9Y": "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", "--variable-reference-ypfpfVkT4-gRwIgGm9Y": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", transform: "none" }}>
                           <p className={"framer-text framer-styles-preset-13c7ysj"} data-styles-preset={"QchegEuzx"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--variable-reference-ypfpfVkT4-gRwIgGm9Y))" }}>
-                            Je commence maintenant
+                            Je tente l&#39;essai
                           </p>
                         </div>
                       </a>
