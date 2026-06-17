@@ -62,9 +62,7 @@ export default function TarifsSection() {
               <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-amber/10 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
 
               <div className="relative flex items-center gap-3">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber/15 text-amber ring-1 ring-amber/20">
-                  <plan.icon className="h-6 w-6" strokeWidth={2.2} />
-                </span>
+                <plan.icon className="h-7 w-7 text-amber" strokeWidth={1.5} />
                 <h3 className="heading text-2xl text-amber">{plan.titre}</h3>
               </div>
 

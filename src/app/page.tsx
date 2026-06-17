@@ -1,8 +1,7 @@
 import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
+import RecruitHero from '@/components/recruit/RecruitHero';
 import ClubSection from '@/components/ClubSection';
 import PPPSection from '@/components/PPPSection';
-import JoinFunnel from '@/components/JoinFunnel/JoinFunnel';
 import TarifsSection from '@/components/TarifsSection';
 import FaqSection from '@/components/FaqSection';
 import Footer from '@/components/Footer';
@@ -12,10 +11,9 @@ export default function Home() {
     <>
       <Navbar />
       <main>
-        <Hero />
+        <RecruitHero />
         <ClubSection />
         <PPPSection />
-        <JoinFunnel />
         <TarifsSection />
         <FaqSection />
       </main>

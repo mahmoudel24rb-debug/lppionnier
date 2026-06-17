@@ -62,11 +62,13 @@ export default function PPPSection() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {PILIERS.map((p, i) => (
-              <Reveal key={p.title} delay={i * 0.08} className="panel p-6">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-bordeaux/40 text-amber ring-1 ring-amber/20">
-                  <p.icon className="h-5 w-5" strokeWidth={2.2} />
-                </span>
-                <h3 className="heading mt-4 text-xl">{p.title}</h3>
+              <Reveal
+                key={p.title}
+                delay={i * 0.08}
+                className="group rounded-2xl border border-white/10 bg-ink-850/60 p-6 transition-colors duration-300 hover:border-amber/30"
+              >
+                <p.icon className="h-6 w-6 text-amber" strokeWidth={1.5} />
+                <h3 className="heading mt-5 text-xl">{p.title}</h3>
                 <p className="mt-2 text-sm text-zinc-400">{p.text}</p>
               </Reveal>
             ))}
