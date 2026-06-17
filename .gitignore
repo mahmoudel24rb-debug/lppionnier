@@ -30,6 +30,9 @@ next-env.d.ts
 /install.log
 /build.log
 
+# dossier template source (Framer export, ~68 Mo) — déjà copié dans src/components/template
+/export
+
 # fichiers sources d'origine (déjà copiés dans public/assets)
 /Group.png
 /Group 15.png

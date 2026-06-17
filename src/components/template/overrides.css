@@ -1,0 +1,155 @@
+/* Overrides Beauregard — petits correctifs sur le port Framer (survivent aux re-ports).
+   Ciblage par data-framer-name (stable) + scope, jamais par classe hashée. */
+
+/* Footer : l'email FR (rochecorbon@parcbeauregard.com) est plus long que l'original,
+   le bloc CTA écrasait le logo+tagline à ~77px. On autorise le retour à la ligne et
+   on garantit une largeur mini au logo. */
+footer [data-framer-name='Top Content Wrapper'] {
+  flex-wrap: wrap;
+  row-gap: 28px;
+  align-items: flex-start;
+}
+footer [data-framer-name='Logo Wrapper'] {
+  flex: 0 0 auto;
+  min-width: 240px;
+}
+footer [data-framer-name='Link Wrapper'] {
+  flex: 1 1 auto;
+  min-width: 320px;
+  max-width: 100%;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 12px;
+  row-gap: 4px;
+}
+/* Police réduite : "Une question ? rochecorbon@parcbeauregard.com" tient sur une ligne
+   en desktop. Pas de coupure en plein mot (l'email reste entier ; il passe à la ligne
+   en bloc si besoin). */
+footer [data-framer-name='Link Wrapper'] .framer-text {
+  font-size: clamp(20px, 1.7vw, 26px) !important;
+  line-height: 1.3 !important;
+}
+/* Sécurité mobile : sur petit écran, l'email peut se couper pour éviter tout débordement. */
+@media (max-width: 640px) {
+  footer [data-framer-name='Link Wrapper'] a {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ---------- Sous-menus header (Nos espaces / Services) ---------- */
+/* Le lien nav qui contient un sous-menu devient ancre de positionnement + chevron. */
+[data-framer-name='Navigation Link']:has([data-bg-submenu]) {
+  position: relative;
+}
+[data-framer-name='Navigation Link']:has([data-bg-submenu]) a[href='/espaces']::after,
+[data-framer-name='Navigation Link']:has([data-bg-submenu]) a[href='/services']::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translate(-1px, -2px);
+  transition: transform 0.15s ease;
+}
+[data-framer-name='Navigation Link']:has([data-bg-submenu]):hover a[href='/espaces']::after,
+[data-framer-name='Navigation Link']:has([data-bg-submenu]):hover a[href='/services']::after {
+  transform: rotate(225deg) translate(-1px, -1px);
+}
+/* Panneau déroulant — valeurs EXACTES extraites de la dropdown Sportix :
+   carte blanche, radius 10px, padding 30px, pas d'ombre, liens gris #404040 16px/400. */
+[data-bg-submenu] {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 210px;
+  padding: 30px;
+  z-index: 200;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+/* pont de survol transparent entre le lien et la carte (pas de coupure) */
+[data-bg-submenu]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -16px;
+  height: 16px;
+}
+[data-framer-name='Navigation Link']:hover [data-bg-submenu] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+[data-bg-submenu] a {
+  font-family: 'Inter', 'Inter Placeholder', sans-serif;
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.48px;
+  line-height: 17.6px;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: opacity 0.12s ease;
+}
+[data-bg-submenu] a:hover {
+  opacity: 0.55;
+}
+
+/* Tarifs : onglets Mensuel / Courtes durées, 5 cartes en 3+2 chacun.
+   Le toggle bascule l'attribut body[data-pricing] (cf. PricingToggle.tsx). */
+[data-framer-name='Tarifs Cards Wrapper'] {
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+}
+[data-ptab] {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+}
+[data-ptab] > .framer-wbllb0-container {
+  flex: 0 0 calc((100% - 60px) / 3) !important;
+  max-width: 400px !important;
+}
+/* onglet inactif masqué (défaut = mensuel) */
+[data-ptab='courtes'] { display: none; }
+body[data-pricing='courtes'] [data-ptab='mensuel'] { display: none; }
+body[data-pricing='courtes'] [data-ptab='courtes'] { display: flex; }
+/* pilule coulissante d'origine masquée : l'état actif est posé en JS sur les libellés */
+[data-framer-name='Toggle BG'] { display: none !important; }
+
+/* Cours : grille présentation + infos pratiques -> 1 colonne sur mobile */
+@media (max-width: 760px) {
+  .bg-cours-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 991px) {
+  [data-ptab] > .framer-wbllb0-container { flex-basis: calc((100% - 30px) / 2) !important; }
+}
+@media (max-width: 640px) {
+  [data-ptab] > .framer-wbllb0-container { flex-basis: 100% !important; }
+}
+
+/* Formulaire de contact : grille 2 colonnes -> 1 sur mobile */
+@media (max-width: 600px) { .bg-cf-grid { grid-template-columns: 1fr !important; } }
+
+/* Témoignages : le slider Framer (flèches préc./suiv.) n'est pas branché et, avec
+   seulement 3 avis qui tiennent à l'écran, il ne sert à rien (il défilerait vers une
+   copie identique). On masque les flèches pour éviter des boutons morts. Scopé à la
+   section pour ne pas toucher les boutons du hero (même data-framer-name). */
+[data-framer-name='Testimonials Section'] [data-framer-name='Button Wrapper'] {
+  display: none !important;
+}

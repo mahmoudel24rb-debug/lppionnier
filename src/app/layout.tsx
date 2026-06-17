@@ -1,25 +1,19 @@
 import type { Metadata } from 'next';
-import { Inter, Oswald } from 'next/font/google';
-import './globals.css';
+import React from 'react';
 
-const sans = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-});
+// Styles du template Framer (reset + styles globaux), puis correctifs, puis
+// recolorisation Pionniers. L'ordre compte : framer.css en premier.
+import '@/components/template/framer.css';
+import '@/components/template/overrides.css';
+import '@/components/template/pionniers.css';
 
-// Oswald : condensé, athlétique — parfait pour les gros titres sport.
-const display = Oswald({
-  subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  variable: '--font-display',
-  display: 'swap',
-});
+import MobileNav from '@/components/template/MobileNav';
+import PricingToggle from '@/components/template/PricingToggle';
 
 export const metadata: Metadata = {
   title: 'Pionniers de Touraine — Football Américain & Flag | Nous rejoindre',
   description:
-    "Rejoins les Pionniers de Touraine : football américain, flag football, coaching, arbitrage et bien plus. Trouve ta place et engage-toi.",
+    "Rejoins les Pionniers de Touraine : football américain, flag football, coaching, arbitrage et plus. Trouve ta place et engage-toi.",
 };
 
 export default function RootLayout({
@@ -28,8 +22,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`${sans.variable} ${display.variable}`}>
-      <body>{children}</body>
+    <html lang="fr">
+      <body>
+        {children}
+        {/* îlots client : menu burger mobile + bascule des onglets tarifs */}
+        <MobileNav />
+        <PricingToggle />
+      </body>
     </html>
   );
 }
