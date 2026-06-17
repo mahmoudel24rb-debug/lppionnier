@@ -299,34 +299,6 @@ export default function Contact() {
                 <HeroTunnel />
               </div>
             </section>
-      <section style={{ padding: "90px 0", background: "#f5f5f5" }}>
-        <div style={{ maxWidth: "1180px", margin: "0 auto", padding: "0 30px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "40px" }}>
-          <div>
-            <h2 style={{ fontSize: "clamp(26px,3vw,40px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 24px" }}>Se rendre au stade</h2>
-            <p style={{ color: "#404040", lineHeight: 1.7, margin: "0 0 8px" }}><strong>{infos?.nom || 'Pionniers de Touraine Fitness & Coaching'}</strong></p>
-            <p style={{ color: "#404040", lineHeight: 1.7, margin: "0 0 4px" }}>{infos?.adresse || 'Tours, Touraine (37)'}</p>
-            <p style={{ color: "#404040", lineHeight: 1.7, margin: "0 0 4px" }}>{infos?.telephone || '06 00 00 00 00'}</p>
-            <p style={{ color: "#404040", lineHeight: 1.7, margin: "0 0 28px" }}>{infos?.email || 'contact@pionniers-touraine.fr'}</p>
-            <h3 style={{ fontSize: "20px", fontWeight: 700, margin: "0 0 14px" }}>Entraînements</h3>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, maxWidth: "360px" }}>
-              {horaires.map((h) => (
-                <li key={h.jours} style={{ display: "flex", justifyContent: "space-between", padding: "11px 0", borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
-                  <span style={{ color: "#404040" }}>{h.jours}</span>
-                  <strong>{h.heures}</strong>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div style={{ minHeight: "400px", borderRadius: "16px", overflow: "hidden" }}>
-            <iframe
-              title="Plan d'accès Pionniers de Touraine"
-              src="https://www.google.com/maps?q=Tours+37000&output=embed"
-              style={{ width: "100%", height: "100%", minHeight: "400px", border: 0 }}
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
             <section id={"sections"} className={"framer-eqah0p"} data-framer-name={"Classes Section"}>
               <div className={"framer-hcox9t"} data-framer-name={"Base Container"}>
                 <div className={"framer-18hfuhg"} data-framer-name={"Top Content Wrapper"} style={{ willChange: "auto", opacity: "1", transform: "none" }}>
@@ -382,7 +354,7 @@ export default function Contact() {
                             <div className={"framer-1o8anf"} data-framer-name={"BG Color"} style={{ backgroundColor: "var(--token-617eea88-08bd-4f71-aa3d-29b363f5895a, rgba(0, 0, 0, 0.3))" }} />
                             <div className={"framer-r69y6i"} data-framer-name={"Image"} style={{ transform: "none" }}>
                               <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }}>
-                                <img decoding={"async"} width={"1920"} height={"1280"} sizes={"(min-width: 1280px) max(max(min(100vw, 1320px) - 60px, 1px), 1px), (min-width: 992px) and (max-width: 1279px) max(max(min(100vw, 1320px) - 40px, 1px), 1px), (max-width: 991px) max(max(min(100vw, 1320px) - 40px, 280px), 1px)"} srcSet={"/lppionnier/assets/beauregard/coaching.webp"} src={"/lppionnier/assets/beauregard/coaching.webp"} alt={"Thumbnail"} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "cover" }} />
+                                <img decoding={"async"} width={"1920"} height={"1280"} sizes={"(min-width: 1280px) max(max(min(100vw, 1320px) - 60px, 1px), 1px), (min-width: 992px) and (max-width: 1279px) max(max(min(100vw, 1320px) - 40px, 1px), 1px), (max-width: 991px) max(max(min(100vw, 1320px) - 40px, 280px), 1px)"} srcSet={"/lppionnier/assets/hero.jpg"} src={"/lppionnier/assets/hero.jpg"} alt={"Thumbnail"} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "cover" }} />
                               </div>
                             </div>
                           </div>
@@ -434,7 +406,7 @@ export default function Contact() {
                             <div className={"framer-1o8anf"} data-framer-name={"BG Color"} style={{ backgroundColor: "var(--token-617eea88-08bd-4f71-aa3d-29b363f5895a, rgba(0, 0, 0, 0.3))" }} />
                             <div className={"framer-r69y6i"} data-framer-name={"Image"} style={{ transform: "none" }}>
                               <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }}>
-                                <img decoding={"async"} width={"1920"} height={"1280"} sizes={"(min-width: 1280px) max(max(min(100vw, 1320px) - 60px, 1px), 1px), (min-width: 992px) and (max-width: 1279px) max(max(min(100vw, 1320px) - 40px, 1px), 1px), (max-width: 991px) max(max(min(100vw, 1320px) - 40px, 280px), 1px)"} srcSet={"/lppionnier/assets/beauregard/cours.webp"} src={"/lppionnier/assets/beauregard/cours.webp"} alt={"Thumbnail"} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "cover" }} />
+                                <img decoding={"async"} width={"1920"} height={"1280"} sizes={"(min-width: 1280px) max(max(min(100vw, 1320px) - 60px, 1px), 1px), (min-width: 992px) and (max-width: 1279px) max(max(min(100vw, 1320px) - 40px, 1px), 1px), (max-width: 991px) max(max(min(100vw, 1320px) - 40px, 280px), 1px)"} srcSet={"/lppionnier/assets/flag.png"} src={"/lppionnier/assets/flag.png"} alt={"Thumbnail"} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "cover" }} />
                               </div>
                             </div>
                           </div>
@@ -486,7 +458,7 @@ export default function Contact() {
                             <div className={"framer-1o8anf"} data-framer-name={"BG Color"} style={{ backgroundColor: "var(--token-617eea88-08bd-4f71-aa3d-29b363f5895a, rgba(0, 0, 0, 0.3))" }} />
                             <div className={"framer-r69y6i"} data-framer-name={"Image"} style={{ transform: "none" }}>
                               <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }}>
-                                <img decoding={"async"} width={"1500"} height={"1000"} sizes={"(min-width: 1280px) max(max(min(100vw, 1320px) - 60px, 1px), 1px), (min-width: 992px) and (max-width: 1279px) max(max(min(100vw, 1320px) - 40px, 1px), 1px)"} srcSet={"/lppionnier/assets/beauregard/location.webp"} src={"/lppionnier/assets/beauregard/location.webp"} alt={"Thumbnail"} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "36.3% 0.9%", objectFit: "cover" }} />
+                                <img decoding={"async"} width={"1500"} height={"1000"} sizes={"(min-width: 1280px) max(max(min(100vw, 1320px) - 60px, 1px), 1px), (min-width: 992px) and (max-width: 1279px) max(max(min(100vw, 1320px) - 40px, 1px), 1px)"} srcSet={"/lppionnier/assets/hero.jpg"} src={"/lppionnier/assets/hero.jpg"} alt={"Thumbnail"} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "36.3% 0.9%", objectFit: "cover" }} />
                               </div>
                             </div>
                           </div>
@@ -539,7 +511,7 @@ export default function Contact() {
                           <div className={"framer-1o8anf"} data-framer-name={"BG Color"} style={{ backgroundColor: "var(--token-617eea88-08bd-4f71-aa3d-29b363f5895a, rgba(0, 0, 0, 0.3))" }} />
                           <div className={"framer-r69y6i"} data-framer-name={"Image"} style={{ transform: "none" }}>
                             <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }}>
-                              <img decoding={"async"} width={"1920"} height={"1280"} sizes={"(min-width: 1280px) max(max(min(100vw, 1320px) - 60px, 1px), 1px), (min-width: 992px) and (max-width: 1279px) max(max(min(100vw, 1320px) - 40px, 1px), 1px), (max-width: 991px) max(max(min(100vw, 1320px) - 40px, 280px), 1px)"} srcSet={"/lppionnier/assets/beauregard/coaching.webp"} src={"/lppionnier/assets/beauregard/coaching.webp"} alt={"Thumbnail"} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "cover" }} />
+                              <img decoding={"async"} width={"1920"} height={"1280"} sizes={"(min-width: 1280px) max(max(min(100vw, 1320px) - 60px, 1px), 1px), (min-width: 992px) and (max-width: 1279px) max(max(min(100vw, 1320px) - 40px, 1px), 1px), (max-width: 991px) max(max(min(100vw, 1320px) - 40px, 280px), 1px)"} srcSet={"/lppionnier/assets/hero.jpg"} src={"/lppionnier/assets/hero.jpg"} alt={"Thumbnail"} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "cover" }} />
                             </div>
                           </div>
                         </div>
@@ -589,7 +561,7 @@ export default function Contact() {
                           <div className={"framer-1o8anf"} data-framer-name={"BG Color"} style={{ backgroundColor: "var(--token-617eea88-08bd-4f71-aa3d-29b363f5895a, rgba(0, 0, 0, 0.3))" }} />
                           <div className={"framer-r69y6i"} data-framer-name={"Image"} style={{ transform: "none" }}>
                             <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }}>
-                              <img decoding={"async"} width={"1920"} height={"1280"} sizes={"(min-width: 1280px) max(max(min(100vw, 1320px) - 60px, 1px), 1px), (min-width: 992px) and (max-width: 1279px) max(max(min(100vw, 1320px) - 40px, 1px), 1px), (max-width: 991px) max(max(min(100vw, 1320px) - 40px, 280px), 1px)"} srcSet={"/lppionnier/assets/beauregard/cours.webp"} src={"/lppionnier/assets/beauregard/cours.webp"} alt={"Thumbnail"} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "cover" }} />
+                              <img decoding={"async"} width={"1920"} height={"1280"} sizes={"(min-width: 1280px) max(max(min(100vw, 1320px) - 60px, 1px), 1px), (min-width: 992px) and (max-width: 1279px) max(max(min(100vw, 1320px) - 40px, 1px), 1px), (max-width: 991px) max(max(min(100vw, 1320px) - 40px, 280px), 1px)"} srcSet={"/lppionnier/assets/flag.png"} src={"/lppionnier/assets/flag.png"} alt={"Thumbnail"} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "cover" }} />
                             </div>
                           </div>
                         </div>
@@ -812,18 +784,18 @@ export default function Contact() {
                       <div className={"framer-1kim826"} data-framer-name={"Title Wrapper"}>
                         <div className={"framer-1m7dt58"} data-framer-name={"Icon"}>
                           <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }}>
-                            <img decoding={"async"} width={"51"} height={"51"} src={"/lppionnier/assets/framerusercontent.com/images/gLzzi4G1EAaaoQVJVeUlmYMO3g0.svg"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "contain" }} />
+                            <img decoding={"async"} width={"51"} height={"51"} src={"/lppionnier/assets/logo-ppp.png"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "contain" }} />
                           </div>
                         </div>
                         <div className={"framer-1blde6r"} data-framer-name={"Heading"} style={{ "--extracted-tcooor": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                           <div className={"framer-text framer-styles-preset-1p8sfvs"} data-styles-preset={"Lsvad3fWJ"} style={{ "--framer-text-color": "var(--extracted-tcooor, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                            Séance d&#39;essai offerte
+                            Programme de Performance PPP
                           </div>
                         </div>
                       </div>
                       <div className={"framer-5q6jwk"} data-framer-name={"Body"} style={{ "--extracted-r6o4lv": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                         <p className={"framer-text framer-styles-preset-1116k3j"} data-styles-preset={"CclRS3ecL"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                          Viens tester le football américain ou le flag : ta première séance est gratuite et sans engagement.
+                          La méthode maison du club : préparation physique, technique et mental pour progresser à chaque entraînement et viser le haut niveau.
                         </p>
                       </div>
                     </div>
@@ -831,7 +803,7 @@ export default function Contact() {
                       <a className={"framer-mAcoc framer-X8adU framer-5jm32v framer-v-5jm32v framer-5eqsdb"} data-framer-name={"Default"} style={{ backdropFilter: "blur(0px)", backgroundColor: "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", borderBottomLeftRadius: "70px", borderBottomRightRadius: "70px", borderTopLeftRadius: "70px", borderTopRightRadius: "70px" }} href={"#rejoindre"}>
                         <div className={"framer-145drjp"} style={{ "--extracted-r6o4lv": "var(--variable-reference-ypfpfVkT4-gRwIgGm9Y)", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", "--variable-reference-fpKzsO89l-gRwIgGm9Y": "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", "--variable-reference-ypfpfVkT4-gRwIgGm9Y": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", transform: "none" }}>
                           <p className={"framer-text framer-styles-preset-13c7ysj"} data-styles-preset={"QchegEuzx"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--variable-reference-ypfpfVkT4-gRwIgGm9Y))" }}>
-                            Je tente l&#39;essai
+                            Découvrir le PPP
                           </p>
                         </div>
                       </a>
@@ -839,7 +811,7 @@ export default function Contact() {
                   </div>
                   <div className={"framer-194m59v"} style={{ willChange: "transform", borderBottomLeftRadius: "0px", borderBottomRightRadius: "10px", borderTopRightRadius: "10px", opacity: "1", transform: "none" }}>
                     <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }}>
-                      <img decoding={"async"} width={"2250"} height={"1500"} sizes={"(min-width: 1280px) max(max((min(100vw, 1320px) - 60px) / 2, 1px), 573px), (min-width: 992px) and (max-width: 1279.98px) min(max((min(100vw, 1320px) - 40px) / 2, 1px), 400px), (max-width: 991.98px) calc(min(100vw, 1320px) - 40px)"} srcSet={"/lppionnier/assets/beauregard/community.webp"} src={"/lppionnier/assets/beauregard/community.webp"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "32% 30.5%", objectFit: "cover" }} />
+                      <img decoding={"async"} width={"2250"} height={"1500"} sizes={"(min-width: 1280px) max(max((min(100vw, 1320px) - 60px) / 2, 1px), 573px), (min-width: 992px) and (max-width: 1279.98px) min(max((min(100vw, 1320px) - 40px) / 2, 1px), 400px), (max-width: 991.98px) calc(min(100vw, 1320px) - 40px)"} srcSet={"/lppionnier/assets/hero.jpg"} src={"/lppionnier/assets/hero.jpg"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "32% 30.5%", objectFit: "cover" }} />
                     </div>
                   </div>
                 </div>
@@ -853,18 +825,18 @@ export default function Contact() {
                       <div className={"framer-1kim826"} data-framer-name={"Title Wrapper"}>
                         <div className={"framer-1m7dt58"} data-framer-name={"Icon"}>
                           <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }}>
-                            <img decoding={"async"} width={"51"} height={"51"} src={"/lppionnier/assets/framerusercontent.com/images/gLzzi4G1EAaaoQVJVeUlmYMO3g0.svg"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "contain" }} />
+                            <img decoding={"async"} width={"51"} height={"51"} src={"/lppionnier/assets/logo-ppp.png"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "contain" }} />
                           </div>
                         </div>
                         <div className={"framer-1blde6r"} data-framer-name={"Heading"} style={{ "--extracted-tcooor": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                           <div className={"framer-text framer-styles-preset-1p8sfvs"} data-styles-preset={"Lsvad3fWJ"} style={{ "--framer-text-color": "var(--extracted-tcooor, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                            Séance d&#39;essai offerte
+                            Programme de Performance PPP
                           </div>
                         </div>
                       </div>
                       <div className={"framer-5q6jwk"} data-framer-name={"Body"} style={{ "--extracted-r6o4lv": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                         <p className={"framer-text framer-styles-preset-1116k3j"} data-styles-preset={"CclRS3ecL"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                          Viens tester le football américain ou le flag : ta première séance est gratuite et sans engagement.
+                          La méthode maison du club : préparation physique, technique et mental pour progresser à chaque entraînement et viser le haut niveau.
                         </p>
                       </div>
                     </div>
@@ -872,7 +844,7 @@ export default function Contact() {
                       <a className={"framer-mAcoc framer-X8adU framer-5jm32v framer-v-5jm32v framer-5eqsdb"} data-framer-name={"Default"} style={{ backdropFilter: "blur(0px)", backgroundColor: "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", borderBottomLeftRadius: "70px", borderBottomRightRadius: "70px", borderTopLeftRadius: "70px", borderTopRightRadius: "70px" }} href={"#rejoindre"}>
                         <div className={"framer-145drjp"} style={{ "--extracted-r6o4lv": "var(--variable-reference-ypfpfVkT4-gRwIgGm9Y)", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", "--variable-reference-fpKzsO89l-gRwIgGm9Y": "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", "--variable-reference-ypfpfVkT4-gRwIgGm9Y": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", transform: "none" }}>
                           <p className={"framer-text framer-styles-preset-13c7ysj"} data-styles-preset={"QchegEuzx"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--variable-reference-ypfpfVkT4-gRwIgGm9Y))" }}>
-                            Je tente l&#39;essai
+                            Découvrir le PPP
                           </p>
                         </div>
                       </a>
@@ -880,7 +852,7 @@ export default function Contact() {
                   </div>
                   <div className={"framer-194m59v"} style={{ willChange: "transform", borderBottomLeftRadius: "0px", borderBottomRightRadius: "10px", borderTopRightRadius: "10px", opacity: "1", transform: "none" }}>
                     <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }}>
-                      <img decoding={"async"} width={"2250"} height={"1500"} sizes={"(min-width: 1280px) max(max((min(100vw, 1320px) - 60px) / 2, 1px), 573px), (min-width: 992px) and (max-width: 1279.98px) min(max((min(100vw, 1320px) - 40px) / 2, 1px), 400px), (max-width: 991.98px) calc(min(100vw, 1320px) - 40px)"} srcSet={"/lppionnier/assets/beauregard/community.webp"} src={"/lppionnier/assets/beauregard/community.webp"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "32% 30.5%", objectFit: "cover" }} />
+                      <img decoding={"async"} width={"2250"} height={"1500"} sizes={"(min-width: 1280px) max(max((min(100vw, 1320px) - 60px) / 2, 1px), 573px), (min-width: 992px) and (max-width: 1279.98px) min(max((min(100vw, 1320px) - 40px) / 2, 1px), 400px), (max-width: 991.98px) calc(min(100vw, 1320px) - 40px)"} srcSet={"/lppionnier/assets/hero.jpg"} src={"/lppionnier/assets/hero.jpg"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "32% 30.5%", objectFit: "cover" }} />
                     </div>
                   </div>
                 </div>
@@ -894,18 +866,18 @@ export default function Contact() {
                       <div className={"framer-1kim826"} data-framer-name={"Title Wrapper"}>
                         <div className={"framer-1m7dt58"} data-framer-name={"Icon"}>
                           <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }}>
-                            <img decoding={"async"} width={"51"} height={"51"} src={"/lppionnier/assets/framerusercontent.com/images/gLzzi4G1EAaaoQVJVeUlmYMO3g0.svg"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "contain" }} />
+                            <img decoding={"async"} width={"51"} height={"51"} src={"/lppionnier/assets/logo-ppp.png"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "center", objectFit: "contain" }} />
                           </div>
                         </div>
                         <div className={"framer-1blde6r"} data-framer-name={"Heading"} style={{ "--extracted-tcooor": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                           <div className={"framer-text framer-styles-preset-1p8sfvs"} data-styles-preset={"Lsvad3fWJ"} style={{ "--framer-text-color": "var(--extracted-tcooor, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                            Séance d&#39;essai offerte
+                            Programme de Performance PPP
                           </div>
                         </div>
                       </div>
                       <div className={"framer-5q6jwk"} data-framer-name={"Body"} style={{ "--extracted-r6o4lv": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                         <p className={"framer-text framer-styles-preset-1116k3j"} data-styles-preset={"CclRS3ecL"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255)))" }}>
-                          Viens tester le football américain ou le flag : ta première séance est gratuite et sans engagement.
+                          La méthode maison du club : préparation physique, technique et mental pour progresser à chaque entraînement et viser le haut niveau.
                         </p>
                       </div>
                     </div>
@@ -913,7 +885,7 @@ export default function Contact() {
                       <a className={"framer-mAcoc framer-X8adU framer-5jm32v framer-v-tp32ut framer-5eqsdb"} data-framer-name={"Phone"} style={{ backdropFilter: "blur(0px)", backgroundColor: "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", borderBottomLeftRadius: "70px", borderBottomRightRadius: "70px", borderTopLeftRadius: "70px", borderTopRightRadius: "70px" }} href={"#rejoindre"}>
                         <div className={"framer-145drjp"} style={{ "--extracted-r6o4lv": "var(--variable-reference-ypfpfVkT4-gRwIgGm9Y)", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", "--variable-reference-fpKzsO89l-gRwIgGm9Y": "var(--token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3, rgb(55, 97, 49))", "--variable-reference-ypfpfVkT4-gRwIgGm9Y": "var(--token-5b150902-af7d-44cd-9806-3cf99a174e98, rgb(255, 255, 255))", transform: "none" }}>
                           <p className={"framer-text framer-styles-preset-13c7ysj"} data-styles-preset={"QchegEuzx"} style={{ "--framer-text-color": "var(--extracted-r6o4lv, var(--variable-reference-ypfpfVkT4-gRwIgGm9Y))" }}>
-                            Je tente l&#39;essai
+                            Découvrir le PPP
                           </p>
                         </div>
                       </a>
@@ -921,13 +893,42 @@ export default function Contact() {
                   </div>
                   <div className={"framer-194m59v"} style={{ willChange: "transform", borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px", borderTopRightRadius: "0px", opacity: "1", transform: "none" }}>
                     <div style={{ position: "absolute", borderRadius: "inherit", cornerShape: "inherit", top: "0", right: "0", bottom: "0", left: "0" }}>
-                      <img decoding={"async"} width={"2250"} height={"1500"} sizes={"(min-width: 1280px) max(max((min(100vw, 1320px) - 60px) / 2, 1px), 573px), (min-width: 992px) and (max-width: 1279.98px) min(max((min(100vw, 1320px) - 40px) / 2, 1px), 400px), (max-width: 991.98px) calc(min(100vw, 1320px) - 40px)"} srcSet={"/lppionnier/assets/beauregard/community.webp"} src={"/lppionnier/assets/beauregard/community.webp"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "32% 30.5%", objectFit: "cover" }} />
+                      <img decoding={"async"} width={"2250"} height={"1500"} sizes={"(min-width: 1280px) max(max((min(100vw, 1320px) - 60px) / 2, 1px), 573px), (min-width: 992px) and (max-width: 1279.98px) min(max((min(100vw, 1320px) - 40px) / 2, 1px), 400px), (max-width: 991.98px) calc(min(100vw, 1320px) - 40px)"} srcSet={"/lppionnier/assets/hero.jpg"} src={"/lppionnier/assets/hero.jpg"} alt={""} style={{ display: "block", width: "100%", height: "100%", borderRadius: "inherit", cornerShape: "inherit", objectPosition: "32% 30.5%", objectFit: "cover" }} />
                     </div>
                   </div>
                 </div>
               </section>
             </div>
           </div>
+      <section id={"infos"} style={{ padding: "100px 0", background: "#0c090b" }}>
+        <div style={{ maxWidth: "1180px", margin: "0 auto", padding: "0 30px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "48px", alignItems: "start" }}>
+          <div>
+            <p style={{ color: "#f5a300", fontWeight: 700, fontSize: 13, letterSpacing: "0.16em", textTransform: "uppercase", margin: "0 0 12px" }}>Infos pratiques</p>
+            <h2 style={{ fontSize: "clamp(28px,3.2vw,44px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 24px", color: "#fff" }}>Se rendre au stade</h2>
+            <p style={{ color: "#cfc7cb", lineHeight: 1.7, margin: "0 0 6px" }}><strong style={{ color: "#fff" }}>{infos.nom}</strong></p>
+            <p style={{ color: "#cfc7cb", lineHeight: 1.7, margin: "0 0 4px" }}>{infos.adresse}</p>
+            <p style={{ color: "#cfc7cb", lineHeight: 1.7, margin: "0 0 4px" }}>{infos.telephone}</p>
+            <p style={{ color: "#cfc7cb", lineHeight: 1.7, margin: "0 0 28px" }}>{infos.email}</p>
+            <h3 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 14px", color: "#fff" }}>Entraînements</h3>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              {horaires.map((h) => (
+                <li key={h.jours} style={{ display: "flex", justifyContent: "space-between", gap: 24, padding: "12px 0", borderBottom: "1px solid rgba(255,255,255,0.10)" }}>
+                  <span style={{ color: "#cfc7cb" }}>{h.jours}</span>
+                  <strong style={{ color: "#fff", whiteSpace: "nowrap" }}>{h.heures}</strong>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div style={{ minHeight: "420px", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.10)" }}>
+            <iframe
+              title="Plan d'accès Pionniers de Touraine"
+              src="https://www.google.com/maps?q=Tours+37000&output=embed"
+              style={{ width: "100%", height: "100%", minHeight: "420px", border: 0 }}
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
           <div className={"framer-70fgct-container"}>
             <div className={"ssr-variant hidden-1k2w4ql hidden-ok5eee"}>
               <footer className={"framer-xjjiV framer-Zs9Jp framer-ucIfD framer-QlV1W framer-FUgh0 framer-fN9WN framer-80BYq framer-DiAdc framer-jmfSm framer-RZlrj framer-NttII framer-1wbsmcg framer-v-1wbsmcg"} data-framer-name={"Desktop"} style={{ width: "100%" }}>
@@ -944,9 +945,9 @@ export default function Contact() {
                       <div className={"framer-1ahvc85"} data-framer-name={"Heading"} style={{ "--extracted-1eung3n": "var(--token-97fc87a4-7472-48e0-baff-d882386fd651, rgb(0, 0, 0))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                         <h4 style={{ "--font-selector": "SW50ZXItRXh0cmFCb2xk", "--framer-font-family": "&quot", "--framer-font-size": "26px", "--framer-font-weight": "800", "--framer-letter-spacing": "-0.78px", "--framer-text-color": "var(--extracted-1eung3n, var(--token-97fc87a4-7472-48e0-baff-d882386fd651, rgb(0, 0, 0)))" }} className={"framer-text"}>
                           <span style={{ "--font-selector": "SW50ZXI=", "--framer-font-family": "&quot", "--framer-font-weight": "400" }} className={"framer-text"}>
-                            Le meilleur du
+                            Football américain
                           </span>
-                          {" "}sport & de la nature.
+                          {" "}& flag à Tours.
                         </h4>
                       </div>
                     </div>
@@ -1155,9 +1156,9 @@ export default function Contact() {
                       <div className={"framer-1ahvc85"} data-framer-name={"Heading"} style={{ "--extracted-1eung3n": "var(--token-97fc87a4-7472-48e0-baff-d882386fd651, rgb(0, 0, 0))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                         <h4 style={{ "--font-selector": "SW50ZXItRXh0cmFCb2xk", "--framer-font-family": "&quot", "--framer-font-size": "26px", "--framer-font-weight": "800", "--framer-letter-spacing": "-0.78px", "--framer-text-color": "var(--extracted-1eung3n, var(--token-97fc87a4-7472-48e0-baff-d882386fd651, rgb(0, 0, 0)))" }} className={"framer-text"}>
                           <span style={{ "--font-selector": "SW50ZXI=", "--framer-font-family": "&quot", "--framer-font-weight": "400" }} className={"framer-text"}>
-                            Le meilleur du
+                            Football américain
                           </span>
-                          {" "}sport & de la nature.
+                          {" "}& flag à Tours.
                         </h4>
                       </div>
                     </div>
@@ -1366,9 +1367,9 @@ export default function Contact() {
                       <div className={"framer-1ahvc85"} data-framer-name={"Heading"} style={{ "--extracted-1eung3n": "var(--token-97fc87a4-7472-48e0-baff-d882386fd651, rgb(0, 0, 0))", "--framer-link-text-color": "rgb(0, 153, 255)", "--framer-link-text-decoration": "underline", transform: "none" }}>
                         <h4 style={{ "--font-selector": "SW50ZXItRXh0cmFCb2xk", "--framer-font-family": "&quot", "--framer-font-size": "26px", "--framer-font-weight": "800", "--framer-letter-spacing": "-0.78px", "--framer-text-color": "var(--extracted-1eung3n, var(--token-97fc87a4-7472-48e0-baff-d882386fd651, rgb(0, 0, 0)))" }} className={"framer-text"}>
                           <span style={{ "--font-selector": "SW50ZXI=", "--framer-font-family": "&quot", "--framer-font-weight": "400" }} className={"framer-text"}>
-                            Le meilleur du
+                            Football américain
                           </span>
-                          {" "}sport & de la nature.
+                          {" "}& flag à Tours.
                         </h4>
                       </div>
                     </div>

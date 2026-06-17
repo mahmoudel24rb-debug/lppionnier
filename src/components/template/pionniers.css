@@ -4,7 +4,10 @@
    vers la palette du club : bordeaux + ambre, thème clair.
    Ciblage par variables CSS (tokens) → recolore tout d'un coup.
    ============================================================ */
-:root {
+/* framer.css définit les tokens sur `body{}` ; on cible donc :root ET body
+   (sinon le réglage local sur body bat l'héritage depuis :root). */
+:root,
+body {
   /* Verts d'origine → bordeaux / ambre (!important pour gagner sur framer.css) */
   --token-fcc50f27-48bf-4381-8929-2fd53a7bb0e3: #6e201b !important; /* vert moyen → bordeaux (boutons/CTA) */
   --token-5991b8f4-4409-4988-9af9-ed84b35a240c: #4a1512 !important; /* vert foncé → bordeaux profond */
@@ -38,5 +41,83 @@
 
 /* Lien actif / survol nav → ambre */
 [data-framer-name='Nav Links Wrapper'] a:hover {
+  color: var(--pio-amber) !important;
+}
+
+/* ============================================================
+   THÈME SOMBRE
+   ============================================================ */
+:root,
+body {
+  --token-c7f7b4a7-d22a-4efb-a894-f6581be9e186: #171115 !important; /* #f5f5f5 → panneau sombre */
+  --token-8f4f0a97-886c-442e-9b68-fba0a777697e: #2c2329 !important; /* bordures #e5e5e5 → sombre */
+}
+
+body {
+  background: #0c090b !important;
+  color: #e9e4e6;
+}
+
+/* Le conteneur racine de la page Framer a un fond blanc (#fff) qui masquait
+   le thème sombre → transparent pour laisser passer le fond du body. */
+.framer-13v9dm1,
+.framer-6Taye,
+#main > div,
+[data-framer-name='Classes Section'],
+[data-framer-name='Base Container'] {
+  background-color: transparent !important;
+}
+
+/* ---------- HERO : fond photo + overlay sombre, texte clair ---------- */
+[data-framer-name='Inner Banner Section'] {
+  background:
+    linear-gradient(180deg, rgba(12, 9, 11, 0.82), rgba(12, 9, 11, 0.93)),
+    url(/lppionnier/assets/hero.jpg) center / cover no-repeat !important;
+}
+[data-framer-name='Inner Banner Section'] h1,
+[data-framer-name='Inner Banner Section'] h1 .framer-text,
+[data-framer-name='Inner Banner Section'] [data-framer-name='Body'] .framer-text,
+[data-framer-name='Inner Banner Section'] [data-framer-name='Link Item'] .framer-text,
+[data-framer-name='Inner Banner Section'] [data-framer-name='Link Item'] a {
+  color: #fff !important;
+}
+
+/* ---------- Titres de sections en clair ---------- */
+#sections h2,
+#sections h2 .framer-text,
+#adhesions h2,
+#adhesions h2 .framer-text {
+  color: #fff !important;
+}
+
+/* Eyebrow (1er "Body" d'un Title Wrapper) → ambre */
+[data-framer-name='Title Wrapper'] > [data-framer-name='Body']:first-child .framer-text {
+  color: var(--pio-amber) !important;
+}
+
+/* ---------- Cartes de prix → panneaux sombres ---------- */
+.framer-jIlUe {
+  background: #15111400 !important;
+  background-color: #181317 !important;
+}
+.framer-jIlUe .framer-text,
+.framer-jIlUe h6,
+.framer-jIlUe [data-framer-name='Price'] .framer-text {
+  color: #ededed !important;
+}
+/* la pastille (SENIORS…) garde son texte bordeaux sur fond ambre clair */
+.framer-jIlUe .framer-16vg9cs .framer-text {
+  color: var(--pio-bordeaux) !important;
+}
+
+/* ---------- Footer sombre ---------- */
+footer {
+  background: #0c090b !important;
+}
+footer .framer-text,
+footer a {
+  color: #cfc8cc !important;
+}
+footer a:hover {
   color: var(--pio-amber) !important;
 }
