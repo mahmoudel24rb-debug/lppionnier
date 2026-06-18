@@ -8,7 +8,7 @@
  *
  * Doit rester aligné avec `basePath` dans next.config.mjs.
  */
-export const BASE_PATH =
-  process.env.NODE_ENV === 'production' ? '/lppionnier' : '';
+// basePath fixe (dev + prod) — aligné sur next.config.mjs.
+export const BASE_PATH = '/lppionnier';
 
 export const asset = (path: string) => `${BASE_PATH}${path}`;

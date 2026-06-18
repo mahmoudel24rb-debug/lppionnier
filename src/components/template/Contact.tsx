@@ -1,7 +1,7 @@
 // Page Contact (port fidèle d'un template Framer "Sportix"). Header + corps + footer
 // sont inline dans ce composant. Contenu à personnaliser (infos ci-dessous, liens nav/footer,
 // images). Styles : framer.css importé une seule fois dans le layout global.
-import HeroTunnel from './HeroTunnel'
+import HeroCTA from './HeroCTA'
 import { PriceCard } from './PriceCard'
 import { MENSUEL, COURTES } from './formules'
 
@@ -296,7 +296,7 @@ export default function Contact() {
                     </div>
                   </div>
                 </div>
-                <HeroTunnel />
+                <HeroCTA />
               </div>
             </section>
             <section id={"sections"} className={"framer-eqah0p"} data-framer-name={"Classes Section"}>

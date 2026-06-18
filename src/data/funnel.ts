@@ -1,290 +1,177 @@
 /**
- * Arbre du tunnel « Nous rejoindre ».
- * -------------------------------------------------------------------------
- * Tout le contenu éditable du tunnel vit ici. Le club peut modifier les
- * libellés, équipes, postes et missions SANS toucher au code des composants.
+ * Parcours d'orientation et de recrutement — Pionniers de Touraine.
+ * Modélisé d'après TUNNELv1.pdf.
  *
- * Hiérarchie :
- *   Branche (Pratiquer / Aider)
- *     └─ Choix (discipline ou domaine)
- *         └─ Annonce[] (poste / équipe / mission)  → bouton « S'engager »
+ * Principe : l'utilisateur exprime d'abord sa MOTIVATION (arbre de choix),
+ * puis découvre les OFFRES/MISSIONS filtrées selon son parcours.
  *
- * Les contenus ci-dessous sont des PLACEHOLDERS réalistes à valider par le club.
+ * Arbre récursif : un nœud branchant a `question` + `children` ; un nœud
+ * terminal a `offers`. Les `icon` sont des clés mappées dans funnelIcons.ts.
  */
 
 export type IconName =
-  | 'Zap'
-  | 'HeartHandshake'
-  | 'ShieldHalf'
-  | 'Flag'
-  | 'Megaphone'
-  | 'Scale'
-  | 'Briefcase'
-  | 'Sparkles';
+  | 'Jouer' | 'Investir' | 'Soutenir'
+  | 'FootUS' | 'Flag'
+  | 'Decouvrir' | 'Loisir' | 'Competition' | 'Jeune' | 'Senior'
+  | 'Temps' | 'Experience' | 'Competences' | 'Reseau'
+  | 'Organiser' | 'AiderTerrain' | 'Accueillir' | 'Accompagner'
+  | 'Coaching' | 'Arbitrage' | 'Encadrement' | 'DevSportif'
+  | 'Com' | 'Numerique' | 'Gestion' | 'Finance' | 'Juridique' | 'Creation' | 'Formation'
+  | 'Partenariats' | 'DevClub' | 'Ecoles' | 'Projets' | 'Innover'
+  | 'Don' | 'Partenaire' | 'Ressources' | 'Ambassadeur';
 
-export type Annonce = {
+export type Offer = { titre: string; tags: string[] };
+
+export type Node = {
   id: string;
-  titre: string;
-  sousTitre?: string;
-  description: string;
-  tags: string[];
-  niveau?: string;
-};
-
-export type Choix = {
-  key: string;
   label: string;
-  sousLabel: string;
+  desc?: string;
   icon: IconName;
-  /** Intro affichée au-dessus des annonces de ce choix. */
-  intro: string;
-  annonces: Annonce[];
+  /** Prompt affiché quand on présente les enfants de ce nœud. */
+  question?: string;
+  children?: Node[];
+  /** Nœud terminal : offres/missions à afficher. */
+  offers?: Offer[];
 };
 
-export type Branche = {
-  key: 'pratiquer' | 'aider';
-  label: string;
-  sousLabel: string;
-  icon: IconName;
-  /** Question posée à l'étape 1 de la branche. */
-  question: string;
-  choix: Choix[];
-};
+// ─── Offres réutilisables ───
+const off = (titre: string, ...tags: string[]): Offer => ({ titre, tags });
 
-export const BRANCHES: Branche[] = [
-  // ─────────────────────────── PRATIQUER ───────────────────────────
-  {
-    key: 'pratiquer',
-    label: 'Pratiquer',
-    sousLabel: 'Entrer sur le terrain et jouer',
-    icon: 'Zap',
-    question: 'Tu souhaites pratiquer…',
-    choix: [
-      {
-        key: 'americain',
-        label: 'Football américain',
-        sousLabel: 'Le jeu au contact, casque & plaquages',
-        icon: 'ShieldHalf',
-        intro:
-          'Choisis ton équipe : chaque section recrute à plusieurs postes. Débutant ou confirmé, il y a une place pour toi.',
-        annonces: [
-          {
-            id: 'fa-senior',
-            titre: 'Équipe Senior',
-            sousTitre: 'Hommes · +18 ans · Championnat',
-            description:
-              "L'équipe fanion recrute sur l'ensemble des postes pour la saison à venir. Aucune expérience requise, formation assurée dès l'arrivée.",
-            tags: [
-              'Ligne offensive',
-              'Ligne défensive',
-              'Quarterback',
-              'Receveur',
-              'Linebacker',
-              'Defensive back',
-            ],
-            niveau: 'Débutant accepté',
-          },
-          {
-            id: 'fa-feminine',
-            titre: 'Équipe Féminine',
-            sousTitre: 'Femmes · +18 ans',
-            description:
-              "Une section féminine en plein essor. Viens découvrir le football américain dans un cadre bienveillant et compétitif.",
-            tags: ['Tous postes', 'Initiation', 'Compétition'],
-            niveau: 'Débutant accepté',
-          },
-          {
-            id: 'fa-jeunes',
-            titre: 'Section Jeunes',
-            sousTitre: 'U16 & U19 · Cadets / Juniors',
-            description:
-              "Encadrement diplômé, progression technique et esprit d'équipe pour les jeunes joueurs. Premiers contacts en toute sécurité.",
-            tags: ['U16', 'U19', 'École de football US'],
-            niveau: 'Tous niveaux',
-          },
-        ],
-      },
-      {
-        key: 'flag',
-        label: 'Flag football',
-        sousLabel: 'Sans contact, rapide et accessible',
-        icon: 'Flag',
-        intro:
-          'Le flag, c’est le football US sans plaquage : on arrache un foulard. Mixte, rapide et ouvert à tous les âges.',
-        annonces: [
-          {
-            id: 'flag-mixte',
-            titre: 'Flag Adulte Mixte',
-            sousTitre: '+16 ans · Loisir & compétition',
-            description:
-              'Format 5x5 dynamique, idéal pour débuter le football américain sans contact. Ambiance conviviale, matchs réguliers.',
-            tags: ['Attaque', 'Défense', 'Mixte'],
-            niveau: 'Débutant accepté',
-          },
-          {
-            id: 'flag-feminine',
-            titre: 'Flag Féminine',
-            sousTitre: 'Femmes · +16 ans',
-            description:
-              'Discipline olympique en 2028 ! Rejoins une équipe féminine ambitieuse et participe à la montée en puissance du flag.',
-            tags: ['Tous postes', 'Compétition', 'Olympique 2028'],
-            niveau: 'Tous niveaux',
-          },
-          {
-            id: 'flag-jeunes',
-            titre: 'Flag Jeunes',
-            sousTitre: 'U12 & U15',
-            description:
-              'La porte d’entrée idéale vers le football américain pour les enfants : motricité, jeu collectif et plaisir avant tout.',
-            tags: ['U12', 'U15', 'École de sport'],
-            niveau: 'Tous niveaux',
-          },
-        ],
-      },
-    ],
-  },
-
-  // ───────────────────────────── AIDER ─────────────────────────────
-  {
-    key: 'aider',
-    label: 'Aider',
-    sousLabel: 'Faire vivre le club hors du terrain',
-    icon: 'HeartHandshake',
-    question: 'Tu souhaites aider en…',
-    choix: [
-      {
-        key: 'coacher',
-        label: 'Coacher',
-        sousLabel: 'Transmettre et faire progresser',
-        icon: 'Megaphone',
-        intro:
-          'Encadre nos équipes et partage ta passion du jeu. Formations fédérales prises en charge par le club.',
-        annonces: [
-          {
-            id: 'coach-assistant',
-            titre: 'Coach assistant',
-            sousTitre: 'Senior / Jeunes',
-            description:
-              "Épaule le staff sur les entraînements et les matchs. Une expérience du football US est un plus, mais la motivation prime.",
-            tags: ['Entraînements', 'Stratégie', 'Week-end'],
-            niveau: 'Formation assurée',
-          },
-          {
-            id: 'coach-prepa',
-            titre: 'Préparateur physique',
-            sousTitre: 'Toutes équipes',
-            description:
-              'Construis et anime les séances de préparation physique. Idéal pour profils STAPS ou coachs sportifs.',
-            tags: ['Préparation physique', 'Athlétisation', 'Suivi'],
-            niveau: 'Profil sportif souhaité',
-          },
-        ],
-      },
-      {
-        key: 'arbitrer',
-        label: 'Arbitrer',
-        sousLabel: 'Garant du jeu et des règles',
-        icon: 'Scale',
-        intro:
-          'Deviens officiel : un rôle clé, recherché, et une autre façon de vivre le football américain de l’intérieur.',
-        annonces: [
-          {
-            id: 'arb-terrain',
-            titre: 'Officiel de terrain',
-            sousTitre: 'Arbitre de champ',
-            description:
-              "Apprends à arbitrer les rencontres. Cursus de formation fédérale et accompagnement par des officiels expérimentés.",
-            tags: ['Règlement', 'Match', 'Formation FFFA'],
-            niveau: 'Débutant accepté',
-          },
-          {
-            id: 'arb-table',
-            titre: 'Officiel de table & chaîne',
-            sousTitre: 'Chronomètre / down box',
-            description:
-              'Gère le chronomètre, le score et la chaîne lors des matchs à domicile. Un premier pas simple dans l’arbitrage.',
-            tags: ['Chronométrage', 'Score', 'Bénévolat ponctuel'],
-            niveau: 'Tous niveaux',
-          },
-        ],
-      },
-      {
-        key: 'gerer',
-        label: 'Gérer',
-        sousLabel: "L'organisation et la logistique",
-        icon: 'Briefcase',
-        intro:
-          'Le club tourne grâce à ses bénévoles d’organisation. Mets tes compétences au service du projet.',
-        annonces: [
-          {
-            id: 'ger-event',
-            titre: 'Responsable événementiel',
-            sousTitre: 'Matchs & buvette',
-            description:
-              'Organise les jours de match : accueil, buvette, animations. Un rôle central et convivial.',
-            tags: ['Événementiel', 'Logistique', 'Équipe'],
-            niveau: 'Tous profils',
-          },
-          {
-            id: 'ger-admin',
-            titre: 'Trésorier·ère / Secrétaire',
-            sousTitre: 'Bureau du club',
-            description:
-              'Participe à la gestion administrative et financière de l’association. Rigueur et discrétion appréciées.',
-            tags: ['Administration', 'Comptabilité', 'Association'],
-            niveau: 'Expérience appréciée',
-          },
-          {
-            id: 'ger-materiel',
-            titre: 'Logistique matériel',
-            sousTitre: 'Équipements',
-            description:
-              'Gère le parc de matériel : casques, épaulières, ballons. Suivi des stocks et des commandes.',
-            tags: ['Matériel', 'Stocks', 'Organisation'],
-            niveau: 'Tous profils',
-          },
-        ],
-      },
-      {
-        key: 'creer',
-        label: 'Créer',
-        sousLabel: "L'image et le contenu du club",
-        icon: 'Sparkles',
-        intro:
-          'Donne de la voix et de l’image aux Pionniers. Le club cherche des créatifs pour rayonner.',
-        annonces: [
-          {
-            id: 'cre-media',
-            titre: 'Photographe / Vidéaste',
-            sousTitre: 'Captation des matchs',
-            description:
-              'Immortalise les rencontres et crée du contenu fort pour nos réseaux. Matériel partagé avec le club.',
-            tags: ['Photo', 'Vidéo', 'Réseaux sociaux'],
-            niveau: 'Portfolio bienvenu',
-          },
-          {
-            id: 'cre-graph',
-            titre: 'Graphiste / Community manager',
-            sousTitre: 'Identité & réseaux',
-            description:
-              'Conçois visuels, affiches et calendrier de publication. Fais grandir la communauté des Pionniers.',
-            tags: ['Design', 'Instagram', 'Communication'],
-            niveau: 'Tous niveaux',
-          },
-          {
-            id: 'cre-speaker',
-            titre: 'Speaker de match',
-            sousTitre: 'Animation stade',
-            description:
-              'Anime l’ambiance les jours de match au micro. Énergie et bonne humeur indispensables !',
-            tags: ['Animation', 'Micro', 'Jour de match'],
-            niveau: 'Tous profils',
-          },
-        ],
-      },
-    ],
-  },
+// Objectifs joueur (partagés entre Foot US et Flag)
+const objectifs = (discipline: string): Node[] => [
+  { id: `obj-decouvrir-${discipline}`, label: 'Découvrir la discipline', icon: 'Decouvrir',
+    offers: [off(`Séance découverte ${discipline}`, 'Essai gratuit', 'Sans engagement'), off('Journée portes ouvertes', 'Découverte')] },
+  { id: `obj-loisir-${discipline}`, label: 'Pratiquer en loisir', icon: 'Loisir',
+    offers: [off(`${discipline} loisir`, 'Licence', 'Convivial'), off('Entraînements hebdo', 'Loisir')] },
+  { id: `obj-competition-${discipline}`, label: 'Progresser en compétition', icon: 'Competition',
+    offers: [off(`Équipe compétition ${discipline}`, 'Championnat', 'Licence'), off('Préparation PPP', 'Performance')] },
+  { id: `obj-jeune-${discipline}`, label: 'Rejoindre une équipe jeune', icon: 'Jeune',
+    offers: [off('Section Jeunes (U16/U19)', 'Licence', 'Encadrement'), off('École de sport', 'Initiation')] },
+  { id: `obj-senior-${discipline}`, label: 'Rejoindre une équipe senior', icon: 'Senior',
+    offers: [off(`Équipe Senior ${discipline}`, 'Championnat', 'Licence'), off('Section féminine', 'Compétition')] },
 ];
 
-export const getBranche = (key: string) =>
-  BRANCHES.find((b) => b.key === key);
+const missions = (...o: Offer[]): Offer[] => o;
+
+export const TUNNEL: Node = {
+  id: 'root',
+  label: 'Parcours',
+  icon: 'Jouer',
+  question: 'Quelle aventure vous attire ?',
+  children: [
+    // ───────────────────────── JOUEUR ─────────────────────────
+    {
+      id: 'jouer', label: 'Je veux jouer', icon: 'Jouer',
+      desc: 'Découvrez la discipline qui vous correspond et rejoignez l’aventure sur le terrain.',
+      question: 'Quelle pratique vous attire ?',
+      children: [
+        {
+          id: 'foot-us', label: 'Football Américain', icon: 'FootUS',
+          desc: 'Une discipline intense où stratégie, engagement et esprit d’équipe ne font qu’un.',
+          question: 'Quel est votre objectif ?',
+          children: objectifs('Foot US'),
+        },
+        {
+          id: 'flag', label: 'Flag Football', icon: 'Flag',
+          desc: 'Une pratique rapide, accessible et spectaculaire, ouverte à tous les profils.',
+          question: 'Quel est votre objectif ?',
+          children: objectifs('Flag'),
+        },
+      ],
+    },
+
+    // ─────────────────────── INVESTISSEMENT ───────────────────────
+    {
+      id: 'investir', label: 'Je veux m’investir dans le club', icon: 'Investir',
+      desc: 'Mettez votre temps, votre énergie ou vos compétences au service du collectif.',
+      question: 'Qu’avez-vous envie d’apporter ?',
+      children: [
+        {
+          id: 'temps', label: 'Du temps et de l’énergie', icon: 'Temps',
+          desc: 'J’aime être présent et donner un coup de main.',
+          question: 'Comment souhaitez-vous aider ?',
+          children: [
+            { id: 'organiser', label: 'Organiser', icon: 'Organiser', desc: 'Créer les événements qui rassemblent joueurs, familles et supporters.',
+              offers: missions(off('Organisation des matchs', 'Bénévolat'), off('Tournois', 'Bénévolat'), off('Événementiel', 'Bénévolat'), off('Déplacements', 'Bénévolat')) },
+            { id: 'aider-terrain', label: 'Aider sur le terrain', icon: 'AiderTerrain', desc: 'Faire en sorte que tout fonctionne avant, pendant et après les rencontres.',
+              offers: missions(off('Matériel', 'Bénévolat'), off('Logistique', 'Bénévolat'), off('Installation', 'Bénévolat'), off('Intendance', 'Bénévolat')) },
+            { id: 'accueillir', label: 'Accueillir', icon: 'Accueillir', desc: 'Offrir la meilleure expérience possible à tous les visiteurs du club.',
+              offers: missions(off('Accueil public', 'Bénévolat'), off('Accueil partenaires', 'Bénévolat'), off('Hospitalités', 'Bénévolat')) },
+            { id: 'accompagner', label: 'Accompagner', icon: 'Accompagner', desc: 'Veiller au bien-être et à la sécurité de chacun.',
+              offers: missions(off('Premiers secours', 'Formation', 'Bénévolat'), off('Assistance', 'Bénévolat'), off('Accompagnement des licenciés', 'Bénévolat')) },
+          ],
+        },
+        {
+          id: 'experience', label: 'Mon expérience sportive', icon: 'Experience',
+          desc: 'J’aime transmettre, encadrer et faire progresser.',
+          question: 'Dans quel domaine ?',
+          children: [
+            { id: 'coaching', label: 'Coaching', icon: 'Coaching', desc: 'Transmettre votre passion et faire progresser les pratiquants.',
+              offers: missions(off('Coach Flag Football', 'Bénévolat', 'Formation', 'CDD'), off('Coach assistant Senior', 'Bénévolat', 'Formation')) },
+            { id: 'arbitrage', label: 'Arbitrage', icon: 'Arbitrage', desc: 'Garantir l’équité du jeu et contribuer au développement de la discipline.',
+              offers: missions(off('Arbitre Débutant', 'Formation', 'Bénévolat'), off('Officiel de table', 'Bénévolat')) },
+            { id: 'encadrement', label: 'Encadrement d’équipe', icon: 'Encadrement', desc: 'Accompagner les joueurs et assurer le bon fonctionnement du collectif.',
+              offers: missions(off('Manager d’équipe', 'Bénévolat'), off('Préparateur physique', 'Bénévolat', 'Stage')) },
+            { id: 'dev-sportif', label: 'Développement sportif', icon: 'DevSportif', desc: 'Participer à la structuration et à la performance sportive du club.',
+              offers: missions(off('Responsable performance (PPP)', 'Bénévolat', 'Freelance'), off('Analyste vidéo', 'Bénévolat', 'Stage')) },
+          ],
+        },
+        {
+          id: 'competences', label: 'Mes compétences professionnelles', icon: 'Competences',
+          desc: 'Je peux mettre mon expertise au service du club.',
+          question: 'Quelle expertise souhaitez-vous apporter ?',
+          children: [
+            { id: 'com', label: 'Communication & Marketing', icon: 'Com', desc: 'Faire rayonner le club auprès du public et des futurs licenciés.',
+              offers: missions(off('Community Manager', 'Bénévolat', 'Stage', 'Alternance'), off('Chargé de communication', 'Bénévolat', 'Alternance')) },
+            { id: 'numerique', label: 'Numérique & Technologie', icon: 'Numerique', desc: 'Développer les outils qui facilitent la gestion et la croissance du club.',
+              offers: missions(off('Développeur Web', 'Bénévolat', 'Stage', 'Alternance', 'Freelance'), off('Data / outils', 'Bénévolat', 'Freelance')) },
+            { id: 'gestion', label: 'Gestion & Administration', icon: 'Gestion', desc: 'Structurer l’organisation et préparer l’avenir du club.',
+              offers: missions(off('Secrétaire général', 'Bénévolat'), off('Responsable administratif', 'Bénévolat')) },
+            { id: 'finance', label: 'Finance & Financement', icon: 'Finance', desc: 'Trouver les ressources qui permettront au projet de grandir.',
+              offers: missions(off('Trésorier', 'Bénévolat'), off('Chargé de subventions', 'Bénévolat', 'Freelance')) },
+            { id: 'juridique', label: 'Juridique', icon: 'Juridique', desc: 'Sécuriser et accompagner le développement de l’association.',
+              offers: missions(off('Conseil juridique', 'Bénévolat', 'Freelance')) },
+            { id: 'creation', label: 'Création & Audiovisuel', icon: 'Creation', desc: 'Valoriser les actions du club par l’image et la création.',
+              offers: missions(off('Photographe / Vidéaste', 'Bénévolat', 'Stage', 'Freelance'), off('Graphiste', 'Bénévolat', 'Freelance')) },
+            { id: 'formation', label: 'Formation & Pédagogie', icon: 'Formation', desc: 'Partager vos connaissances et accompagner les bénévoles.',
+              offers: missions(off('Formateur bénévoles', 'Bénévolat'), off('Tuteur jeunes', 'Bénévolat')) },
+          ],
+        },
+        {
+          id: 'reseau', label: 'Mon réseau et mes idées', icon: 'Reseau',
+          desc: 'J’aime développer des projets et créer des opportunités.',
+          question: 'Sur quoi voulez-vous agir ?',
+          children: [
+            { id: 'partenariats', label: 'Développer les partenariats', icon: 'Partenariats', desc: 'Créer des relations durables avec les acteurs du territoire.',
+              offers: missions(off('Responsable Partenariats', 'Bénévolat', 'Freelance', 'CDI'), off('Chargé de mécénat', 'Bénévolat')) },
+            { id: 'dev-club', label: 'Développer le club', icon: 'DevClub', desc: 'Imaginer et construire les prochaines étapes du projet.',
+              offers: missions(off('Chargé de développement', 'Bénévolat', 'Freelance')) },
+            { id: 'ecoles', label: 'Relations écoles & collectivités', icon: 'Ecoles', desc: 'Créer des passerelles avec les institutions locales.',
+              offers: missions(off('Référent scolaire', 'Bénévolat'), off('Animateur interventions', 'Bénévolat', 'Stage')) },
+            { id: 'projets', label: 'Piloter des projets', icon: 'Projets', desc: 'Transformer les idées en réalisations concrètes.',
+              offers: missions(off('Chef de projet', 'Bénévolat', 'Freelance')) },
+            { id: 'innover', label: 'Innover', icon: 'Innover', desc: 'Imaginer de nouvelles façons de faire grandir le club.',
+              offers: missions(off('Pôle innovation', 'Bénévolat')) },
+          ],
+        },
+      ],
+    },
+
+    // ───────────────────────── SOUTIEN ─────────────────────────
+    {
+      id: 'soutenir', label: 'Je veux soutenir le projet', icon: 'Soutenir',
+      desc: 'Contribuez au développement du club et à son impact sur le territoire.',
+      question: 'Comment souhaitez-vous soutenir le projet ?',
+      children: [
+        { id: 'don', label: 'Faire un don', icon: 'Don', desc: 'Contribuer directement au développement des activités du club.',
+          offers: missions(off('Don ponctuel', 'Soutien', 'Déductible'), off('Don mensuel', 'Soutien')) },
+        { id: 'partenaire', label: 'Devenir partenaire', icon: 'Partenaire', desc: 'Associer votre image à un projet sportif et humain ambitieux.',
+          offers: missions(off('Sponsoring maillot', 'Partenariat'), off('Partenaire événement', 'Partenariat')) },
+        { id: 'ressources', label: 'Apporter des ressources', icon: 'Ressources', desc: 'Mettre à disposition du matériel, des services ou des compétences.',
+          offers: missions(off('Don de matériel', 'Soutien'), off('Mise à disposition', 'Soutien')) },
+        { id: 'ambassadeur', label: 'Devenir ambassadeur', icon: 'Ambassadeur', desc: 'Faire connaître le club et ouvrir votre réseau.',
+          offers: missions(off('Ambassadeur Pionniers', 'Bénévolat', 'Réseau')) },
+      ],
+    },
+  ],
+};

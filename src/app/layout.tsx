@@ -9,6 +9,7 @@ import '@/components/template/pionniers.css';
 
 import MobileNav from '@/components/template/MobileNav';
 import PricingToggle from '@/components/template/PricingToggle';
+import TunnelLauncher from '@/components/template/TunnelLauncher';
 
 export const metadata: Metadata = {
   title: 'Pionniers de Touraine — Football Américain & Flag | Nous rejoindre',
@@ -28,6 +29,7 @@ export default function RootLayout({
         {/* îlots client : menu burger mobile + bascule des onglets tarifs */}
         <MobileNav />
         <PricingToggle />
+        <TunnelLauncher />
       </body>
     </html>
   );

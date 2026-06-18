@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap');
+
+/* ============================================================
+   Tunnel immersif plein écran (overlay) — Pionniers de Touraine.
+   Inspiré du pattern "sorting hat" : split binaire / carrousel,
+   carte centrale, particules. 100% original, couleurs du club.
+   ============================================================ */
+.imt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(110, 32, 27, 0.45), transparent 55%),
+    radial-gradient(circle at 50% 120%, rgba(245, 163, 0, 0.12), transparent 50%),
+    #0a0709;
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  animation: imt-fade 0.4s ease both;
+}
+@keyframes imt-fade { from { opacity: 0 } to { opacity: 1 } }
+
+/* Particules de fond */
+.imt-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.imt-particle {
+  position: absolute;
+  width: 10px; height: 10px;
+  background: var(--p-color, rgba(245, 163, 0, 0.5));
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  opacity: 0.35;
+  animation: imt-float var(--p-dur, 16s) ease-in-out infinite;
+  animation-delay: var(--p-delay, 0s);
+}
+@keyframes imt-float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.15; }
+  50% { transform: translate(var(--p-x, 20px), var(--p-y, -30px)) rotate(180deg); opacity: 0.5; }
+}
+
+/* En-tête */
+.imt-top {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 28px;
+}
+.imt-logo { height: 34px; width: auto; }
+.imt-iconbtn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff; cursor: pointer; transition: all 0.2s ease;
+}
+.imt-iconbtn:hover { border-color: var(--pio-amber, #f5a300); color: var(--pio-amber, #f5a300); }
+
+/* Progression */
+.imt-progress { display: flex; gap: 8px; align-items: center; }
+.imt-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: all 0.3s ease; }
+.imt-dot.on { width: 26px; border-radius: 6px; background: var(--pio-amber, #f5a300); }
+
+/* Titre de question */
+.imt-head { position: relative; z-index: 5; text-align: center; padding: 8px 24px 0; }
+.imt-q {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(30px, 4.4vw, 56px);
+  line-height: 1.08;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+.imt-sub {
+  margin: 12px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---------------- SPLIT (2 choix) ---------------- */
+.imt-split { position: relative; z-index: 4; flex: 1; display: flex; }
+.imt-half {
+  flex: 1; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; overflow: hidden;
+  transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.imt-half::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at center, rgba(110,32,27,0.35), transparent 70%);
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.imt-half:hover::before { opacity: 1; }
+.imt-split:hover .imt-half { flex: 0.85; }
+.imt-split .imt-half:hover { flex: 1.3; }
+.imt-half-label {
+  position: relative; z-index: 2; text-align: center; padding: 0 24px;
+  transition: transform 0.4s ease;
+}
+.imt-half:hover .imt-half-label { transform: scale(1.06); }
+.imt-half-icon {
+  display: inline-flex; margin-bottom: 18px;
+  color: var(--pio-amber, #f5a300);
+  filter: drop-shadow(0 6px 20px rgba(245,163,0,0.35));
+  transition: transform 0.4s ease;
+}
+.imt-half:hover .imt-half-icon { transform: translateY(-4px) scale(1.08); }
+.imt-half-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(28px, 3.4vw, 46px); font-weight: 600; margin: 0;
+  color: rgba(255, 255, 255, 0.55); transition: color 0.3s ease;
+}
+.imt-half:hover .imt-half-title { color: #fff; }
+.imt-half-desc { margin: 10px auto 0; max-width: 320px; font-size: 14px; color: rgba(255,255,255,0.5); }
+.imt-split-divider {
+  position: absolute; left: 50%; top: 12%; bottom: 12%; width: 1px;
+  background: linear-gradient(transparent, rgba(245,163,0,0.4), transparent);
+  transform: translateX(-50%); z-index: 3;
+}
+
+/* ---------------- CARROUSEL (3+ choix / offres) ---------------- */
+.imt-stage { position: relative; z-index: 4; flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.imt-cards {
+  display: flex; gap: 20px; max-width: 100%;
+  overflow-x: auto; padding: 24px 6vw; scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.imt-cards::-webkit-scrollbar { display: none; }
+.imt-card {
+  scroll-snap-align: center; flex: 0 0 auto;
+  width: 230px; min-height: 320px;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 30px 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: linear-gradient(180deg, rgba(110,32,27,0.28), rgba(20,14,16,0.6));
+  backdrop-filter: blur(6px);
+  cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.imt-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--pio-amber, #f5a300);
+  box-shadow: 0 24px 60px -20px rgba(245,163,0,0.4);
+}
+.imt-card-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 14px;
+  color: rgba(255,255,255,0.35); letter-spacing: 0.1em; margin-bottom: 8px;
+}
+.imt-card-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 70px; height: 70px; border-radius: 50%;
+  background: rgba(245,163,0,0.12); color: var(--pio-amber, #f5a300);
+  border: 1px solid rgba(245,163,0,0.25); margin-bottom: 18px;
+  transition: all 0.3s ease;
+}
+.imt-card:hover .imt-card-icon { background: var(--pio-amber, #f5a300); color: #0a0709; transform: scale(1.05); }
+.imt-card-title { font-size: 18px; font-weight: 700; margin: 0 0 8px; line-height: 1.2; }
+.imt-card-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; flex: 1; }
+.imt-card-cta {
+  margin-top: 18px; display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--pio-amber, #f5a300);
+}
+
+/* ---------------- OFFRES (terminal) ---------------- */
+.imt-offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 320px)); gap: 18px; justify-content: center; width: 100%; max-width: 1100px; }
+.imt-offer {
+  text-align: left; padding: 22px; border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.1); background: rgba(20,14,16,0.6);
+  transition: border-color 0.25s ease;
+}
+.imt-offer:hover { border-color: rgba(245,163,0,0.4); }
+.imt-offer-title { font-size: 18px; font-weight: 700; margin: 0 0 12px; }
+.imt-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+.imt-tag { font-size: 11px; padding: 4px 10px; border-radius: 999px; background: rgba(245,163,0,0.12); color: var(--pio-amber, #f5a300); font-weight: 600; }
+.imt-btn {
+  display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+  width: 100%; padding: 13px; border-radius: 999px; border: none; cursor: pointer;
+  background: var(--pio-bordeaux, #6e201b); color: #fff; font-weight: 700; font-size: 14px;
+  font-family: inherit; transition: background 0.2s ease;
+}
+.imt-btn:hover { background: #882a23; }
+.imt-btn-amber { background: var(--pio-amber, #f5a300); color: #0a0709; }
+.imt-btn-amber:hover { background: #ffb627; }
+
+/* Bandeau bas (retour + indice) */
+.imt-bottom { position: relative; z-index: 5; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 18px; }
+.imt-back {
+  display: inline-flex; align-items: center; gap: 6px; background: none; border: none;
+  color: rgba(255,255,255,0.6); font-weight: 600; font-size: 14px; cursor: pointer; font-family: inherit;
+}
+.imt-back:hover { color: var(--pio-amber, #f5a300); }
+
+/* ---------------- FORMULAIRE final ---------------- */
+.imt-form { width: 100%; max-width: 560px; margin: 0 auto; text-align: left; }
+.imt-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.imt-field { display: flex; flex-direction: column; gap: 6px; }
+.imt-field.full { grid-column: 1 / -1; }
+.imt-field label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+.imt-field input, .imt-field textarea {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 12px; padding: 13px 15px; color: #fff; font-size: 15px; font-family: inherit; outline: none;
+  transition: border-color 0.2s ease;
+}
+.imt-field input:focus, .imt-field textarea:focus { border-color: var(--pio-amber, #f5a300); }
+
+/* Responsive */
+@media (max-width: 720px) {
+  .imt-split { flex-direction: column; }
+  .imt-split-divider { left: 12%; right: 12%; top: 50%; bottom: auto; width: auto; height: 1px; }
+  .imt-form-grid { grid-template-columns: 1fr; }
+  .imt-q { font-size: 30px; }
+}

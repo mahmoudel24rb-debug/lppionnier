@@ -44,3 +44,7 @@ _hero.png
 /flag.png
 /dev.log
 /ri_install.log
+
+# outil de capture jetable (hors app)
+/capture-hp.js
+/hp-sorting-captures*.json
