@@ -124,7 +124,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
 
       {/* Titre (sauf en vue fiche détaillée) */}
       {view !== 'detail' && (
-        <div className="imt-head">
+        <div className={`imt-head ${view === 'form' || view === 'offers' ? 'imt-head-sm' : ''}`}>
           <h2 className="imt-q">
             {view === 'form' ? "S'engager" : view === 'done' ? 'Merci !' : view === 'offers' ? 'Les opportunités pour vous' : current.question}
           </h2>

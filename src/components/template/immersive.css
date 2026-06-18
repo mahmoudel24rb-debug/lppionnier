@@ -47,9 +47,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22px 28px;
+  padding: 16px 28px;
 }
-.imt-logo { height: 34px; width: auto; }
+.imt-logo { height: 32px; width: auto; }
 .imt-iconbtn {
   display: inline-flex; align-items: center; justify-content: center;
   width: 42px; height: 42px; border-radius: 50%;
@@ -66,6 +66,10 @@
 
 /* Titre de question */
 .imt-head { position: relative; z-index: 5; text-align: center; padding: 8px 24px 0; }
+/* Version compacte (formulaire / offres) pour gagner de la hauteur */
+.imt-head-sm { padding-top: 0; }
+.imt-head-sm .imt-q { font-size: clamp(24px, 3vw, 34px); }
+.imt-head-sm .imt-sub { margin-top: 6px; }
 .imt-q {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-weight: 600;
@@ -211,14 +215,14 @@
 .imt-back:hover { color: var(--pio-amber, #f5a300); }
 
 /* ---------------- FORMULAIRE final ---------------- */
-.imt-form { width: 100%; max-width: 560px; margin: 0 auto; text-align: left; }
-.imt-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.imt-field { display: flex; flex-direction: column; gap: 6px; }
+.imt-form { width: 100%; max-width: 580px; margin: 0 auto; text-align: left; }
+.imt-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px 14px; }
+.imt-field { display: flex; flex-direction: column; gap: 5px; }
 .imt-field.full { grid-column: 1 / -1; }
-.imt-field label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+.imt-field label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
 .imt-field input, .imt-field textarea {
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 12px; padding: 13px 15px; color: #fff; font-size: 15px; font-family: inherit; outline: none;
+  border-radius: 11px; padding: 10px 14px; color: #fff; font-size: 14px; font-family: inherit; outline: none;
   transition: border-color 0.2s ease;
 }
 .imt-field input:focus, .imt-field textarea:focus { border-color: var(--pio-amber, #f5a300); }
