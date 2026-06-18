@@ -32,6 +32,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
   const depth = path.length - 1;
 
   const cardsRef = useRef<HTMLDivElement>(null);
+  const [canScroll, setCanScroll] = useState(false);
   const scrollCards = (dir: number) => {
     const el = cardsRef.current;
     if (!el) return;
@@ -39,6 +40,16 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
     const step = card ? card.offsetWidth + 20 : el.clientWidth * 0.8;
     el.scrollBy({ left: dir * step, behavior: 'smooth' });
   };
+  // Affiche les flèches uniquement si le carrousel déborde réellement
+  useEffect(() => {
+    const el = cardsRef.current;
+    if (!el) { setCanScroll(false); return; }
+    const check = () => setCanScroll(el.scrollWidth > el.clientWidth + 4);
+    check();
+    const ro = new ResizeObserver(check);
+    ro.observe(el);
+    return () => ro.disconnect();
+  });
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -173,7 +184,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
                 );
               })}
             </div>
-            {current.children.length > 1 && (
+            {current.children.length > 1 && canScroll && (
               <div className="imt-arrows">
                 <button className="imt-arrow" onClick={() => scrollCards(-1)} aria-label="Précédent"><FaChevronLeft size={14} /></button>
                 <button className="imt-arrow" onClick={() => scrollCards(1)} aria-label="Suivant"><FaChevronRight size={14} /></button>
@@ -223,7 +234,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
 
       {/* ÉTAPE — formulaire */}
       {view === 'form' && detail && (
-        <div className="imt-stage">
+        <div className="imt-stage imt-scroll">
           <form className="imt-form" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
             <div className="imt-form-grid">
               <div className="imt-field"><label>Prénom</label><input required placeholder="Ton prénom" /></div>

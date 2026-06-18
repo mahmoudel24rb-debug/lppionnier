@@ -123,11 +123,11 @@
 }
 
 /* ---------------- CARROUSEL (3+ choix / offres) ---------------- */
-.imt-stage { position: relative; z-index: 4; flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.imt-stage { position: relative; z-index: 4; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 24px; }
 .imt-cards {
   display: flex; gap: 20px; max-width: 100%;
   overflow-x: auto; padding: 24px 6vw; scroll-snap-type: x mandatory;
-  scrollbar-width: none;
+  scrollbar-width: none; justify-content: safe center;
 }
 .imt-cards::-webkit-scrollbar { display: none; }
 
@@ -253,7 +253,7 @@
 .imt-offer-sub { font-size: 13px; color: rgba(255,255,255,0.6); margin: 6px 0 0; line-height: 1.5; }
 
 /* ---------------- Fiche détaillée (scrollable) ---------------- */
-.imt-scroll { align-items: flex-start; overflow-y: auto; }
+.imt-scroll { align-items: flex-start; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding-top: 8px; padding-bottom: 28px; }
 .imt-scroll::-webkit-scrollbar { width: 8px; }
 .imt-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 8px; }
 .imt-detail { width: 100%; max-width: 720px; margin: 0 auto; text-align: left; padding-bottom: 24px; }
