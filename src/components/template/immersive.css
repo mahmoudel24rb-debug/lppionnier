@@ -103,14 +103,14 @@
   position: relative; z-index: 2; text-align: center; padding: 0 24px;
   transition: transform 0.4s ease;
 }
-.imt-half:hover .imt-half-label { transform: scale(1.06); }
+.imt-half:hover .imt-half-label { transform: none; }
 .imt-half-icon {
   display: inline-flex; margin-bottom: 18px;
   color: var(--pio-amber, #f5a300);
   filter: drop-shadow(0 6px 20px rgba(245,163,0,0.35));
   transition: transform 0.4s ease;
 }
-.imt-half:hover .imt-half-icon { transform: translateY(-4px) scale(1.08); }
+.imt-half:hover .imt-half-icon { transform: none; }
 .imt-half-title {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(28px, 3.4vw, 46px); font-weight: 600; margin: 0;
@@ -158,7 +158,6 @@
   color: #fff; /* les <button> n'héritent pas la couleur → forcer le blanc */
 }
 .imt-card:hover {
-  transform: translateY(-8px);
   border-color: var(--pio-amber, #f5a300);
   box-shadow: 0 24px 60px -20px rgba(245,163,0,0.4);
 }
@@ -173,7 +172,7 @@
   border: 1px solid rgba(245,163,0,0.25); margin-bottom: 18px;
   transition: all 0.3s ease;
 }
-.imt-card:hover .imt-card-icon { background: var(--pio-amber, #f5a300); color: #0a0709; transform: scale(1.05); }
+.imt-card:hover .imt-card-icon { background: var(--pio-amber, #f5a300); color: #0a0709; }
 .imt-card-title { font-size: 18px; font-weight: 700; margin: 0 0 8px; line-height: 1.2; }
 .imt-card-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; flex: 1; }
 .imt-card-cta {

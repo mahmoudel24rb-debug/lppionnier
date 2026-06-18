@@ -503,7 +503,7 @@ export const TUNNEL: Node = {
         },
         {
           id: 'flag', label: 'Flag Football', icon: 'flag',
-          desc: 'Une pratique sans contact, rapide, accessible et spectaculaire, ouverte à tous les profils.',
+          desc: 'Une pratique sans contact, rapide et spectaculaire. Sport olympique aux JO de Los Angeles 2028, ouverte à tous les profils.',
           question: 'Que souhaitez-vous faire ?',
           children: [FLAG_DECOUVRIR, FLAG_REJOINDRE],
         },
