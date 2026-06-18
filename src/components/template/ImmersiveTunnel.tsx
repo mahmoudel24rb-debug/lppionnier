@@ -194,7 +194,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
               Envoyer ma candidature <FaPaperPlane size={13} />
             </button>
             <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.4)', marginTop: 12 }}>
-              Démo — le formulaire n&apos;envoie rien.
+              Démo de présentation : le formulaire n&apos;envoie rien.
             </p>
           </form>
         </div>

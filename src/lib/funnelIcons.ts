@@ -6,6 +6,8 @@ import {
   GiTrophy,
   GiGymBag,
   GiPodiumWinner,
+  GiMining, // pioche — symbole Pionniers
+  GiOldLantern, // lanterne de mineur — symbole Pionniers
 } from 'react-icons/gi';
 import {
   FaHandsHelping,
@@ -51,7 +53,7 @@ export const FUNNEL_ICONS: Record<IconName, IconType> = {
   FootUS: GiAmericanFootballHelmet,
   Flag: FaFlag,
   // Objectifs
-  Decouvrir: FaRegEye,
+  Decouvrir: GiOldLantern,
   Loisir: GiGymBag,
   Competition: GiTrophy,
   Jeune: FaUsers,
@@ -81,7 +83,7 @@ export const FUNNEL_ICONS: Record<IconName, IconType> = {
   Formation: FaBook,
   // Réseau & idées
   Partenariats: FaHandshake,
-  DevClub: FaGlobe,
+  DevClub: GiMining,
   Ecoles: FaSchool,
   Projets: FaBullseye,
   Innover: FaLightbulb,

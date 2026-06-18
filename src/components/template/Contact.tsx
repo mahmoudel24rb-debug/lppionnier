@@ -7,7 +7,7 @@ import { MENSUEL, COURTES } from './formules'
 
 // --- Coordonnées affichées (personnalisez pour votre projet) ---
 const infos = {
-  nom: 'Pionniers de Touraine — Football américain & Flag',
+  nom: 'Pionniers de Touraine · Football américain & Flag',
   adresse: 'Tours, Touraine (37)',
   telephone: '06 00 00 00 00',
   email: 'contact@pionniers-touraine.fr',
@@ -214,7 +214,7 @@ export default function Contact() {
                     </div>
                     <div className={"framer-11tvdar"} data-framer-name={"Body"} style={{ transform: "none" }}>
                       <p className={"framer-text framer-styles-preset-1116k3j"} data-styles-preset={"CclRS3ecL"} style={{ "--framer-text-color": "var(--token-c3674009-0fe5-49c4-b319-05dd4e6ff53e, rgb(64, 64, 64))" }}>
-                        Football américain & flag football à Tours depuis 1987. Choisis ta voie en quelques clics — sur le terrain ou à nos côtés pour faire vivre le club.
+                        Football américain & flag football à Tours depuis 1987. Choisis ta voie en quelques clics, sur le terrain ou à nos côtés pour faire vivre le club.
                       </p>
                     </div>
                   </div>

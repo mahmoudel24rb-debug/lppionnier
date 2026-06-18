@@ -12,9 +12,21 @@ export default function TunnelLauncher() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    // Libellés de CTA qui ouvrent le tunnel (en plus de #rejoindre / data-open-tunnel)
+    const CTA = ['nous rejoindre', 'découvrir le club', 'commencer le parcours'];
     const onClick = (e: MouseEvent) => {
-      const a = (e.target as HTMLElement)?.closest?.('a[href="#rejoindre"], [data-open-tunnel]');
-      if (a) {
+      const target = e.target as HTMLElement;
+      if (target?.closest?.('.imt-overlay')) return; // ne pas interférer dans l'overlay
+      const el = target?.closest?.('a, button') as HTMLElement | null;
+      if (!el) return;
+      const href = el.getAttribute('href');
+      const txt = (el.textContent || '').trim().toLowerCase();
+      const isCTA =
+        href === '#rejoindre' ||
+        el.hasAttribute('data-open-tunnel') ||
+        txt.includes('rejoindre') ||
+        CTA.includes(txt);
+      if (isCTA) {
         e.preventDefault();
         setOpen(true);
       }

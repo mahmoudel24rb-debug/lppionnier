@@ -1,6 +1,7 @@
 'use client';
 
-import { FaArrowRight, FaRegCompass } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
+import { asset } from '@/lib/asset';
 
 // Carte du hero : remplace l'ancien petit formulaire par un appel à lancer
 // le parcours immersif plein écran.
@@ -17,14 +18,12 @@ export default function HeroCTA() {
         boxShadow: '0 30px 70px -30px rgba(0,0,0,0.7)',
       }}
     >
-      <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 54, height: 54, borderRadius: 14, background: 'rgba(245,163,0,0.14)', color: '#f5a300', border: '1px solid rgba(245,163,0,0.3)' }}>
-        <FaRegCompass size={26} />
-      </span>
+      <img src={asset('/assets/logo-club.png')} alt="Pionniers de Touraine" style={{ height: 46, width: 'auto', display: 'block' }} />
       <h3 style={{ fontSize: 'clamp(22px,2.4vw,28px)', fontWeight: 700, letterSpacing: '-0.02em', margin: '20px 0 8px' }}>
         Trouve ta place chez les Pionniers
       </h3>
       <p style={{ color: 'rgba(255,255,255,0.62)', lineHeight: 1.6, margin: '0 0 24px' }}>
-        En quelques clics, exprime ta motivation — jouer, t&apos;investir ou soutenir — et on te guide vers les bonnes opportunités.
+        En quelques clics, exprime ta motivation, jouer, t&apos;investir ou soutenir, et on te guide vers les bonnes opportunités.
       </p>
       <button
         type="button"
