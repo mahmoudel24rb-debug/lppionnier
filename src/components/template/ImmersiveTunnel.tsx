@@ -154,11 +154,6 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
       {view === 'choices' && !isSplit && current.children && (
         <div className="imt-stage">
           <div className="imt-carousel">
-            {current.children.length > 1 && (
-              <button className="imt-arrow imt-arrow-prev" onClick={() => scrollCards(-1)} aria-label="Précédent">
-                <FaChevronLeft size={18} />
-              </button>
-            )}
             <div className="imt-cards" ref={cardsRef}>
               {current.children.map((c, i) => {
                 const Icon = FUNNEL_ICONS[c.icon];
@@ -174,9 +169,14 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
               })}
             </div>
             {current.children.length > 1 && (
-              <button className="imt-arrow imt-arrow-next" onClick={() => scrollCards(1)} aria-label="Suivant">
-                <FaChevronRight size={18} />
-              </button>
+              <div className="imt-arrows">
+                <button className="imt-arrow" onClick={() => scrollCards(-1)} aria-label="Précédent">
+                  <FaChevronLeft size={14} />
+                </button>
+                <button className="imt-arrow" onClick={() => scrollCards(1)} aria-label="Suivant">
+                  <FaChevronRight size={14} />
+                </button>
+              </div>
             )}
           </div>
         </div>
