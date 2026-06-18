@@ -48,3 +48,7 @@ _hero.png
 # outil de capture jetable (hors app)
 /capture-hp.js
 /hp-sorting-captures*.json
+
+# dossiers de référence (specs, maquettes) — hors app
+/tunnel/
+/maquette refonte/
