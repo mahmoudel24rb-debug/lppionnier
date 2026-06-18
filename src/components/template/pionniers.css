@@ -58,6 +58,19 @@ body {
   color: #e9e4e6;
 }
 
+/* Pas de débordement horizontal sur mobile */
+html, body { overflow-x: hidden; max-width: 100%; }
+#main { overflow-x: hidden; }
+
+/* Section "Se rendre au stade" : 1 colonne dès que c'est étroit */
+#infos > div {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)) !important;
+}
+@media (max-width: 760px) {
+  #infos { padding: 70px 0 !important; }
+  #infos iframe { min-height: 300px !important; }
+}
+
 /* Le conteneur racine de la page Framer a un fond blanc (#fff) qui masquait
    le thème sombre → transparent pour laisser passer le fond du body. */
 .framer-13v9dm1,
