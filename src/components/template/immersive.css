@@ -130,6 +130,23 @@
   scrollbar-width: none;
 }
 .imt-cards::-webkit-scrollbar { display: none; }
+
+/* Flèches de navigation du carrousel */
+.imt-carousel { position: relative; width: 100%; max-width: 1200px; display: flex; align-items: center; }
+.imt-carousel .imt-cards { flex: 1; }
+.imt-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 6;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 50px; height: 50px; border-radius: 50%;
+  border: 1px solid rgba(245, 163, 0, 0.4); background: rgba(20, 14, 16, 0.78);
+  color: var(--pio-amber, #f5a300); cursor: pointer;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.8);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.imt-arrow:hover { background: var(--pio-amber, #f5a300); color: #0a0709; transform: translateY(-50%) scale(1.08); }
+.imt-arrow-prev { left: 4px; }
+.imt-arrow-next { right: 4px; }
 .imt-card {
   scroll-snap-align: center; flex: 0 0 auto;
   width: 230px; min-height: 320px;
@@ -218,10 +235,15 @@
   .imt-q { font-size: 25px; line-height: 1.12; overflow-wrap: anywhere; }
   .imt-sub { font-size: 10px; letter-spacing: 0.12em; }
   .imt-stage { padding: 12px; }
-  .imt-cards { padding: 18px 11vw; gap: 14px; }
-  .imt-card { width: min(78vw, 290px); min-height: 0; padding: 24px 20px; }
-  .imt-split { flex-direction: column; }
-  .imt-split-divider { left: 14%; right: 14%; top: 50%; bottom: auto; width: auto; height: 1px; }
+  .imt-cards { padding: 18px 12vw; gap: 14px; }
+  .imt-card { width: min(76vw, 290px); min-height: 0; padding: 24px 20px; }
+  .imt-arrow { width: 42px; height: 42px; }
+  /* 2 options : empilées et compactes, centrées (plus de vide à scroller) */
+  .imt-split { flex-direction: column; justify-content: center; gap: 0; }
+  .imt-half { flex: none; padding: 30px 24px; }
+  .imt-split:hover .imt-half, .imt-split .imt-half:hover { flex: none; }
+  .imt-half + .imt-half { border-top: 1px solid rgba(245, 163, 0, 0.25); }
+  .imt-split-divider { display: none; }
   .imt-half-icon svg { width: 46px; height: 46px; }
   .imt-half-title { font-size: 28px; }
   .imt-half-desc { font-size: 13px; }

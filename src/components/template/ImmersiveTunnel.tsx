@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { FaArrowLeft, FaTimes, FaChevronRight, FaCheck, FaPaperPlane } from 'react-icons/fa';
+import { useEffect, useRef, useState } from 'react';
+import { FaArrowLeft, FaTimes, FaChevronLeft, FaChevronRight, FaCheck, FaPaperPlane } from 'react-icons/fa';
 import { TUNNEL, type Node, type Offer } from '@/data/funnel';
 import { FUNNEL_ICONS } from '@/lib/funnelIcons';
 import { asset } from '@/lib/asset';
@@ -29,6 +29,15 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
 
   const current = path[path.length - 1];
   const depth = path.length - 1;
+
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const scrollCards = (dir: number) => {
+    const el = cardsRef.current;
+    if (!el) return;
+    const card = el.querySelector('.imt-card') as HTMLElement | null;
+    const step = card ? card.offsetWidth + 20 : el.clientWidth * 0.8;
+    el.scrollBy({ left: dir * step, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -144,19 +153,31 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
 
       {view === 'choices' && !isSplit && current.children && (
         <div className="imt-stage">
-          <div className="imt-cards">
-            {current.children.map((c, i) => {
-              const Icon = FUNNEL_ICONS[c.icon];
-              return (
-                <button key={c.id} className="imt-card" onClick={() => select(c)}>
-                  <span className="imt-card-num">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="imt-card-icon"><Icon size={30} /></span>
-                  <h3 className="imt-card-title">{c.label}</h3>
-                  {c.desc && <p className="imt-card-desc">{c.desc}</p>}
-                  <span className="imt-card-cta">Sélectionner <FaChevronRight size={11} /></span>
-                </button>
-              );
-            })}
+          <div className="imt-carousel">
+            {current.children.length > 1 && (
+              <button className="imt-arrow imt-arrow-prev" onClick={() => scrollCards(-1)} aria-label="Précédent">
+                <FaChevronLeft size={18} />
+              </button>
+            )}
+            <div className="imt-cards" ref={cardsRef}>
+              {current.children.map((c, i) => {
+                const Icon = FUNNEL_ICONS[c.icon];
+                return (
+                  <button key={c.id} className="imt-card" onClick={() => select(c)}>
+                    <span className="imt-card-num">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="imt-card-icon"><Icon size={30} /></span>
+                    <h3 className="imt-card-title">{c.label}</h3>
+                    {c.desc && <p className="imt-card-desc">{c.desc}</p>}
+                    <span className="imt-card-cta">Sélectionner <FaChevronRight size={11} /></span>
+                  </button>
+                );
+              })}
+            </div>
+            {current.children.length > 1 && (
+              <button className="imt-arrow imt-arrow-next" onClick={() => scrollCards(1)} aria-label="Suivant">
+                <FaChevronRight size={18} />
+              </button>
+            )}
           </div>
         </div>
       )}
