@@ -247,3 +247,30 @@
   .imt-offers { grid-template-columns: 1fr; max-width: 100%; }
   .imt-bottom { padding: 14px; }
 }
+
+/* ---------------- Offre (carte cliquable) ---------------- */
+.imt-offer { display: flex; flex-direction: column; align-items: flex-start; cursor: pointer; color: #fff; font-family: inherit; }
+.imt-offer-sub { font-size: 13px; color: rgba(255,255,255,0.6); margin: 6px 0 0; line-height: 1.5; }
+
+/* ---------------- Fiche détaillée (scrollable) ---------------- */
+.imt-scroll { align-items: flex-start; overflow-y: auto; }
+.imt-scroll::-webkit-scrollbar { width: 8px; }
+.imt-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 8px; }
+.imt-detail { width: 100%; max-width: 720px; margin: 0 auto; text-align: left; padding-bottom: 24px; }
+.imt-tag-lg { display: inline-block; font-size: 12px; padding: 6px 14px; }
+.imt-detail-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(26px, 3.4vw, 40px); font-weight: 600; color: #fff; margin: 14px 0 6px; line-height: 1.1; }
+.imt-detail-punch { font-size: 17px; font-weight: 600; color: var(--pio-amber, #f5a300); margin: 0 0 18px; }
+.imt-detail-p { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.78); margin: 0 0 14px; }
+.imt-detail-sec { margin: 18px 0 0; }
+.imt-detail-sec h4 { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; margin: 0 0 10px; }
+.imt-detail-sec ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.imt-detail-sec li { position: relative; padding-left: 22px; font-size: 14.5px; line-height: 1.5; color: rgba(255,255,255,0.78); }
+.imt-detail-sec li::before { content: ''; position: absolute; left: 4px; top: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--pio-amber, #f5a300); }
+.imt-detail-quote { font-style: italic; font-size: 16px; color: rgba(255,255,255,0.9); border-left: 3px solid var(--pio-amber, #f5a300); padding-left: 16px; margin: 24px 0 0; }
+.imt-detail-cta { margin-top: 26px; max-width: 260px; }
+
+@media (max-width: 720px) {
+  .imt-detail-title { font-size: 24px; }
+  .imt-detail-cta { max-width: 100%; }
+  .imt-detail-punch { font-size: 15px; }
+}
