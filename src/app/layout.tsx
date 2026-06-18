@@ -6,6 +6,7 @@ import React from 'react';
 import '@/components/template/framer.css';
 import '@/components/template/overrides.css';
 import '@/components/template/pionniers.css';
+import '@/components/template/refonte.css';
 
 import MobileNav from '@/components/template/MobileNav';
 import PricingToggle from '@/components/template/PricingToggle';
