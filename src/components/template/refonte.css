@@ -41,15 +41,26 @@
   padding: 18px 18px 0;
 }
 .rf-nav {
+  position: relative;
   width: 100%; max-width: 1280px;
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
   padding: 11px 12px 11px 24px; border-radius: 999px;
-  background: rgba(111, 44, 48, 0.58);
-  -webkit-backdrop-filter: blur(22px) saturate(150%);
-  backdrop-filter: blur(22px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 0 14px 40px -16px rgba(0, 0, 0, 0.65);
+  background: linear-gradient(180deg, rgba(128, 53, 58, 0.5) 0%, rgba(90, 34, 38, 0.64) 100%);
+  -webkit-backdrop-filter: blur(30px) saturate(185%);
+  backdrop-filter: blur(30px) saturate(185%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.25) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.3) inset,
+    0 24px 55px -22px rgba(0, 0, 0, 0.8),
+    0 4px 12px rgba(0, 0, 0, 0.3);
 }
+/* reflet verre en haut de la pilule */
+.rf-nav::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 38%);
+}
+.rf-nav > * { position: relative; z-index: 1; }
 .rf-logo { height: 40px; width: auto; display: block; }
 .rf-links { display: flex; align-items: center; gap: 32px; }
 .rf-links a {
@@ -63,12 +74,29 @@
   font-family: 'Neuething', sans-serif; font-size: 15px; color: var(--rf-cream); text-decoration: none;
 }
 .rf-phone svg { color: var(--rf-amber); }
+/* Bouton ambre premium (glossy + relief 3D) — partagé header/hero */
 .rf-join {
-  font-family: 'Neuething', sans-serif; font-weight: 700; font-size: 14px; color: #2a0f10;
-  background: var(--rf-amber-grad); padding: 12px 22px; border-radius: 999px; border: none; cursor: pointer;
-  white-space: nowrap; transition: filter 0.2s ease;
+  position: relative; font-family: 'Neuething', sans-serif; font-weight: 700; font-size: 14px;
+  color: #3a1604; white-space: nowrap; cursor: pointer;
+  padding: 12px 24px; border-radius: 999px;
+  background: linear-gradient(180deg, #ffd86b 0%, #ffb01f 50%, #f59e00 100%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.65) inset,
+    0 -5px 12px rgba(150, 75, 0, 0.28) inset,
+    0 8px 20px -6px rgba(245, 160, 0, 0.5),
+    0 14px 30px -14px rgba(0, 0, 0, 0.55);
+  transition: transform 0.18s ease, filter 0.2s ease, box-shadow 0.25s ease;
 }
-.rf-join:hover { filter: brightness(1.06); }
+.rf-join:hover {
+  transform: translateY(-1.5px); filter: brightness(1.04);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 -5px 12px rgba(150, 75, 0, 0.3) inset,
+    0 12px 26px -6px rgba(245, 160, 0, 0.62),
+    0 18px 38px -14px rgba(0, 0, 0, 0.62);
+}
+.rf-join:active { transform: translateY(0); }
 .rf-burger { display: none; width: 40px; height: 40px; border: none; background: transparent; color: var(--rf-cream); cursor: pointer; align-items: center; justify-content: center; }
 
 /* ───────────────────────── HERO ───────────────────────── */
@@ -102,12 +130,36 @@
   font-size: clamp(15px, 1.5vw, 19px); line-height: 1.55; margin: 24px auto 0; max-width: 640px;
 }
 .rf-cta {
-  display: inline-flex; align-items: center; gap: 10px; margin-top: 32px;
-  font-family: 'Neuething', sans-serif; font-weight: 700; font-size: clamp(16px, 1.4vw, 18px); color: #2a0f10;
-  background: var(--rf-amber-grad); padding: 16px 34px; border-radius: 999px; border: none; cursor: pointer;
-  box-shadow: 0 16px 40px -14px rgba(255, 173, 0, 0.55); transition: transform 0.2s ease, filter 0.2s ease;
+  position: relative; display: inline-flex; align-items: center; gap: 14px; margin-top: 32px;
+  font-family: 'Neuething', sans-serif; font-weight: 700; font-size: clamp(16px, 1.4vw, 18px); color: #3a1604;
+  padding: 12px 14px 12px 32px; border-radius: 999px; cursor: pointer;
+  background: linear-gradient(180deg, #ffd86b 0%, #ffb01f 50%, #f59e00 100%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.65) inset,
+    0 -7px 16px rgba(150, 75, 0, 0.3) inset,
+    0 14px 34px -10px rgba(245, 160, 0, 0.6),
+    0 28px 54px -18px rgba(0, 0, 0, 0.55);
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.28s ease;
 }
-.rf-cta:hover { transform: translateY(-2px); filter: brightness(1.05); }
+.rf-cta:hover {
+  transform: translateY(-3px); filter: brightness(1.04);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 -7px 16px rgba(150, 75, 0, 0.32) inset,
+    0 18px 42px -10px rgba(245, 160, 0, 0.72),
+    0 34px 62px -18px rgba(0, 0, 0, 0.6);
+}
+.rf-cta:active { transform: translateY(-1px); }
+/* pastille circulaire de la flèche (remplace la flèche texte cheap) */
+.rf-cta-arrow {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #3a1604; color: #ffb524;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+  transition: transform 0.22s ease;
+}
+.rf-cta:hover .rf-cta-arrow { transform: translateX(4px); }
 .rf-note { margin: 14px 0 0; font-size: 13px; color: rgba(255, 250, 240, 0.5); font-family: 'Neuething', sans-serif; }
 .rf-badges { display: flex; gap: 26px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 46px; }
 .rf-badges img { height: 66px; width: auto; display: block; filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.45)); }

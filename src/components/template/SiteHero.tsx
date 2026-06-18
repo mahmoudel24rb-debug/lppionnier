@@ -1,6 +1,7 @@
 'use client';
 
-import { FaArrowRight, FaChevronDown } from 'react-icons/fa';
+import { FaChevronDown } from 'react-icons/fa';
+import { ArrowRight } from 'lucide-react';
 import { asset } from '@/lib/asset';
 
 const BADGES = [
@@ -24,7 +25,8 @@ export default function SiteHero() {
           Choisis ta voie en quelques clics, sur le terrain ou à nos côtés pour faire vivre le club.
         </p>
         <button className="rf-cta" data-open-tunnel onClick={openTunnel}>
-          Commencer le parcours <FaArrowRight size={15} />
+          Commencer le parcours
+          <span className="rf-cta-arrow"><ArrowRight size={17} strokeWidth={2.6} /></span>
         </button>
         <p className="rf-note">2 minutes · sans engagements</p>
 

@@ -214,17 +214,23 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
       {view === 'detail' && detail && (
         <div className="imt-stage imt-scroll">
           <article className="imt-detail">
-            <span className="imt-tag imt-tag-lg">{detail.tag}</span>
-            <h2 className="imt-detail-title">{detail.titre}</h2>
-            {detail.punchline && <p className="imt-detail-punch">{detail.punchline}</p>}
-            {detail.paragraphs?.map((p, i) => <p key={i} className="imt-detail-p">{p}</p>)}
-            {detail.sections?.map((s, i) => (
-              <div key={i} className="imt-detail-sec">
-                <h4>{s.heading}</h4>
-                <ul>{s.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
+            <div className="imt-detail-grid">
+              <div>
+                <span className="imt-tag imt-tag-lg">{detail.tag}</span>
+                <h2 className="imt-detail-title">{detail.titre}</h2>
+                {detail.punchline && <p className="imt-detail-punch">{detail.punchline}</p>}
+                {detail.paragraphs?.map((p, i) => <p key={i} className="imt-detail-p">{p}</p>)}
+                {detail.quote && <p className="imt-detail-quote">« {detail.quote} »</p>}
               </div>
-            ))}
-            {detail.quote && <p className="imt-detail-quote">« {detail.quote} »</p>}
+              <div>
+                {detail.sections?.map((s, i) => (
+                  <div key={i} className="imt-detail-sec">
+                    <h4>{s.heading}</h4>
+                    <ul>{s.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
+                  </div>
+                ))}
+              </div>
+            </div>
             <button className="imt-btn imt-btn-amber imt-detail-cta" onClick={() => setFormOpen(true)}>
               S&apos;engager <FaChevronRight size={13} />
             </button>
@@ -239,10 +245,10 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
             <div className="imt-form-grid">
               <div className="imt-field"><label>Prénom</label><input required placeholder="Ton prénom" /></div>
               <div className="imt-field"><label>Nom</label><input required placeholder="Ton nom" /></div>
-              <div className="imt-field full"><label>Email</label><input type="email" required placeholder="prenom@email.com" /></div>
-              <div className="imt-field full"><label>Téléphone</label><input type="tel" placeholder="06 12 34 56 78" /></div>
+              <div className="imt-field"><label>Email</label><input type="email" required placeholder="prenom@email.com" /></div>
+              <div className="imt-field"><label>Téléphone</label><input type="tel" placeholder="06 12 34 56 78" /></div>
               <div className="imt-field full"><label>Offre visée</label><input defaultValue={detail.titre} readOnly /></div>
-              <div className="imt-field full"><label>Message</label><textarea rows={3} placeholder="Parle-nous de ta motivation…" /></div>
+              <div className="imt-field full"><label>Message</label><textarea rows={2} placeholder="Parle-nous de ta motivation…" /></div>
             </div>
             <button type="submit" className="imt-btn imt-btn-amber" style={{ marginTop: 18 }}>
               Envoyer ma candidature <FaPaperPlane size={13} />
