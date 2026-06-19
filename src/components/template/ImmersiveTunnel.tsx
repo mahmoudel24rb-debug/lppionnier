@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { FaArrowLeft, FaTimes, FaChevronLeft, FaChevronRight, FaCheck, FaPaperPlane } from 'react-icons/fa';
-import { TUNNEL, type Node, type Offer } from '@/data/funnel';
+import { TUNNEL, SPONTANE, getAllOffers, type Node, type Offer } from '@/data/funnel';
 import { getIcon } from '@/lib/funnelIcons';
 import { asset } from '@/lib/asset';
 import './immersive.css';
@@ -26,6 +26,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
   const [path, setPath] = useState<Node[]>([TUNNEL]);
   const [detail, setDetail] = useState<Offer | null>(null);
   const [formOpen, setFormOpen] = useState(false);
+  const [showAll, setShowAll] = useState(false);
   const [sent, setSent] = useState(false);
 
   const current = path[path.length - 1];
@@ -66,25 +67,32 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
     if (n.offers && n.offers.length === 1) setDetail(n.offers[0]);
   };
 
+  const spontaneous = () => setDetail(SPONTANE);
+  const openAll = () => { setDetail(null); setShowAll(true); };
+
   const back = () => {
     if (sent) return setSent(false);
     if (formOpen) return setFormOpen(false);
     if (detail) {
       setDetail(null);
-      if ((current.offers?.length ?? 0) <= 1) setPath((p) => p.slice(0, -1));
+      // remonter d'un cran seulement si on venait d'un leaf à une seule offre
+      if (!showAll && current.offers && current.offers.length === 1) setPath((p) => p.slice(0, -1));
       return;
     }
+    if (showAll) return setShowAll(false);
     if (path.length > 1) return setPath((p) => p.slice(0, -1));
     onClose();
   };
 
   // Vue courante
-  const view: 'choices' | 'offers' | 'detail' | 'form' | 'done' = sent
+  const view: 'choices' | 'offers' | 'detail' | 'form' | 'done' | 'all' = sent
     ? 'done'
     : formOpen
     ? 'form'
     : detail
     ? 'detail'
+    : showAll
+    ? 'all'
     : current.offers
     ? 'offers'
     : 'choices';
@@ -124,14 +132,14 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
 
       {/* Titre (sauf en vue fiche détaillée) */}
       {view !== 'detail' && (
-        <div className={`imt-head ${view === 'form' || view === 'offers' ? 'imt-head-sm' : ''}`}>
+        <div className={`imt-head ${view === 'form' || view === 'offers' || view === 'all' ? 'imt-head-sm' : ''}`}>
           <h2 className="imt-q">
-            {view === 'form' ? "S'engager" : view === 'done' ? 'Merci !' : view === 'offers' ? 'Les opportunités pour vous' : current.question}
+            {view === 'form' ? "S'engager" : view === 'done' ? 'Merci !' : view === 'all' ? 'Toutes les opportunités' : view === 'offers' ? 'Les opportunités pour vous' : current.question}
           </h2>
           <p className="imt-sub">
             {view === 'choices'
               ? isSplit ? 'Choisissez une option pour continuer' : 'Sélectionnez ce qui vous correspond'
-              : view === 'offers'
+              : view === 'offers' || view === 'all'
               ? 'Choisissez une opportunité pour en savoir plus'
               : view === 'form'
               ? detail?.titre
@@ -169,6 +177,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
       {/* ÉTAPE — carrousel (3+ choix) */}
       {view === 'choices' && !isSplit && current.children && (
         <div className="imt-stage">
+         <div className="imt-stage-col">
           <div className="imt-carousel">
             <div className="imt-cards" ref={cardsRef}>
               {current.children.map((c, i) => {
@@ -191,14 +200,37 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
               </div>
             )}
           </div>
+          {current.id === 'investir' && (
+            <button className="imt-secondary" onClick={spontaneous}>Faire une candidature spontanée</button>
+          )}
+         </div>
         </div>
       )}
 
       {/* ÉTAPE — liste des offres (si plusieurs) */}
       {view === 'offers' && current.offers && (
         <div className="imt-stage">
-          <div className="imt-offers">
-            {current.offers.map((o) => (
+          <div className="imt-stage-col">
+            <div className="imt-offers">
+              {current.offers.map((o) => (
+                <button key={o.id} className="imt-offer" onClick={() => setDetail(o)}>
+                  <span className="imt-tag">{o.tag}</span>
+                  <h3 className="imt-offer-title">{o.titre}</h3>
+                  {o.punchline && <p className="imt-offer-sub">{o.punchline}</p>}
+                  <span className="imt-card-cta" style={{ marginTop: 14 }}>Voir l&apos;offre <FaChevronRight size={11} /></span>
+                </button>
+              ))}
+            </div>
+            <button className="imt-secondary" onClick={openAll}>Voir toutes les offres</button>
+          </div>
+        </div>
+      )}
+
+      {/* ÉTAPE — toutes les offres (affichage final) */}
+      {view === 'all' && (
+        <div className="imt-stage imt-scroll">
+          <div className="imt-offers imt-offers-all">
+            {getAllOffers().map((o) => (
               <button key={o.id} className="imt-offer" onClick={() => setDetail(o)}>
                 <span className="imt-tag">{o.tag}</span>
                 <h3 className="imt-offer-title">{o.titre}</h3>
@@ -231,9 +263,12 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
                 ))}
               </div>
             </div>
-            <button className="imt-btn imt-btn-amber imt-detail-cta" onClick={() => setFormOpen(true)}>
-              S&apos;engager <FaChevronRight size={13} />
-            </button>
+            <div className="imt-detail-actions">
+              <button className="imt-btn imt-btn-amber imt-detail-cta" onClick={() => setFormOpen(true)}>
+                S&apos;engager <FaChevronRight size={13} />
+              </button>
+              <button className="imt-secondary" onClick={openAll}>Voir toutes les offres</button>
+            </div>
           </article>
         </div>
       )}

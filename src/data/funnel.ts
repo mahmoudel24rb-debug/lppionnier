@@ -558,3 +558,22 @@ export const TUNNEL: Node = {
     },
   ],
 };
+
+// Candidature spontanée (parcours « M'investir »)
+export const SPONTANE: Offer = {
+  id: 'spontane',
+  titre: 'Candidature spontanée',
+  punchline: 'Vous ne savez pas encore où vous investir ? Proposez-nous votre aide.',
+  paragraphs: [
+    "Dites-nous ce que vous aimez faire, vos compétences et vos disponibilités : on vous orientera vers la mission qui vous correspond le mieux.",
+    "Aucune mission précise en tête n'est nécessaire — votre motivation suffit.",
+  ],
+  tag: 'Bénévolat',
+};
+
+/** Toutes les offres du tunnel, dédoublonnées par id (affichage final). */
+export function getAllOffers(node: Node = TUNNEL, acc: Offer[] = [], seen = new Set<string>()): Offer[] {
+  if (node.offers) for (const o of node.offers) if (!seen.has(o.id)) { seen.add(o.id); acc.push(o); }
+  if (node.children) for (const c of node.children) getAllOffers(c, acc, seen);
+  return acc;
+}

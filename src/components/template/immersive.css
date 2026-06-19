@@ -284,3 +284,17 @@
   .imt-detail-cta { max-width: 100%; }
   .imt-detail-punch { font-size: 15px; }
 }
+
+/* ---------------- Boutons secondaires / colonne / toutes les offres ---------------- */
+.imt-stage-col { display: flex; flex-direction: column; align-items: center; gap: 22px; width: 100%; }
+.imt-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: transparent; border: 1px solid rgba(245, 163, 0, 0.45);
+  color: var(--pio-amber, #f5a300); font-family: inherit; font-weight: 700; font-size: 14px;
+  padding: 12px 26px; border-radius: 999px; cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.imt-secondary:hover { background: rgba(245, 163, 0, 0.1); border-color: var(--pio-amber, #f5a300); }
+.imt-offers-all { padding: 4px 0 24px; }
+.imt-detail-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+.imt-detail-actions .imt-detail-cta { margin-top: 0; }
