@@ -146,7 +146,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
               : 'Votre candidature a bien été envoyée'}
           </p>
           {depth > 0 && view === 'choices' && (
-            <div className="imt-progress" style={{ justifyContent: 'center', marginTop: 16 }}>
+            <div className="imt-progress" style={{ justifyContent: 'center', marginTop: 18, marginBottom: 26 }}>
               {[0, 1, 2, 3].map((n) => (
                 <span key={n} className={`imt-dot ${n < depth ? 'on' : ''}`} />
               ))}
@@ -312,14 +312,6 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
         </div>
       )}
 
-      {/* Bas : retour */}
-      {view !== 'done' && (
-        <div className="imt-bottom">
-          <button className="imt-back" onClick={back}>
-            <FaArrowLeft size={13} /> {path.length > 1 || detail || formOpen ? 'Retour' : 'Quitter'}
-          </button>
-        </div>
-      )}
     </div>
   );
 }

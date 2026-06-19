@@ -198,3 +198,20 @@
 @media (min-width: 901px) {
   .rf-phone-mobile { display: none; }
 }
+
+/* ============================================================
+   Typo du hero appliquée au reste de la page (template #main).
+   Neuething pour le corps, Futura Condensed (maj) pour les gros titres.
+   :where() = faible spécificité → l'ordre source départage.
+   ============================================================ */
+#main :where(p, span, a, li, h3, h4, h5, h6, div, input, textarea, button, label, .framer-text) {
+  font-family: 'Neuething', 'Inter', system-ui, sans-serif !important;
+}
+#main :where(h1, h2), #main :where(h1, h2) * {
+  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+/* Section "Se rendre au stade" (h2/h3 inline du port) */
+#infos h2 { font-family: 'Futura Condensed', sans-serif !important; text-transform: uppercase; letter-spacing: -0.02em; }
