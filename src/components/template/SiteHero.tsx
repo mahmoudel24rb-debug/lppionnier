@@ -5,11 +5,11 @@ import { ArrowRight } from 'lucide-react';
 import { asset } from '@/lib/asset';
 
 const BADGES = [
-  { src: '/assets/refonte/badge-1-footus.webp', alt: 'Foot US & Flag' },
-  { src: '/assets/refonte/badge-2-olympique.webp', alt: 'Sport Olympique · JO de Los Angeles 2028' },
-  { src: '/assets/refonte/badge-3-ppp.webp', alt: 'Programme PPP' },
-  { src: '/assets/refonte/badge-4-u18.webp', alt: 'U18' },
-  { src: '/assets/refonte/badge-5-ecole.webp', alt: 'École de Flag' },
+  { src: '/assets/refonte/badge-1-footus.svg', alt: 'Foot US & Flag' },
+  { src: '/assets/refonte/badge-2-olympique.svg', alt: 'Sport Olympique · JO de Los Angeles 2028' },
+  { src: '/assets/refonte/badge-3-ppp.svg', alt: 'Programme PPP' },
+  { src: '/assets/refonte/badge-4-u18.svg', alt: 'U18' },
+  { src: '/assets/refonte/badge-5-ecole.svg', alt: 'École de Flag' },
 ];
 
 export default function SiteHero() {

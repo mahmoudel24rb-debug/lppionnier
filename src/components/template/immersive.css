@@ -129,7 +129,7 @@
 }
 
 /* ---------------- CARROUSEL (3+ choix / offres) ---------------- */
-.imt-stage { position: relative; z-index: 4; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.imt-stage { position: relative; z-index: 4; flex: 1; min-height: 0; display: flex; align-items: safe center; justify-content: center; padding: 24px; overflow-y: auto; overscroll-behavior: contain; }
 .imt-cards {
   display: flex; gap: 20px; max-width: 100%;
   overflow-x: auto; padding: 24px 6vw; scroll-snap-type: x mandatory;
