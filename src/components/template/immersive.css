@@ -129,7 +129,12 @@
 }
 
 /* ---------------- CARROUSEL (3+ choix / offres) ---------------- */
-.imt-stage { position: relative; z-index: 4; flex: 1; min-height: 0; display: flex; align-items: safe center; justify-content: center; padding: 24px; overflow-y: auto; overscroll-behavior: contain; }
+.imt-stage { position: relative; z-index: 4; flex: 1; min-height: 0; display: flex; align-items: safe center; justify-content: center; padding: 24px; }
+/* Scroll interne uniquement quand l'écran est trop petit / trop court
+   (sur grand écran tout tient → pas de barre de scroll). */
+@media (max-width: 980px), (max-height: 860px) {
+  .imt-stage { overflow-y: auto; overscroll-behavior: contain; }
+}
 .imt-cards {
   display: flex; gap: 20px; max-width: 100%;
   overflow-x: auto; padding: 24px 6vw; scroll-snap-type: x mandatory;
