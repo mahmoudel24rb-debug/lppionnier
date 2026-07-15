@@ -26,33 +26,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# logs de build/install temporaires
-/install.log
-/build.log
+# références design (specs tunnel, maquettes, sources PPP, logos) — hors app
+/_references/
 
-# dossier template source (Framer export, ~68 Mo) — déjà copié dans src/components/template
-/export
-
-# fichiers sources d'origine (déjà copiés dans public/assets)
-/Group.png
-/Group 15.png
-/Instagram post - 42.jpg
-
-# previews & logs temporaires
-_preview.png
-_hero.png
-/flag.png
-/dev.log
-/ri_install.log
-
-# outil de capture jetable (hors app)
-/capture-hp.js
-/hp-sorting-captures*.json
-
-# dossiers de référence (specs, maquettes) — hors app
-/tunnel/
-/maquette refonte/
-/PPP WEB/
-/_d.png
-/_m.png
-/logos svg/
+# projet frère (repo séparé : homepage pionniersdetouraine.fr)
+/homepagepnr/
