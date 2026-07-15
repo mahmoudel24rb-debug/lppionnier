@@ -1,0 +1,360 @@
+/* ============================================================
+   Sections après le hero — charte exacte de la maquette hero :
+   fond bordeaux profond, crème #fffaf0, ambre #ffad00,
+   Futura Condensed (titres, maj) / Neuething (corps).
+   Fil conducteur : la page descend le terrain, section après
+   section (marqueurs de yards 10 → 50 → en-but).
+   ============================================================ */
+
+/* ── Base (le reset venait de framer.css, supprimé avec le template) ── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #140708;
+  color: var(--rf-cream);
+  font-family: 'Neuething', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; }
+#club, #sections, #adhesions, #infos { scroll-margin-top: 96px; }
+:where(a, button):focus-visible { outline: 2px solid var(--rf-amber); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+:root {
+  --sc-ink: #3a1604;                       /* texte sur ambre (cf. .rf-cta) */
+  --sc-cream-72: rgba(255, 250, 240, 0.72);
+  --sc-cream-55: rgba(255, 250, 240, 0.55);
+  --sc-cream-38: rgba(255, 250, 240, 0.38);
+  --sc-line: rgba(255, 250, 240, 0.09);
+  /* verre bordeaux — même recette que la pilule du header */
+  --sc-glass: linear-gradient(180deg, rgba(128, 53, 58, 0.26) 0%, rgba(90, 34, 38, 0.34) 100%);
+  --sc-glass-border: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Structure commune ── */
+.sc-sec { position: relative; padding: clamp(72px, 8.5vw, 118px) 24px; }
+.sc-wrap { max-width: 1200px; margin: 0 auto; }
+
+.sc-eyebrow {
+  font-family: 'Neuething', sans-serif; font-weight: 700;
+  color: var(--rf-amber); text-transform: uppercase;
+  font-size: clamp(15px, 1.5vw, 18px); letter-spacing: -0.02em;
+  margin: 0 0 10px;
+}
+.sc-title {
+  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif; font-weight: 800;
+  color: var(--rf-cream); text-transform: uppercase;
+  font-size: clamp(36px, 4.6vw, 68px); line-height: 1.04; letter-spacing: -0.045em;
+  margin: 0;
+}
+.sc-lead {
+  font-family: 'Neuething', sans-serif; font-weight: 400;
+  color: var(--sc-cream-72);
+  font-size: clamp(15px, 1.35vw, 18px); line-height: 1.6; letter-spacing: -0.03em;
+  margin: 18px 0 0; max-width: 640px;
+}
+
+/* ── Marqueur de yards (séparateur de sections) ── */
+.sc-yard {
+  display: flex; align-items: center; gap: 20px;
+  max-width: 1200px; margin: 0 auto clamp(34px, 4vw, 54px); padding: 0;
+}
+.sc-yard-hash {
+  flex: 1; height: 11px;
+  background:
+    linear-gradient(to bottom, transparent calc(50% - 0.5px), var(--sc-line) calc(50% - 0.5px), var(--sc-line) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    repeating-linear-gradient(90deg, rgba(255, 250, 240, 0.13) 0 1.5px, transparent 1.5px 58px);
+}
+.sc-yard-num {
+  font-family: 'Futura Condensed', sans-serif; font-weight: 800;
+  font-size: 15px; letter-spacing: 0.42em; text-indent: 0.42em;
+  color: var(--sc-cream-38); white-space: nowrap;
+}
+
+/* ── Boutons (recette glossy ambre du hero) ── */
+.sc-btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: 'Neuething', sans-serif; font-weight: 700; font-size: 15px;
+  color: var(--sc-ink); text-decoration: none; white-space: nowrap; cursor: pointer;
+  padding: 14px 28px; border-radius: 999px;
+  background: linear-gradient(180deg, #ffd86b 0%, #ffb01f 50%, #f59e00 100%);
+  border: 1px solid rgba(214, 130, 0, 0.5);
+  box-shadow:
+    0 1px 0 rgba(255, 235, 200, 0.4) inset,
+    0 -5px 12px rgba(150, 75, 0, 0.28) inset,
+    0 8px 20px -6px rgba(245, 160, 0, 0.5),
+    0 14px 30px -14px rgba(0, 0, 0, 0.55);
+  transition: filter 0.2s ease, box-shadow 0.25s ease;
+}
+.sc-btn:hover {
+  filter: brightness(1.05);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 -5px 12px rgba(150, 75, 0, 0.3) inset,
+    0 12px 26px -6px rgba(245, 160, 0, 0.62),
+    0 18px 38px -14px rgba(0, 0, 0, 0.62);
+}
+.sc-btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: 'Neuething', sans-serif; font-weight: 700; font-size: 15px;
+  color: var(--rf-amber); text-decoration: none; cursor: pointer;
+  padding: 13px 26px; border-radius: 999px;
+  background: transparent; border: 1px solid rgba(255, 173, 0, 0.45);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.sc-btn-ghost:hover { background: rgba(255, 173, 0, 0.08); border-color: var(--rf-amber); }
+
+/* ── Apparition au scroll ── */
+[data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); }
+[data-reveal].sc-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ============================================================
+   LE CLUB (yard 10)
+   ============================================================ */
+.sc-club-grid {
+  display: grid; grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(44px, 5vw, 80px); align-items: center;
+}
+.sc-reperes { margin: 34px 0 0; padding: 0; list-style: none; }
+.sc-reperes li {
+  display: flex; align-items: baseline; gap: 18px;
+  padding: 15px 2px; border-top: 1px solid var(--sc-line);
+}
+.sc-reperes li:last-child { border-bottom: 1px solid var(--sc-line); }
+.sc-repere-label {
+  flex: 0 0 118px;
+  font-family: 'Futura Condensed', sans-serif; font-weight: 800; text-transform: uppercase;
+  font-size: 21px; letter-spacing: -0.02em; color: var(--rf-amber);
+}
+.sc-repere-txt { font-size: 15px; line-height: 1.5; letter-spacing: -0.03em; color: var(--sc-cream-72); }
+
+/* Affiche du club, façon sticker/écusson du hero */
+.sc-poster { position: relative; display: flex; flex-direction: column; align-items: center; gap: 16px; margin: 0; }
+.sc-poster img {
+  width: min(100%, 380px); border-radius: 14px; transform: rotate(-2.4deg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sc-poster:hover img { transform: rotate(0deg) scale(1.02); }
+.sc-poster figcaption { font-size: 13px; color: var(--sc-cream-55); letter-spacing: -0.02em; text-align: center; }
+
+/* ============================================================
+   SECTIONS / DISCIPLINES (yard 20)
+   ============================================================ */
+.sc-disciplines { background: radial-gradient(ellipse 90% 60% at 50% 0%, rgba(110, 32, 27, 0.28), transparent 65%); }
+.sc-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: clamp(36px, 4vw, 56px); }
+.sc-card {
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+  padding: 30px 28px 26px; border-radius: 24px;
+  background: var(--sc-glass); border: 1px solid var(--sc-glass-border);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07) inset, 0 24px 50px -28px rgba(0, 0, 0, 0.7);
+  font-family: 'Neuething', sans-serif; color: var(--rf-cream); cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.sc-card:hover {
+  transform: translateY(-6px); border-color: rgba(255, 173, 0, 0.4);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.09) inset, 0 30px 60px -26px rgba(0, 0, 0, 0.75), 0 18px 44px -18px rgba(245, 160, 0, 0.22);
+}
+.sc-card-badge { height: 76px; width: auto; filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.5)); margin-bottom: 20px; transition: transform 0.3s ease; }
+.sc-card:hover .sc-card-badge { transform: rotate(-4deg) scale(1.06); }
+.sc-card-title {
+  font-family: 'Futura Condensed', sans-serif; font-weight: 800; text-transform: uppercase;
+  font-size: clamp(26px, 2.3vw, 34px); line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 12px;
+}
+.sc-chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 14px; }
+.sc-chip {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.01em; color: var(--sc-cream-72);
+  padding: 5px 11px; border-radius: 999px;
+  background: rgba(111, 44, 48, 0.4); border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.sc-card-desc { font-size: 15px; line-height: 1.55; letter-spacing: -0.03em; color: var(--sc-cream-72); margin: 0 0 22px; }
+.sc-card-cta {
+  display: inline-flex; align-items: center; gap: 9px; margin-top: auto;
+  font-weight: 700; font-size: 14px; color: var(--rf-amber);
+}
+.sc-card-cta svg { transition: transform 0.22s ease; }
+.sc-card:hover .sc-card-cta svg { transform: translateX(4px); }
+
+/* ============================================================
+   PPP (yard 30)
+   ============================================================ */
+.sc-ppp-panel {
+  position: relative; overflow: hidden;
+  display: grid; grid-template-columns: minmax(260px, 380px) 1fr;
+  gap: clamp(36px, 4.5vw, 70px); align-items: center;
+  padding: clamp(34px, 4vw, 60px);
+  border-radius: 28px;
+  background: var(--sc-glass); border: 1px solid var(--sc-glass-border);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07) inset, 0 34px 70px -34px rgba(0, 0, 0, 0.75);
+}
+.sc-ppp-panel::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: url('/lppionnier/assets/refonte/fond-hero.webp') center / cover no-repeat;
+  opacity: 0.3; mix-blend-mode: screen;
+}
+.sc-ppp-panel > * { position: relative; }
+.sc-ppp-poster img {
+  width: 100%; border-radius: 16px; transform: rotate(1.8deg);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  filter: drop-shadow(0 26px 46px rgba(0, 0, 0, 0.55));
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sc-ppp-poster:hover img { transform: rotate(0deg) scale(1.015); }
+.sc-ppp-logo { height: 56px; width: auto; margin-bottom: 18px; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45)); }
+.sc-ppp-body .sc-title { font-size: clamp(32px, 3.8vw, 54px); }
+.sc-ppp-body .sc-btn { margin-top: 26px; }
+
+/* ============================================================
+   ADHÉSIONS (yard 40)
+   ============================================================ */
+.sc-pricing-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 28px; flex-wrap: wrap; margin-bottom: clamp(34px, 4vw, 52px);
+}
+.sc-tabs {
+  display: inline-flex; gap: 4px; padding: 5px; border-radius: 999px;
+  background: var(--sc-glass); border: 1px solid var(--sc-glass-border);
+}
+.sc-tab {
+  font-family: 'Neuething', sans-serif; font-weight: 700; font-size: 14px;
+  color: var(--sc-cream-72); cursor: pointer; white-space: nowrap;
+  padding: 11px 22px; border-radius: 999px; border: none; background: transparent;
+  transition: color 0.2s ease;
+}
+.sc-tab:hover { color: var(--rf-cream); }
+.sc-tab[aria-selected='true'] {
+  color: var(--sc-ink);
+  background: linear-gradient(180deg, #ffd86b 0%, #ffb01f 50%, #f59e00 100%);
+  box-shadow: 0 1px 0 rgba(255, 235, 200, 0.4) inset, 0 -4px 9px rgba(150, 75, 0, 0.26) inset, 0 6px 16px -6px rgba(245, 160, 0, 0.5);
+}
+.sc-prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.sc-prices--two { grid-template-columns: repeat(2, minmax(0, 420px)); justify-content: center; }
+.sc-price-card {
+  display: flex; flex-direction: column;
+  padding: 30px 28px; border-radius: 24px;
+  background: var(--sc-glass); border: 1px solid var(--sc-glass-border);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07) inset, 0 24px 50px -28px rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+}
+.sc-price-card:hover { transform: translateY(-5px); border-color: rgba(255, 173, 0, 0.35); }
+.sc-price-card--option { background: transparent; border: 1px dashed rgba(255, 250, 240, 0.22); box-shadow: none; }
+.sc-price-name {
+  font-family: 'Neuething', sans-serif; font-weight: 700; text-transform: uppercase;
+  font-size: 14px; letter-spacing: 0.08em; color: var(--rf-amber); margin: 0 0 14px;
+}
+.sc-price-amount {
+  display: flex; align-items: baseline; gap: 7px; margin: 0;
+  font-family: 'Futura Condensed', sans-serif; font-weight: 800;
+  font-size: clamp(42px, 3.8vw, 56px); letter-spacing: -0.03em; line-height: 1; color: var(--rf-cream);
+}
+.sc-price-amount span { font-family: 'Neuething', sans-serif; font-weight: 400; font-size: 14px; color: var(--sc-cream-55); letter-spacing: -0.02em; }
+.sc-price-desc { font-size: 15px; line-height: 1.5; letter-spacing: -0.03em; color: var(--sc-cream-72); margin: 12px 0 20px; }
+.sc-price-features { list-style: none; margin: 0 0 26px; padding: 18px 0 0; border-top: 1px solid var(--sc-line); display: grid; gap: 11px; }
+.sc-price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; letter-spacing: -0.02em; color: var(--sc-cream-72); }
+.sc-price-features svg { flex: 0 0 auto; margin-top: 2px; color: var(--rf-amber); }
+.sc-price-card .sc-btn, .sc-price-card .sc-btn-ghost { margin-top: auto; width: 100%; }
+.sc-pricing-note { margin: 26px 0 0; font-size: 13px; letter-spacing: -0.02em; color: var(--sc-cream-55); text-align: center; }
+
+/* ============================================================
+   INFOS PRATIQUES (yard 50)
+   ============================================================ */
+.sc-infos-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 22px; margin-top: clamp(36px, 4vw, 56px); }
+.sc-panel {
+  padding: 30px 28px; border-radius: 24px;
+  background: var(--sc-glass); border: 1px solid var(--sc-glass-border);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07) inset, 0 24px 50px -28px rgba(0, 0, 0, 0.7);
+}
+.sc-panel-title {
+  font-family: 'Futura Condensed', sans-serif; font-weight: 800; text-transform: uppercase;
+  font-size: clamp(24px, 2.2vw, 32px); letter-spacing: -0.03em; margin: 0 0 18px; color: var(--rf-cream);
+}
+.sc-contact-rows { display: grid; gap: 4px; }
+.sc-contact-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 2px; border-top: 1px solid var(--sc-line);
+  font-size: 15px; letter-spacing: -0.02em; color: var(--sc-cream-72); text-decoration: none;
+}
+.sc-contact-row svg { color: var(--rf-amber); flex: 0 0 auto; }
+a.sc-contact-row { transition: color 0.2s ease; }
+a.sc-contact-row:hover { color: var(--rf-cream); }
+.sc-horaires { display: grid; }
+.sc-horaire {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 18px;
+  padding: 14px 2px; border-top: 1px solid var(--sc-line);
+}
+.sc-horaire-cat { font-weight: 700; font-size: 15px; letter-spacing: -0.02em; color: var(--rf-cream); }
+.sc-horaire-time { font-size: 14px; letter-spacing: -0.01em; color: var(--rf-amber); white-space: nowrap; }
+
+/* ============================================================
+   EN-BUT — CTA final
+   ============================================================ */
+.sc-endzone { overflow: hidden; text-align: center; }
+.sc-endzone::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: url('/lppionnier/assets/refonte/fond-hero.webp') center / cover no-repeat;
+  opacity: 0.5;
+}
+.sc-endzone::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 70% 55% at 50% 105%, rgba(245, 160, 0, 0.2), transparent 70%);
+}
+.sc-endzone .sc-wrap { position: relative; z-index: 1; }
+.sc-endzone .sc-title { font-size: clamp(40px, 6vw, 88px); letter-spacing: -0.05em; }
+.sc-endzone .sc-lead { margin: 18px auto 0; }
+.sc-endzone .rf-cta { margin-top: 34px; }
+.sc-endzone .rf-note { margin-top: 14px; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.sc-footer { background: #0c0405; border-top: 1px solid var(--sc-line); padding: clamp(52px, 6vw, 80px) 24px 34px; }
+.sc-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: clamp(36px, 5vw, 70px); align-items: start; }
+.sc-footer-logo { height: 46px; width: auto; display: block; }
+.sc-footer-tagline { font-size: 14px; line-height: 1.6; letter-spacing: -0.02em; color: var(--sc-cream-55); margin: 16px 0 22px; max-width: 320px; }
+.sc-footer-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+.sc-footer-badges img { height: 40px; width: auto; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45)); }
+.sc-footer-h {
+  font-family: 'Futura Condensed', sans-serif; font-weight: 800; text-transform: uppercase;
+  font-size: 19px; letter-spacing: 0.02em; color: var(--rf-cream); margin: 4px 0 16px;
+}
+.sc-footer-links { display: grid; gap: 10px; }
+.sc-footer-links a { font-size: 14px; letter-spacing: -0.02em; color: var(--sc-cream-72); text-decoration: none; transition: color 0.2s ease; }
+.sc-footer-links a:hover { color: var(--rf-amber); }
+.sc-footer-bottom {
+  max-width: 1200px; margin: clamp(40px, 5vw, 60px) auto 0; padding-top: 22px;
+  border-top: 1px solid var(--sc-line);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+  font-size: 13px; letter-spacing: -0.02em; color: var(--sc-cream-38);
+}
+.sc-footer-bottom strong { color: var(--sc-cream-55); font-weight: 700; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1020px) {
+  .sc-cards { grid-template-columns: 1fr 1fr; }
+  .sc-prices { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .sc-club-grid { grid-template-columns: 1fr; }
+  .sc-poster { order: -1; }
+  .sc-poster img { width: min(100%, 320px); }
+  .sc-ppp-panel { grid-template-columns: 1fr; }
+  .sc-ppp-poster { max-width: 320px; margin: 0 auto; }
+  .sc-infos-grid { grid-template-columns: 1fr; }
+  .sc-footer-grid { grid-template-columns: 1fr; gap: 34px; }
+}
+@media (max-width: 640px) {
+  .sc-cards, .sc-prices, .sc-prices--two { grid-template-columns: 1fr; }
+  .sc-repere-label { flex-basis: 92px; font-size: 19px; }
+  .sc-horaire { flex-direction: column; gap: 4px; }
+  .sc-pricing-head { align-items: flex-start; }
+}

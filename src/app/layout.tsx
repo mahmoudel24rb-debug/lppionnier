@@ -1,19 +1,16 @@
 import type { Metadata } from 'next';
 import React from 'react';
 
-// Styles du template Framer (reset + styles globaux), puis correctifs, puis
-// recolorisation Pionniers. L'ordre compte : framer.css en premier.
-import '@/components/template/framer.css';
-import '@/components/template/overrides.css';
-import '@/components/template/pionniers.css';
+// Charte refonte (header + hero + tokens), puis styles des sections.
+// L'ordre compte : refonte.css définit les variables utilisées par sections.css.
 import '@/components/template/refonte.css';
+import '@/components/sections/sections.css';
 
-import MobileNav from '@/components/template/MobileNav';
-import PricingToggle from '@/components/template/PricingToggle';
 import TunnelLauncher from '@/components/template/TunnelLauncher';
+import RevealObserver from '@/components/sections/RevealObserver';
 
 export const metadata: Metadata = {
-  title: 'Pionniers de Touraine — Football Américain & Flag | Nous rejoindre',
+  title: 'Pionniers de Touraine · Football Américain & Flag | Nous rejoindre',
   description:
     "Rejoins les Pionniers de Touraine : football américain, flag football, coaching, arbitrage et plus. Trouve ta place et engage-toi.",
 };
@@ -27,10 +24,9 @@ export default function RootLayout({
     <html lang="fr">
       <body>
         {children}
-        {/* îlots client : menu burger mobile + bascule des onglets tarifs */}
-        <MobileNav />
-        <PricingToggle />
+        {/* îlots client : tunnel immersif + apparitions au scroll */}
         <TunnelLauncher />
+        <RevealObserver />
       </body>
     </html>
   );

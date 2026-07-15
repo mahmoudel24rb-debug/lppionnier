@@ -1,0 +1,39 @@
+import YardLine from './YardLine';
+import { asset } from '@/lib/asset';
+
+export default function PPPSection() {
+  return (
+    <section className="sc-sec">
+      <YardLine n="30" />
+      <div className="sc-wrap">
+        <div className="sc-ppp-panel" data-reveal>
+          <figure className="sc-ppp-poster" style={{ margin: 0 }}>
+            <img
+              src={asset('/assets/refonte/affiche-ppp.jpg')}
+              alt="Affiche du Pionniers Programme Performance"
+              loading="lazy"
+            />
+          </figure>
+          <div className="sc-ppp-body">
+            <img
+              className="sc-ppp-logo"
+              src={asset('/assets/logo-ppp.png')}
+              alt="Logo PPP"
+              loading="lazy"
+            />
+            <p className="sc-eyebrow">Pionniers Programme Performance</p>
+            <h2 className="sc-title">La méthode maison pour viser plus haut.</h2>
+            <p className="sc-lead">
+              Préparation physique, technique, tactique et mentale : le PPP structure la
+              progression de chaque athlète, à chaque entraînement. Débutant motivé ou joueur
+              confirmé, tu progresses dans un cadre exigeant et accessible.
+            </p>
+            <button type="button" className="sc-btn" data-open-tunnel>
+              Rejoindre le programme
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

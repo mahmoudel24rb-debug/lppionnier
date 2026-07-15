@@ -47,7 +47,7 @@ const FA_DECOUVRIR: Node = {
       id: 'fa-dec-jeunes', label: 'Jeunes', icon: 'jeunes',
       desc: 'Une semaine pour découvrir le football américain dans un cadre adapté à votre âge.',
       offers: [{
-        id: 'fa-dec-jeunes-o', titre: 'Semaine découverte — Jeunes',
+        id: 'fa-dec-jeunes-o', titre: 'Semaine découverte · Jeunes',
         punchline: 'Une semaine pour découvrir le football américain.',
         paragraphs: [
           "Votre enfant souhaite essayer un sport collectif différent ? Grâce à notre semaine découverte offerte, il pourra participer aux entraînements de sa catégorie, découvrir les fondamentaux du football américain et vivre une première expérience au sein du club.",
@@ -61,7 +61,7 @@ const FA_DECOUVRIR: Node = {
       id: 'fa-dec-seniors', label: 'Seniors', icon: 'seniors',
       desc: "Une semaine pour vivre l'expérience du football américain au sein de notre équipe senior.",
       offers: [{
-        id: 'fa-dec-seniors-o', titre: 'Semaine découverte — Seniors',
+        id: 'fa-dec-seniors-o', titre: 'Semaine découverte · Seniors',
         punchline: 'Une semaine pour découvrir un sport de contact unique.',
         paragraphs: [
           "Participez aux entraînements de notre section senior pendant une semaine et découvrez le football américain dans des conditions réelles de pratique.",
@@ -84,7 +84,7 @@ const FA_REJOINDRE: Node = {
       id: 'fa-rej-jeunes', label: 'Jeunes', icon: 'jeunes',
       desc: "Grandir, apprendre et s'épanouir à travers le sport.",
       offers: [{
-        id: 'fa-rej-jeunes-o', titre: 'École de Football Américain — Jeunes',
+        id: 'fa-rej-jeunes-o', titre: 'École de Football Américain · Jeunes',
         punchline: 'Développez votre potentiel dans un environnement structuré et bienveillant.',
         paragraphs: [
           "Notre école de football américain accueille les jeunes souhaitant pratiquer une discipline complète qui développe confiance en soi, respect, esprit d'équipe et dépassement de soi.",
@@ -98,11 +98,11 @@ const FA_REJOINDRE: Node = {
       id: 'fa-rej-seniors', label: 'Seniors', icon: 'seniors',
       desc: "Un programme exigeant ouvert à tous ceux qui sont prêts à s'investir pleinement.",
       offers: [{
-        id: 'fa-rej-seniors-o', titre: 'Équipe Senior — Football Américain',
+        id: 'fa-rej-seniors-o', titre: 'Équipe Senior · Football Américain',
         punchline: 'Intégrez un programme conçu pour celles et ceux qui veulent progresser.',
         paragraphs: [
           "Au sein de notre section senior, nous accueillons aussi bien des débutants motivés que des joueurs expérimentés. Aucune expérience préalable n'est nécessaire. En revanche, nous demandons à chaque joueur un véritable engagement dans son parcours sportif.",
-          "Notre équipe évolue dans le cadre du PPP – Pionniers Programme Performance, un environnement structuré qui vise à accompagner chaque athlète dans sa progression physique, technique, tactique et mentale.",
+          "Notre équipe évolue dans le cadre du PPP (Pionniers Programme Performance), un environnement structuré qui vise à accompagner chaque athlète dans sa progression physique, technique, tactique et mentale.",
         ],
         sections: [
           sec('Ce que nous recherchons', 'Assiduité aux entraînements', 'Implication dans la vie du groupe', "Volonté d'apprendre et de progresser", 'Respect du cadre et des objectifs collectifs', 'Recherche constante de dépassement de soi'),
@@ -124,7 +124,7 @@ const FLAG_DECOUVRIR: Node = {
       id: 'flag-dec-jeunes', label: 'Jeunes', icon: 'jeunes',
       desc: 'Une semaine pour découvrir une discipline sans contact, ludique, rapide et accessible.',
       offers: [{
-        id: 'flag-dec-jeunes-o', titre: 'Semaine découverte — Jeunes',
+        id: 'flag-dec-jeunes-o', titre: 'Semaine découverte · Jeunes',
         punchline: 'Une semaine pour essayer le Flag Football.',
         paragraphs: ["Grâce à notre semaine découverte offerte, votre enfant participe aux entraînements de sa catégorie et découvre un sport collectif basé sur l'évitement, la vitesse et la coopération."],
         sections: [sec('Au programme', 'Participation aux entraînements jeunes', 'Découverte des règles du Flag Football', "Encadrement adapté à l'âge", 'Immersion dans la vie du club')],
@@ -135,7 +135,7 @@ const FLAG_DECOUVRIR: Node = {
       id: 'flag-dec-seniors', label: 'Seniors', icon: 'seniors',
       desc: 'Une semaine pour découvrir un sport sans contact, rapide, stratégique et accessible.',
       offers: [{
-        id: 'flag-dec-seniors-o', titre: 'Semaine découverte — Seniors',
+        id: 'flag-dec-seniors-o', titre: 'Semaine découverte · Seniors',
         punchline: 'Essayez le Flag Football dans des conditions réelles de pratique.',
         paragraphs: [
           "Participez aux entraînements de notre section Flag Football et découvrez une discipline moderne qui allie vitesse, lecture du jeu et esprit collectif.",
@@ -157,7 +157,7 @@ const FLAG_REJOINDRE: Node = {
       id: 'flag-rej-jeunes', label: 'Jeunes', icon: 'jeunes',
       desc: 'Développez vos qualités physiques et collectives dans une discipline sans contact, moderne et accessible.',
       offers: [{
-        id: 'flag-rej-jeunes-o', titre: 'Section Jeune — Flag Football',
+        id: 'flag-rej-jeunes-o', titre: 'Section Jeune · Flag Football',
         punchline: 'Rejoignez notre section jeune Flag Football.',
         paragraphs: ["Votre enfant évoluera dans un environnement favorisant la progression, le plaisir de jouer et l'apprentissage des valeurs du sport collectif."],
         sections: [sec('Ce que nous proposons', 'Encadrement adapté', 'Développement des qualités athlétiques', 'Apprentissage du jeu collectif', 'Participation aux rencontres et compétitions')],
@@ -168,7 +168,7 @@ const FLAG_REJOINDRE: Node = {
       id: 'flag-rej-seniors', label: 'Seniors', icon: 'seniors',
       desc: 'Rejoignez une discipline en plein développement ouverte à tous les profils.',
       offers: [{
-        id: 'flag-rej-seniors-o', titre: 'Équipe Senior — Flag Football',
+        id: 'flag-rej-seniors-o', titre: 'Équipe Senior · Flag Football',
         punchline: 'Intégrez notre équipe Flag Football.',
         paragraphs: ["Que vous soyez débutant ou sportif confirmé, le Flag Football offre une pratique accessible, dynamique et stratégique où chacun peut trouver sa place."],
         sections: [sec('Ce que nous proposons', 'Entraînements réguliers', 'Encadrement structuré', 'Développement technique et tactique', 'Participation aux compétitions', 'Ambiance conviviale et ambitieuse')],
@@ -491,7 +491,7 @@ export const TUNNEL: Node = {
   question: 'Quelle aventure vous attire ?',
   children: [
     {
-      id: 'jouer', label: 'Je veux jouer', icon: 'jouer',
+      id: 'jouer', label: 'Je veux performer', icon: 'jouer',
       desc: "Découvrez la discipline qui vous correspond et rejoignez l'aventure sur le terrain.",
       question: 'Quelle pratique vous attire ?',
       children: [
@@ -566,7 +566,7 @@ export const SPONTANE: Offer = {
   punchline: 'Vous ne savez pas encore où vous investir ? Proposez-nous votre aide.',
   paragraphs: [
     "Dites-nous ce que vous aimez faire, vos compétences et vos disponibilités : on vous orientera vers la mission qui vous correspond le mieux.",
-    "Aucune mission précise en tête n'est nécessaire — votre motivation suffit.",
+    "Aucune mission précise en tête n'est nécessaire : votre motivation suffit.",
   ],
   tag: 'Bénévolat',
 };

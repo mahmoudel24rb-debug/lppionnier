@@ -111,7 +111,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
               {
                 left: p.left, top: p.top, width: p.size, height: p.size,
                 '--p-dur': p.dur, '--p-delay': p.delay, '--p-x': p.x, '--p-y': p.y,
-                '--p-color': p.amber ? 'rgba(245,163,0,0.55)' : 'rgba(110,32,27,0.7)',
+                '--p-color': p.amber ? 'rgba(255,173,0,0.55)' : 'rgba(110,32,27,0.7)',
                 animationDelay: p.delay,
               } as React.CSSProperties
             }
@@ -303,7 +303,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
               <FaCheck size={36} />
             </span>
             <p style={{ maxWidth: 420, margin: '20px auto 0', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}>
-              Merci pour ton engagement{detail ? <> sur <strong style={{ color: '#f5a300' }}>{detail.titre}</strong></> : ''}. Le staff des Pionniers te recontacte très vite.
+              Merci pour ton engagement{detail ? <> sur <strong style={{ color: '#ffad00' }}>{detail.titre}</strong></> : ''}. Le staff des Pionniers te recontacte très vite.
             </p>
             <button className="imt-btn imt-btn-amber" style={{ width: 'auto', padding: '13px 28px', marginTop: 22 }} onClick={onClose}>
               Fermer
