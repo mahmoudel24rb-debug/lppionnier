@@ -8,7 +8,7 @@
  * Code du site GoatCounter (ex. 'lppionnier') · vide = tracking désactivé ·
  * créer le compte sur goatcounter.com puis renseigner ici ET dans layout.tsx.
  */
-export const GC_SITE: string = '';
+export const GC_SITE: string = 'pionniers';
 
 type GoatCounterCount = (vars: { path: string; title?: string; event?: boolean }) => void;
 

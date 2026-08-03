@@ -19,14 +19,34 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
+    src: '/assets/slideshow/slide-win-g7.jpg',
+    alt: 'Affiche de la victoire 47 à 07 des Pionniers contre les Ankou en football américain',
+    legende: 'Foot US : victoire 47 à 07 contre les Ankou · D3 poule CVL',
+  },
+  {
+    src: '/assets/slideshow/slide-match-footus.jpg',
+    alt: 'Ligne de scrimmage des Pionniers de Touraine pendant un match de football américain',
+    legende: 'L’équipe senior foot US en match · © Hugo Faury',
+  },
+  {
     src: '/assets/slideshow/affiche-flag.jpg',
     alt: "Affiche du club : l'équipe de flag mixte qualifiée en demi-finales de la Conférence Nord",
     legende: 'Flag mixte : qualifiés en demi-finales · Conférence Nord',
   },
   {
-    src: '/assets/slideshow/affiche-ppp.jpg',
-    alt: 'Affiche du Pionniers Programme Performance : préparation physique, technique, tactique et mentale',
-    legende: 'PPP : le Pionniers Programme Performance',
+    src: '/assets/slideshow/slide-flag-quarts.jpg',
+    alt: 'Équipe de flag mixte des Pionniers lors de la journée 1 des quarts de finale de la phase nationale',
+    legende: 'Flag mixte : quarts de finale · phase nationale',
+  },
+  {
+    src: '/assets/slideshow/slide-ecole-flag.jpg',
+    alt: 'Deux jeunes joueuses de l’école de flag des Pionniers en plein duel à l’entraînement',
+    legende: 'L’école de flag : la relève en action',
+  },
+  {
+    src: '/assets/slideshow/slide-flag-seniors.jpg',
+    alt: 'Joueurs de flag seniors des Pionniers de Touraine en tournoi',
+    legende: 'Le flag seniors en tournoi',
   },
 ];
 
