@@ -1,5 +1,6 @@
 import YardLine from './YardLine';
 import { asset } from '@/lib/asset';
+import PPPVideo from './PPPVideo';
 
 export default function PPPSection() {
   return (
@@ -8,11 +9,7 @@ export default function PPPSection() {
       <div className="sc-wrap">
         <div className="sc-ppp-panel" data-reveal>
           <figure className="sc-ppp-poster" style={{ margin: 0 }}>
-            <img
-              src={asset('/assets/refonte/affiche-ppp.jpg')}
-              alt="Affiche du Pionniers Programme Performance"
-              loading="lazy"
-            />
+            <PPPVideo />
           </figure>
           <div className="sc-ppp-body">
             <img
