@@ -51,8 +51,9 @@ export default function SiteFooter() {
         <div>
           <h3 className="sc-footer-h">Contact</h3>
           <div className="sc-footer-links">
-            <a href="tel:0600000000">06 00 00 00 00</a>
-            <a href="mailto:contact@pionniers-touraine.fr">contact@pionniers-touraine.fr</a>
+            <a href="tel:+33787018026">07 87 01 80 26</a>
+            <a href="mailto:recrutement@pionniersdetouraine.fr">recrutement@pionniersdetouraine.fr</a>
+            <a href="#contact">Nous écrire</a>
             <span style={{ fontSize: 14, letterSpacing: '-0.02em', color: 'var(--sc-cream-55)' }}>
               Tours, Touraine (37)
             </span>

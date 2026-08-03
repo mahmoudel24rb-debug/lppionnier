@@ -7,6 +7,8 @@ type Badge = {
   alt: string;
   /** Logo très horizontal : hauteur réduite pour équilibrer la rangée. */
   wide?: boolean;
+  /** Écusson U18 : artwork compact dans son cadre → hauteur augmentée. */
+  u18?: boolean;
 };
 
 type Card = {
@@ -20,7 +22,7 @@ const CARDS: Card[] = [
   {
     badges: [
       { src: '/assets/refonte/badge-3-ppp.svg', alt: 'Écusson du Pionniers Programme Performance' },
-      { src: '/assets/refonte/badge-4-u18.svg', alt: 'Écusson de la catégorie U18' },
+      { src: '/assets/refonte/badge-4-u18.svg', alt: 'Écusson de la catégorie U18', u18: true },
     ],
     title: 'Football américain',
     chips: ['Au contact', 'Compétition', 'Seniors & U18'],
@@ -68,7 +70,7 @@ export default function DisciplinesSection() {
                 {c.badges.map((b) => (
                   <img
                     key={b.src}
-                    className={`sc-card-badge ${b.wide ? 'sc-card-badge--wide' : ''}`}
+                    className={`sc-card-badge ${b.wide ? 'sc-card-badge--wide' : ''} ${b.u18 ? 'sc-card-badge--u18' : ''}`}
                     src={asset(b.src)}
                     alt={b.alt}
                     loading="lazy"

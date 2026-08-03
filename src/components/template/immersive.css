@@ -93,10 +93,10 @@
 }
 .imt-sub {
   margin: 12px 0 0;
-  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 0.16em;
+  font-family: 'Neuething', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--rf-amber, #ffad00);
 }
@@ -220,9 +220,9 @@
 }
 
 /* ---------------- OFFRES (terminal) ---------------- */
-.imt-offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 320px)); gap: 18px; justify-content: center; width: 100%; max-width: 1100px; }
+.imt-offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 320px)); gap: 24px; justify-content: center; width: 100%; max-width: 1100px; }
 .imt-offer {
-  text-align: left; padding: 24px; border-radius: 24px;
+  text-align: left; padding: 30px; border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.06);
   background: linear-gradient(180deg, rgba(128, 53, 58, 0.22) 0%, rgba(90, 34, 38, 0.3) 100%);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 20px 44px -26px rgba(0, 0, 0, 0.65);
@@ -232,14 +232,14 @@
 .imt-offer-title {
   font-family: 'Futura Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em;
-  font-size: 22px; line-height: 1.08; margin: 0 0 10px;
+  font-size: 22px; line-height: 1.12; margin: 0 0 12px;
 }
 .imt-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
 .imt-tag {
-  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif;
-  font-size: 13px; padding: 4px 11px; border-radius: 999px;
+  font-family: 'Neuething', sans-serif;
+  font-size: 11px; padding: 4px 11px; border-radius: 999px;
   background: rgba(255, 173, 0, 0.12); border: 1px solid rgba(255, 173, 0, 0.25);
-  color: var(--rf-amber, #ffad00); font-weight: 800;
+  color: var(--rf-amber, #ffad00); font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.35;
 }
 .imt-btn {
@@ -286,8 +286,8 @@
 .imt-field { display: flex; flex-direction: column; gap: 5px; }
 .imt-field.full { grid-column: 1 / -1; }
 .imt-field label {
-  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif;
-  font-size: 13px; font-weight: 800; letter-spacing: 0.08em;
+  font-family: 'Neuething', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
   text-transform: uppercase; color: rgba(255, 250, 240, 0.55);
 }
 .imt-field input, .imt-field textarea {
@@ -327,7 +327,7 @@
 
 /* ---------------- Offre (carte cliquable) ---------------- */
 .imt-offer { display: flex; flex-direction: column; align-items: flex-start; cursor: pointer; color: var(--rf-cream, #fffaf0); font-family: inherit; letter-spacing: -0.02em; }
-.imt-offer-sub { font-size: 13px; color: rgba(255, 250, 240, 0.6); margin: 6px 0 0; line-height: 1.5; }
+.imt-offer-sub { font-size: 13px; color: rgba(255, 250, 240, 0.6); margin: 8px 0 0; line-height: 1.55; }
 
 /* ---------------- Fiche détaillée (scrollable) ---------------- */
 .imt-scroll { align-items: flex-start; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding-top: 8px; padding-bottom: 28px; }
@@ -336,7 +336,7 @@
 .imt-detail { width: 100%; max-width: 720px; margin: 0 auto; text-align: left; padding-bottom: 24px; }
 /* En-tête de fiche : pastille icône + tag */
 .imt-detail-head { display: flex; align-items: center; gap: 10px; }
-.imt-tag-lg { display: inline-block; font-size: 14px; padding: 6px 14px; letter-spacing: 0.05em; }
+.imt-tag-lg { display: inline-block; font-size: 12px; padding: 6px 14px; letter-spacing: 0.02em; }
 .imt-detail-title {
   font-family: 'Futura Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800; text-transform: uppercase; letter-spacing: -0.03em;
@@ -387,7 +387,7 @@
 /* ---------------- JOB BOARD (toutes les offres) ---------------- */
 .imt-board {
   width: 100%; max-width: 1100px; margin: 0 auto;
-  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 24px;
 }
 .imt-board-tools { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; width: 100%; }
 /* Champ de recherche en pilule */
@@ -410,9 +410,9 @@
 /* Filtres par catégorie */
 .imt-filters { display: flex; align-items: center; gap: 8px; }
 .imt-pill {
-  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; font-size: 14px;
-  padding: 9px 18px; border-radius: 999px; cursor: pointer;
+  font-family: 'Neuething', sans-serif;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; font-size: 13px;
+  padding: 10px 20px; border-radius: 999px; cursor: pointer;
   background: transparent; border: 1px solid rgba(255, 250, 240, 0.18);
   color: rgba(255, 250, 240, 0.65);
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
@@ -427,12 +427,12 @@
     0 8px 18px -8px rgba(245, 160, 0, 0.5);
 }
 .imt-board-count {
-  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; font-size: 13px;
+  font-family: 'Neuething', sans-serif;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 11px;
   color: rgba(255, 250, 240, 0.45); margin: 0;
 }
 /* En-tête de carte offre : pastille icône + tag */
-.imt-offer-head { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+.imt-offer-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
 .imt-offer-icon {
   display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto;
   width: 32px; height: 32px; border-radius: 50%;

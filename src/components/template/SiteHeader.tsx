@@ -13,7 +13,7 @@ const LINKS = [
   { href: '#infos', label: 'Infos pratiques' },
 ];
 
-const PHONE = '06 07 08 09 10';
+const PHONE = '07 87 01 80 26';
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);

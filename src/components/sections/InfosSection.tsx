@@ -1,5 +1,6 @@
 import YardLine from './YardLine';
 import StadeMap from './StadeMap';
+import ContactForm from './ContactForm';
 
 const HORAIRES = [
   { cat: 'Seniors · Foot US compétition', heures: 'Lun & Jeu · 20h30 à 22h30' },
@@ -30,6 +31,9 @@ export default function InfosSection() {
               ))}
             </div>
           </div>
+        </div>
+        <div className="sc-contact-block" data-reveal>
+          <ContactForm />
         </div>
       </div>
     </section>
