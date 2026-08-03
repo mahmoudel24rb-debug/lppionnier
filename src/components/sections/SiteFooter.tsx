@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { asset } from '@/lib/asset';
 
 const NAV = [
@@ -5,7 +6,7 @@ const NAV = [
   { href: '#club', label: 'Le club' },
   { href: '#sections', label: 'Nos sections' },
   { href: '#adhesions', label: 'Adhésions' },
-  { href: '#rejoindre', label: 'Nous rejoindre' },
+  { href: '#infos', label: 'Infos pratiques' },
 ];
 
 const BADGES = [
@@ -59,10 +60,8 @@ export default function SiteFooter() {
         </div>
       </div>
       <div className="sc-footer-bottom">
-        <span>© Pionniers de Touraine · Tous droits réservés.</span>
-        <span>
-          Réalisé par <strong>DGL Agency</strong>
-        </span>
+        <span>© {new Date().getFullYear()} Pionniers de Touraine · Tous droits réservés.</span>
+        <Link href="/mentions-legales/">Mentions légales</Link>
       </div>
     </footer>
   );

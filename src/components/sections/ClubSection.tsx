@@ -1,5 +1,5 @@
 import YardLine from './YardLine';
-import { asset } from '@/lib/asset';
+import ClubSlideshow from './ClubSlideshow';
 
 const REPERES = [
   { label: '1987', txt: 'Fondation du club à Tours : le football américain arrive en Touraine.' },
@@ -34,14 +34,9 @@ export default function ClubSection() {
             ))}
           </ul>
         </div>
-        <figure className="sc-poster" data-reveal>
-          <img
-            src={asset('/assets/refonte/affiche-flag.jpg')}
-            alt="Affiche du club : équipe flag mixte qualifiée en demi-finales de conférence"
-            loading="lazy"
-          />
-          <figcaption>Flag mixte : qualifiés en demi-finales · Conférence Nord</figcaption>
-        </figure>
+        <div className="sc-club-media" data-reveal>
+          <ClubSlideshow />
+        </div>
       </div>
     </section>
   );

@@ -11,6 +11,9 @@
 
 export type OfferSection = { heading: string; items: string[] };
 
+/** Famille d'offre utilisée par les filtres du job board. */
+export type OfferCategory = 'sportif' | 'associatif';
+
 export type Offer = {
   id: string;
   titre: string;
@@ -19,7 +22,14 @@ export type Offer = {
   sections?: OfferSection[];
   quote?: string;
   tag: string;
+  /** Override : sinon déduite de la branche racine du tunnel. */
+  categorie?: OfferCategory;
+  /** Override : sinon héritée du nœud feuille qui porte l'offre. */
+  icon?: string;
 };
+
+/** Offre dont la catégorie et l'icône sont résolues (héritage appliqué). */
+export type ResolvedOffer = Offer & { categorie: OfferCategory; icon: string };
 
 export type Node = {
   id: string;
@@ -54,7 +64,7 @@ const FA_DECOUVRIR: Node = {
           "Aucune expérience préalable n'est nécessaire.",
         ],
         sections: [sec('Au programme', "Participation aux entraînements de la section jeune", 'Découverte des bases du jeu', 'Encadrement par nos éducateurs', 'Immersion dans la vie du club')],
-        tag: 'Semaine découverte offerte',
+        tag: 'Semaine découverte offerte', icon: 'foot-us',
       }],
     },
     {
@@ -69,7 +79,7 @@ const FA_DECOUVRIR: Node = {
           "Aucune expérience préalable n'est nécessaire.",
         ],
         sections: [sec('Au programme', 'Participation aux entraînements seniors', 'Découverte des fondamentaux du jeu', 'Rencontre avec les coachs et les joueurs', "Immersion dans la vie de l'équipe")],
-        tag: 'Semaine découverte offerte',
+        tag: 'Semaine découverte offerte', icon: 'foot-us',
       }],
     },
   ],
@@ -91,7 +101,7 @@ const FA_REJOINDRE: Node = {
           "Chaque joueur progresse à son rythme au sein d'un groupe adapté à son âge et encadré par des éducateurs investis dans son développement sportif et humain.",
         ],
         sections: [sec('Ce que nous proposons', 'Encadrement adapté à chaque catégorie', 'Apprentissage progressif du jeu', 'Développement physique et technique', 'Valeurs éducatives fortes', 'Participation aux rencontres et compétitions')],
-        tag: 'Licence annuelle Jeune',
+        tag: 'Licence annuelle Jeune', icon: 'foot-us',
       }],
     },
     {
@@ -109,7 +119,7 @@ const FA_REJOINDRE: Node = {
           sec('Ce que nous proposons', 'Un accompagnement structuré', 'Un suivi de progression', 'Un encadrement engagé', 'Une culture de performance accessible à tous', 'Une équipe ambitieuse et solidaire'),
         ],
         quote: "Le talent peut s'acquérir. L'engagement est un choix.",
-        tag: 'Licence annuelle Senior',
+        tag: 'Licence annuelle Senior', icon: 'foot-us',
       }],
     },
   ],
@@ -128,7 +138,7 @@ const FLAG_DECOUVRIR: Node = {
         punchline: 'Une semaine pour essayer le Flag Football.',
         paragraphs: ["Grâce à notre semaine découverte offerte, votre enfant participe aux entraînements de sa catégorie et découvre un sport collectif basé sur l'évitement, la vitesse et la coopération."],
         sections: [sec('Au programme', 'Participation aux entraînements jeunes', 'Découverte des règles du Flag Football', "Encadrement adapté à l'âge", 'Immersion dans la vie du club')],
-        tag: 'Semaine découverte offerte',
+        tag: 'Semaine découverte offerte', icon: 'flag',
       }],
     },
     {
@@ -142,7 +152,7 @@ const FLAG_DECOUVRIR: Node = {
           'Accessible aux débutants comme aux sportifs confirmés.',
         ],
         sections: [sec('Au programme', 'Participation aux entraînements seniors', 'Découverte des fondamentaux', 'Rencontre avec les joueurs et les coachs', "Immersion dans l'équipe")],
-        tag: 'Semaine découverte offerte',
+        tag: 'Semaine découverte offerte', icon: 'flag',
       }],
     },
   ],
@@ -161,7 +171,7 @@ const FLAG_REJOINDRE: Node = {
         punchline: 'Rejoignez notre section jeune Flag Football.',
         paragraphs: ["Votre enfant évoluera dans un environnement favorisant la progression, le plaisir de jouer et l'apprentissage des valeurs du sport collectif."],
         sections: [sec('Ce que nous proposons', 'Encadrement adapté', 'Développement des qualités athlétiques', 'Apprentissage du jeu collectif', 'Participation aux rencontres et compétitions')],
-        tag: 'Licence annuelle Jeune',
+        tag: 'Licence annuelle Jeune', icon: 'flag',
       }],
     },
     {
@@ -172,7 +182,7 @@ const FLAG_REJOINDRE: Node = {
         punchline: 'Intégrez notre équipe Flag Football.',
         paragraphs: ["Que vous soyez débutant ou sportif confirmé, le Flag Football offre une pratique accessible, dynamique et stratégique où chacun peut trouver sa place."],
         sections: [sec('Ce que nous proposons', 'Entraînements réguliers', 'Encadrement structuré', 'Développement technique et tactique', 'Participation aux compétitions', 'Ambiance conviviale et ambitieuse')],
-        tag: 'Licence annuelle Senior',
+        tag: 'Licence annuelle Senior', icon: 'flag',
       }],
     },
   ],
@@ -241,7 +251,7 @@ const COACH: Offer = {
     sec('Ce que nous proposons', 'Un accompagnement et une formation progressive', "L'intégration dans un staff structuré", 'Une expérience enrichissante dans l'+"'encadrement sportif"),
   ],
   quote: 'Un bon coach ne transmet pas seulement une technique, il fait grandir des personnes.',
-  tag: 'Bénévolat',
+  tag: 'Bénévolat', categorie: 'sportif',
 };
 
 const ASSISTANT_COACH: Offer = {
@@ -256,7 +266,7 @@ const ASSISTANT_COACH: Offer = {
     sec('Profil recherché', "Intérêt pour l'analyse sportive", "Sens de l'observation", 'Rigueur et organisation'),
   ],
   quote: 'Derrière chaque équipe performante, il y a un staff qui prépare, analyse et accompagne.',
-  tag: 'Bénévolat',
+  tag: 'Bénévolat', categorie: 'sportif',
 };
 
 const PREPA_PHYSIQUE: Offer = {
@@ -271,7 +281,7 @@ const PREPA_PHYSIQUE: Offer = {
     sec('Profil recherché', 'Formation ou expérience en préparation physique appréciée', 'Intérêt pour la performance sportive', 'Connaissance du développement athlétique'),
   ],
   quote: "Faire progresser un athlète, c'est construire les capacités qui lui permettront de repousser ses limites.",
-  tag: 'Bénévolat',
+  tag: 'Bénévolat', categorie: 'sportif',
 };
 
 const ARBITRE: Offer = {
@@ -287,7 +297,7 @@ const ARBITRE: Offer = {
     sec('Ce que nous proposons', "Un accompagnement et une formation à l'arbitrage", "Une montée en compétence progressive", 'Des primes de match selon les missions réalisées'),
   ],
   quote: "L'arbitre ne regarde pas le jeu. Il permet au jeu d'exister.",
-  tag: 'Indemnités de match',
+  tag: 'Indemnités de match', categorie: 'sportif',
 };
 
 const GRAPHISTE: Offer = {
@@ -568,12 +578,61 @@ export const SPONTANE: Offer = {
     "Dites-nous ce que vous aimez faire, vos compétences et vos disponibilités : on vous orientera vers la mission qui vous correspond le mieux.",
     "Aucune mission précise en tête n'est nécessaire : votre motivation suffit.",
   ],
-  tag: 'Bénévolat',
+  tag: 'Bénévolat', categorie: 'associatif', icon: 'investir',
 };
 
-/** Toutes les offres du tunnel, dédoublonnées par id (affichage final). */
-export function getAllOffers(node: Node = TUNNEL, acc: Offer[] = [], seen = new Set<string>()): Offer[] {
-  if (node.offers) for (const o of node.offers) if (!seen.has(o.id)) { seen.add(o.id); acc.push(o); }
-  if (node.children) for (const c of node.children) getAllOffers(c, acc, seen);
+// ─────────────────────────────────────────────────────────────
+// RÉSOLUTION DES OFFRES (catégorie + icône héritées de l'arbre)
+// ─────────────────────────────────────────────────────────────
+const FALLBACK_CATEGORY: OfferCategory = 'associatif';
+const FALLBACK_ICON = 'investir';
+
+/** Catégorie portée par une branche racine : seul « Je veux performer » est sportif. */
+const branchCategory = (n: Node): OfferCategory => (n.id === 'jouer' ? 'sportif' : FALLBACK_CATEGORY);
+
+/**
+ * Traversée récursive interne : `branchCat` descend depuis la branche racine,
+ * `node.icon` est l'icône du nœud feuille qui porte les offres.
+ */
+function collectOffers(node: Node, branchCat: OfferCategory, acc: ResolvedOffer[], seen: Set<string>): void {
+  if (node.offers) {
+    for (const o of node.offers) {
+      if (seen.has(o.id)) continue;
+      seen.add(o.id);
+      acc.push({ ...o, categorie: o.categorie ?? branchCat, icon: o.icon ?? node.icon });
+    }
+  }
+  if (node.children) for (const c of node.children) collectOffers(c, branchCat, acc, seen);
+}
+
+/** Toutes les offres du tunnel, dédoublonnées par id, catégorie et icône résolues. */
+export function getAllOffers(node: Node = TUNNEL): ResolvedOffer[] {
+  const acc: ResolvedOffer[] = [];
+  const seen = new Set<string>();
+  if (node.children && node.id === TUNNEL.id) {
+    // Depuis la racine : chaque enfant direct définit la catégorie de sa branche.
+    for (const c of node.children) collectOffers(c, branchCategory(c), acc, seen);
+    return acc;
+  }
+  collectOffers(node, branchCategory(node), acc, seen);
   return acc;
+}
+
+/** Index id → offre résolue (arbre + candidature spontanée). */
+const OFFER_INDEX: Map<string, ResolvedOffer> = (() => {
+  const m = new Map<string, ResolvedOffer>();
+  for (const o of getAllOffers()) m.set(o.id, o);
+  m.set(SPONTANE.id, {
+    ...SPONTANE,
+    categorie: SPONTANE.categorie ?? FALLBACK_CATEGORY,
+    icon: SPONTANE.icon ?? FALLBACK_ICON,
+  });
+  return m;
+})();
+
+/** Résout une offre (héritage via l'index, sinon valeurs par défaut). */
+export function resolveOffer(o: Offer): ResolvedOffer {
+  const hit = OFFER_INDEX.get(o.id);
+  if (hit) return hit;
+  return { ...o, categorie: o.categorie ?? FALLBACK_CATEGORY, icon: o.icon ?? FALLBACK_ICON };
 }

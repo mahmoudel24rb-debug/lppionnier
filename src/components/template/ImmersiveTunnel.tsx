@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { FaArrowLeft, FaTimes, FaChevronLeft, FaChevronRight, FaCheck, FaPaperPlane } from 'react-icons/fa';
-import { TUNNEL, SPONTANE, getAllOffers, type Node, type Offer } from '@/data/funnel';
+import { TUNNEL, SPONTANE, resolveOffer, type Node, type Offer, type OfferCategory } from '@/data/funnel';
 import { getIcon } from '@/lib/funnelIcons';
 import { asset } from '@/lib/asset';
+import { track } from '@/lib/track';
+import AllOffersBoard from './AllOffersBoard';
 import './immersive.css';
 
 const PARTICLES = Array.from({ length: 22 }, (_, i) => {
@@ -28,6 +30,9 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
   const [formOpen, setFormOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [sent, setSent] = useState(false);
+  // État du job board remonté ici : conservé pendant un aller-retour fiche ↔ board.
+  const [boardQuery, setBoardQuery] = useState('');
+  const [boardCat, setBoardCat] = useState<'tous' | OfferCategory>('tous');
 
   const current = path[path.length - 1];
   const depth = path.length - 1;
@@ -53,7 +58,18 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
   });
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      // Échap dans un champ rempli : on vide le focus, on ne ferme pas le tunnel.
+      const el = document.activeElement;
+      if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
+        if (el.value !== '') {
+          el.blur();
+          return;
+        }
+      }
+      onClose();
+    };
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
     return () => {
@@ -62,13 +78,17 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
     };
   }, [onClose]);
 
+  // Mesure d'audience (anonyme : aucun texte saisi n'est envoyé).
+  useEffect(() => { track('tunnel-open'); }, []);
+  useEffect(() => { if (detail) track('offer-view', { id: detail.id }); }, [detail]);
+
   const select = (n: Node) => {
     setPath((p) => [...p, n]);
     if (n.offers && n.offers.length === 1) setDetail(n.offers[0]);
   };
 
   const spontaneous = () => setDetail(SPONTANE);
-  const openAll = () => { setDetail(null); setShowAll(true); };
+  const openAll = () => { setDetail(null); setShowAll(true); track('all-open'); };
 
   const back = () => {
     if (sent) return setSent(false);
@@ -98,6 +118,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
     : 'choices';
 
   const isSplit = view === 'choices' && current.children?.length === 2;
+  const DetailIcon = detail ? getIcon(resolveOffer(detail).icon) : null;
 
   return (
     <div className="imt-overlay" role="dialog" aria-modal="true">
@@ -212,14 +233,20 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
         <div className="imt-stage">
           <div className="imt-stage-col">
             <div className="imt-offers">
-              {current.offers.map((o) => (
-                <button key={o.id} className="imt-offer" onClick={() => setDetail(o)}>
-                  <span className="imt-tag">{o.tag}</span>
-                  <h3 className="imt-offer-title">{o.titre}</h3>
-                  {o.punchline && <p className="imt-offer-sub">{o.punchline}</p>}
-                  <span className="imt-card-cta" style={{ marginTop: 14 }}>Voir l&apos;offre <FaChevronRight size={11} /></span>
-                </button>
-              ))}
+              {current.offers.map((o) => {
+                const Icon = getIcon(resolveOffer(o).icon);
+                return (
+                  <button key={o.id} className="imt-offer" onClick={() => setDetail(o)}>
+                    <span className="imt-offer-head">
+                      <span className="imt-offer-icon"><Icon size={16} /></span>
+                      <span className="imt-tag">{o.tag}</span>
+                    </span>
+                    <h3 className="imt-offer-title">{o.titre}</h3>
+                    {o.punchline && <p className="imt-offer-sub">{o.punchline}</p>}
+                    <span className="imt-card-cta" style={{ marginTop: 14 }}>Voir l&apos;offre <FaChevronRight size={11} /></span>
+                  </button>
+                );
+              })}
             </div>
             <button className="imt-secondary" onClick={openAll}>Voir toutes les offres</button>
           </div>
@@ -228,43 +255,38 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
 
       {/* ÉTAPE — toutes les offres (affichage final) */}
       {view === 'all' && (
-        <div className="imt-stage imt-scroll">
-          <div className="imt-offers imt-offers-all">
-            {getAllOffers().map((o) => (
-              <button key={o.id} className="imt-offer" onClick={() => setDetail(o)}>
-                <span className="imt-tag">{o.tag}</span>
-                <h3 className="imt-offer-title">{o.titre}</h3>
-                {o.punchline && <p className="imt-offer-sub">{o.punchline}</p>}
-                <span className="imt-card-cta" style={{ marginTop: 14 }}>Voir l&apos;offre <FaChevronRight size={11} /></span>
-              </button>
-            ))}
-          </div>
-        </div>
+        <AllOffersBoard
+          query={boardQuery}
+          onQuery={setBoardQuery}
+          cat={boardCat}
+          onCat={setBoardCat}
+          onSelect={setDetail}
+        />
       )}
 
       {/* ÉTAPE — fiche détaillée */}
       {view === 'detail' && detail && (
         <div className="imt-stage imt-scroll">
           <article className="imt-detail">
-            <div className="imt-detail-grid">
-              <div>
-                <span className="imt-tag imt-tag-lg">{detail.tag}</span>
-                <h2 className="imt-detail-title">{detail.titre}</h2>
-                {detail.punchline && <p className="imt-detail-punch">{detail.punchline}</p>}
-                {detail.paragraphs?.map((p, i) => <p key={i} className="imt-detail-p">{p}</p>)}
-                {detail.quote && <p className="imt-detail-quote">« {detail.quote} »</p>}
-              </div>
-              <div>
-                {detail.sections?.map((s, i) => (
-                  <div key={i} className="imt-detail-sec">
-                    <h4>{s.heading}</h4>
-                    <ul>{s.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
-                  </div>
-                ))}
-              </div>
+            <div className="imt-detail-head">
+              {DetailIcon && <span className="imt-offer-icon imt-detail-iconbadge"><DetailIcon size={18} /></span>}
+              <span className="imt-tag imt-tag-lg">{detail.tag}</span>
             </div>
+            <h2 className="imt-detail-title">{detail.titre}</h2>
+            {detail.punchline && <p className="imt-detail-punch">{detail.punchline}</p>}
+            {detail.paragraphs?.map((p, i) => <p key={i} className="imt-detail-p">{p}</p>)}
+            {detail.sections?.map((s, i) => (
+              <div key={i} className="imt-detail-sec">
+                <h4>{s.heading}</h4>
+                <ul>{s.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
+              </div>
+            ))}
+            {detail.quote && <p className="imt-detail-quote">« {detail.quote} »</p>}
             <div className="imt-detail-actions">
-              <button className="imt-btn imt-btn-amber imt-detail-cta" onClick={() => setFormOpen(true)}>
+              <button
+                className="imt-btn imt-btn-amber imt-detail-cta"
+                onClick={() => { track('cta-engage', { id: detail.id }); setFormOpen(true); }}
+              >
                 S&apos;engager <FaChevronRight size={13} />
               </button>
               <button className="imt-secondary" onClick={openAll}>Voir toutes les offres</button>
@@ -276,7 +298,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
       {/* ÉTAPE — formulaire */}
       {view === 'form' && detail && (
         <div className="imt-stage imt-scroll">
-          <form className="imt-form" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+          <form className="imt-form" onSubmit={(e) => { e.preventDefault(); track('form-submit', { id: detail.id }); setSent(true); }}>
             <div className="imt-form-grid">
               <div className="imt-field"><label>Prénom</label><input required placeholder="Ton prénom" /></div>
               <div className="imt-field"><label>Nom</label><input required placeholder="Ton nom" /></div>

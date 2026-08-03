@@ -36,7 +36,7 @@ const MAP: Record<string, IconType> = {
   soutenir: FaHeart,
   // Pratique
   'foot-us': GiAmericanFootballHelmet,
-  flag: GiAmericanFootballBall,
+  flag: FaFlag,
   // Sous-branches joueur
   decouvrir: GiOldLantern,
   rejoindre: FaUsers,

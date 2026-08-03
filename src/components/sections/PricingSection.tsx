@@ -12,11 +12,12 @@ const TABS = [
 
 function PriceCard({ f }: { f: Formule }) {
   return (
-    <article className={`sc-price-card ${f.option ? 'sc-price-card--option' : ''}`}>
+    <article className="sc-price-card">
       <h3 className="sc-price-name">{f.name}</h3>
       <p className="sc-price-amount">
         {f.price} <span>{f.period}</span>
       </p>
+      {f.paiement3x && <p className="sc-price-3x">Paiement en 3× possible · {f.paiement3x}</p>}
       <p className="sc-price-desc">{f.desc}</p>
       <ul className="sc-price-features">
         {f.features.map((feat) => (
@@ -25,12 +26,7 @@ function PriceCard({ f }: { f: Formule }) {
           </li>
         ))}
       </ul>
-      <a
-        className={f.option ? 'sc-btn-ghost' : 'sc-btn'}
-        href={f.href}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a className="sc-btn" href={f.href} target="_blank" rel="noopener noreferrer">
         {f.cta}
       </a>
     </article>
@@ -70,14 +66,22 @@ export default function PricingSection() {
           </div>
         </div>
         <div data-reveal>
-          <div className={`sc-prices ${active.formules.length === 2 ? 'sc-prices--two' : ''}`}>
+          <div
+            className={`sc-prices ${
+              active.formules.length === 2
+                ? 'sc-prices--two'
+                : active.formules.length === 4
+                  ? 'sc-prices--four'
+                  : ''
+            }`}
+          >
             {active.formules.map((f) => (
               <PriceCard key={f.name} f={f} />
             ))}
           </div>
           <p className="sc-pricing-note">
-            Licence FFFA incluse dans toutes les formules · Inscription en ligne via HelloAsso ·
-            Semaine découverte offerte avant de t&apos;engager
+            Licence FFFA incluse dans toutes les formules · Licence bénévole 6,90 € · Licence coach
+            20,50 € · Inscription en ligne via HelloAsso
           </p>
         </div>
       </div>

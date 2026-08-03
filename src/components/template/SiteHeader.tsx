@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { FaPhoneAlt, FaBars, FaTimes } from 'react-icons/fa';
 import { asset } from '@/lib/asset';
 
+// Ancres de la landing (une seule page) — doivent correspondre aux id des sections.
 const LINKS = [
   { href: '#top', label: 'Accueil' },
-  { href: '#adhesions', label: 'Adhésion' },
   { href: '#club', label: 'Le club' },
-  { href: '#sections', label: 'Boutique' },
-  { href: '#sections', label: 'Partenaires' },
+  { href: '#sections', label: 'Nos sections' },
+  { href: '#adhesions', label: 'Adhésions' },
+  { href: '#infos', label: 'Infos pratiques' },
 ];
 
 const PHONE = '06 07 08 09 10';

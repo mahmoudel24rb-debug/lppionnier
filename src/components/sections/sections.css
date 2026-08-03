@@ -39,10 +39,12 @@ img { max-width: 100%; }
 .sc-sec { position: relative; padding: clamp(72px, 8.5vw, 118px) 24px; }
 .sc-wrap { max-width: 1200px; margin: 0 auto; }
 
+/* Labels courts : Futura Condensed ExtraBold, majuscules, chasse étroite
+   → taille légèrement augmentée et interlettrage ouvert. */
 .sc-eyebrow {
-  font-family: 'Neuething', sans-serif; font-weight: 700;
+  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif; font-weight: 800;
   color: var(--rf-amber); text-transform: uppercase;
-  font-size: clamp(15px, 1.5vw, 18px); letter-spacing: -0.02em;
+  font-size: clamp(17px, 1.6vw, 20px); letter-spacing: 0.05em;
   margin: 0 0 10px;
 }
 .sc-title {
@@ -57,6 +59,7 @@ img { max-width: 100%; }
   font-size: clamp(15px, 1.35vw, 18px); line-height: 1.6; letter-spacing: -0.03em;
   margin: 18px 0 0; max-width: 640px;
 }
+.sc-lead strong { color: var(--rf-cream); font-weight: 700; }
 
 /* ── Marqueur de yards (séparateur de sections) ── */
 .sc-yard {
@@ -146,6 +149,51 @@ img { max-width: 100%; }
 .sc-poster:hover img { transform: rotate(0deg) scale(1.02); }
 .sc-poster figcaption { font-size: 13px; color: var(--sc-cream-55); letter-spacing: -0.02em; text-align: center; }
 
+/* ── Diaporama du club (affiches & photos) ── */
+.sc-slideshow { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.sc-slide-stage {
+  position: relative; width: min(100%, 380px); aspect-ratio: 4 / 5;
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(20, 7, 8, 0.6);
+  box-shadow: 0 30px 50px -18px rgba(0, 0, 0, 0.55);
+}
+.sc-slide {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  opacity: 0; transition: opacity 0.6s ease;
+}
+.sc-slide.is-active { opacity: 1; }
+.sc-slide-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(128, 53, 58, 0.55) 0%, rgba(90, 34, 38, 0.68) 100%);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  color: rgba(255, 250, 240, 0.75); cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.sc-slide-nav:hover { border-color: rgba(255, 173, 0, 0.55); color: var(--rf-amber); }
+.sc-slide-nav--prev { left: 10px; }
+.sc-slide-nav--next { right: 10px; }
+.sc-slide-legende {
+  margin: 0; font-size: 13px; line-height: 1.45; letter-spacing: -0.02em;
+  color: var(--sc-cream-55); text-align: center; max-width: 380px;
+}
+.sc-slide-dots { display: flex; align-items: center; gap: 8px; }
+.sc-slide-dot {
+  width: 8px; height: 8px; padding: 0; border-radius: 50%; cursor: pointer;
+  border: 1px solid rgba(255, 250, 240, 0.3); background: transparent;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.sc-slide-dot:hover { border-color: var(--rf-amber); }
+.sc-slide-dot.is-active { background: var(--rf-amber); border-color: var(--rf-amber); transform: scale(1.15); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sc-slide { transition: none; }
+}
+
 /* ============================================================
    SECTIONS / DISCIPLINES (yard 20)
    ============================================================ */
@@ -163,7 +211,11 @@ img { max-width: 100%; }
   transform: translateY(-6px); border-color: rgba(255, 173, 0, 0.4);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.09) inset, 0 30px 60px -26px rgba(0, 0, 0, 0.75), 0 18px 44px -18px rgba(245, 160, 0, 0.22);
 }
-.sc-card-badge { height: 76px; width: auto; filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.5)); margin-bottom: 20px; transition: transform 0.3s ease; }
+/* Rangée de logos : hauteur uniforme, alignement centré */
+.sc-card-badges { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; min-height: 62px; }
+.sc-card-badge { height: 62px; width: auto; filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.5)); transition: transform 0.3s ease; }
+/* logo très horizontal (~2.8:1) : hauteur réduite pour équilibrer la rangée */
+.sc-card-badge--wide { height: 42px; }
 .sc-card:hover .sc-card-badge { transform: rotate(-4deg) scale(1.06); }
 .sc-card-title {
   font-family: 'Futura Condensed', sans-serif; font-weight: 800; text-transform: uppercase;
@@ -171,8 +223,10 @@ img { max-width: 100%; }
 }
 .sc-chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 14px; }
 .sc-chip {
-  font-size: 12px; font-weight: 700; letter-spacing: 0.01em; color: var(--sc-cream-72);
-  padding: 5px 11px; border-radius: 999px;
+  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif; font-weight: 800;
+  text-transform: uppercase;
+  font-size: 14px; letter-spacing: 0.05em; color: var(--sc-cream-72);
+  padding: 5px 12px; border-radius: 999px;
   background: rgba(111, 44, 48, 0.4); border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .sc-card-desc { font-size: 15px; line-height: 1.55; letter-spacing: -0.03em; color: var(--sc-cream-72); margin: 0 0 22px; }
@@ -224,7 +278,8 @@ img { max-width: 100%; }
   background: var(--sc-glass); border: 1px solid var(--sc-glass-border);
 }
 .sc-tab {
-  font-family: 'Neuething', sans-serif; font-weight: 700; font-size: 14px;
+  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif; font-weight: 800;
+  text-transform: uppercase; font-size: 16px; letter-spacing: 0.05em;
   color: var(--sc-cream-72); cursor: pointer; white-space: nowrap;
   padding: 11px 22px; border-radius: 999px; border: none; background: transparent;
   transition: color 0.2s ease;
@@ -235,8 +290,13 @@ img { max-width: 100%; }
   background: linear-gradient(180deg, #ffd86b 0%, #ffb01f 50%, #f59e00 100%);
   box-shadow: 0 1px 0 rgba(255, 235, 200, 0.4) inset, 0 -4px 9px rgba(150, 75, 0, 0.26) inset, 0 6px 16px -6px rgba(245, 160, 0, 0.5);
 }
-.sc-prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.sc-prices { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
 .sc-prices--two { grid-template-columns: repeat(2, minmax(0, 420px)); justify-content: center; }
+/* 4 formules : 2×2 sur desktop moyen, 4 colonnes à partir de 1280px */
+.sc-prices--four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 1280px) {
+  .sc-prices--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
 .sc-price-card {
   display: flex; flex-direction: column;
   padding: 30px 28px; border-radius: 24px;
@@ -245,10 +305,10 @@ img { max-width: 100%; }
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
 }
 .sc-price-card:hover { transform: translateY(-5px); border-color: rgba(255, 173, 0, 0.35); }
-.sc-price-card--option { background: transparent; border: 1px dashed rgba(255, 250, 240, 0.22); box-shadow: none; }
 .sc-price-name {
-  font-family: 'Neuething', sans-serif; font-weight: 700; text-transform: uppercase;
-  font-size: 14px; letter-spacing: 0.08em; color: var(--rf-amber); margin: 0 0 14px;
+  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif; font-weight: 800;
+  text-transform: uppercase;
+  font-size: 16px; letter-spacing: 0.06em; color: var(--rf-amber); margin: 0 0 14px;
 }
 .sc-price-amount {
   display: flex; align-items: baseline; gap: 7px; margin: 0;
@@ -256,11 +316,19 @@ img { max-width: 100%; }
   font-size: clamp(42px, 3.8vw, 56px); letter-spacing: -0.03em; line-height: 1; color: var(--rf-cream);
 }
 .sc-price-amount span { font-family: 'Neuething', sans-serif; font-weight: 400; font-size: 14px; color: var(--sc-cream-55); letter-spacing: -0.02em; }
+/* Pilule ambre translucide : paiement fractionné */
+.sc-price-3x {
+  align-self: flex-start; margin: 12px 0 0; padding: 5px 12px; border-radius: 999px;
+  font-family: 'Futura Condensed', 'Arial Narrow', sans-serif; font-weight: 800;
+  text-transform: uppercase; font-size: 14px; letter-spacing: 0.05em;
+  color: var(--rf-amber);
+  background: rgba(255, 173, 0, 0.12); border: 1px solid rgba(255, 173, 0, 0.32);
+}
 .sc-price-desc { font-size: 15px; line-height: 1.5; letter-spacing: -0.03em; color: var(--sc-cream-72); margin: 12px 0 20px; }
 .sc-price-features { list-style: none; margin: 0 0 26px; padding: 18px 0 0; border-top: 1px solid var(--sc-line); display: grid; gap: 11px; }
 .sc-price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; letter-spacing: -0.02em; color: var(--sc-cream-72); }
 .sc-price-features svg { flex: 0 0 auto; margin-top: 2px; color: var(--rf-amber); }
-.sc-price-card .sc-btn, .sc-price-card .sc-btn-ghost { margin-top: auto; width: 100%; }
+.sc-price-card .sc-btn { margin-top: auto; width: 100%; }
 .sc-pricing-note { margin: 26px 0 0; font-size: 13px; letter-spacing: -0.02em; color: var(--sc-cream-55); text-align: center; }
 
 /* ============================================================
@@ -335,25 +403,42 @@ a.sc-contact-row:hover { color: var(--rf-cream); }
   font-size: 13px; letter-spacing: -0.02em; color: var(--sc-cream-38);
 }
 .sc-footer-bottom strong { color: var(--sc-cream-55); font-weight: 700; }
+.sc-footer-bottom a { color: var(--sc-cream-55); text-decoration: none; transition: color 0.2s ease; }
+.sc-footer-bottom a:hover { color: var(--rf-amber); }
+
+/* ============================================================
+   MENTIONS LÉGALES (page dédiée)
+   ============================================================ */
+.sc-legal { padding-top: clamp(126px, 13vw, 176px); }
+.sc-legal .sc-title { font-size: clamp(34px, 4vw, 58px); }
+.sc-legal-blocks { display: grid; gap: 20px; margin-top: clamp(32px, 4vw, 48px); max-width: 860px; }
+.sc-legal-text {
+  font-size: 15px; line-height: 1.65; letter-spacing: -0.02em;
+  color: var(--sc-cream-72); margin: 0 0 14px;
+}
+.sc-legal-text:last-child { margin-bottom: 0; }
+.sc-legal-text a { color: var(--rf-amber); text-decoration: none; }
+.sc-legal-text a:hover { text-decoration: underline; }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1020px) {
   .sc-cards { grid-template-columns: 1fr 1fr; }
-  .sc-prices { grid-template-columns: 1fr 1fr; }
+  .sc-prices, .sc-prices--four { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 900px) {
   .sc-club-grid { grid-template-columns: 1fr; }
-  .sc-poster { order: -1; }
+  .sc-poster, .sc-club-media { order: -1; }
   .sc-poster img { width: min(100%, 320px); }
+  .sc-slide-stage { width: min(100%, 320px); }
   .sc-ppp-panel { grid-template-columns: 1fr; }
   .sc-ppp-poster { max-width: 320px; margin: 0 auto; }
   .sc-infos-grid { grid-template-columns: 1fr; }
   .sc-footer-grid { grid-template-columns: 1fr; gap: 34px; }
 }
 @media (max-width: 640px) {
-  .sc-cards, .sc-prices, .sc-prices--two { grid-template-columns: 1fr; }
+  .sc-cards, .sc-prices, .sc-prices--two, .sc-prices--four { grid-template-columns: 1fr; }
   .sc-repere-label { flex-basis: 92px; font-size: 19px; }
   .sc-horaire { flex-direction: column; gap: 4px; }
   .sc-pricing-head { align-items: flex-start; }

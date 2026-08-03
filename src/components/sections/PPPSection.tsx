@@ -24,9 +24,10 @@ export default function PPPSection() {
             <p className="sc-eyebrow">Pionniers Programme Performance</p>
             <h2 className="sc-title">La méthode maison pour viser plus haut.</h2>
             <p className="sc-lead">
-              Préparation physique, technique, tactique et mentale : le PPP structure la
-              progression de chaque athlète, à chaque entraînement. Débutant motivé ou joueur
-              confirmé, tu progresses dans un cadre exigeant et accessible.
+              Préparation physique, technique, tactique et mentale : <strong>le PPP</strong>{' '}
+              structure <strong>la progression</strong> de chaque athlète, à chaque entraînement.
+              Débutant motivé ou joueur confirmé : <strong>tous les profils de joueurs</strong>{' '}
+              progressent dans un cadre exigeant et accessible.
             </p>
             <button type="button" className="sc-btn" data-open-tunnel>
               Rejoindre le programme

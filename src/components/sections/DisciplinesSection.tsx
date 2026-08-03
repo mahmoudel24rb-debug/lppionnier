@@ -2,24 +2,46 @@ import { FaArrowRight } from 'react-icons/fa';
 import YardLine from './YardLine';
 import { asset } from '@/lib/asset';
 
-const CARDS = [
+type Badge = {
+  src: string;
+  alt: string;
+  /** Logo très horizontal : hauteur réduite pour équilibrer la rangée. */
+  wide?: boolean;
+};
+
+type Card = {
+  badges: Badge[];
+  title: string;
+  chips: string[];
+  desc: string;
+};
+
+const CARDS: Card[] = [
   {
-    badge: '/assets/refonte/badge-1-footus.svg',
-    alt: 'Écusson Football US',
+    badges: [
+      { src: '/assets/refonte/badge-3-ppp.svg', alt: 'Écusson du Pionniers Programme Performance' },
+      { src: '/assets/refonte/badge-4-u18.svg', alt: 'Écusson de la catégorie U18' },
+    ],
     title: 'Football américain',
     chips: ['Au contact', 'Compétition', 'Seniors & U18'],
     desc: "Un sport de contact intense où stratégie, engagement et esprit d'équipe ne font qu'un. Semaine découverte offerte pour essayer.",
   },
   {
-    badge: '/assets/refonte/badge-2-olympique.svg',
-    alt: 'Écusson Sport Olympique · JO de Los Angeles 2028',
+    badges: [
+      {
+        src: '/assets/refonte/badge-2-olympique.svg',
+        alt: 'Écusson sport olympique · JO de Los Angeles 2028',
+      },
+      { src: '/assets/refonte/logo-nfl-flag.png', alt: 'Logo NFL FLAG', wide: true },
+    ],
     title: 'Flag football',
     chips: ['Sans contact', 'Mixte', 'Tous niveaux'],
     desc: 'Rapide, spectaculaire et accessible : le flag devient olympique aux JO de Los Angeles 2028. Dès le plus jeune âge avec l’école de flag.',
   },
   {
-    badge: '/assets/refonte/logo-pionniers.svg',
-    alt: 'Logo Pionniers de Touraine',
+    badges: [
+      { src: '/assets/refonte/logo-pionniers.svg', alt: 'Logo des Pionniers de Touraine' },
+    ],
     title: 'Faire vivre le club',
     chips: ['Bénévolat', 'Encadrement', 'Compétences'],
     desc: 'Coaching, arbitrage, événements, communication, partenariats : le club avance grâce à celles et ceux qui s’investissent à ses côtés.',
@@ -42,7 +64,17 @@ export default function DisciplinesSection() {
         <div className="sc-cards" data-reveal>
           {CARDS.map((c) => (
             <button key={c.title} type="button" className="sc-card" data-open-tunnel>
-              <img className="sc-card-badge" src={asset(c.badge)} alt={c.alt} />
+              <span className="sc-card-badges">
+                {c.badges.map((b) => (
+                  <img
+                    key={b.src}
+                    className={`sc-card-badge ${b.wide ? 'sc-card-badge--wide' : ''}`}
+                    src={asset(b.src)}
+                    alt={b.alt}
+                    loading="lazy"
+                  />
+                ))}
+              </span>
               <h3 className="sc-card-title">{c.title}</h3>
               <div className="sc-chips">
                 {c.chips.map((chip) => (
