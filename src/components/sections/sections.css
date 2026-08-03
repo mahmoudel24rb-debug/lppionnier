@@ -264,12 +264,9 @@ img { max-width: 100%; }
 }
 .sc-ppp-poster:hover img,
 .sc-ppp-poster:hover video { transform: rotate(0deg) scale(1.015); }
-/* La vidéo PPP embarque une rotation (contenu portrait, dimensions codées paysage) :
-   on impose le ratio portrait réel et on recadre pour éviter les bandes vides. */
-.sc-ppp-poster video {
-  aspect-ratio: 608 / 1080; object-fit: cover;
-  width: min(100%, 340px); margin: 0 auto;
-}
+/* Vidéo PPP : fichier ré-encodé au cadre utile (484×608, ~4/5) —
+   ratio naturel, aucune bande ni recadrage nécessaire. */
+.sc-ppp-poster video { width: min(100%, 380px); margin: 0 auto; }
 .sc-ppp-logo { height: 56px; width: auto; margin-bottom: 18px; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45)); }
 .sc-ppp-body .sc-title { font-size: clamp(32px, 3.8vw, 54px); }
 .sc-ppp-body .sc-btn { margin-top: 26px; }
