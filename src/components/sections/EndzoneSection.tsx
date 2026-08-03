@@ -11,7 +11,7 @@ export default function EndzoneSection() {
   const openTunnel = () => window.dispatchEvent(new Event('open-tunnel'));
   return (
     <section className="sc-sec sc-endzone">
-      <YardLine n="En-but" />
+      <YardLine n="endzone" />
       <div className="sc-wrap" data-reveal>
         <p className="sc-eyebrow">Kickoff · Saison 2026/2027</p>
         <h2 className="sc-title">

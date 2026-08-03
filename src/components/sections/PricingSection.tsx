@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
 import YardLine from './YardLine';
 import { FOOT_US, FLAG, type Formule } from '@/data/formules';
+import { track } from '@/lib/track';
 
 const TABS = [
   { key: 'foot-us', label: 'Football US', formules: FOOT_US },
@@ -39,7 +40,7 @@ export default function PricingSection() {
 
   return (
     <section className="sc-sec" id="adhesions">
-      <YardLine n="40" />
+      <YardLine n="50" />
       <div className="sc-wrap">
         <div className="sc-pricing-head" data-reveal>
           <div>
@@ -83,6 +84,19 @@ export default function PricingSection() {
             Licence FFFA incluse dans toutes les formules · Licence bénévole 6,90 € · Licence coach
             20,50 € · Inscription en ligne via HelloAsso
           </p>
+        </div>
+        {/* Bandeau donation : permanent, quel que soit l'onglet actif */}
+        <div className="sc-donation" data-reveal>
+          <p>Vous souhaitez aider le club financièrement ?</p>
+          <a
+            className="sc-btn"
+            href="https://www.helloasso.com/associations/pionniers-de-touraine"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track('cta-donation')}
+          >
+            Faire une donation
+          </a>
         </div>
       </div>
     </section>

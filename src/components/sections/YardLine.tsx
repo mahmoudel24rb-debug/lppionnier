@@ -1,13 +1,16 @@
+import { asset } from '@/lib/asset';
+
 /**
- * Marqueur de yards — séparateur de sections.
- * La page « descend le terrain » : 10, 20, 30… jusqu'à l'en-but (CTA final).
+ * Marqueur de yards (séparateur de sections) : la page descend le terrain,
+ * 20 → 60, jusqu'à l'en-but (bandeau « PIONNIERS »).
+ * SVG fournis par le designer (marquages terrain, fond transparent).
  */
-export default function YardLine({ n }: { n: string }) {
+export type YardKey = '20' | '30' | '40' | '50' | '60' | 'endzone';
+
+export default function YardLine({ n }: { n: YardKey }) {
   return (
     <div className="sc-yard" aria-hidden="true">
-      <span className="sc-yard-hash" />
-      <span className="sc-yard-num">{n}</span>
-      <span className="sc-yard-hash" />
+      <img src={asset(`/assets/refonte/yards/${n === 'endzone' ? 'endzone' : `${n}y`}.svg`)} alt="" loading="lazy" />
     </div>
   );
 }
