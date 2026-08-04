@@ -12,7 +12,7 @@ const HORAIRES = [
 export default function InfosSection() {
   return (
     <section className="sc-sec" id="infos">
-      <YardLine n="20b" />
+      <YardLine n="10" />
       <div className="sc-wrap">
         <div data-reveal>
           <p className="sc-eyebrow">Infos pratiques</p>
