@@ -48,7 +48,7 @@ export default function PricingSection() {
 
   return (
     <section className="sc-sec" id="adhesions">
-      <YardLine n="40b" />
+      <YardLine n="50" />
       <div className="sc-wrap">
         <div className="sc-pricing-head" data-reveal>
           <div>

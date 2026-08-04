@@ -71,7 +71,7 @@ const CARDS: Card[] = [
 export default function DisciplinesSection() {
   return (
     <section className="sc-sec sc-disciplines" id="sections">
-      <YardLine n="40" />
+      <YardLine n="30" />
       <div className="sc-wrap">
         <div data-reveal>
           <p className="sc-eyebrow">Nos sections</p>
