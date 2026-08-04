@@ -29,6 +29,11 @@ const SLIDES: Slide[] = [
     legende: 'Les seniors en match · © Hugo Faury',
   },
   {
+    src: '/assets/slideshow/slide-affiche-game5.jpg',
+    alt: 'Affiche du match de football américain Pionniers contre Dockers au stade de la Chambrerie',
+    legende: 'Affiche : Pionniers vs Dockers',
+  },
+  {
     src: '/assets/slideshow/affiche-flag.jpg',
     alt: "Affiche du club : l'équipe de flag mixte qualifiée en demi-finales de la Conférence Nord",
     legende: 'Flag mixte : qualifiés en demi-finales',
@@ -39,9 +44,29 @@ const SLIDES: Slide[] = [
     legende: 'Quarts de finale · phase nationale',
   },
   {
+    src: '/assets/slideshow/slide-affiche-quarts.jpg',
+    alt: 'Affiche des quarts de finale de la phase nationale de flag à Rennes',
+    legende: 'Affiche : 1/4 de finale à Rennes',
+  },
+  {
+    src: '/assets/slideshow/slide-ecole-camp.jpg',
+    alt: 'Affiche du Mini Flag Camp Spring Édition des Pionniers au stade de la Chambrerie',
+    legende: 'Mini Flag Camp · Spring Édition',
+  },
+  {
     src: '/assets/slideshow/slide-ecole-flag.jpg',
     alt: 'Deux jeunes joueuses de l’école de flag des Pionniers en plein duel à l’entraînement',
     legende: 'L’école de flag en action',
+  },
+  {
+    src: '/assets/slideshow/slide-selection-u17.jpg',
+    alt: 'Affiche de Gabriel Ayad Valla, defensive back des Pionniers, sélectionné en Équipe de France U17',
+    legende: 'Gabriel Ayad Valla en Équipe de France U17',
+  },
+  {
+    src: '/assets/slideshow/slide-joueurs.jpg',
+    alt: 'Deux joueurs de football américain des Pionniers de Touraine',
+    legende: 'Nos joueurs seniors · © Hugo Faury',
   },
   {
     src: '/assets/slideshow/slide-flag-seniors.jpg',

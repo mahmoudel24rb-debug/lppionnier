@@ -59,8 +59,9 @@ export default function AllOffersBoard({ query, onQuery, cat, onCat, onSelect }:
   const reset = () => { onQuery(''); onCat('tous'); };
 
   return (
-    <div className="imt-stage imt-scroll">
+    <div className="imt-stage imt-board-stage">
       <div className="imt-board">
+        {/* outils fixes : seule la grille de résultats scrolle */}
         <div className="imt-board-tools">
           <span className="imt-search">
             <FaSearch size={13} aria-hidden />
@@ -91,6 +92,7 @@ export default function AllOffersBoard({ query, onQuery, cat, onCat, onSelect }:
           {results.length} {results.length === 1 ? 'offre' : 'offres'}
         </p>
 
+        <div className="imt-board-results">
         {results.length > 0 ? (
           <div className="imt-offers imt-offers-all">
             {results.map((o) => {
@@ -116,6 +118,7 @@ export default function AllOffersBoard({ query, onQuery, cat, onCat, onSelect }:
             </button>
           </div>
         )}
+        </div>
       </div>
     </div>
   );

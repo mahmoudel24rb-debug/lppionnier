@@ -14,12 +14,20 @@ const TABS = [
 function PriceCard({ f }: { f: Formule }) {
   return (
     <article className="sc-price-card">
+      <span className="sc-price-tag">{f.tag}</span>
       <h3 className="sc-price-name">{f.name}</h3>
       <p className="sc-price-amount">
         {f.price} <span>{f.period}</span>
       </p>
       {f.paiement3x && <p className="sc-price-3x">Paiement en 3× possible · {f.paiement3x}</p>}
-      <p className="sc-price-desc">{f.desc}</p>
+      <p className="sc-price-desc">
+        {f.desc.map((ligne, i) => (
+          <span key={ligne}>
+            {i > 0 && <br />}
+            {ligne}
+          </span>
+        ))}
+      </p>
       <ul className="sc-price-features">
         {f.features.map((feat) => (
           <li key={feat}>
@@ -40,7 +48,7 @@ export default function PricingSection() {
 
   return (
     <section className="sc-sec" id="adhesions">
-      <YardLine n="50" />
+      <YardLine n="40b" />
       <div className="sc-wrap">
         <div className="sc-pricing-head" data-reveal>
           <div>

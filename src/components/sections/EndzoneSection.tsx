@@ -20,8 +20,11 @@ export default function EndzoneSection() {
           sur le terrain ?
         </h2>
         <p className="sc-lead" style={{ maxWidth: 560 }}>
-          Performer sur le terrain, t&apos;investir ou soutenir le projet : réponds à quelques
-          questions et le staff des Pionniers te recontacte.
+          Performer sur le terrain, t&apos;investir ou soutenir le projet :
+          <br />
+          réponds à quelques questions
+          <br />
+          et le staff des Pionniers te recontacte.
         </p>
         <button className="rf-cta" data-open-tunnel onClick={openTunnel}>
           Commencer le parcours

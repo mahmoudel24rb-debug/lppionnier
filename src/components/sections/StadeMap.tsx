@@ -10,7 +10,9 @@ import { asset } from '@/lib/asset';
  * teintée aux couleurs de la charte via un filtre CSS sur les tuiles.
  * Initialisée à l'approche du viewport ; marqueur = ballon Pionniers.
  */
-const STADE: [number, number] = [47.4174065, 0.7103647]; // Stade de la Chambrerie (OSM)
+const STADE: [number, number] = [47.417, 0.7104]; // centre du complexe (OSM)
+/** Terrain d'entraînement actuel des Pionniers : pitch sud du complexe. */
+const TERRAIN: [number, number] = [47.416252, 0.710804];
 
 const GOOGLE_MAPS =
   'https://www.google.com/maps/search/?api=1&query=Stade+de+la+Chambrerie+Rue+Tartifume+37100+Tours';
@@ -33,7 +35,7 @@ export default function StadeMap() {
             if (mapRef.current || !containerRef.current) return;
             const map = L.map(containerRef.current, {
               center: STADE,
-              zoom: 15,
+              zoom: 16,
               scrollWheelZoom: true,
               attributionControl: true,
               zoomControl: false,
@@ -51,7 +53,7 @@ export default function StadeMap() {
               iconAnchor: [29, 27],
               popupAnchor: [0, -30],
             });
-            L.marker(STADE, { icon: ballon, alt: 'Stade de la Chambrerie' })
+            L.marker(TERRAIN, { icon: ballon, alt: 'Stade de la Chambrerie' })
               .addTo(map)
               .bindPopup(
                 `<strong>Stade de la Chambrerie</strong><br>2-4 Rue de Tartifume, 37100 Tours<br><a href="${GOOGLE_MAPS}" target="_blank" rel="noopener noreferrer">Itinéraire →</a>`,
