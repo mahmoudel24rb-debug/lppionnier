@@ -11,7 +11,7 @@ const REPERES = [
 export default function ClubSection() {
   return (
     <section className="sc-sec" id="club">
-      <YardLine n="20" />
+      <YardLine n="50" />
       <div className="sc-wrap sc-club-grid">
         <div data-reveal>
           <p className="sc-eyebrow">Le club</p>

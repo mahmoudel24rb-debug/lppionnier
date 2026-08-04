@@ -1,9 +1,8 @@
 import { asset } from '@/lib/asset';
 
 /**
- * Marqueur de yards (séparateur de sections) : montée complète
- * 20 → 30 → 40 → 50 (milieu de terrain), puis descente à 10 juste
- * avant l'en-but, comme sur un vrai terrain.
+ * Marqueur de yards (séparateur de sections) : descente du milieu de
+ * terrain vers l'en-but, 50 → 40 → 30 → 20 → 10 → PIONNIERS.
  */
 export type YardKey = '10' | '20' | '30' | '40' | '50' | 'endzone';
 
