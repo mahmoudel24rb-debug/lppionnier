@@ -73,9 +73,9 @@ const FA_REJOINDRE: Node = {
     },
     {
       id: 'fa-rej-seniors', label: 'Seniors', icon: 'seniors',
-      desc: 'A demanding program open to anyone ready to give it their all.',
+      desc: 'A demanding program open to anyone\nready to give it their all.',
       offers: [{
-        id: 'fa-rej-seniors-o', titre: 'Senior Team · American Football',
+        id: 'fa-rej-seniors-o', titre: 'Senior Team ·\nAmerican Football',
         punchline: 'Join a program built for those\nwho want to get better.',
         paragraphs: [
           'Our senior section welcomes motivated beginners and experienced players alike. No prior experience is required. What we do ask of every player is genuine commitment to their own progression.',
@@ -113,7 +113,7 @@ const FLAG_DECOUVRIR: Node = {
       desc: 'One week to discover\nan Olympic sport:\nnon-contact, fast,\ntactical and accessible.',
       offers: [{
         id: 'flag-dec-seniors-o', titre: 'Trial week · Seniors',
-        punchline: 'Try Flag Football in\nreal playing\nconditions.',
+        punchline: 'Try Flag Football\nin real playing conditions.',
         paragraphs: [
           'Join our Flag Football section training sessions and discover a modern discipline that combines speed, game reading and collective spirit.',
           'Open to complete beginners and seasoned athletes alike.',
@@ -134,7 +134,7 @@ const FLAG_REJOINDRE: Node = {
       id: 'flag-rej-jeunes', label: 'Youth', icon: 'jeunes-flag',
       desc: 'Build your athletic qualities\nand team skills in a non-contact\ndiscipline — modern, accessible\nand NFL Flag.',
       offers: [{
-        id: 'flag-rej-jeunes-o', titre: 'Youth Section · Flag Football',
+        id: 'flag-rej-jeunes-o', titre: 'Youth Section ·\nFlag Football',
         punchline: 'Join our Flag Football\nyouth section.',
         paragraphs: ['Your child will grow in an environment built around progression, the joy of playing and the values of team sport.'],
         sections: [sec('What we offer', 'Coaching tailored to each player', 'Athletic development', 'Learning the team game', 'Games and competitions throughout the season')],
@@ -145,7 +145,7 @@ const FLAG_REJOINDRE: Node = {
       id: 'flag-rej-seniors', label: 'Seniors', icon: 'seniors-flag',
       desc: 'Join a fast-growing\nOlympic discipline,\nopen to every kind of player.',
       offers: [{
-        id: 'flag-rej-seniors-o', titre: 'Senior Team · Flag Football',
+        id: 'flag-rej-seniors-o', titre: 'Senior Team ·\nFlag Football',
         punchline: 'Join our Flag Football team.',
         paragraphs: ['Whether you are a beginner or an experienced athlete, Flag Football offers an accessible, fast and tactical game where everyone can find their place.'],
         sections: [sec('What we offer', 'Regular training sessions', 'Structured coaching', 'Technical and tactical development', 'Competitive games throughout the season', 'A friendly and ambitious atmosphere')],
@@ -159,7 +159,7 @@ const FLAG_REJOINDRE: Node = {
 // GETTING INVOLVED — detailed role descriptions
 // ─────────────────────────────────────────────────────────────
 const ORGANISER: Offer = {
-  id: 'org-events', titre: 'Events & Operations Team',
+  id: 'org-events', titre: 'Events\n& Operations Team',
   punchline: 'Create the moments that bring the club to life.',
   paragraphs: [
     'Behind every game, every tournament and every event there is a team that plans, coordinates and makes those shared moments happen.',
@@ -175,7 +175,7 @@ const ORGANISER: Offer = {
 };
 
 const MATERIEL: Offer = {
-  id: 'materiel-logistique', titre: 'Equipment & Logistics Team',
+  id: 'materiel-logistique', titre: 'Equipment\n& Logistics Team',
   punchline: 'Set up the conditions\nfor the club to succeed.',
   paragraphs: [
     'Every practice, every game and every event rests on work nobody sees but everybody needs: gear available, equipment ready, needs anticipated.',
@@ -342,7 +342,7 @@ const PARTENARIATS_PRIVES: Offer = {
 };
 
 const TERRITOIRE: Offer = {
-  id: 'territoire', titre: 'Community & Education Team',
+  id: 'territoire', titre: 'Community\n& Education Team',
   punchline: 'Grow the impact of the club\nbeyond the field.',
   paragraphs: ['A sports club is also a local player. You help build relationships with local authorities, schools and community organizations to develop new projects around sport.'],
   sections: [
@@ -475,7 +475,7 @@ export const TUNNEL_EN: Node = {
       children: [
         {
           id: 'temps', label: 'Time and\nenergy', icon: 'temps',
-          desc: 'I like being there and lending\na hand.',
+          desc: 'I like being there\nand lending a hand.',
           question: 'How would you like to help?',
           children: [
             { id: 'organiser', label: 'Organizing', icon: 'organiser', desc: 'Create the events that bring players, families and supporters together.', offers: [ORGANISER] },
@@ -487,19 +487,19 @@ export const TUNNEL_EN: Node = {
           desc: 'I like teaching, leading\nand helping others improve.',
           question: 'In which area?',
           children: [
-            { id: 'coaching', label: 'Coaching', icon: 'coaching', desc: 'Pass on your passion and help\nour players progress.', offers: [COACH, ASSISTANT_COACH, PREPA_PHYSIQUE] },
-            { id: 'arbitrage', label: 'Officiating', icon: 'arbitrage', desc: 'Keep the game fair and help grow\nthe sport.', offers: [ARBITRE] },
+            { id: 'coaching', label: 'Coaching', icon: 'coaching', desc: 'Pass on your passion\nand help our players progress.', offers: [COACH, ASSISTANT_COACH, PREPA_PHYSIQUE] },
+            { id: 'arbitrage', label: 'Officiating', icon: 'arbitrage', desc: 'Keep the game fair and help\nthe sport keep growing.', offers: [ARBITRE] },
           ],
         },
         {
           id: 'competences', label: 'My professional skills', icon: 'competences',
-          desc: 'I can put my expertise\nat the service of the club.',
+          desc: 'I can put\nmy expertise\nat the service of the club.',
           question: 'What expertise would you like to bring?',
           children: [
-            { id: 'com-creation', label: 'Communication & Creative', icon: 'com', desc: 'Put the club on the map with\nthe public and our future\nplayers.', offers: [GRAPHISTE, PHOTOGRAPHE, CM, VIDEASTE, WEB, MERCH] },
-            { id: 'gestion', label: 'Management & Administration', icon: 'gestion', desc: 'Structure the organization and\nprepare the future of the club.', offers: [GESTION] },
-            { id: 'finance', label: 'Network, Business & Funding', icon: 'finance', desc: 'Find the resources that will\nlet the project keep\ngrowing.', offers: [PARTENARIATS_PRIVES, TERRITOIRE, PILOTAGE_FIN] },
-            { id: 'sante', label: 'Health & well-being', icon: 'sante', desc: 'Contribute to the safety and\ncare of our players.', offers: [SANTE_PARTENAIRE, SANTE_SECOURS] },
+            { id: 'com-creation', label: 'Communication\n& Creative', icon: 'com', desc: 'Put the club on the map with\nthe public and our future\nplayers.', offers: [GRAPHISTE, PHOTOGRAPHE, CM, VIDEASTE, WEB, MERCH] },
+            { id: 'gestion', label: 'Management & Administration', icon: 'gestion', desc: 'Structure the organization\nand prepare the future of the club.', offers: [GESTION] },
+            { id: 'finance', label: 'Network, Business & Funding', icon: 'finance', desc: 'Find the resources\nthat will let the project\nkeep growing.', offers: [PARTENARIATS_PRIVES, TERRITOIRE, PILOTAGE_FIN] },
+            { id: 'sante', label: 'Health &\nwell-being', icon: 'sante', desc: 'Contribute to the safety\nand care\nof our players.', offers: [SANTE_PARTENAIRE, SANTE_SECOURS] },
           ],
         },
       ],
@@ -511,7 +511,7 @@ export const TUNNEL_EN: Node = {
       children: [
         { id: 'don', label: 'Make a donation', icon: 'don', desc: 'Contribute directly\nto the growth\nof the club activities.', offers: [DON] },
         { id: 'partenaire', label: 'Become a partner', icon: 'partenaire', desc: 'Tie your brand\nto an ambitious sporting\nand human project.', offers: [PARTENAIRE] },
-        { id: 'ressources', label: 'Bring resources', icon: 'ressources', desc: 'Provide equipment,\nservices or\nskills.', offers: [RESSOURCES] },
+        { id: 'ressources', label: 'Bring resources', icon: 'ressources', desc: 'Provide equipment,\nservices or skills.', offers: [RESSOURCES] },
         { id: 'ambassadeur', label: 'Become an ambassador', icon: 'ambassadeur', desc: 'Spread the word about the club\nand open up your network.', offers: [AMBASSADEUR] },
       ],
     },

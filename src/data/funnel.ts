@@ -106,10 +106,10 @@ const FA_REJOINDRE: Node = {
     },
     {
       id: 'fa-rej-seniors', label: 'Seniors', icon: 'seniors',
-      desc: "Un programme exigeant ouvert à tous ceux qui sont prêts à s'investir pleinement.",
+      desc: "Un programme exigeant ouvert à tous ceux\nqui sont prêts à s'investir pleinement.",
       offers: [{
-        id: 'fa-rej-seniors-o', titre: 'Équipe Senior · Football Américain',
-        punchline: 'Intégrez un programme conçu pour celles et ceux\nqui veulent progresser.',
+        id: 'fa-rej-seniors-o', titre: 'Équipe Senior ·\nFootball Américain',
+        punchline: 'Intégrez un programme conçu pour\ncelles et ceux qui veulent progresser.',
         paragraphs: [
           "Au sein de notre section senior, nous accueillons aussi bien des débutants motivés que des joueurs expérimentés. Aucune expérience préalable n'est nécessaire. En revanche, nous demandons à chaque joueur un véritable engagement dans son parcours sportif.",
           "Notre équipe évolue dans le cadre du PPP (Pionniers Programme Performance), un environnement structuré qui vise à accompagner chaque athlète dans sa progression physique, technique, tactique et mentale.",
@@ -146,7 +146,7 @@ const FLAG_DECOUVRIR: Node = {
       desc: 'Une semaine pour découvrir\nun sport olympique,\nsans contact, rapide,\nstratégique et accessible.',
       offers: [{
         id: 'flag-dec-seniors-o', titre: 'Semaine découverte · Seniors',
-        punchline: 'Essayez le Flag Football dans\ndes conditions réelles\nde pratique.',
+        punchline: 'Essayez le Flag Football dans\ndes conditions réelles de pratique.',
         paragraphs: [
           "Participez aux entraînements de notre section Flag Football et découvrez une discipline moderne qui allie vitesse, lecture du jeu et esprit collectif.",
           'Accessible aux débutants comme aux sportifs confirmés.',
@@ -167,7 +167,7 @@ const FLAG_REJOINDRE: Node = {
       id: 'flag-rej-jeunes', label: 'Jeunes', icon: 'jeunes-flag',
       desc: 'Développez vos qualités physiques\net collectives dans une discipline\nsans contact, moderne, accessible\net NFL Flag.',
       offers: [{
-        id: 'flag-rej-jeunes-o', titre: 'Section Jeune · Flag Football',
+        id: 'flag-rej-jeunes-o', titre: 'Section Jeune ·\nFlag Football',
         punchline: 'Rejoignez notre section jeune\nFlag Football.',
         paragraphs: ["Votre enfant évoluera dans un environnement favorisant la progression, le plaisir de jouer et l'apprentissage des valeurs du sport collectif."],
         sections: [sec('Ce que nous proposons', 'Encadrement adapté', 'Développement des qualités athlétiques', 'Apprentissage du jeu collectif', 'Participation aux rencontres et compétitions')],
@@ -178,7 +178,7 @@ const FLAG_REJOINDRE: Node = {
       id: 'flag-rej-seniors', label: 'Seniors', icon: 'seniors-flag',
       desc: 'Rejoignez une discipline olympique\nen plein développement,\nouverte à tous les profils.',
       offers: [{
-        id: 'flag-rej-seniors-o', titre: 'Équipe Senior · Flag Football',
+        id: 'flag-rej-seniors-o', titre: 'Équipe Senior ·\nFlag Football',
         punchline: 'Intégrez notre équipe Flag Football.',
         paragraphs: ["Que vous soyez débutant ou sportif confirmé, le Flag Football offre une pratique accessible, dynamique et stratégique où chacun peut trouver sa place."],
         sections: [sec('Ce que nous proposons', 'Entraînements réguliers', 'Encadrement structuré', 'Développement technique et tactique', 'Participation aux compétitions', 'Ambiance conviviale et ambitieuse')],
@@ -192,7 +192,7 @@ const FLAG_REJOINDRE: Node = {
 // INVESTISSEMENT — fiches missions détaillées
 // ─────────────────────────────────────────────────────────────
 const ORGANISER: Offer = {
-  id: 'org-events', titre: "Équipe Organisation & Événements",
+  id: 'org-events', titre: "Équipe Organisation\n& Événements",
   punchline: 'Créez les moments forts qui font vivre le club.',
   paragraphs: [
     "Derrière chaque match, chaque tournoi et chaque événement se trouve une équipe qui prépare, coordonne et fait vivre ces moments de partage.",
@@ -208,7 +208,7 @@ const ORGANISER: Offer = {
 };
 
 const MATERIEL: Offer = {
-  id: 'materiel-logistique', titre: 'Équipe Matériel & Logistique',
+  id: 'materiel-logistique', titre: 'Équipe Matériel\n& Logistique',
   punchline: 'Préparez les conditions\nde réussite du club.',
   paragraphs: [
     "Chaque entraînement, chaque match et chaque événement repose sur une organisation invisible mais indispensable : le matériel disponible, les équipements prêts et les besoins anticipés.",
@@ -390,7 +390,7 @@ const PARTENARIATS_PRIVES: Offer = {
 };
 
 const TERRITOIRE: Offer = {
-  id: 'territoire', titre: 'Équipe Territoire & Éducation',
+  id: 'territoire', titre: 'Équipe Territoire\n& Éducation',
   punchline: "Faites grandir l'impact du club\nau-delà du terrain.",
   paragraphs: ["Un club sportif est aussi un acteur de son territoire. Vous participez à construire des relations avec les collectivités, les écoles et les structures locales pour développer de nouveaux projets autour du sport."],
   sections: [
@@ -526,7 +526,7 @@ export const TUNNEL: Node = {
       children: [
         {
           id: 'temps', label: "Du temps et\nde l'énergie", icon: 'temps',
-          desc: "J'aime être présent et donner\nun coup de main.",
+          desc: "J'aime être présent\net donner un coup de main.",
           question: 'Comment souhaitez-vous aider ?',
           children: [
             { id: 'organiser', label: 'Organiser', icon: 'organiser', desc: 'Créer les événements qui rassemblent joueurs, familles et supporters.', offers: [ORGANISER] },
@@ -538,19 +538,19 @@ export const TUNNEL: Node = {
           desc: "J'aime transmettre, encadrer\net faire progresser.",
           question: 'Dans quel domaine ?',
           children: [
-            { id: 'coaching', label: 'Coaching', icon: 'coaching', desc: 'Transmettre votre passion et faire\nprogresser les pratiquants.', offers: [COACH, ASSISTANT_COACH, PREPA_PHYSIQUE] },
-            { id: 'arbitrage', label: 'Arbitrage', icon: 'arbitrage', desc: "Garantir l'équité du jeu et contribuer au\ndéveloppement de la discipline.", offers: [ARBITRE] },
+            { id: 'coaching', label: 'Coaching', icon: 'coaching', desc: 'Transmettre votre passion\net faire progresser les pratiquants.', offers: [COACH, ASSISTANT_COACH, PREPA_PHYSIQUE] },
+            { id: 'arbitrage', label: 'Arbitrage', icon: 'arbitrage', desc: "Garantir l'équité du jeu et contribuer\nau développement de la discipline.", offers: [ARBITRE] },
           ],
         },
         {
           id: 'competences', label: 'Mes compétences professionnelles', icon: 'competences',
-          desc: 'Je peux mettre mon expertise\nau service du club.',
+          desc: 'Je peux mettre\nmon expertise\nau service du club.',
           question: 'Quelle expertise souhaitez-vous apporter ?',
           children: [
-            { id: 'com-creation', label: 'Communication & Création', icon: 'com', desc: 'Faire rayonner le club auprès\ndu public et des futurs\nlicenciés.', offers: [GRAPHISTE, PHOTOGRAPHE, CM, VIDEASTE, WEB, MERCH] },
-            { id: 'gestion', label: 'Gestion & Administration', icon: 'gestion', desc: "Structurer l'organisation et\npréparer l'avenir du club.", offers: [GESTION] },
-            { id: 'finance', label: 'Réseau, Commerce & Financement', icon: 'finance', desc: 'Trouver les ressources qui\npermettront au projet de\ngrandir.', offers: [PARTENARIATS_PRIVES, TERRITOIRE, PILOTAGE_FIN] },
-            { id: 'sante', label: 'Santé & bien-être', icon: 'sante', desc: "Contribuez à la sécurité et à\nl'accompagnement des pratiquants.", offers: [SANTE_PARTENAIRE, SANTE_SECOURS] },
+            { id: 'com-creation', label: 'Communication\n& Création', icon: 'com', desc: 'Faire rayonner le club auprès\ndu public et des futurs\nlicenciés.', offers: [GRAPHISTE, PHOTOGRAPHE, CM, VIDEASTE, WEB, MERCH] },
+            { id: 'gestion', label: 'Gestion & Administration', icon: 'gestion', desc: "Structurer l'organisation\net préparer l'avenir du club.", offers: [GESTION] },
+            { id: 'finance', label: 'Réseau, Commerce & Financement', icon: 'finance', desc: 'Trouver les ressources\nqui permettront au projet\nde grandir.', offers: [PARTENARIATS_PRIVES, TERRITOIRE, PILOTAGE_FIN] },
+            { id: 'sante', label: 'Santé &\nbien-être', icon: 'sante', desc: "Contribuez à la sécurité\net à l'accompagnement\ndes pratiquants.", offers: [SANTE_PARTENAIRE, SANTE_SECOURS] },
           ],
         },
       ],
@@ -561,8 +561,8 @@ export const TUNNEL: Node = {
       question: 'Comment souhaitez-vous soutenir le projet ?',
       children: [
         { id: 'don', label: 'Faire un don', icon: 'don', desc: 'Contribuer directement\nau développement\ndes activités du club.', offers: [DON] },
-        { id: 'partenaire', label: 'Devenir partenaire', icon: 'partenaire', desc: 'Associer votre image\nà un projet sportif et humain\nambitieux.', offers: [PARTENAIRE] },
-        { id: 'ressources', label: 'Apporter des ressources', icon: 'ressources', desc: 'Mettre à disposition du\nmatériel, des services ou\ndes compétences.', offers: [RESSOURCES] },
+        { id: 'partenaire', label: 'Devenir partenaire', icon: 'partenaire', desc: 'Associer votre image\nà un projet sportif\net humain ambitieux.', offers: [PARTENAIRE] },
+        { id: 'ressources', label: 'Apporter\ndes ressources', icon: 'ressources', desc: 'Mettre à disposition\ndu matériel, des services\nou des compétences.', offers: [RESSOURCES] },
         { id: 'ambassadeur', label: 'Devenir ambassadeur', icon: 'ambassadeur', desc: 'Faire connaître le club\net ouvrir votre réseau.', offers: [AMBASSADEUR] },
       ],
     },
