@@ -329,7 +329,8 @@
   .imt-split-divider { display: none; }
   .imt-half-icon svg { width: 46px; height: 46px; }
   .imt-half-title { font-size: 32px; }
-  .imt-half-desc { font-size: 13px; min-height: 0; }
+  /* max-width: none — les lignes éditoriales (~40 car.) doivent tenir dans les 342px utiles */
+  .imt-half-desc { font-size: 13px; min-height: 0; max-width: none; }
   .imt-form-grid { grid-template-columns: 1fr; }
   .imt-offers { grid-template-columns: 1fr; max-width: 100%; }
   .imt-bottom { padding: 14px; }
