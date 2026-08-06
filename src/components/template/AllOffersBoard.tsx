@@ -16,7 +16,7 @@ const FILTERS: { key: BoardCat; label: string }[] = [
 
 /** Normalisation insensible aux accents et à la casse. */
 const norm = (s: string): string =>
-  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').toLowerCase();
 
 type Props = {
   query: string;

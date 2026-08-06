@@ -469,3 +469,8 @@
   .imt-search { min-width: 0; }
   .imt-filters { justify-content: center; flex-wrap: wrap; }
 }
+
+/* Retours à la ligne éditoriaux (séquences \n dans funnel.ts) : cartes uniquement,
+   la fiche détaillée et le formulaire replient ces retours en espaces. */
+.imt-card-title, .imt-card-desc, .imt-half-title, .imt-half-desc,
+.imt-offer-title, .imt-offer-sub { white-space: pre-line; }

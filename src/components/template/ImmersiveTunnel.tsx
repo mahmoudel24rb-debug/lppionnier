@@ -301,7 +301,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
               <div className="imt-field"><label>Nom</label><input required placeholder="Ton nom" /></div>
               <div className="imt-field"><label>Email</label><input type="email" required placeholder="prenom@email.com" /></div>
               <div className="imt-field"><label>Téléphone</label><input type="tel" placeholder="06 12 34 56 78" /></div>
-              <div className="imt-field full"><label>Offre visée</label><input defaultValue={detail.titre} readOnly /></div>
+              <div className="imt-field full"><label>Offre visée</label><input defaultValue={detail.titre.replace(/\n/g, ' ')} readOnly /></div>
               <div className="imt-field full"><label>Message</label><textarea rows={2} placeholder="Parle-nous de ta motivation…" /></div>
             </div>
             <button type="submit" className="imt-btn imt-btn-amber" style={{ marginTop: 18 }}>
