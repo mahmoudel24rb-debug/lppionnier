@@ -51,8 +51,8 @@ export default function StadeMap() {
             }).addTo(map);
             const ballon = L.icon({
               iconUrl: asset('/assets/refonte/ballon-pionniers.png'),
-              iconSize: [58, 54],
-              iconAnchor: [29, 27],
+              iconSize: [56, 56],
+              iconAnchor: [28, 28],
               popupAnchor: [0, -30],
             });
             L.marker(TERRAIN, { icon: ballon, alt: 'Stade de la Chambrerie' })

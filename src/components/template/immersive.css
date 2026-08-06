@@ -344,10 +344,10 @@
 .imt-detail-title {
   font-family: 'Futura Condensed', 'Arial Narrow', sans-serif;
   font-weight: 800; text-transform: uppercase; letter-spacing: -0.03em;
-  font-size: clamp(30px, 3.8vw, 44px); color: var(--rf-cream, #fffaf0); margin: 14px 0 6px; line-height: 1.04;
+  font-size: clamp(30px, 3.8vw, 44px); color: var(--rf-cream, #fffaf0); margin: 18px 0 10px; line-height: 1.06;
 }
-.imt-detail-punch { font-size: 17px; font-weight: 700; color: var(--rf-amber, #ffad00); margin: 0 0 22px; }
-.imt-detail-p { font-size: 16px; line-height: 1.75; color: rgba(255, 250, 240, 0.78); margin: 0 0 16px; }
+.imt-detail-punch { font-size: clamp(18px, 1.8vw, 21px); line-height: 1.4; font-weight: 700; color: var(--rf-amber, #ffad00); margin: 0 0 22px; }
+.imt-detail-p { font-size: 15.5px; line-height: 1.7; color: rgba(255, 250, 240, 0.75); margin: 0 0 15px; }
 /* Sections en panneau « verre bordeaux » */
 .imt-detail-sec {
   margin: 18px 0 0;
@@ -358,12 +358,12 @@
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 20px 44px -28px rgba(0, 0, 0, 0.65);
 }
 .imt-detail-sec h4 {
-  font-family: 'Futura Condensed', sans-serif; font-weight: 800;
-  font-size: 17px; letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--rf-amber, #ffad00); margin: 0 0 10px;
+  font-family: 'Neuething', sans-serif; font-weight: 700;
+  font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--rf-amber, #ffad00); margin: 0 0 14px;
 }
 .imt-detail-sec ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-.imt-detail-sec li { position: relative; padding-left: 22px; font-size: 14.5px; line-height: 1.5; color: rgba(255, 250, 240, 0.78); }
+.imt-detail-sec li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.6; color: rgba(255, 250, 240, 0.82); }
 .imt-detail-sec li::before { content: ''; position: absolute; left: 4px; top: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--rf-amber, #ffad00); }
 .imt-detail-quote { font-style: italic; font-size: 16px; color: rgba(255, 250, 240, 0.9); border-left: 3px solid var(--rf-amber, #ffad00); padding-left: 16px; margin: 28px 0 0; }
 .imt-detail-cta { margin-top: 26px; max-width: 260px; }

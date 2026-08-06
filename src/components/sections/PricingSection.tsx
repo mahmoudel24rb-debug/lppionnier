@@ -35,8 +35,10 @@ const T = {
 function PriceCard({ f, p3x }: { f: Formule; p3x: string }) {
   return (
     <article className="sc-price-card">
-      <span className="sc-price-tag">{f.tag}</span>
-      <h3 className="sc-price-name">{f.name}</h3>
+      <div className="sc-price-head">
+        <h3 className="sc-price-name">{f.name}</h3>
+        <span className="sc-price-tag">{f.tag}</span>
+      </div>
       <p className="sc-price-amount">
         {f.price} <span>{f.period}</span>
       </p>

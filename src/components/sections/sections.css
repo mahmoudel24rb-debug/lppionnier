@@ -299,7 +299,7 @@ img { max-width: 100%; }
 .sc-price-card {
   position: relative;
   display: flex; flex-direction: column;
-  padding: 30px 28px; border-radius: 24px;
+  padding: 32px 30px 30px; border-radius: 24px;
   background: var(--sc-glass); border: 1px solid var(--sc-glass-border);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07) inset, 0 24px 50px -28px rgba(0, 0, 0, 0.7);
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
@@ -308,7 +308,7 @@ img { max-width: 100%; }
 .sc-price-name {
   font-family: 'Neuething', sans-serif; font-weight: 700;
   text-transform: uppercase;
-  font-size: 13px; letter-spacing: 0.06em; color: var(--rf-amber); margin: 0 0 14px; padding-right: 96px;
+  font-size: 13px; letter-spacing: 0.06em; color: var(--rf-amber); margin: 3px 0 0; line-height: 1.45;
 }
 .sc-price-amount {
   display: flex; align-items: baseline; gap: 7px; margin: 0;
@@ -317,22 +317,26 @@ img { max-width: 100%; }
 }
 .sc-price-amount span { font-family: 'Neuething', sans-serif; font-weight: 400; font-size: 14px; color: var(--sc-cream-55); letter-spacing: -0.02em; }
 /* Pilule ambre translucide : paiement fractionné */
+.sc-price-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 12px; margin-bottom: 18px;
+}
 .sc-price-tag {
-  position: absolute; top: 18px; right: 18px;
+  flex: 0 0 auto;
   font-family: 'Neuething', sans-serif; font-weight: 700;
   text-transform: uppercase; font-size: 11px; letter-spacing: 0.03em;
-  color: var(--rf-amber); padding: 5px 12px; border-radius: 999px;
+  color: var(--rf-amber); padding: 6px 12px 4px; border-radius: 999px;
   background: rgba(255, 173, 0, 0.1); border: 1px solid rgba(255, 173, 0, 0.3);
 }
 .sc-price-3x {
-  align-self: flex-start; margin: 12px 0 0; padding: 5px 12px; border-radius: 999px;
+  align-self: flex-start; margin: 14px 0 0; padding: 6px 12px 4px; border-radius: 999px;
   font-family: 'Neuething', sans-serif; font-weight: 700;
   text-transform: uppercase; font-size: 12px; letter-spacing: 0.02em;
   color: var(--rf-amber);
   background: rgba(255, 173, 0, 0.12); border: 1px solid rgba(255, 173, 0, 0.32);
 }
-.sc-price-desc { font-size: 15px; line-height: 1.5; letter-spacing: -0.03em; color: var(--sc-cream-72); margin: 12px 0 20px; }
-.sc-price-features { list-style: none; margin: 0 0 26px; padding: 18px 0 0; border-top: 1px solid var(--sc-line); display: grid; gap: 11px; }
+.sc-price-desc { font-size: 15px; line-height: 1.55; letter-spacing: -0.03em; color: var(--sc-cream-72); margin: 14px 0 22px; }
+.sc-price-features { list-style: none; margin: 0 0 28px; padding: 20px 0 0; border-top: 1px solid var(--sc-line); display: grid; gap: 12px; }
 .sc-price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; letter-spacing: -0.02em; color: var(--sc-cream-72); }
 .sc-price-features svg { flex: 0 0 auto; margin-top: 2px; color: var(--rf-amber); }
 .sc-price-card .sc-btn { margin-top: auto; width: 100%; }
