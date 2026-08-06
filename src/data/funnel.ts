@@ -69,7 +69,7 @@ const FA_DECOUVRIR: Node = {
     },
     {
       id: 'fa-dec-seniors', label: 'Seniors', icon: 'seniors',
-      desc: "Une semaine pour vivre l'expérience du\nfootball américain au sein de notre équipe\nsenior.",
+      desc: "Une semaine pour vivre l'expérience\ndu football américain au sein\nde notre équipe senior.",
       offers: [{
         id: 'fa-dec-seniors-o', titre: 'Semaine découverte · Seniors',
         punchline: 'Une semaine pour découvrir un sport de contact unique.',
@@ -92,7 +92,7 @@ const FA_REJOINDRE: Node = {
   children: [
     {
       id: 'fa-rej-jeunes', label: 'Jeunes', icon: 'jeunes',
-      desc: "Grandir, apprendre et s'épanouir à travers le sport.",
+      desc: "Grandir, apprendre et s'épanouir\nà travers le sport.",
       offers: [{
         id: 'fa-rej-jeunes-o', titre: 'École de Football Américain · Jeunes',
         punchline: 'Développez votre potentiel dans\nun environnement structuré\net bienveillant.',
@@ -127,7 +127,7 @@ const FA_REJOINDRE: Node = {
 
 const FLAG_DECOUVRIR: Node = {
   id: 'flag-decouvrir', label: 'Découvrir le\nFlag Football', icon: 'decouvrir',
-  desc: 'Essayez gratuitement pendant une semaine\nune discipline sans contact, dynamique, accessible\net ouverte à tous.',
+  desc: 'Essayez gratuitement pendant une semaine\nune discipline sans contact, dynamique,\naccessible et ouverte à tous.',
   question: 'Pour qui ?',
   children: [
     {
@@ -143,7 +143,7 @@ const FLAG_DECOUVRIR: Node = {
     },
     {
       id: 'flag-dec-seniors', label: 'Seniors', icon: 'seniors-flag',
-      desc: 'Une semaine pour découvrir un sport sans contact, rapide, stratégique et accessible.',
+      desc: 'Une semaine pour découvrir\nun sport olympique,\nsans contact, rapide,\nstratégique et accessible.',
       offers: [{
         id: 'flag-dec-seniors-o', titre: 'Semaine découverte · Seniors',
         punchline: 'Essayez le Flag Football dans\ndes conditions réelles\nde pratique.',
@@ -160,12 +160,12 @@ const FLAG_DECOUVRIR: Node = {
 
 const FLAG_REJOINDRE: Node = {
   id: 'flag-rejoindre', label: 'Rejoindre\nune équipe', icon: 'rejoindre-flag',
-  desc: 'Intégrez une pratique en plein essor où\nvitesse, stratégie et esprit collectif sont au\ncœur du jeu.',
+  desc: 'Intégrez une pratique en plein essor où\nvitesse, stratégie et esprit collectif\nsont au cœur du jeu.',
   question: 'Pour qui ?',
   children: [
     {
       id: 'flag-rej-jeunes', label: 'Jeunes', icon: 'jeunes-flag',
-      desc: 'Développez vos qualités physiques et\ncollectives dans une discipline sans contact,\nmoderne et accessible.',
+      desc: 'Développez vos qualités physiques\net collectives dans une discipline\nsans contact, moderne, accessible\net NFL Flag.',
       offers: [{
         id: 'flag-rej-jeunes-o', titre: 'Section Jeune · Flag Football',
         punchline: 'Rejoignez notre section jeune\nFlag Football.',
@@ -176,7 +176,7 @@ const FLAG_REJOINDRE: Node = {
     },
     {
       id: 'flag-rej-seniors', label: 'Seniors', icon: 'seniors-flag',
-      desc: 'Rejoignez une discipline en plein\ndéveloppement ouverte à tous les profils.',
+      desc: 'Rejoignez une discipline olympique\nen plein développement,\nouverte à tous les profils.',
       offers: [{
         id: 'flag-rej-seniors-o', titre: 'Équipe Senior · Flag Football',
         punchline: 'Intégrez notre équipe Flag Football.',
@@ -513,7 +513,7 @@ export const TUNNEL: Node = {
         },
         {
           id: 'flag', label: 'Flag Football', icon: 'flag',
-          desc: 'Une pratique sans contact, rapide\net spectaculaire. Sport olympique aux\nJO de Los Angeles 2028, ouverte à tous les profils.',
+          desc: 'Une pratique sans contact, rapide\net spectaculaire. Sport olympique aux\nJO de Los Angeles 2028,\nouverte à tous les profils.',
           question: 'Que souhaitez-vous faire ?',
           children: [FLAG_DECOUVRIR, FLAG_REJOINDRE],
         },
