@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaArrowLeft, FaTimes, FaChevronLeft, FaChevronRight, FaCheck, FaPaperPlane } from 'react-icons/fa';
 import { TUNNEL, SPONTANE, resolveOffer, type Node, type Offer, type OfferCategory } from '@/data/funnel';
-import { getIcon } from '@/lib/funnelIcons';
+import { getEmoji } from '@/lib/funnelIcons';
 import { asset } from '@/lib/asset';
 import { track } from '@/lib/track';
 import AllOffersBoard from './AllOffersBoard';
@@ -118,7 +118,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
     : 'choices';
 
   const isSplit = view === 'choices' && current.children?.length === 2;
-  const DetailIcon = detail ? getIcon(resolveOffer(detail).icon) : null;
+  const detailEmoji = detail ? getEmoji(resolveOffer(detail).icon) : null;
 
   return (
     <div className="imt-overlay" role="dialog" aria-modal="true">
@@ -181,11 +181,10 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
         <div className="imt-split">
           <span className="imt-split-divider" />
           {current.children.map((c) => {
-            const Icon = getIcon(c.icon);
             return (
               <div key={c.id} className="imt-half" onClick={() => select(c)}>
                 <div className="imt-half-label">
-                  <span className="imt-half-icon"><Icon size={64} /></span>
+                  <span className="imt-half-icon"><img src={getEmoji(c.icon)} alt="" /></span>
                   <h3 className="imt-half-title">{c.label}</h3>
                   {c.desc && <p className="imt-half-desc">{c.desc}</p>}
                 </div>
@@ -202,11 +201,10 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
           <div className="imt-carousel">
             <div className="imt-cards" ref={cardsRef}>
               {current.children.map((c, i) => {
-                const Icon = getIcon(c.icon);
                 return (
                   <button key={c.id} className="imt-card" onClick={() => select(c)}>
                     <span className="imt-card-num">{String(i + 1).padStart(2, '0')}</span>
-                    <span className="imt-card-icon"><Icon size={30} /></span>
+                    <span className="imt-card-icon"><img src={getEmoji(c.icon)} alt="" /></span>
                     <h3 className="imt-card-title">{c.label}</h3>
                     {c.desc && <p className="imt-card-desc">{c.desc}</p>}
                     <span className="imt-card-cta">Sélectionner <FaChevronRight size={11} /></span>
@@ -234,11 +232,10 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
           <div className="imt-stage-col">
             <div className="imt-offers">
               {current.offers.map((o) => {
-                const Icon = getIcon(resolveOffer(o).icon);
                 return (
                   <button key={o.id} className="imt-offer" onClick={() => setDetail(o)}>
                     <span className="imt-offer-head">
-                      <span className="imt-offer-icon"><Icon size={16} /></span>
+                      <span className="imt-offer-icon"><img src={getEmoji(resolveOffer(o).icon)} alt="" /></span>
                       <span className="imt-tag">{o.tag}</span>
                     </span>
                     <h3 className="imt-offer-title">{o.titre}</h3>
@@ -269,7 +266,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
         <div className="imt-stage imt-scroll">
           <article className="imt-detail">
             <div className="imt-detail-head">
-              {DetailIcon && <span className="imt-offer-icon imt-detail-iconbadge"><DetailIcon size={18} /></span>}
+              {detailEmoji && <span className="imt-offer-icon imt-detail-iconbadge"><img src={detailEmoji} alt="" /></span>}
               <span className="imt-tag imt-tag-lg">{detail.tag}</span>
             </div>
             <h2 className="imt-detail-title">{detail.titre}</h2>

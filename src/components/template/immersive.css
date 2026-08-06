@@ -101,6 +101,13 @@
   color: var(--rf-amber, #ffad00);
 }
 
+
+/* ── Emojis 3D du pack designers ── */
+.imt-half-icon img { height: 76px; width: auto; display: block; filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.5)); }
+.imt-card-icon img { height: 40px; width: auto; display: block; }
+.imt-offer-icon img { height: 20px; width: auto; display: block; }
+.imt-detail-iconbadge img { height: 24px; width: auto; display: block; }
+
 /* ---------------- SPLIT (2 choix) ---------------- */
 .imt-split { position: relative; z-index: 4; flex: 1; display: flex; }
 .imt-half {
@@ -124,8 +131,6 @@
 .imt-half:hover .imt-half-label { transform: none; }
 .imt-half-icon {
   display: inline-flex; margin-bottom: 18px;
-  color: var(--rf-amber, #ffad00);
-  filter: drop-shadow(0 6px 20px rgba(255, 173, 0, 0.35));
   transition: transform 0.4s ease;
 }
 .imt-half:hover .imt-half-icon { transform: none; }
@@ -202,10 +207,9 @@
   transition: all 0.3s ease;
 }
 .imt-card:hover .imt-card-icon {
-  background: linear-gradient(180deg, #ffd86b 0%, #ffb01f 50%, #f59e00 100%);
-  border-color: rgba(214, 130, 0, 0.5);
-  color: #3a1604;
-  box-shadow: 0 8px 20px -6px rgba(255, 173, 0, 0.5);
+  border-color: rgba(255, 173, 0, 0.55);
+  box-shadow: 0 8px 20px -6px rgba(255, 173, 0, 0.35);
+  transform: scale(1.08);
 }
 .imt-card-title {
   font-family: 'Futura Condensed', 'Arial Narrow', sans-serif;
@@ -381,7 +385,10 @@
 }
 .imt-secondary:hover { background: rgba(255, 173, 0, 0.08); border-color: var(--rf-amber, #ffad00); }
 .imt-offers-all { padding: 4px 0 24px; }
-.imt-detail-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+.imt-detail-actions { display: flex; align-items: stretch; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+.imt-detail-actions .imt-btn-amber, .imt-detail-actions .imt-secondary {
+  width: auto; padding: 13px 26px; font-size: 14px; white-space: nowrap;
+}
 .imt-detail-actions .imt-detail-cta { margin-top: 0; }
 
 /* ---------------- JOB BOARD (toutes les offres) ---------------- */

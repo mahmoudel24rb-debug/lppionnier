@@ -131,7 +131,7 @@ const FLAG_DECOUVRIR: Node = {
   question: 'Pour qui ?',
   children: [
     {
-      id: 'flag-dec-jeunes', label: 'Jeunes', icon: 'jeunes',
+      id: 'flag-dec-jeunes', label: 'Jeunes', icon: 'jeunes-flag',
       desc: 'Une semaine pour découvrir une discipline sans contact, ludique, rapide et accessible.',
       offers: [{
         id: 'flag-dec-jeunes-o', titre: 'Semaine découverte · Jeunes',
@@ -142,7 +142,7 @@ const FLAG_DECOUVRIR: Node = {
       }],
     },
     {
-      id: 'flag-dec-seniors', label: 'Seniors', icon: 'seniors',
+      id: 'flag-dec-seniors', label: 'Seniors', icon: 'seniors-flag',
       desc: 'Une semaine pour découvrir un sport sans contact, rapide, stratégique et accessible.',
       offers: [{
         id: 'flag-dec-seniors-o', titre: 'Semaine découverte · Seniors',
@@ -159,12 +159,12 @@ const FLAG_DECOUVRIR: Node = {
 };
 
 const FLAG_REJOINDRE: Node = {
-  id: 'flag-rejoindre', label: 'Rejoindre une équipe', icon: 'rejoindre',
+  id: 'flag-rejoindre', label: 'Rejoindre une équipe', icon: 'rejoindre-flag',
   desc: 'Intégrez une pratique en plein essor où vitesse, stratégie et esprit collectif sont au cœur du jeu.',
   question: 'Pour qui ?',
   children: [
     {
-      id: 'flag-rej-jeunes', label: 'Jeunes', icon: 'jeunes',
+      id: 'flag-rej-jeunes', label: 'Jeunes', icon: 'jeunes-flag',
       desc: 'Développez vos qualités physiques et collectives dans une discipline sans contact, moderne et accessible.',
       offers: [{
         id: 'flag-rej-jeunes-o', titre: 'Section Jeune · Flag Football',
@@ -175,7 +175,7 @@ const FLAG_REJOINDRE: Node = {
       }],
     },
     {
-      id: 'flag-rej-seniors', label: 'Seniors', icon: 'seniors',
+      id: 'flag-rej-seniors', label: 'Seniors', icon: 'seniors-flag',
       desc: 'Rejoignez une discipline en plein développement ouverte à tous les profils.',
       offers: [{
         id: 'flag-rej-seniors-o', titre: 'Équipe Senior · Flag Football',

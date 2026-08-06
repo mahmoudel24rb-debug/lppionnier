@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { FaChevronRight, FaSearch } from 'react-icons/fa';
 import { getAllOffers, type OfferCategory, type ResolvedOffer } from '@/data/funnel';
-import { getIcon } from '@/lib/funnelIcons';
+import { getEmoji } from '@/lib/funnelIcons';
 import { track } from '@/lib/track';
 
 type BoardCat = 'tous' | OfferCategory;
@@ -96,11 +96,10 @@ export default function AllOffersBoard({ query, onQuery, cat, onCat, onSelect }:
         {results.length > 0 ? (
           <div className="imt-offers imt-offers-all">
             {results.map((o) => {
-              const Icon = getIcon(o.icon);
               return (
                 <button key={o.id} className="imt-offer" onClick={() => onSelect(o)}>
                   <span className="imt-offer-head">
-                    <span className="imt-offer-icon"><Icon size={16} /></span>
+                    <span className="imt-offer-icon"><img src={getEmoji(o.icon)} alt="" /></span>
                     <span className="imt-tag">{o.tag}</span>
                   </span>
                   <h3 className="imt-offer-title">{o.titre}</h3>
