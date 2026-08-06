@@ -320,6 +320,9 @@ img { max-width: 100%; }
 .sc-price-head {
   display: flex; align-items: flex-start; justify-content: space-between;
   gap: 12px; margin-bottom: 18px;
+  /* Hauteur réservée (2 lignes de nom max) : les prix des 4 cartes restent
+     au même niveau même quand un nom passe sur deux lignes. */
+  min-height: 41px;
 }
 .sc-price-tag {
   flex: 0 0 auto;

@@ -50,7 +50,7 @@ export default function StadeMap() {
               attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             }).addTo(map);
             const ballon = L.icon({
-              iconUrl: asset('/assets/refonte/ballon-pionniers.png'),
+              iconUrl: asset('/assets/refonte/emojis/19-ballon.png'),
               iconSize: [56, 56],
               iconAnchor: [28, 28],
               popupAnchor: [0, -30],

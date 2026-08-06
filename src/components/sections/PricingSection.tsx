@@ -102,7 +102,7 @@ export default function PricingSection() {
         <div data-reveal>
           <div className={`sc-prices ${formules.length === 2 ? 'sc-prices--two' : formules.length === 4 ? 'sc-prices--four' : ''}`}>
             {formules.map((f) => (
-              <PriceCard key={f.name} f={f} p3x={t.p3x} />
+              <PriceCard key={`${f.name}-${f.tag}`} f={f} p3x={t.p3x} />
             ))}
           </div>
           <p className="sc-pricing-note">{t.note}</p>
