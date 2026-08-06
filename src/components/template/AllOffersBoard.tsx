@@ -1,22 +1,47 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useMemo, useRef } from 'react';
 import { FaChevronRight, FaSearch } from 'react-icons/fa';
-import { getAllOffers, type OfferCategory, type ResolvedOffer } from '@/data/funnel';
+import { TUNNEL, getAllOffers, type OfferCategory, type ResolvedOffer } from '@/data/funnel';
+import { TUNNEL_EN } from '@/data/funnel.en';
 import { getEmoji } from '@/lib/funnelIcons';
 import { track } from '@/lib/track';
+import { useLang } from '@/lib/i18n';
 
 type BoardCat = 'tous' | OfferCategory;
 
-const FILTERS: { key: BoardCat; label: string }[] = [
-  { key: 'tous', label: 'Tous' },
-  { key: 'sportif', label: 'Sportif' },
-  { key: 'associatif', label: 'Associatif' },
+const FILTERS: { key: BoardCat; fr: string; en: string }[] = [
+  { key: 'tous', fr: 'Tous', en: 'All' },
+  { key: 'sportif', fr: 'Sportif', en: 'Sports' },
+  { key: 'associatif', fr: 'Associatif', en: 'Club life' },
 ];
+
+const T = {
+  fr: {
+    searchAria: 'Rechercher une offre',
+    searchPh: 'Rechercher une mission…',
+    filterAria: 'Filtrer par catégorie',
+    offre: 'offre',
+    offres: 'offres',
+    voirOffre: "Voir l'offre",
+    vide: 'Aucune offre ne correspond à votre recherche.',
+    reset: 'Réinitialiser les filtres',
+  },
+  en: {
+    searchAria: 'Search offers',
+    searchPh: 'Search for a role…',
+    filterAria: 'Filter by category',
+    offre: 'offer',
+    offres: 'offers',
+    voirOffre: 'View offer',
+    vide: 'No offer matches your search.',
+    reset: 'Reset filters',
+  },
+};
 
 /** Normalisation insensible aux accents et à la casse. */
 const norm = (s: string): string =>
-  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').toLowerCase();
+  s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').toLowerCase();
 
 type Props = {
   query: string;
@@ -27,7 +52,9 @@ type Props = {
 };
 
 export default function AllOffersBoard({ query, onQuery, cat, onCat, onSelect }: Props) {
-  const all = useMemo(() => getAllOffers(), []);
+  const { lang } = useLang();
+  const t = T[lang];
+  const all = useMemo(() => getAllOffers(lang === 'en' ? TUNNEL_EN : TUNNEL), [lang]);
 
   const results = useMemo(() => {
     const q = norm(query.trim());
@@ -69,11 +96,11 @@ export default function AllOffersBoard({ query, onQuery, cat, onCat, onSelect }:
               type="search"
               value={query}
               onChange={(e) => onQuery(e.target.value)}
-              aria-label="Rechercher une offre"
-              placeholder="Rechercher une mission…"
+              aria-label={t.searchAria}
+              placeholder={t.searchPh}
             />
           </span>
-          <div className="imt-filters" role="group" aria-label="Filtrer par catégorie">
+          <div className="imt-filters" role="group" aria-label={t.filterAria}>
             {FILTERS.map((f) => (
               <button
                 key={f.key}
@@ -82,14 +109,14 @@ export default function AllOffersBoard({ query, onQuery, cat, onCat, onSelect }:
                 aria-pressed={cat === f.key}
                 onClick={() => pickCat(f.key)}
               >
-                {f.label}
+                {lang === 'en' ? f.en : f.fr}
               </button>
             ))}
           </div>
         </div>
 
         <p className="imt-board-count" aria-live="polite">
-          {results.length} {results.length === 1 ? 'offre' : 'offres'}
+          {results.length} {results.length === 1 ? t.offre : t.offres}
         </p>
 
         <div className="imt-board-results">
@@ -104,16 +131,16 @@ export default function AllOffersBoard({ query, onQuery, cat, onCat, onSelect }:
                   </span>
                   <h3 className="imt-offer-title">{o.titre}</h3>
                   {o.punchline && <p className="imt-offer-sub">{o.punchline}</p>}
-                  <span className="imt-card-cta" style={{ marginTop: 14 }}>Voir l&apos;offre <FaChevronRight size={11} /></span>
+                  <span className="imt-card-cta" style={{ marginTop: 14 }}>{t.voirOffre} <FaChevronRight size={11} /></span>
                 </button>
               );
             })}
           </div>
         ) : (
           <div className="imt-board-empty">
-            <p>Aucune offre ne correspond à votre recherche.</p>
+            <p>{t.vide}</p>
             <button type="button" className="imt-secondary" onClick={reset}>
-              Réinitialiser les filtres
+              {t.reset}
             </button>
           </div>
         )}

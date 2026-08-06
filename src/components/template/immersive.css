@@ -248,7 +248,7 @@
 }
 .imt-btn {
   display: inline-flex; align-items: center; gap: 8px; justify-content: center;
-  width: 100%; padding: 13px; border-radius: 999px; cursor: pointer;
+  width: 100%; padding: 15px 13px 11px; border-radius: 999px; cursor: pointer;
   background: var(--rf-bordeaux, #6f2c30); border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--rf-cream, #fffaf0); font-weight: 700; font-size: 14px;
   font-family: inherit; letter-spacing: -0.02em; transition: background 0.2s ease;
@@ -380,14 +380,14 @@
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   background: transparent; border: 1px solid rgba(255, 173, 0, 0.45);
   color: var(--rf-amber, #ffad00); font-family: inherit; font-weight: 700; font-size: 14px;
-  letter-spacing: -0.02em; padding: 12px 26px; border-radius: 999px; cursor: pointer;
+  letter-spacing: -0.02em; padding: 14px 26px 10px; border-radius: 999px; cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 .imt-secondary:hover { background: rgba(255, 173, 0, 0.08); border-color: var(--rf-amber, #ffad00); }
 .imt-offers-all { padding: 4px 0 24px; }
 .imt-detail-actions { display: flex; align-items: stretch; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
 .imt-detail-actions .imt-btn-amber, .imt-detail-actions .imt-secondary {
-  width: auto; padding: 13px 26px; font-size: 14px; white-space: nowrap;
+  width: auto; padding: 15px 26px 11px; font-size: 14px; white-space: nowrap;
 }
 .imt-detail-actions .imt-detail-cta { margin-top: 0; }
 
@@ -429,7 +429,7 @@
 .imt-pill {
   font-family: 'Neuething', sans-serif;
   font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; font-size: 13px;
-  padding: 10px 20px; border-radius: 999px; cursor: pointer;
+  padding: 12px 20px 8px; border-radius: 999px; cursor: pointer;
   background: transparent; border: 1px solid rgba(255, 250, 240, 0.18);
   color: rgba(255, 250, 240, 0.65);
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;

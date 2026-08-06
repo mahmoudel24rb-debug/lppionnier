@@ -3,9 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaArrowLeft, FaTimes, FaChevronLeft, FaChevronRight, FaCheck, FaPaperPlane } from 'react-icons/fa';
 import { TUNNEL, SPONTANE, resolveOffer, type Node, type Offer, type OfferCategory } from '@/data/funnel';
+import { TUNNEL_EN, SPONTANE_EN } from '@/data/funnel.en';
 import { getEmoji } from '@/lib/funnelIcons';
 import { asset } from '@/lib/asset';
 import { track } from '@/lib/track';
+import { useLang } from '@/lib/i18n';
 import AllOffersBoard from './AllOffersBoard';
 import './immersive.css';
 
@@ -24,8 +26,84 @@ const PARTICLES = Array.from({ length: 22 }, (_, i) => {
   };
 });
 
+const UI = {
+  fr: {
+    back: 'Retour',
+    close: 'Fermer',
+    engage: "S'engager",
+    merci: 'Merci !',
+    all: 'Toutes les opportunités',
+    forYou: 'Les opportunités pour vous',
+    subSplit: 'Choisissez une option pour continuer',
+    subCards: 'Sélectionnez ce qui vous correspond',
+    subOffers: 'Choisissez une opportunité pour en savoir plus',
+    subDone: 'Votre candidature a bien été envoyée',
+    select: 'Sélectionner',
+    prev: 'Précédent',
+    next: 'Suivant',
+    spontane: 'Faire une candidature spontanée',
+    voirOffre: "Voir l'offre",
+    voirToutes: 'Voir toutes les offres',
+    prenom: 'Prénom',
+    prenomPh: 'Ton prénom',
+    nom: 'Nom',
+    nomPh: 'Ton nom',
+    email: 'Email',
+    emailPh: 'prenom@email.com',
+    tel: 'Téléphone',
+    telPh: '06 12 34 56 78',
+    offreVisee: 'Offre visée',
+    message: 'Message',
+    messagePh: 'Parle-nous de ta motivation…',
+    envoyer: 'Envoyer ma candidature',
+    demoNote: "Démo de présentation : le formulaire n'envoie rien.",
+    merciPre: 'Merci pour ton engagement',
+    merciSur: ' sur ',
+    merciPost: '. Le staff des Pionniers te recontacte très vite.',
+  },
+  en: {
+    back: 'Back',
+    close: 'Close',
+    engage: 'Get involved',
+    merci: 'Thank you!',
+    all: 'All opportunities',
+    forYou: 'Opportunities for you',
+    subSplit: 'Choose an option to continue',
+    subCards: 'Select what suits you best',
+    subOffers: 'Pick an opportunity to learn more',
+    subDone: 'Your application has been sent',
+    select: 'Select',
+    prev: 'Previous',
+    next: 'Next',
+    spontane: 'Send an open application',
+    voirOffre: 'View offer',
+    voirToutes: 'View all offers',
+    prenom: 'First name',
+    prenomPh: 'Your first name',
+    nom: 'Last name',
+    nomPh: 'Your last name',
+    email: 'Email',
+    emailPh: 'name@email.com',
+    tel: 'Phone',
+    telPh: '+33 6 12 34 56 78',
+    offreVisee: 'Selected offer',
+    message: 'Message',
+    messagePh: 'Tell us what motivates you…',
+    envoyer: 'Send my application',
+    demoNote: 'Demo preview: this form does not send anything.',
+    merciPre: 'Thank you for signing up',
+    merciSur: ' for ',
+    merciPost: '. The Pionniers staff will get back to you very soon.',
+  },
+};
+
 export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
-  const [path, setPath] = useState<Node[]>([TUNNEL]);
+  const { lang } = useLang();
+  const ui = UI[lang];
+  const root = lang === 'en' ? TUNNEL_EN : TUNNEL;
+  const spontane = lang === 'en' ? SPONTANE_EN : SPONTANE;
+
+  const [path, setPath] = useState<Node[]>([root]);
   const [detail, setDetail] = useState<Offer | null>(null);
   const [formOpen, setFormOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
@@ -33,6 +111,17 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
   // État du job board remonté ici : conservé pendant un aller-retour fiche ↔ board.
   const [boardQuery, setBoardQuery] = useState('');
   const [boardCat, setBoardCat] = useState<'tous' | OfferCategory>('tous');
+
+  // La langue ne peut changer que tunnel fermé (le toggle est sous l'overlay),
+  // mais on resynchronise la racine par sécurité.
+  useEffect(() => {
+    setPath([root]);
+    setDetail(null);
+    setFormOpen(false);
+    setShowAll(false);
+    setSent(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
 
   const current = path[path.length - 1];
   const depth = path.length - 1;
@@ -87,7 +176,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
     if (n.offers && n.offers.length === 1) setDetail(n.offers[0]);
   };
 
-  const spontaneous = () => setDetail(SPONTANE);
+  const spontaneous = () => setDetail(spontane);
   const openAll = () => { setDetail(null); setShowAll(true); track('all-open'); };
 
   const back = () => {
@@ -142,11 +231,11 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
 
       {/* En-tête */}
       <div className="imt-top">
-        <button className="imt-iconbtn" onClick={back} aria-label="Retour">
+        <button className="imt-iconbtn" onClick={back} aria-label={ui.back}>
           <FaArrowLeft size={16} />
         </button>
         <img className="imt-logo" src={asset('/assets/logo-club.png')} alt="Pionniers de Touraine" />
-        <button className="imt-iconbtn" onClick={onClose} aria-label="Fermer">
+        <button className="imt-iconbtn" onClick={onClose} aria-label={ui.close}>
           <FaTimes size={18} />
         </button>
       </div>
@@ -155,16 +244,16 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
       {view !== 'detail' && (
         <div className={`imt-head ${view === 'form' || view === 'offers' || view === 'all' ? 'imt-head-sm' : ''}`}>
           <h2 className="imt-q">
-            {view === 'form' ? "S'engager" : view === 'done' ? 'Merci !' : view === 'all' ? 'Toutes les opportunités' : view === 'offers' ? 'Les opportunités pour vous' : current.question}
+            {view === 'form' ? ui.engage : view === 'done' ? ui.merci : view === 'all' ? ui.all : view === 'offers' ? ui.forYou : current.question}
           </h2>
           <p className="imt-sub">
             {view === 'choices'
-              ? isSplit ? 'Choisissez une option pour continuer' : 'Sélectionnez ce qui vous correspond'
+              ? isSplit ? ui.subSplit : ui.subCards
               : view === 'offers' || view === 'all'
-              ? 'Choisissez une opportunité pour en savoir plus'
+              ? ui.subOffers
               : view === 'form'
-              ? detail?.titre
-              : 'Votre candidature a bien été envoyée'}
+              ? detail?.titre.replace(/\n/g, ' ')
+              : ui.subDone}
           </p>
           {depth > 0 && view === 'choices' && (
             <div className="imt-progress" style={{ justifyContent: 'center', marginTop: 18, marginBottom: 26 }}>
@@ -207,20 +296,20 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
                     <span className="imt-card-icon"><img src={getEmoji(c.icon)} alt="" /></span>
                     <h3 className="imt-card-title">{c.label}</h3>
                     {c.desc && <p className="imt-card-desc">{c.desc}</p>}
-                    <span className="imt-card-cta">Sélectionner <FaChevronRight size={11} /></span>
+                    <span className="imt-card-cta">{ui.select} <FaChevronRight size={11} /></span>
                   </button>
                 );
               })}
             </div>
             {current.children.length > 1 && canScroll && (
               <div className="imt-arrows">
-                <button className="imt-arrow" onClick={() => scrollCards(-1)} aria-label="Précédent"><FaChevronLeft size={14} /></button>
-                <button className="imt-arrow" onClick={() => scrollCards(1)} aria-label="Suivant"><FaChevronRight size={14} /></button>
+                <button className="imt-arrow" onClick={() => scrollCards(-1)} aria-label={ui.prev}><FaChevronLeft size={14} /></button>
+                <button className="imt-arrow" onClick={() => scrollCards(1)} aria-label={ui.next}><FaChevronRight size={14} /></button>
               </div>
             )}
           </div>
           {current.id === 'investir' && (
-            <button className="imt-secondary" onClick={spontaneous}>Faire une candidature spontanée</button>
+            <button className="imt-secondary" onClick={spontaneous}>{ui.spontane}</button>
           )}
          </div>
         </div>
@@ -240,12 +329,12 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
                     </span>
                     <h3 className="imt-offer-title">{o.titre}</h3>
                     {o.punchline && <p className="imt-offer-sub">{o.punchline}</p>}
-                    <span className="imt-card-cta" style={{ marginTop: 14 }}>Voir l&apos;offre <FaChevronRight size={11} /></span>
+                    <span className="imt-card-cta" style={{ marginTop: 14 }}>{ui.voirOffre} <FaChevronRight size={11} /></span>
                   </button>
                 );
               })}
             </div>
-            <button className="imt-secondary" onClick={openAll}>Voir toutes les offres</button>
+            <button className="imt-secondary" onClick={openAll}>{ui.voirToutes}</button>
           </div>
         </div>
       )}
@@ -284,9 +373,9 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
                 className="imt-btn imt-btn-amber imt-detail-cta"
                 onClick={() => { track('cta-engage', { id: detail.id }); setFormOpen(true); }}
               >
-                S&apos;engager <FaChevronRight size={13} />
+                {ui.engage} <FaChevronRight size={13} />
               </button>
-              <button className="imt-secondary" onClick={openAll}>Voir toutes les offres</button>
+              <button className="imt-secondary" onClick={openAll}>{ui.voirToutes}</button>
             </div>
           </article>
         </div>
@@ -297,18 +386,18 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
         <div className="imt-stage imt-scroll">
           <form className="imt-form" onSubmit={(e) => { e.preventDefault(); track('form-submit', { id: detail.id }); setSent(true); }}>
             <div className="imt-form-grid">
-              <div className="imt-field"><label>Prénom</label><input required placeholder="Ton prénom" /></div>
-              <div className="imt-field"><label>Nom</label><input required placeholder="Ton nom" /></div>
-              <div className="imt-field"><label>Email</label><input type="email" required placeholder="prenom@email.com" /></div>
-              <div className="imt-field"><label>Téléphone</label><input type="tel" placeholder="06 12 34 56 78" /></div>
-              <div className="imt-field full"><label>Offre visée</label><input defaultValue={detail.titre.replace(/\n/g, ' ')} readOnly /></div>
-              <div className="imt-field full"><label>Message</label><textarea rows={2} placeholder="Parle-nous de ta motivation…" /></div>
+              <div className="imt-field"><label>{ui.prenom}</label><input required placeholder={ui.prenomPh} /></div>
+              <div className="imt-field"><label>{ui.nom}</label><input required placeholder={ui.nomPh} /></div>
+              <div className="imt-field"><label>{ui.email}</label><input type="email" required placeholder={ui.emailPh} /></div>
+              <div className="imt-field"><label>{ui.tel}</label><input type="tel" placeholder={ui.telPh} /></div>
+              <div className="imt-field full"><label>{ui.offreVisee}</label><input defaultValue={detail.titre.replace(/\n/g, ' ')} readOnly /></div>
+              <div className="imt-field full"><label>{ui.message}</label><textarea rows={2} placeholder={ui.messagePh} /></div>
             </div>
             <button type="submit" className="imt-btn imt-btn-amber" style={{ marginTop: 18 }}>
-              Envoyer ma candidature <FaPaperPlane size={13} />
+              {ui.envoyer} <FaPaperPlane size={13} />
             </button>
             <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.4)', marginTop: 12 }}>
-              Démo de présentation : le formulaire n&apos;envoie rien.
+              {ui.demoNote}
             </p>
           </form>
         </div>
@@ -322,10 +411,10 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
               <FaCheck size={36} />
             </span>
             <p style={{ maxWidth: 420, margin: '20px auto 0', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}>
-              Merci pour ton engagement{detail ? <> sur <strong style={{ color: '#ffad00' }}>{detail.titre}</strong></> : ''}. Le staff des Pionniers te recontacte très vite.
+              {ui.merciPre}{detail ? <>{ui.merciSur}<strong style={{ color: '#ffad00' }}>{detail.titre.replace(/\n/g, ' ')}</strong></> : ''}{ui.merciPost}
             </p>
-            <button className="imt-btn imt-btn-amber" style={{ width: 'auto', padding: '13px 28px', marginTop: 22 }} onClick={onClose}>
-              Fermer
+            <button className="imt-btn imt-btn-amber" style={{ width: 'auto', padding: '15px 28px 11px', marginTop: 22 }} onClick={onClose}>
+              {ui.close}
             </button>
           </div>
         </div>

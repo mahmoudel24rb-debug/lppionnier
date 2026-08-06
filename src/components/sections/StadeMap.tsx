@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import type { Map as LeafletMap } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { asset } from '@/lib/asset';
+import { useLang } from '@/lib/i18n';
 
 /**
  * Carte interactive du stade (Leaflet + OpenStreetMap, zoom/dézoom),
@@ -18,6 +19,7 @@ const GOOGLE_MAPS =
   'https://www.google.com/maps/search/?api=1&query=Stade+de+la+Chambrerie+Rue+Tartifume+37100+Tours';
 
 export default function StadeMap() {
+  const { lang } = useLang();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<LeafletMap | null>(null);
 
@@ -56,7 +58,7 @@ export default function StadeMap() {
             L.marker(TERRAIN, { icon: ballon, alt: 'Stade de la Chambrerie' })
               .addTo(map)
               .bindPopup(
-                `<strong>Stade de la Chambrerie</strong><br>2-4 Rue de Tartifume, 37100 Tours<br><a href="${GOOGLE_MAPS}" target="_blank" rel="noopener noreferrer">Itinéraire →</a>`,
+                `<strong>Stade de la Chambrerie</strong><br>2-4 Rue de Tartifume, 37100 Tours<br><a href="${GOOGLE_MAPS}" target="_blank" rel="noopener noreferrer">${document.documentElement.lang === "en" ? "Directions" : "Itinéraire"} →</a>`,
               );
           });
         }

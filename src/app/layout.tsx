@@ -8,6 +8,7 @@ import '@/components/template/refonte.css';
 import '@/components/sections/sections.css';
 
 import TunnelLauncher from '@/components/template/TunnelLauncher';
+import { LangProvider } from '@/lib/i18n';
 import RevealObserver from '@/components/sections/RevealObserver';
 import { GC_SITE } from '@/lib/track';
 
@@ -25,9 +26,11 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        {children}
-        {/* îlots client : tunnel immersif + apparitions au scroll */}
-        <TunnelLauncher />
+        <LangProvider>
+          {children}
+          {/* îlots client : tunnel immersif + apparitions au scroll */}
+          <TunnelLauncher />
+        </LangProvider>
         <RevealObserver />
         {/* mesure d'audience : activée seulement si un code site GoatCounter est renseigné (src/lib/track.ts) */}
         {GC_SITE ? (

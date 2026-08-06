@@ -1,6 +1,7 @@
-// Adhésions Pionniers de Touraine — tarifs réels (saison 2026/2027).
-// Deux onglets par discipline dans la section Adhésions.
+// Adhésions Pionniers de Touraine — tarifs réels (saison 2026/2027), FR + EN.
 // Le bouton renvoie vers la campagne d'adhésion HelloAsso du club.
+import type { Lang } from '@/lib/i18n';
+
 const HELLOASSO =
   'https://www.helloasso.com/associations/pionniers-de-touraine/adhesions/adhesion-2026-2027';
 
@@ -19,7 +20,7 @@ export type Formule = {
   paiement3x?: string;
 };
 
-export const FOOT_US: Formule[] = [
+const FOOT_US_FR: Formule[] = [
   {
     name: 'Seniors',
     price: '249,99 €',
@@ -44,7 +45,7 @@ export const FOOT_US: Formule[] = [
   },
 ];
 
-export const FLAG: Formule[] = [
+const FLAG_FR: Formule[] = [
   {
     name: 'Seniors compétition',
     price: '150 €',
@@ -87,3 +88,77 @@ export const FLAG: Formule[] = [
     tag: 'École',
   },
 ];
+
+const FOOT_US_EN: Formule[] = [
+  {
+    name: 'Seniors',
+    price: '€249.99',
+    period: '/season',
+    desc: ['D2 senior team, full-contact', 'league play · born in 2007', 'or earlier.'],
+    features: ['FFFA license included', 'Practices & games', 'Certified coaching'],
+    href: HELLOASSO,
+    cta: 'Sign up',
+    tag: 'Competition',
+    paiement3x: '3 × €83.33',
+  },
+  {
+    name: 'Juniors U18',
+    price: '€150',
+    period: '/season',
+    desc: ['U18 team ·', 'born in 2009, 2010, 2011.'],
+    features: ['FFFA license included', 'Supervised practices', 'Intro to contact play'],
+    href: HELLOASSO,
+    cta: 'Sign up',
+    tag: 'Competition',
+    paiement3x: '3 × €50',
+  },
+];
+
+const FLAG_EN: Formule[] = [
+  {
+    name: 'Senior competitive',
+    price: '€150',
+    period: '/season',
+    desc: ['Co-ed D2 senior team,', 'no contact · born in 2008', 'or earlier.'],
+    features: ['FFFA license included', 'Co-ed D2 league', 'Practices & games'],
+    href: HELLOASSO,
+    cta: 'Sign up',
+    tag: 'Competition',
+    paiement3x: '3 × €50',
+  },
+  {
+    name: 'Senior recreational',
+    price: '€100',
+    period: '/season',
+    desc: ['Recreational play', 'no league games ·', 'born in 2008 or earlier.'],
+    features: ['FFFA license included', 'Weekly practices', 'No-contact 5v5 format'],
+    href: HELLOASSO,
+    cta: 'Sign up',
+    tag: 'Recreational',
+  },
+  {
+    name: 'U15 & U18 competitive',
+    price: '€100',
+    period: '/season',
+    desc: ['U15 (2012-2013)', 'and U18 (2009-2011) teams', 'in league play.'],
+    features: ['FFFA license included', 'Youth league', 'Certified coaching'],
+    href: HELLOASSO,
+    cta: 'Sign up',
+    tag: 'Competition',
+  },
+  {
+    name: 'Flag academy',
+    price: '€100',
+    period: '/season',
+    desc: ['U9 to U13 ·', 'born 2014 to 2017.'],
+    features: ['FFFA license included', 'Age-appropriate coaching', 'Discover flag football'],
+    href: HELLOASSO,
+    cta: 'Sign up',
+    tag: 'Academy',
+  },
+];
+
+export const FORMULES: Record<Lang, { footUs: Formule[]; flag: Formule[] }> = {
+  fr: { footUs: FOOT_US_FR, flag: FLAG_FR },
+  en: { footUs: FOOT_US_EN, flag: FLAG_EN },
+};

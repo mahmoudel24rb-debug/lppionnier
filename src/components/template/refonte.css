@@ -78,7 +78,7 @@
 .rf-join {
   position: relative; font-family: 'Neuething', sans-serif; font-weight: 700; font-size: 14px;
   color: #3a1604; white-space: nowrap; cursor: pointer;
-  padding: 12px 24px; border-radius: 999px;
+  padding: 14px 24px 10px; border-radius: 999px;
   background: linear-gradient(180deg, #ffd86b 0%, #ffb01f 50%, #f59e00 100%);
   border: 1px solid rgba(214, 130, 0, 0.5);
   box-shadow:
@@ -132,7 +132,7 @@
 .rf-cta {
   position: relative; display: inline-flex; align-items: center; gap: 14px; margin-top: 32px;
   font-family: 'Neuething', sans-serif; font-weight: 700; font-size: clamp(16px, 1.4vw, 18px); color: #3a1604;
-  padding: 12px 14px 12px 32px; border-radius: 999px; cursor: pointer;
+  padding: 13px 14px 11px 32px; border-radius: 999px; cursor: pointer;
   background: linear-gradient(180deg, #ffd86b 0%, #ffb01f 50%, #f59e00 100%);
   border: 1px solid rgba(214, 130, 0, 0.5);
   box-shadow:
@@ -167,6 +167,23 @@
   color: rgba(255, 250, 240, 0.55); animation: rf-bounce 2s ease-in-out infinite;
 }
 @keyframes rf-bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+
+/* Bascule de langue FR | EN */
+.rf-lang {
+  display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(0, 0, 0, 0.22);
+}
+.rf-lang button {
+  font-family: 'Neuething', sans-serif; font-weight: 700; font-size: 12px;
+  letter-spacing: 0.03em; color: rgba(255, 250, 240, 0.6);
+  padding: 7px 10px 5px; border: none; border-radius: 999px;
+  background: transparent; cursor: pointer; transition: color 0.2s ease;
+}
+.rf-lang button:hover { color: var(--rf-cream); }
+.rf-lang button.on {
+  color: #3a1604;
+  background: linear-gradient(180deg, #ffd86b 0%, #ffb01f 50%, #f59e00 100%);
+}
 
 /* Menu mobile déroulant */
 .rf-mobile-menu { display: none; }
