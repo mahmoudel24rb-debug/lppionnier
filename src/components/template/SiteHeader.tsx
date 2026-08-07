@@ -27,7 +27,7 @@ export default function SiteHeader() {
   const home = asset('/');
 
   return (
-    <header className="rf-header" id="top">
+    <header className="rf-header">
       <nav className="rf-nav">
         <a href={`${home}#top`} aria-label={lang === 'en' ? 'Home' : 'Accueil'}>
           <img className="rf-logo" src={asset('/assets/refonte/logo-pionniers.svg')} alt="Pionniers de Touraine" />

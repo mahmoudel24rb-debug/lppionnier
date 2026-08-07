@@ -36,6 +36,9 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
+        {/* Ancre réelle en haut du flux : le header est fixed (hors flux), un
+            #top pointant sur lui ne déclenche aucun défilement. */}
+        <div id="top" />
         <LangProvider>
           {children}
           {/* îlots client : tunnel immersif + apparitions au scroll */}
