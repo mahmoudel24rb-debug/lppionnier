@@ -3,6 +3,7 @@
 import { ArrowRight } from 'lucide-react';
 import YardLine from './YardLine';
 import { useLang } from '@/lib/i18n';
+import { mobileLines } from '@/lib/mobileLines';
 
 /**
  * CTA final — l'en-but au bout de la descente de terrain.
@@ -13,7 +14,8 @@ const T = {
     eyebrow: 'Kickoff · Saison 2026/2027',
     title1: 'Prêt à entrer',
     title2: 'sur le terrain ?',
-    lead: ['Performer sur le terrain, t’investir', 'ou soutenir le projet :', 'réponds à quelques questions', 'et le staff des Pionniers te recontacte.'],
+    // '\n' = coupure mobile uniquement (mobileLines) ; les entrées du tableau = coupures partout.
+    lead: ['Performer sur le terrain, t’investir\nou soutenir le projet :', 'réponds à quelques questions', 'et le staff des Pionniers te recontacte.'],
     cta: 'Commencer le parcours',
     note: '2 minutes · sans engagements',
   },
@@ -21,7 +23,7 @@ const T = {
     eyebrow: 'Kickoff · 2026/2027 season',
     title1: 'Ready to step',
     title2: 'onto the field?',
-    lead: ['Compete on the field, get involved', 'or support the project:', 'answer a few questions', 'and the Pionniers staff will get back to you.'],
+    lead: ['Compete on the field, get involved\nor support the project:', 'answer a few questions', 'and the Pionniers staff will get back to you.'],
     cta: 'Start the journey',
     note: '2 minutes · no commitment',
   },
@@ -45,7 +47,7 @@ export default function EndzoneSection() {
           {t.lead.map((ligne, i) => (
             <span key={ligne}>
               {i > 0 && <br />}
-              {ligne}
+              {mobileLines(ligne)}
             </span>
           ))}
         </p>

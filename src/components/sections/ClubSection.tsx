@@ -3,6 +3,7 @@
 import YardLine from './YardLine';
 import ClubSlideshow from './ClubSlideshow';
 import { useLang } from '@/lib/i18n';
+import { mobileLines } from '@/lib/mobileLines';
 
 const T = {
   fr: {
@@ -45,12 +46,12 @@ export default function ClubSection() {
             <br />
             {t.title2}
           </h2>
-          <p className="sc-lead">{t.lead}</p>
+          <p className="sc-lead">{mobileLines(t.lead)}</p>
           <ul className="sc-reperes">
             {t.reperes.map((r) => (
               <li key={r.label}>
                 <span className="sc-repere-label">{r.label}</span>
-                <span className="sc-repere-txt">{r.txt}</span>
+                <span className="sc-repere-txt">{mobileLines(r.txt)}</span>
               </li>
             ))}
           </ul>

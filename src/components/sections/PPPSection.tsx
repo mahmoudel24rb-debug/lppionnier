@@ -13,7 +13,7 @@ const T = {
       <>
         Préparation physique, technique, tactique et mentale : <strong>le PPP</strong> structure{' '}
         <strong>la progression</strong> de chaque athlète,
-        <br />à chaque entraînement. Débutant motivé ou
+        <br className="br-mobile" /> à chaque entraînement. Débutant motivé ou
         joueur confirmé : <strong>tous les profils de joueurs</strong> progressent dans un cadre
         exigeant et accessible.
       </>
@@ -27,7 +27,7 @@ const T = {
       <>
         Physical, technical, tactical and mental preparation: <strong>the PPP</strong> structures{' '}
         <strong>the progression</strong> of every athlete,
-        <br />at every practice. Motivated beginner or
+        <br className="br-mobile" /> at every practice. Motivated beginner or
         seasoned player: <strong>every player profile</strong> improves within a demanding yet
         accessible framework.
       </>

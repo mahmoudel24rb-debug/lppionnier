@@ -8,6 +8,7 @@ import { getEmoji } from '@/lib/funnelIcons';
 import { asset } from '@/lib/asset';
 import { track } from '@/lib/track';
 import { useLang } from '@/lib/i18n';
+import { mobileLines } from '@/lib/mobileLines';
 import AllOffersBoard from './AllOffersBoard';
 import './immersive.css';
 
@@ -254,16 +255,18 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
       {view !== 'detail' && (
         <div className={`imt-head ${view === 'form' || view === 'offers' || view === 'all' ? 'imt-head-sm' : ''}`}>
           <h2 className="imt-q">
-            {view === 'form' ? ui.engage : view === 'done' ? ui.merci : view === 'all' ? ui.all : view === 'offers' ? ui.forYou : current.question}
+            {mobileLines((view === 'form' ? ui.engage : view === 'done' ? ui.merci : view === 'all' ? ui.all : view === 'offers' ? ui.forYou : current.question) ?? '')}
           </h2>
           <p className="imt-sub">
-            {view === 'choices'
-              ? isSplit ? ui.subSplit : ui.subCards
-              : view === 'offers' || view === 'all'
-              ? ui.subOffers
-              : view === 'form'
-              ? detail?.titre.replace(/\n/g, ' ')
-              : ui.subDone}
+            {mobileLines(
+              view === 'choices'
+                ? isSplit ? ui.subSplit : ui.subCards
+                : view === 'offers' || view === 'all'
+                ? ui.subOffers
+                : view === 'form'
+                ? detail?.titre.replace(/\n/g, ' ') ?? ''
+                : ui.subDone
+            )}
           </p>
           {depth > 0 && view === 'choices' && (
             <div className="imt-progress" style={{ justifyContent: 'center', marginTop: 18, marginBottom: 26 }}>

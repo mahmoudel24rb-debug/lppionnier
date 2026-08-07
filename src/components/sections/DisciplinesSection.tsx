@@ -5,6 +5,7 @@ import { FaArrowRight } from 'react-icons/fa';
 import YardLine from './YardLine';
 import { asset } from '@/lib/asset';
 import { useLang, type Lang } from '@/lib/i18n';
+import { mobileLines } from '@/lib/mobileLines';
 
 type Badge = {
   src: string;
@@ -134,7 +135,7 @@ export default function DisciplinesSection() {
         <div data-reveal>
           <p className="sc-eyebrow">{t.eyebrow}</p>
           <h2 className="sc-title">{t.title}</h2>
-          <p className="sc-lead">{t.lead}</p>
+          <p className="sc-lead">{mobileLines(t.lead)}</p>
         </div>
         <div className="sc-cards" data-reveal>
           {CARDS[lang].map((c) => (

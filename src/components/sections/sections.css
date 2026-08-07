@@ -58,7 +58,6 @@ img { max-width: 100%; }
   color: var(--sc-cream-72);
   font-size: clamp(15px, 1.35vw, 18px); line-height: 1.6; letter-spacing: -0.03em;
   margin: 18px 0 0; max-width: 640px;
-  white-space: pre-line; /* retours à la ligne éditoriaux (\n dans les textes) */
 }
 .sc-lead strong { color: var(--rf-cream); font-weight: 700; }
 
@@ -127,7 +126,7 @@ img { max-width: 100%; }
   font-family: 'Futura Condensed', sans-serif; font-weight: 800; text-transform: uppercase;
   font-size: 21px; letter-spacing: -0.02em; color: var(--rf-amber);
 }
-.sc-repere-txt { font-size: 15px; line-height: 1.5; letter-spacing: -0.03em; color: var(--sc-cream-72); white-space: pre-line; }
+.sc-repere-txt { font-size: 15px; line-height: 1.5; letter-spacing: -0.03em; color: var(--sc-cream-72); }
 
 /* Affiche du club, façon sticker/écusson du hero */
 .sc-poster { position: relative; display: flex; flex-direction: column; align-items: center; gap: 16px; margin: 0; }

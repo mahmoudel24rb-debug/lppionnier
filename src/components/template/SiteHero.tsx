@@ -4,6 +4,7 @@ import { FaChevronDown } from 'react-icons/fa';
 import { ArrowRight } from 'lucide-react';
 import { asset } from '@/lib/asset';
 import { useLang } from '@/lib/i18n';
+import { mobileLines } from '@/lib/mobileLines';
 
 const BADGES = [
   { src: '/assets/refonte/badge-1-footus.svg', alt: 'Foot US & Flag' },
@@ -44,7 +45,7 @@ export default function SiteHero() {
         <p className="rf-season">{t.season}</p>
         <h1 className="rf-title">{t.title}</h1>
         <p className="rf-sub">
-          {t.sub1}
+          {mobileLines(t.sub1)}
           <br />
           {t.sub2}
         </p>
