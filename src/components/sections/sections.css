@@ -101,8 +101,11 @@ img { max-width: 100%; }
 }
 .sc-btn-ghost:hover { background: rgba(255, 173, 0, 0.08); border-color: var(--rf-amber); }
 
-/* ── Apparition au scroll ── */
-[data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); }
+/* ── Apparition au scroll ──
+   will-change : promeut la couche AVANT le déclenchement (sous-arbres lourds :
+   ombres 50px+, drop-shadows, carte filtrée). RevealObserver remet willChange
+   à auto en fin de transition pour libérer la mémoire GPU. */
+[data-reveal] { opacity: 0; transform: translateY(20px); will-change: opacity, transform; transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
 [data-reveal].sc-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
@@ -159,8 +162,9 @@ img { max-width: 100%; }
   display: inline-flex; align-items: center; justify-content: center;
   width: 38px; height: 38px; border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(180deg, rgba(128, 53, 58, 0.55) 0%, rgba(90, 34, 38, 0.68) 100%);
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  /* Pas de backdrop-filter ici : posé SUR les images en crossfade, le flou
+     serait recalculé à chaque frame du fondu. Dégradé plus opaque à la place. */
+  background: linear-gradient(180deg, rgba(128, 53, 58, 0.82) 0%, rgba(90, 34, 38, 0.9) 100%);
   color: rgba(255, 250, 240, 0.75); cursor: pointer;
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
@@ -246,7 +250,10 @@ img { max-width: 100%; }
 .sc-ppp-panel::before {
   content: ''; position: absolute; inset: 0; pointer-events: none;
   background: url('/lppionnier/assets/refonte/fond-hero.webp') center / cover no-repeat;
-  opacity: 0.3; mix-blend-mode: screen;
+  /* Pas de mix-blend-mode : combiné au fondu d'opacité du reveal parent, le
+     groupe de blending était recomposé sur le CPU à chaque frame. Le rendu
+     « screen » est approché par un filtre appliqué une seule fois à la texture. */
+  opacity: 0.22; filter: brightness(1.6) saturate(0.85);
 }
 .sc-ppp-panel > * { position: relative; }
 .sc-ppp-poster img,

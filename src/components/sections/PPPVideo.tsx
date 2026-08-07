@@ -17,19 +17,28 @@ export default function PPPVideo() {
     if (!video) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    // Chargement + décodage du premier frame WebM (2,6 Mo) déplacés dans un
+    // temps mort du thread principal, loin des frames de scroll.
+    const pendantTempsMort = (cb: () => void) =>
+      typeof window.requestIdleCallback === 'function'
+        ? window.requestIdleCallback(cb, { timeout: 1500 })
+        : window.setTimeout(cb, 200);
+
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (e.isIntersecting) {
-            video.src = asset('/assets/refonte/bloc-ppp.webm');
-            video.play().catch(() => {
-              /* autoplay refusé : le poster reste affiché */
-            });
             io.disconnect();
+            pendantTempsMort(() => {
+              video.src = asset('/assets/refonte/bloc-ppp.webm');
+              video.play().catch(() => {
+                /* autoplay refusé : le poster reste affiché */
+              });
+            });
           }
         }
       },
-      { rootMargin: '200px 0px' },
+      { rootMargin: '600px 0px' },
     );
     io.observe(video);
     return () => io.disconnect();

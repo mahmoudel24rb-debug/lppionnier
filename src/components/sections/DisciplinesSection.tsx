@@ -30,7 +30,7 @@ const CARDS: Record<Lang, Card[]> = {
     {
       badges: [
         { src: '/assets/refonte/badge-3-ppp.svg', alt: 'Écusson du Pionniers Programme Performance', ppp: true },
-        { src: '/assets/refonte/badge-4-u18.svg', alt: 'Écusson de la catégorie U18', u18: true },
+        { src: '/assets/refonte/badge-4-u18.webp', alt: 'Écusson de la catégorie U18', u18: true },
       ],
       title: 'Football américain',
       chips: ['Au contact', 'Compétition', 'Seniors & U18'],
@@ -43,7 +43,7 @@ const CARDS: Record<Lang, Card[]> = {
     },
     {
       badges: [
-        { src: '/assets/refonte/badge-2-olympique.svg', alt: 'Écusson sport olympique · JO de Los Angeles 2028' },
+        { src: '/assets/refonte/badge-2-olympique.webp', alt: 'Écusson sport olympique · JO de Los Angeles 2028' },
         { src: '/assets/refonte/logo-nfl-flag.png', alt: 'Logo NFL FLAG', wide: true },
       ],
       title: 'Flag football',
@@ -71,7 +71,7 @@ const CARDS: Record<Lang, Card[]> = {
     {
       badges: [
         { src: '/assets/refonte/badge-3-ppp.svg', alt: 'Pionniers Programme Performance badge', ppp: true },
-        { src: '/assets/refonte/badge-4-u18.svg', alt: 'U18 category badge', u18: true },
+        { src: '/assets/refonte/badge-4-u18.webp', alt: 'U18 category badge', u18: true },
       ],
       title: 'American football',
       chips: ['Full contact', 'Competition', 'Seniors & U18'],
@@ -84,7 +84,7 @@ const CARDS: Record<Lang, Card[]> = {
     },
     {
       badges: [
-        { src: '/assets/refonte/badge-2-olympique.svg', alt: 'Olympic sport badge · 2028 Los Angeles Games' },
+        { src: '/assets/refonte/badge-2-olympique.webp', alt: 'Olympic sport badge · 2028 Los Angeles Games' },
         { src: '/assets/refonte/logo-nfl-flag.png', alt: 'NFL FLAG logo', wide: true },
       ],
       title: 'Flag football',

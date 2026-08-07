@@ -27,13 +27,21 @@ export default function StadeMap() {
     const el = containerRef.current;
     if (!el) return;
 
+    // L'init (parse du chunk Leaflet + création de la carte + tuiles) coûte
+    // 100-300 ms sur le thread principal : on l'exécute pendant un temps mort,
+    // jamais au beau milieu d'une frame de scroll.
+    const pendantTempsMort = (cb: () => void) =>
+      typeof window.requestIdleCallback === 'function'
+        ? window.requestIdleCallback(cb, { timeout: 1500 })
+        : window.setTimeout(cb, 200);
+
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (!e.isIntersecting || mapRef.current) continue;
           io.disconnect();
           // Import dynamique : Leaflet manipule `window`, jamais côté serveur.
-          import('leaflet').then((L) => {
+          pendantTempsMort(() => import('leaflet').then((L) => {
             if (mapRef.current || !containerRef.current) return;
             const map = L.map(containerRef.current, {
               center: STADE,
@@ -60,10 +68,11 @@ export default function StadeMap() {
               .bindPopup(
                 `<strong>Stade de la Chambrerie</strong><br>2-4 Rue de Tartifume, 37100 Tours<br><a href="${GOOGLE_MAPS}" target="_blank" rel="noopener noreferrer">${document.documentElement.lang === "en" ? "Directions" : "Itinéraire"} →</a>`,
               );
-          });
+          }));
         }
       },
-      { rootMargin: '300px 0px' },
+      // 900px : le travail se déclenche bien avant que la section soit visible.
+      { rootMargin: '900px 0px' },
     );
     io.observe(el);
     return () => {

@@ -147,6 +147,7 @@ export default function ClubSlideshow() {
             src={asset(s.src)}
             alt={lang === 'en' ? s.altEn : s.alt}
             loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
             aria-hidden={i === index ? undefined : true}
           />
         ))}
