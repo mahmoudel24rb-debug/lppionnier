@@ -56,7 +56,10 @@ const UI = {
     message: 'Message',
     messagePh: 'Parle-nous de ta motivation…',
     envoyer: 'Envoyer ma candidature',
-    demoNote: "Démo de présentation : le formulaire n'envoie rien.",
+    envoiEnCours: 'Envoi en cours…',
+    erreurAvant: "L'envoi n'a pas abouti. Réessaie dans un instant ou ",
+    erreurLien: 'écris-nous directement par email',
+    erreurApres: '.',
     merciPre: 'Merci pour ton engagement',
     merciSur: ' sur ',
     merciPost: '. Le staff des Pionniers te recontacte très vite.',
@@ -90,7 +93,10 @@ const UI = {
     message: 'Message',
     messagePh: 'Tell us what motivates you…',
     envoyer: 'Send my application',
-    demoNote: 'Demo preview: this form does not send anything.',
+    envoiEnCours: 'Sending…',
+    erreurAvant: 'Something went wrong. Try again in a moment or ',
+    erreurLien: 'email us directly',
+    erreurApres: '.',
     merciPre: 'Thank you for signing up',
     merciSur: ' for ',
     merciPost: '. The Pionniers staff will get back to you very soon.',
@@ -108,6 +114,10 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
   const [formOpen, setFormOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [sent, setSent] = useState(false);
+  // Envoi réel vers candidature.php (o2switch) ; sur la démo GitHub Pages le
+  // POST échoue → message d'erreur avec repli mailto.
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
   // État du job board remonté ici : conservé pendant un aller-retour fiche ↔ board.
   const [boardQuery, setBoardQuery] = useState('');
   const [boardCat, setBoardCat] = useState<'tous' | OfferCategory>('tous');
@@ -371,7 +381,7 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
             <div className="imt-detail-actions">
               <button
                 className="imt-btn imt-btn-amber imt-detail-cta"
-                onClick={() => { track('cta-engage', { id: detail.id }); setFormOpen(true); }}
+                onClick={() => { track('cta-engage', { id: detail.id }); setSendError(false); setFormOpen(true); }}
               >
                 {ui.engage} <FaChevronRight size={13} />
               </button>
@@ -384,21 +394,57 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
       {/* ÉTAPE — formulaire */}
       {view === 'form' && detail && (
         <div className="imt-stage imt-scroll">
-          <form className="imt-form" onSubmit={(e) => { e.preventDefault(); track('form-submit', { id: detail.id }); setSent(true); }}>
+          <form
+            className="imt-form"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              if (sending) return;
+              const body = new FormData(e.currentTarget);
+              setSending(true);
+              setSendError(false);
+              try {
+                const res = await fetch(asset('/candidature.php'), { method: 'POST', body });
+                const data = res.ok ? await res.json().catch(() => null) : null;
+                if (data && data.ok) {
+                  track('form-submit', { id: detail.id });
+                  setSent(true);
+                } else {
+                  setSendError(true);
+                }
+              } catch {
+                setSendError(true);
+              } finally {
+                setSending(false);
+              }
+            }}
+          >
+            {/* Honeypot anti-spam : caché aux humains, rempli par les robots */}
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="sc-field-trap" />
+            <input type="hidden" name="offre_id" value={detail.id} />
+            <input type="hidden" name="lang" value={lang} />
             <div className="imt-form-grid">
-              <div className="imt-field"><label>{ui.prenom}</label><input required placeholder={ui.prenomPh} /></div>
-              <div className="imt-field"><label>{ui.nom}</label><input required placeholder={ui.nomPh} /></div>
-              <div className="imt-field"><label>{ui.email}</label><input type="email" required placeholder={ui.emailPh} /></div>
-              <div className="imt-field"><label>{ui.tel}</label><input type="tel" placeholder={ui.telPh} /></div>
+              <div className="imt-field"><label>{ui.prenom}</label><input name="prenom" required placeholder={ui.prenomPh} /></div>
+              <div className="imt-field"><label>{ui.nom}</label><input name="nom" required placeholder={ui.nomPh} /></div>
+              <div className="imt-field"><label>{ui.email}</label><input name="email" type="email" required placeholder={ui.emailPh} /></div>
+              <div className="imt-field"><label>{ui.tel}</label><input name="telephone" type="tel" placeholder={ui.telPh} /></div>
               <div className="imt-field full"><label>{ui.offreVisee}</label><input defaultValue={detail.titre.replace(/\n/g, ' ')} readOnly /></div>
-              <div className="imt-field full"><label>{ui.message}</label><textarea rows={2} placeholder={ui.messagePh} /></div>
+              <div className="imt-field full"><label>{ui.message}</label><textarea name="message" rows={2} placeholder={ui.messagePh} /></div>
             </div>
-            <button type="submit" className="imt-btn imt-btn-amber" style={{ marginTop: 18 }}>
-              {ui.envoyer} <FaPaperPlane size={13} />
+            <button type="submit" className="imt-btn imt-btn-amber" style={{ marginTop: 18 }} disabled={sending}>
+              {sending ? ui.envoiEnCours : ui.envoyer} <FaPaperPlane size={13} />
             </button>
-            <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.4)', marginTop: 12 }}>
-              {ui.demoNote}
-            </p>
+            {sendError && (
+              <p style={{ textAlign: 'center', fontSize: 13, color: 'rgba(255,180,120,0.9)', marginTop: 12 }}>
+                {ui.erreurAvant}
+                <a
+                  href={`mailto:recrutement@pionniersdetouraine.fr?subject=${encodeURIComponent(`Candidature - ${detail.titre.replace(/\n/g, ' ')}`)}`}
+                  style={{ color: '#ffad00', textDecoration: 'underline' }}
+                >
+                  {ui.erreurLien}
+                </a>
+                {ui.erreurApres}
+              </p>
+            )}
           </form>
         </div>
       )}

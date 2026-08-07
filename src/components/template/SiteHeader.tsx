@@ -22,17 +22,20 @@ export default function SiteHeader() {
   const { lang } = useLang();
   const openTunnel = () => window.dispatchEvent(new Event('open-tunnel'));
   const joinLabel = lang === 'en' ? 'Join us' : 'Nous rejoindre';
+  // Ancres préfixées par la home : depuis /mentions-legales, "#club" seul
+  // pointerait vers une ancre inexistante de la page courante.
+  const home = asset('/');
 
   return (
     <header className="rf-header" id="top">
       <nav className="rf-nav">
-        <a href="#top" aria-label={lang === 'en' ? 'Home' : 'Accueil'}>
+        <a href={`${home}#top`} aria-label={lang === 'en' ? 'Home' : 'Accueil'}>
           <img className="rf-logo" src={asset('/assets/refonte/logo-pionniers.svg')} alt="Pionniers de Touraine" />
         </a>
 
         <div className="rf-links">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href}>{lang === 'en' ? l.en : l.fr}</a>
+            <a key={l.href} href={`${home}${l.href}`}>{lang === 'en' ? l.en : l.fr}</a>
           ))}
         </div>
 
@@ -50,7 +53,7 @@ export default function SiteHeader() {
 
         <div className={`rf-mobile-menu ${open ? 'open' : ''}`}>
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{lang === 'en' ? l.en : l.fr}</a>
+            <a key={l.href} href={`${home}${l.href}`} onClick={() => setOpen(false)}>{lang === 'en' ? l.en : l.fr}</a>
           ))}
           <a className="rf-phone-mobile" href={PHONE_HREF} style={{ display: 'inline-flex', alignItems: 'center', gap: 9 }}>
             <FaPhoneAlt size={13} /> {PHONE}

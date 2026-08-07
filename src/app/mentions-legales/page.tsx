@@ -8,6 +8,9 @@ export const metadata: Metadata = {
     'Mentions légales du site des Pionniers de Touraine : éditeur, hébergement, propriété intellectuelle et données personnelles.',
 };
 
+// Cible de build : démo GitHub Pages (basePath non vide) ou prod o2switch.
+const IS_DEMO = (process.env.NEXT_PUBLIC_BASE_PATH ?? '/lppionnier') !== '/';
+
 export default function MentionsLegalesPage() {
   return (
     <>
@@ -39,13 +42,27 @@ export default function MentionsLegalesPage() {
             </section>
 
             <section className="sc-panel">
-              <h2 className="sc-panel-title">Hébergement</h2>
+              <h2 className="sc-panel-title">Objet du site</h2>
               <p className="sc-legal-text">
-                Ce site de démonstration est hébergé par GitHub, Inc. (GitHub Pages), 88 Colin P.
-                Kelly Jr Street, San Francisco, CA 94107, USA.
+                Le site a pour objet la présentation du club, le recrutement de nouveaux membres
+                (joueurs, joueuses, bénévoles et partenaires) ainsi que la diffusion
+                d&apos;informations relatives à l&apos;association Pionniers de Touraine.
               </p>
-              {/* Mise en production chez o2switch : remplacer le paragraphe ci-dessus par
-                  « Ce site est hébergé par o2switch, Chemin des Pardiaux, 63000 Clermont-Ferrand · 04 44 44 60 40. » */}
+            </section>
+
+            <section className="sc-panel">
+              <h2 className="sc-panel-title">Hébergement</h2>
+              {IS_DEMO ? (
+                <p className="sc-legal-text">
+                  Ce site de démonstration est hébergé par GitHub, Inc. (GitHub Pages), 88 Colin P.
+                  Kelly Jr Street, San Francisco, CA 94107, USA.
+                </p>
+              ) : (
+                <p className="sc-legal-text">
+                  Ce site est hébergé par o2switch, Chemin des Pardiaux, 63000 Clermont-Ferrand,
+                  France · 04 44 44 60 40.
+                </p>
+              )}
             </section>
 
             <section className="sc-panel">
@@ -60,10 +77,18 @@ export default function MentionsLegalesPage() {
 
             <section className="sc-panel">
               <h2 className="sc-panel-title">Données personnelles</h2>
-              <p className="sc-legal-text">
-                Le formulaire d&apos;engagement présenté sur ce site est une démonstration : il
-                n&apos;enregistre ni ne transmet aucune donnée.
-              </p>
+              {IS_DEMO ? (
+                <p className="sc-legal-text">
+                  Sur cette version de démonstration, les formulaires n&apos;enregistrent ni ne
+                  transmettent aucune donnée.
+                </p>
+              ) : (
+                <p className="sc-legal-text">
+                  Les informations saisies dans les formulaires (candidature, contact) sont
+                  transmises par email à l&apos;association, uniquement pour traiter votre demande.
+                  Elles ne sont ni stockées sur le serveur, ni cédées à des tiers.
+                </p>
+              )}
               <p className="sc-legal-text">
                 La mesure d&apos;audience éventuelle est réalisée sans cookies ni identifiant
                 persistant (GoatCounter).

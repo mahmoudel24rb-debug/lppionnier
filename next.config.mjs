@@ -1,14 +1,17 @@
 /** @type {import('next').NextConfig} */
 
-// Sur GitHub Pages le site est servi sous /lppionnier.
-const repo = 'lppionnier';
+// Deux cibles de build :
+//  - démo GitHub Pages (défaut)      : servie sous /lppionnier
+//  - prod o2switch (`npm run build:prod`) : servie à la racine de
+//    recrutement.pionniersdetouraine.fr → NEXT_PUBLIC_BASE_PATH='/'
+//    (sentinelle « racine » : une valeur VIDE ne serait pas inlinée par Next
+//    dans les bundles client — voir src/lib/asset.ts, à garder aligné).
+const rawBase = process.env.NEXT_PUBLIC_BASE_PATH ?? '/lppionnier';
+const basePath = rawBase === '/' ? '' : rawBase;
 
-// Le template Framer code ses chemins d'assets en absolu (/lppionnier/assets/...),
-// on fixe donc le basePath en permanence (dev + prod) pour rester cohérent.
 const nextConfig = {
   output: 'export',
-  basePath: `/${repo}`,
-  assetPrefix: `/${repo}/`,
+  ...(basePath ? { basePath, assetPrefix: `${basePath}/` } : {}),
   images: {
     unoptimized: true,
   },

@@ -65,7 +65,8 @@ export default function SiteFooter() {
           <h3 className="sc-footer-h">{t.explorer}</h3>
           <nav className="sc-footer-links">
             {NAV.map((l) => (
-              <a key={l.href} href={l.href}>
+              // Ancres préfixées par la home : fonctionnent aussi depuis /mentions-legales.
+              <a key={l.href} href={`${asset('/')}${l.href}`}>
                 {lang === 'en' ? l.en : l.fr}
               </a>
             ))}
@@ -76,7 +77,7 @@ export default function SiteFooter() {
           <div className="sc-footer-links">
             <a href="tel:+33787018026">07 87 01 80 26</a>
             <a href="mailto:recrutement@pionniersdetouraine.fr">recrutement@pionniersdetouraine.fr</a>
-            <a href="#contact">{t.ecrire}</a>
+            <a href={`${asset('/')}#contact`}>{t.ecrire}</a>
             <span style={{ fontSize: 14, letterSpacing: '-0.02em', color: 'var(--sc-cream-55)' }}>
               {t.lieu}
             </span>

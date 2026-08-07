@@ -8,7 +8,11 @@
  *
  * Doit rester aligné avec `basePath` dans next.config.mjs.
  */
-// basePath fixe (dev + prod) — aligné sur next.config.mjs.
-export const BASE_PATH = '/lppionnier';
+// Aligné sur next.config.mjs : '/lppionnier' pour la démo GitHub Pages,
+// '/' (sentinelle = racine) pour la prod o2switch (npm run build:prod).
+// NB : la sentinelle n'est pas '' car Next n'inline pas une variable vide
+// dans les bundles client (le repli '/lppionnier' se réactiverait en prod).
+const raw = process.env.NEXT_PUBLIC_BASE_PATH ?? '/lppionnier';
+export const BASE_PATH = raw === '/' ? '' : raw;
 
 export const asset = (path: string) => `${BASE_PATH}${path}`;

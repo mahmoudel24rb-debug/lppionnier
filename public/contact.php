@@ -9,6 +9,8 @@
  */
 declare(strict_types=1);
 
+require __DIR__ . '/_mailer.php';
+
 header('Content-Type: application/json; charset=utf-8');
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
@@ -44,29 +46,17 @@ if (
     exit;
 }
 
-// Anti-injection d'en-têtes : aucun retour à la ligne dans les valeurs d'en-tête.
-$sansRetourLigne = static function (string $v): string {
-    return str_replace(["\r", "\n"], ' ', $v);
-};
-$nom     = mb_substr($sansRetourLigne($nom), 0, 120);
-$email   = $sansRetourLigne($email);
+$nom     = mb_substr(pnr_sans_retour_ligne($nom), 0, 120);
+$email   = pnr_sans_retour_ligne($email);
 $message = mb_substr($message, 0, 5000);
 
-$destinataire = 'recrutement@pionniersdetouraine.fr';
-$sujet = '=?UTF-8?B?' . base64_encode($sansRetourLigne($objet)) . '?=';
 $corps = "Nouveau message depuis le site de recrutement\n\n"
     . "Objet : {$objet}\n"
     . "Nom : {$nom}\n"
     . "Email : {$email}\n\n"
     . "Message :\n{$message}\n";
-$entetes = implode("\r\n", [
-    'From: no-reply@pionniersdetouraine.fr',
-    'Reply-To: ' . $email,
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-]);
 
-$envoye = mail($destinataire, $sujet, $corps, $entetes);
+$envoye = pnr_envoyer($objet, $corps, $email);
 if (!$envoye) {
     http_response_code(500);
 }

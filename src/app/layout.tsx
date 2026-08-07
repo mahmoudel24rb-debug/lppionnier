@@ -12,10 +12,20 @@ import { LangProvider } from '@/lib/i18n';
 import RevealObserver from '@/components/sections/RevealObserver';
 import { GC_SITE } from '@/lib/track';
 
+// Démo GitHub Pages (basePath non vide) : noindex pour ne pas concurrencer la
+// prod. Prod o2switch : indexable, avec canonical sur le sous-domaine officiel.
+const IS_DEMO = (process.env.NEXT_PUBLIC_BASE_PATH ?? '/lppionnier') !== '/';
+
 export const metadata: Metadata = {
   title: 'Pionniers de Touraine · Football Américain & Flag | Nous rejoindre',
   description:
     "Rejoins les Pionniers de Touraine : football américain, flag football, coaching, arbitrage et plus. Trouve ta place et engage-toi.",
+  ...(IS_DEMO
+    ? { robots: { index: false, follow: false } }
+    : {
+        metadataBase: new URL('https://recrutement.pionniersdetouraine.fr'),
+        alternates: { canonical: '/' },
+      }),
 };
 
 export default function RootLayout({
