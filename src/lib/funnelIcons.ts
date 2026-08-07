@@ -41,6 +41,6 @@ const MAP: Record<string, string> = {
   ambassadeur: '10-drapeau',
 };
 
-/** Chemin de l'emoji d'une clé du tunnel (ballon par défaut). */
+/** Chemin de l'emoji d'une clé du tunnel (ballon par défaut). WebP 160px (poids ÷7 vs PNG). */
 export const getEmoji = (key: string): string =>
-  asset(`/assets/refonte/emojis/${MAP[key] ?? '19-ballon'}.png`);
+  asset(`/assets/refonte/emojis/${MAP[key] ?? '19-ballon'}.webp`);
