@@ -447,7 +447,7 @@ const AMBASSADEUR: Offer = {
 // ─────────────────────────────────────────────────────────────
 export const TUNNEL_EN: Node = {
   id: 'root', label: 'Journey', icon: 'jouer',
-  question: 'Which adventure appeals to you?',
+  question: 'Which adventure\nappeals to you?',
   children: [
     {
       id: 'jouer', label: 'I want to compete', icon: 'jouer',

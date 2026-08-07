@@ -58,6 +58,7 @@ img { max-width: 100%; }
   color: var(--sc-cream-72);
   font-size: clamp(15px, 1.35vw, 18px); line-height: 1.6; letter-spacing: -0.03em;
   margin: 18px 0 0; max-width: 640px;
+  white-space: pre-line; /* retours à la ligne éditoriaux (\n dans les textes) */
 }
 .sc-lead strong { color: var(--rf-cream); font-weight: 700; }
 
@@ -126,7 +127,7 @@ img { max-width: 100%; }
   font-family: 'Futura Condensed', sans-serif; font-weight: 800; text-transform: uppercase;
   font-size: 21px; letter-spacing: -0.02em; color: var(--rf-amber);
 }
-.sc-repere-txt { font-size: 15px; line-height: 1.5; letter-spacing: -0.03em; color: var(--sc-cream-72); }
+.sc-repere-txt { font-size: 15px; line-height: 1.5; letter-spacing: -0.03em; color: var(--sc-cream-72); white-space: pre-line; }
 
 /* Affiche du club, façon sticker/écusson du hero */
 .sc-poster { position: relative; display: flex; flex-direction: column; align-items: center; gap: 16px; margin: 0; }
@@ -413,7 +414,9 @@ img { max-width: 100%; }
 /* ── Formulaire de contact ── */
 .sc-contact-block { margin-top: 22px; }
 .sc-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
-.sc-field { display: flex; flex-direction: column; gap: 6px; }
+/* min-width: 0 — sans lui, le <select> à texte long impose sa largeur
+   intrinsèque à la colonne de grille et déborde du panneau sur mobile. */
+.sc-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .sc-field--full { grid-column: 1 / -1; }
 .sc-field label {
   font-family: 'Neuething', sans-serif; font-weight: 700;
@@ -421,6 +424,7 @@ img { max-width: 100%; }
   color: var(--sc-cream-55);
 }
 .sc-field input, .sc-field select, .sc-field textarea {
+  width: 100%; min-width: 0; box-sizing: border-box;
   background: rgba(255, 250, 240, 0.05); border: 1px solid rgba(255, 250, 240, 0.14);
   border-radius: 12px; padding: 12px 14px; color: var(--rf-cream);
   font-size: 14px; font-family: 'Neuething', sans-serif; letter-spacing: -0.02em; outline: none;

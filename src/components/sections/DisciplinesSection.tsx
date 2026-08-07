@@ -113,13 +113,13 @@ const T = {
   fr: {
     eyebrow: 'Nos sections',
     title: 'Choisis ton terrain.',
-    lead: "Trois façons d'entrer dans l'aventure. Le parcours « Nous rejoindre » te guide vers la bonne en deux minutes.",
+    lead: "Trois façons d'entrer dans l'aventure.\nLe parcours « Nous rejoindre » te guide vers\nla bonne en deux minutes.",
     cta: 'Trouver ma place',
   },
   en: {
     eyebrow: 'Our sections',
     title: 'Choose your field.',
-    lead: 'Three ways into the adventure. The "Join us" journey guides you to the right one in two minutes.',
+    lead: 'Three ways into the adventure.\nThe "Join us" journey guides you\nto the right one in two minutes.',
     cta: 'Find my place',
   },
 };
