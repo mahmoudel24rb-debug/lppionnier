@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calendrier · Pionniers de Touraine</title>
+<meta name="description" content="Calendrier officiel des Pionniers de Touraine : entraînements, matchs et événements du club — football américain et flag football.">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="icon.png" type="image/png" sizes="512x512">
+<script>
+if (matchMedia('(max-width: 820px)').matches && !location.search.includes('variant=desktop'))
+  location.replace('mobile.html' + location.search + location.hash);
+</script>
+<link rel="preload" as="font" type="font/ttf" href="assets/fonts/FuturaStd-ExtraBoldCondensed.ttf" crossorigin>
+<link rel="preload" as="font" type="font/ttf" href="assets/fonts/NeuethingSans-RegularSemiExpanded.ttf" crossorigin>
+<link rel="stylesheet" href="assets/calendrier.css">
+</head>
+<body data-variant="desktop">
+<div class="app">
+  <aside class="side">
+    <div class="brand">
+      <span class="brand-avatar"><img src="assets/emojis/coeur-club.webp" alt=""></span>
+      <div>
+        <div class="brand-name">Pionniers</div>
+        <div class="brand-sub">Touraine</div>
+      </div>
+    </div>
+    <div class="navgroup">
+      <span class="nav-label">Calendrier</span>
+      <button class="navitem" id="navSemaine" aria-current="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M3 10h18M9 10v12M15 10v12"></path></svg>Semaine</button>
+      <button class="navitem" id="navMois"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>Mois</button>
+      <button class="navitem" id="navAgenda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg>Agenda</button>
+      <button class="navitem" id="navSaison"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>Saison</button>
+    </div>
+    <div class="navgroup">
+      <span class="nav-label">Gestion</span>
+      <button class="navitem" id="navPrint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Imprimer / PDF</button>
+    </div>
+    <div class="side-spacer"></div>
+    <div class="side-card" id="nextTrain">
+      <div class="sc-lab">Prochain entraînement</div>
+      <div class="sc-sec" id="ntSec"></div>
+      <div class="sc-title" id="ntTitle">—</div>
+      <div class="sc-when" id="ntWhen"></div>
+    </div>
+    <div class="side-card" id="nextMatch">
+      <div class="sc-lab">Prochain match / tournoi</div>
+      <div class="sc-sec" id="nmSec"></div>
+      <div class="sc-title" id="nmTitle">—</div>
+      <div class="sc-when" id="nmWhen"></div>
+    </div>
+  </aside>
+
+  <div class="main">
+  <div class="stickybar">
+  <div class="controls">
+    <button class="today-btn" id="todayBtn">Aujourd'hui</button>
+    <div class="navpair">
+      <button class="iconbtn" id="prev" aria-label="Période précédente">‹</button>
+      <span class="navpair-sep"></span>
+      <button class="iconbtn" id="next" aria-label="Période suivante">›</button>
+    </div>
+    <span class="monthlabel" id="periodLabel">—</span>
+    <span class="tb-season"><span id="saisonLabel"></span></span>
+    <div class="viewtoggle" role="group" aria-label="Choix de la vue" style="display:none">
+      <button id="viewMois" aria-pressed="false">Mois</button>
+      <button id="viewSemaine" aria-pressed="true">Semaine</button>
+      <button id="viewAgenda" aria-pressed="false">Agenda</button>
+      <button id="viewSaison" aria-pressed="false">Saison</button>
+    </div>
+  </div>
+
+  <div class="panel filterbar">
+    <div class="filters" id="filters"></div>
+  </div>
+  </div>
+
+  <div class="panel" id="calPanel">
+    <div id="calRoot"></div>
+  </div>
+
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal modal-pos" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="modal-top" id="mTop">
+      <button class="modal-close" id="mClose" aria-label="Fermer">✕</button>
+      <p class="modal-sec" id="mSec"></p>
+      <h2 class="modal-title" id="mTitle"></h2>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+    <div class="modal-actions">
+      <a class="btn btn-primary" id="mGcal" target="_blank" rel="noopener"><img src="assets/emojis/calendrier.webp" alt="" style="width:18px;height:18px">Google Agenda</a>
+      <button class="btn btn-ghost" id="mIcs">⬇ .ics</button>
+      <button class="btn btn-ghost" id="mShare">🔗 Partager</button>
+    </div>
+  </div>
+</div>
+</div>
+<script src="assets/calendrier.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Administration · Calendrier Pionniers</title>
+<link rel="icon" href="../favicon.ico" sizes="16x16 32x32 48x48">
+<script>
+if (matchMedia('(max-width: 820px)').matches && !location.search.includes('variant=desktop'))
+  location.replace('mobile.html' + location.search);
+</script>
+<link rel="stylesheet" href="assets/admin.css">
+</head>
+<body>
+<!-- LOGIN -->
+<div class="login-wrap" id="loginScreen">
+  <div class="login-box">
+    <div>
+      <div class="login-logo" style="display:flex;align-items:center;gap:10px"><span class="brand-avatar"><img src="../assets/emojis/coeur-club.webp" alt=""></span>Pionniers <span>Admin</span></div>
+      <div class="login-sub">Accès réservé aux responsables du club</div>
+    </div>
+    <div class="field">
+      <label>Mot de passe</label>
+      <input class="inp" type="password" id="pwInput" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <div class="err-msg" id="loginErr">Mot de passe incorrect.</div>
+    <button class="btn btn-prim btn-full" id="loginBtn">Connexion →</button>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="admin-wrap" id="adminWrap">
+  <nav class="topbar">
+    <div class="topbar-logo"><span class="brand-avatar"><img src="../assets/emojis/coeur-club.webp" alt=""></span>Pionniers <span>Admin</span></div>
+    <div class="topbar-right">
+      <a href="../index.html" target="_blank" class="btn btn-ghost btn-sm"><img src="../assets/emojis/calendrier.webp" alt="">Calendrier</a>
+      <button class="btn btn-gold btn-sm" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>Export CSV</button>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn">Déconnexion</button>
+    </div>
+  </nav>
+
+  <div class="admin-body">
+  <aside class="sidenav">
+    <div class="sidenav-lab">Gestion</div>
+    <button class="tab active" id="tabRec"><img src="../assets/emojis/horloge.webp" alt=""><span class="tab-txt">Récurrences</span><span class="tab-count" id="cntRec">0</span></button>
+    <button class="tab" id="tabEv"><img src="../assets/emojis/calendrier.webp" alt=""><span class="tab-txt">Événements ponctuels</span><span class="tab-count" id="cntEv">0</span></button>
+    <div class="sidenav-sep"></div>
+    <a class="tab" href="mobile.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>Version mobile</a>
+    <a class="tab" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Retour au calendrier</a>
+  </aside>
+  <div class="admin-main">
+
+  <!-- TAB RÉCURRENCES -->
+  <div class="tab-content active" id="contentRec">
+    <div style="background:rgba(255,173,0,.09);border:1px solid rgba(255,173,0,.3);border-radius:10px;padding:13px 16px;font-size:13px;color:var(--soft);line-height:1.6">
+      <img src="../assets/emojis/horloge.webp" alt=""> <b style="color:var(--ink)">Un entraînement annulé ou décalé ?</b> Clique sur la récurrence concernée → <b style="color:var(--ink)">Voir les dates</b> pour gérer les exceptions une par une.
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <h3><img src="../assets/emojis/horloge.webp" alt="">Nouvelle récurrence</h3>
+      </div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="field">
+            <label>Section</label>
+            <select class="inp" id="rSection">
+              <option value="footus">Foot US Senior</option>
+              <option value="flag">Flag Senior</option>
+              <option value="footus_jr">Foot US Junior</option>
+              <option value="flag_jr">Flag Junior</option>
+              <option value="ecole">École de Flag</option>
+              <option value="club">Vie du club</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Titre</label>
+            <input class="inp" type="text" id="rTitre" placeholder="Ex : Entr. Flag Senior">
+          </div>
+        </div>
+        <div class="field">
+          <label>Jours de la semaine</label>
+          <div class="days-row" id="daysRow">
+            <input class="day-cb" type="checkbox" id="dLun" value="1"><label class="day-lbl" for="dLun">Lun</label>
+            <input class="day-cb" type="checkbox" id="dMar" value="2"><label class="day-lbl" for="dMar">Mar</label>
+            <input class="day-cb" type="checkbox" id="dMer" value="3"><label class="day-lbl" for="dMer">Mer</label>
+            <input class="day-cb" type="checkbox" id="dJeu" value="4"><label class="day-lbl" for="dJeu">Jeu</label>
+            <input class="day-cb" type="checkbox" id="dVen" value="5"><label class="day-lbl" for="dVen">Ven</label>
+            <input class="day-cb" type="checkbox" id="dSam" value="6"><label class="day-lbl" for="dSam">Sam</label>
+            <input class="day-cb" type="checkbox" id="dDim" value="0"><label class="day-lbl" for="dDim">Dim</label>
+          </div>
+        </div>
+        <div class="form-row-3">
+          <div class="field">
+            <label>Début</label>
+            <input class="inp" type="time" id="rDebut">
+          </div>
+          <div class="field">
+            <label>Fin</label>
+            <input class="inp" type="time" id="rFin">
+          </div>
+          <div class="field">
+            <label>Type</label>
+            <select class="inp" id="rType">
+              <option value="Entraînement">Entraînement</option>
+              <option value="Séance">Séance</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Du</label>
+            <input class="inp" type="date" id="rFrom">
+          </div>
+          <div class="field">
+            <label>Au</label>
+            <input class="inp" type="date" id="rTo">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Lieu</label>
+            <input class="inp" type="text" id="rLieu" placeholder="Stade de la Chambrerie – Terrain 3">
+          </div>
+          <div class="field">
+            <label>Ville</label>
+            <input class="inp" type="text" id="rAdresse" placeholder="Tours">
+          </div>
+        </div>
+        <button class="btn btn-prim" id="saveRec">Ajouter la récurrence</button>
+      </div>
+    </div>
+
+    <div class="card" id="recCard">
+      <div class="card-head">
+        <h3><img src="../assets/emojis/drapeau.webp" alt="">Récurrences actives</h3>
+      </div>
+      <div class="rec-list" id="recList"></div>
+    </div>
+  </div>
+
+  <!-- TAB ÉVÉNEMENTS -->
+  <div class="tab-content" id="contentEv">
+    <div class="card">
+      <div class="card-head">
+        <h3 id="evFormTitle"><img src="../assets/emojis/ballon.webp" alt="">Nouvel événement ponctuel</h3>
+        <div style="display:flex;gap:8px;align-items:center">
+          <label class="btn btn-ghost btn-sm" for="csvImport" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="m7 12 5-5 5 5"/><path d="M5 3h14"/></svg>Importer CSV</label>
+          <input type="file" id="csvImport" accept=".csv" style="display:none">
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="field">
+            <label>Section</label>
+            <select class="inp" id="eSection">
+              <option value="footus">Foot US Senior</option>
+              <option value="flag">Flag Senior</option>
+              <option value="footus_jr">Foot US Junior</option>
+              <option value="flag_jr">Flag Junior</option>
+              <option value="ecole">École de Flag</option>
+              <option value="club">Vie du club</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Titre</label>
+            <input class="inp" type="text" id="eTitre" placeholder="Ex : Champ. Mixte – J1">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Date</label>
+            <input class="inp" type="date" id="eDate">
+          </div>
+          <div class="field">
+            <label>Type</label>
+            <select class="inp" id="eType">
+              <option value="Tournoi">Tournoi</option>
+              <option value="Match">Match</option>
+              <option value="Finale">Finale</option>
+              <option value="Événement club">Événement club</option>
+              <option value="Assemblée">Assemblée</option>
+              <option value="Gala">Gala</option>
+              <option value="Anniversaire">Anniversaire</option>
+              <option value="Stage">Stage</option>
+              <option value="Administratif">Administratif</option>
+              <option value="Combine">Combine</option>
+              <option value="Formation">Formation</option>
+              <option value="Match amical">Match amical</option>
+              <option value="Réunion">Réunion</option>
+              <option value="Réunion coachs">Réunion coachs</option>
+              <option value="Événement">Événement</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Début</label>
+            <input class="inp" type="time" id="eDebut">
+          </div>
+          <div class="field">
+            <label>Fin</label>
+            <input class="inp" type="time" id="eFin">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Lieu</label>
+            <input class="inp" type="text" id="eLieu">
+          </div>
+          <div class="field">
+            <label>Ville</label>
+            <input class="inp" type="text" id="eAdresse">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Domicile / Extérieur</label>
+            <select class="inp" id="eDomicile">
+              <option value="">Non précisé</option>
+              <option value="oui">Domicile</option>
+              <option value="non">Extérieur</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Notes</label>
+            <input class="inp" type="text" id="eNotes" placeholder="Infos complémentaires…">
+          </div>
+        </div>
+        <div class="field">
+          <label>Arbitres apportés (prénoms)</label>
+          <input class="inp" type="text" id="eArbitres" placeholder="Ex : Julien, Marie, Karim">
+        </div>
+        <div style="display:flex;gap:9px">
+          <button class="btn btn-prim" id="saveEv">Ajouter l'événement</button>
+          <button class="btn btn-ghost" id="cancelEv" style="display:none">Annuler</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head" style="flex-wrap:wrap;gap:10px">
+        <h3><img src="../assets/emojis/dossier.webp" alt="">Événements enregistrés <span class="tab-count" id="evCountBadge">0</span></h3>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input class="inp" type="text" id="searchEv" placeholder="Rechercher…" style="width:180px;padding:7px 12px;font-size:13px">
+          <button class="btn btn-danger btn-sm" id="wipeEvBtn" title="Supprimer tous les événements ponctuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6v14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6"/></svg>Tout supprimer</button>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; padding: 12px 18px 0; padding-bottom: 12px">
+        <button class="sec-filter-btn active" id="fAll" data-sec="all" style="--sc:#555;--sc2:#333">Tous</button>
+        <button class="sec-filter-btn" id="fFlag" data-sec="flag" style="--sc:#f0a020;--sc2:#c07a10"><span class="sec-filter-dot" style="background:#f0a020"></span>Flag Senior</button>
+        <button class="sec-filter-btn" id="fFootus" data-sec="footus" style="--sc:#c8383f;--sc2:#a02f35"><span class="sec-filter-dot" style="background:#c8383f"></span>Foot US Senior</button>
+        <button class="sec-filter-btn" id="fFootusJr" data-sec="footus_jr" style="--sc:#3B82C4;--sc2:#2c649c"><span class="sec-filter-dot" style="background:#3B82C4"></span>Foot US Junior</button>
+        <button class="sec-filter-btn" id="fFlagJr" data-sec="flag_jr" style="--sc:#8B5CF6;--sc2:#6d3fd4"><span class="sec-filter-dot" style="background:#8B5CF6"></span>Flag Junior</button>
+        <button class="sec-filter-btn" id="fEcole" data-sec="ecole" style="--sc:#2B6E66;--sc2:#1e4f49"><span class="sec-filter-dot" style="background:#2B6E66"></span>École de Flag</button>
+        <button class="sec-filter-btn" id="fClub" data-sec="club" style="--sc:#9A6B4F;--sc2:#7a533c"><span class="sec-filter-dot" style="background:#9A6B4F"></span>Vie du club</button>
+      </div>
+      <div class="ev-list" id="evList"></div>
+    </div>
+  </div>
+</div>
+
+</div></div>
+
+<!-- MODAL CONFIRM -->
+<div class="overlay" id="confirmOverlay">
+  <div class="modal confirm-box">
+    <h3>Supprimer ?</h3>
+    <p id="confirmText">Cette action est irréversible.</p>
+    <div class="modal-actions">
+      <button class="btn btn-danger" style="flex:1" id="confirmYes">Supprimer</button>
+      <button class="btn btn-ghost" style="flex:1" id="confirmNo">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EXCEPTION RECURRENCE -->
+<div class="overlay" id="exOverlay" style="z-index:60">
+  <div class="modal">
+    <h3 id="exTitle">Exception d'entraînement</h3>
+    <p style="font-size:13px;color:var(--soft);line-height:1.5" id="exDesc"></p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+      <button class="btn btn-danger btn-full" id="exCancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg>Annuler cet entraînement</button>
+      <div style="border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:12px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.06em">Ou reporter à une autre date</div>
+        <div class="form-row">
+          <div class="field"><label>Nouvelle date</label><input class="inp" type="date" id="exNewDate"></div>
+          <div class="field"><label>Nouveau début</label><input class="inp" type="time" id="exNewDebut"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Nouvelle fin</label><input class="inp" type="time" id="exNewFin"></div>
+          <div class="field"><label>Nouveau lieu (optionnel)</label><input class="inp" type="text" id="exNewLieu"></div>
+        </div>
+        <button class="btn btn-prim btn-full" id="exMove">↗ Reporter à cette date</button>
+      </div>
+    </div>
+    <button class="btn btn-gold btn-full" id="exRestore" style="display:none;margin-top:4px">⟲ Rétablir la séance d'origine</button>
+    <button class="btn btn-ghost btn-full" id="exClose" style="margin-top:4px">Fermer</button>
+  </div>
+</div>
+
+<!-- MODAL DATES RÉCURRENCE -->
+<div class="overlay" id="datesOverlay">
+  <div class="modal" style="max-width:560px">
+    <h3 id="datesTitle">Dates générées</h3>
+    <p style="font-size:12px;color:var(--soft)">Clique sur une date pour la gérer (annuler ou reporter).</p>
+    <div id="datesList" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;max-height:320px;overflow-y:auto"></div>
+    <button class="btn btn-ghost btn-full" id="datesClose" style="margin-top:12px">Fermer</button>
+  </div>
+</div>
+
+<!-- MODAL EDIT RECURRENCE -->
+<div class="overlay" id="editRecOverlay">
+  <div class="modal">
+    <h3>Modifier la récurrence</h3>
+    <div class="form-row">
+      <div class="field"><label>Section</label><select class="inp" id="erSection">
+              <option value="footus">Foot US Senior</option>
+              <option value="flag">Flag Senior</option>
+              <option value="footus_jr">Foot US Junior</option>
+              <option value="flag_jr">Flag Junior</option>
+              <option value="ecole">École de Flag</option>
+              <option value="club">Vie du club</option>
+            </select></div>
+      <div class="field"><label>Type</label><select class="inp" id="erType">
+              <option value="Entraînement">Entraînement</option>
+              <option value="Séance">Séance</option>
+              <option value="Autre">Autre</option>
+            </select></div>
+    </div>
+    <div class="field"><label>Titre</label><input class="inp" id="erTitre"></div>
+    <div class="form-row">
+      <div class="field"><label>Début</label><input class="inp" type="time" id="erDebut"></div>
+      <div class="field"><label>Fin</label><input class="inp" type="time" id="erFin"></div>
+    </div>
+    <div class="form-row">
+      <div class="field"><label>Du</label><input class="inp" type="date" id="erFrom"></div>
+      <div class="field"><label>Au</label><input class="inp" type="date" id="erTo"></div>
+    </div>
+    <div class="form-row">
+      <div class="field"><label>Lieu</label><input class="inp" id="erLieu"></div>
+      <div class="field"><label>Ville</label><input class="inp" id="erAdresse"></div>
+    </div>
+    <div class="field">
+      <label>Jours</label>
+      <div class="days-row" id="erDaysRow">
+        <input class="day-cb" type="checkbox" id="erLun" value="1"><label class="day-lbl" for="erLun">Lun</label>
+        <input class="day-cb" type="checkbox" id="erMar" value="2"><label class="day-lbl" for="erMar">Mar</label>
+        <input class="day-cb" type="checkbox" id="erMer" value="3"><label class="day-lbl" for="erMer">Mer</label>
+        <input class="day-cb" type="checkbox" id="erJeu" value="4"><label class="day-lbl" for="erJeu">Jeu</label>
+        <input class="day-cb" type="checkbox" id="erVen" value="5"><label class="day-lbl" for="erVen">Ven</label>
+        <input class="day-cb" type="checkbox" id="erSam" value="6"><label class="day-lbl" for="erSam">Sam</label>
+        <input class="day-cb" type="checkbox" id="erDim" value="0"><label class="day-lbl" for="erDim">Dim</label>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-prim" style="flex:1" id="erSave">Enregistrer</button>
+      <button class="btn btn-ghost" style="flex:1" id="erCancel">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="assets/admin.js" defer></script>
+</body>
+</html>

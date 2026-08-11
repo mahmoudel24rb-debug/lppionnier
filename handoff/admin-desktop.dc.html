@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700;800&amp;family=Encode+Sans+Semi+Expanded:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Futura Condensed';src:url('fonts/FuturaStd-ExtraBoldCondensed.ttf') format('truetype');font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:'Neuething';src:url('fonts/NeuethingSans-RegularSemiExpanded.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Neuething';src:url('fonts/NeuethingSans-MediumSemiExpanded.ttf') format('truetype');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Neuething';src:url('fonts/NeuethingSans-SemiBoldSemiExpanded.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Neuething';src:url('fonts/NeuethingSans-BoldSemiExpanded.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap}
+:root{
+  --font-display:'Futura Condensed','Arial Narrow','Saira Condensed',system-ui,sans-serif;
+  --font-body:'Neuething','Encode Sans Semi Expanded',system-ui,sans-serif;
+  --bg:#eeeef0;--s:#ffffff;--shi:#f4f4f5;
+  --bx:#c8383f;--gold:#FFAD00;--gold-ink:#8a5c00;
+  --amber-grad:linear-gradient(180deg,#ffd86b,#ffb01f 50%,#f59e00);--amber-ink:#3a1604;
+  --ink:#18181b;--soft:rgba(24,24,27,.55);--line:rgba(24,24,27,.12);
+  --shadow:0 1px 2px rgba(24,24,27,.05),0 8px 24px -18px rgba(24,24,27,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+a{color:var(--gold-ink);text-decoration:none}
+a:hover{color:var(--bx)}
+.btn svg{width:15px;height:15px;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--font-body);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-box{background:var(--s);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:36px 32px;width:100%;max-width:380px;display:flex;flex-direction:column;gap:20px}
+.login-logo{font-family:var(--font-display);font-weight:800;font-size:26px;letter-spacing:-.05em;text-transform:uppercase;color:var(--ink)}
+.login-logo span{color:var(--bx)}
+.login-sub{font-size:13px;color:var(--soft);margin-top:6px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.08em}
+.inp{background:var(--bg);border:1px solid var(--line);border-radius:10px;color:var(--ink);font-family:var(--font-body);font-size:14px;padding:11px 14px;transition:border-color .15s;width:100%}
+.inp:focus{outline:none;border-color:rgba(245,160,0,.7);box-shadow:0 0 0 3px rgba(255,173,0,.15)}
+textarea.inp{resize:vertical;min-height:60px}
+select.inp option{background:var(--s)}
+.err-msg{font-size:12px;color:#e05555;background:rgba(224,85,85,.1);border:1px solid rgba(224,85,85,.25);border-radius:8px;padding:9px 12px;display:none}
+.err-msg.show{display:block}
+
+/* BUTTONS */
+.btn{border:0;cursor:pointer;border-radius:10px;padding:10px 16px;font-family:var(--font-body);font-weight:700;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:filter .1s,transform .1s;white-space:nowrap}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-prim{background:var(--bx);color:#fff}
+.btn-gold{background:var(--amber-grad);color:var(--amber-ink);border:1px solid rgba(214,130,0,.5);box-shadow:inset 0 1px 0 rgba(255,235,200,.4),0 8px 18px -8px rgba(245,160,0,.5)}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn-ghost:hover{background:rgba(255,173,0,.12);border-color:rgba(245,160,0,.6);color:var(--gold-ink)}
+.btn-danger{background:rgba(224,85,85,.12);border:1px solid rgba(224,85,85,.25);color:#e05555}
+.btn-danger:hover{background:rgba(224,85,85,.22)}
+.btn-sm{padding:6px 11px;font-size:12px;border-radius:8px}
+.btn-full{width:100%}
+
+/* TOPBAR */
+.admin-wrap{display:none;flex-direction:column;min-height:100vh}
+.topbar{background:var(--s);border-bottom:1px solid var(--line);padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+.topbar-logo{font-family:var(--font-display);font-weight:800;font-size:21px;letter-spacing:-.05em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:9px}
+.topbar-logo span{color:var(--bx)}
+.topbar-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* TABS */
+.admin-body{display:grid;grid-template-columns:224px 1fr;align-items:start}
+.admin-main{min-width:0}
+.sidenav{position:sticky;top:61px;height:calc(100vh - 61px);background:var(--s);border-right:1px solid var(--line);
+  padding:16px 12px;display:flex;flex-direction:column;gap:3px}
+.sidenav-lab{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);padding:0 10px 8px;font-weight:700}
+.sidenav-sep{height:1px;background:var(--line);margin:10px 4px}
+.tab{display:flex;align-items:center;gap:9px;width:100%;text-align:left;border-radius:10px}
+@media(max-width:820px){
+  .admin-body{grid-template-columns:1fr}
+  .sidenav{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;
+    border-right:0;border-bottom:1px solid var(--line);padding:10px 14px}
+  .sidenav-lab,.sidenav-sep{display:none}
+  .tab{width:auto}
+}
+.tab{border:0;background:transparent;color:var(--soft);font-family:var(--font-body);font-weight:600;font-size:13px;padding:10px 12px;cursor:pointer;transition:color .15s,background .15s;margin:0}
+.tab:hover{background:var(--shi);color:var(--ink)}
+.sidenav .tab svg{width:15px;height:15px;flex:none;opacity:.75}
+.sidenav .tab img{width:16px;height:16px;flex:none}
+.tab.active{color:var(--ink);background:rgba(255,173,0,.14);box-shadow:inset 2px 0 0 var(--gold)}
+.sidenav .tab-txt{flex:1 1 auto;min-width:0}
+.sidenav .tab-count{margin-left:auto;flex:none;align-self:flex-start;margin-top:1px}
+.tab-count{font-size:10px;background:var(--shi);color:var(--soft);padding:2px 6px;border-radius:999px;margin-left:5px}
+.tab.active .tab-count{background:rgba(200,56,63,.14);color:#8f2027}
+
+/* CONTENT */
+.tab-content{padding:24px;display:none;flex-direction:column;gap:20px}
+.tab-content.active{display:flex}
+
+/* CARDS */
+.card{background:var(--s);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow)}
+.card-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.card-head h3{font-family:var(--font-display);font-weight:800;font-size:19px;letter-spacing:-.04em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:8px}
+img[src^="emojis/"]{width:17px;height:17px;object-fit:contain;flex:none;vertical-align:-3px}
+.brand-avatar img[src^="emojis/"]{width:21px;height:21px}
+.brand-avatar{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--amber-grad);border:1px solid rgba(214,130,0,.5);box-shadow:inset 0 1px 0 rgba(255,235,200,.5),0 6px 14px -6px rgba(245,160,0,.55)}
+.brand-avatar img{width:21px;height:21px;object-fit:contain;display:block}
+.card-body{padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+
+/* RECURRENCE ITEMS */
+.rec-list{display:flex;flex-direction:column;gap:8px;padding:0 18px 16px}
+.rec-item{display:grid;grid-template-columns:14px 1fr auto auto auto;gap:12px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.rec-dot{width:10px;height:10px;border-radius:3px;flex:none}
+.rec-info{min-width:0}
+.rec-title{font-weight:600;font-size:13px;color:var(--ink)}
+.rec-meta{font-size:11px;color:var(--soft);margin-top:2px;font-family:"Space Mono",monospace}
+.rec-actions{display:flex;gap:6px}
+
+/* EVENT LIST */
+.ev-list{display:flex;flex-direction:column;gap:6px;padding:0 18px 16px}
+.ev-row{display:grid;grid-template-columns:10px 116px 1fr 100px auto;gap:11px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 13px;transition:border-color .12s}
+.ev-row:hover{border-color:rgba(245,160,0,.5);background:#fff}
+.ev-dot{width:10px;height:10px;border-radius:3px;flex:none}
+.ev-date{font-family:"Space Mono",monospace;font-size:11px;color:var(--soft)}
+.ev-title{font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ev-time{font-size:11px;color:var(--soft);font-family:"Space Mono",monospace}
+.ev-actions{display:flex;gap:5px;justify-content:flex-end}
+.empty-msg{padding:32px 18px;text-align:center;color:var(--soft);font-size:13px}
+
+/* DAYS CHECKBOXES */
+.days-row{display:flex;gap:6px;flex-wrap:wrap}
+.day-cb{display:none}
+.day-lbl{border:1px solid var(--line);background:var(--bg);color:var(--soft);padding:5px 11px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .12s;user-select:none}
+.day-cb:checked + .day-lbl{background:var(--bx);color:#fff;border-color:var(--bx)}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(24,24,27,.42);backdrop-filter:blur(4px);display:none;place-items:center;z-index:50;padding:20px}
+.overlay.open{display:grid}
+.modal{background:var(--s);border:1px solid var(--line);border-radius:10px;box-shadow:0 30px 80px -20px rgba(24,24,27,.35);padding:24px;max-width:500px;width:100%;display:flex;flex-direction:column;gap:16px;max-height:90vh;overflow-y:auto}
+.modal h3{font-family:var(--font-display);font-weight:800;font-size:21px;letter-spacing:-.04em;text-transform:uppercase;color:var(--ink)}
+.modal-actions{display:flex;gap:9px;margin-top:4px}
+.confirm-box{max-width:360px}
+.confirm-box p{font-size:13px;color:var(--soft);line-height:1.5}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--shi);border:1px solid var(--line);border-radius:11px;padding:11px 17px;font-size:13px;font-weight:600;transform:translateY(60px);opacity:0;transition:all .22s ease;z-index:200}
+.toast.show{transform:none;opacity:1}
+.toast.ok{border-color:rgba(78,203,137,.35);color:#4ecb89}
+.toast.err{border-color:rgba(224,85,85,.35);color:#e05555}
+
+/* SECTION DOTS */
+.dot-flag  {background:#f0a020}.dot-footus{background:#c8383f}
+.dot-ecole {background:#2B6E66}.dot-club  {background:#7C3AED}
+.dot-juniors{background:#3B82C4}.dot-mixte{background:#D9822B}
+.dot-footus_jr{background:#3B82C4}.dot-flag_jr{background:#8B5CF6}
+
+/* SECTION FILTER BUTTONS */
+.sec-filter-btn{
+  border:1.5px solid var(--sc);background:transparent;color:var(--soft);
+  padding:7px 14px 7px 10px;border-radius:999px;font-family:var(--font-body);font-size:13px;font-weight:600;
+  cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .15s ease;
+  opacity:.55
+}
+.sec-filter-btn:hover{opacity:.85;background:color-mix(in srgb,var(--sc) 10%,transparent)}
+.sec-filter-btn.active{background:var(--sc);color:#fff;opacity:1;border-color:var(--sc)}
+.sec-filter-btn[data-sec="all"].active{background:var(--ink);border-color:var(--ink);color:#fff}
+.sec-filter-dot{width:9px;height:9px;border-radius:3px;flex:none}
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#141414"/>
+    <rect x="28" y="34" width="44" height="32" rx="5" fill="#c8383f"/>
+    <text x="50" y="56" font-family="Arial" font-weight="900" font-size="14" fill="#fff" text-anchor="middle">ADM</text>
+  </svg>
+</template>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginScreen">
+  <div class="login-box">
+    <div>
+      <div class="login-logo" style="display:flex;align-items:center;gap:10px"><span class="brand-avatar"><img src="emojis/coeur-club.png" alt=""></span>Pionniers <span>Admin</span></div>
+      <div class="login-sub">Accès réservé aux responsables du club</div>
+    </div>
+    <div class="field">
+      <label>Mot de passe</label>
+      <input class="inp" type="password" id="pwInput" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <div class="err-msg" id="loginErr">Mot de passe incorrect.</div>
+    <button class="btn btn-prim btn-full" id="loginBtn">Connexion →</button>
+    <div style="font-size:11px;color:var(--soft);text-align:center">Mot de passe par défaut : <b style="color:var(--ink)">pionniers</b></div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="admin-wrap" id="adminWrap">
+  <nav class="topbar">
+    <div class="topbar-logo"><span class="brand-avatar"><img src="emojis/coeur-club.png" alt=""></span>Pionniers <span>Admin</span></div>
+    <div class="topbar-right">
+      <a href="calendrier-desktop.dc.html" target="_blank" class="btn btn-ghost btn-sm"><img src="emojis/calendrier.png" alt="">Calendrier</a>
+      <button class="btn btn-gold btn-sm" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>Export CSV</button>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn">Déconnexion</button>
+    </div>
+  </nav>
+
+  <div class="admin-body">
+  <aside class="sidenav">
+    <div class="sidenav-lab">Gestion</div>
+    <button class="tab active" id="tabRec"><img src="emojis/horloge.png" alt=""><span class="tab-txt">Récurrences</span><span class="tab-count" id="cntRec">0</span></button>
+    <button class="tab" id="tabEv"><img src="emojis/calendrier.png" alt=""><span class="tab-txt">Événements ponctuels</span><span class="tab-count" id="cntEv">0</span></button>
+    <div class="sidenav-sep"></div>
+    <a class="tab" href="admin-mobile.dc.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>Version mobile</a>
+    <a class="tab" href="calendrier-desktop.dc.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Retour au calendrier</a>
+  </aside>
+  <div class="admin-main">
+
+  <!-- TAB RÉCURRENCES -->
+  <div class="tab-content active" id="contentRec">
+    <div style="background:rgba(255,173,0,.09);border:1px solid rgba(255,173,0,.3);border-radius:10px;padding:13px 16px;font-size:13px;color:var(--soft);line-height:1.6">
+      <img src="emojis/horloge.png" alt=""> <b style="color:var(--ink)">Un entraînement annulé ou décalé ?</b> Clique sur la récurrence concernée → <b style="color:var(--ink)">Voir les dates</b> pour gérer les exceptions une par une.
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <h3><img src="emojis/horloge.png" alt="">Nouvelle récurrence</h3>
+      </div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="field">
+            <label>Section</label>
+            <select class="inp" id="rSection">
+              <option value="footus">Foot US Senior</option>
+              <option value="flag">Flag Senior</option>
+              <option value="footus_jr">Foot US Junior</option>
+              <option value="flag_jr">Flag Junior</option>
+              <option value="ecole">École de Flag</option>
+              <option value="club">Vie du club</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Titre</label>
+            <input class="inp" type="text" id="rTitre" placeholder="Ex : Entr. Flag Senior">
+          </div>
+        </div>
+        <div class="field">
+          <label>Jours de la semaine</label>
+          <div class="days-row" id="daysRow">
+            <input class="day-cb" type="checkbox" id="dLun" value="1"><label class="day-lbl" for="dLun">Lun</label>
+            <input class="day-cb" type="checkbox" id="dMar" value="2"><label class="day-lbl" for="dMar">Mar</label>
+            <input class="day-cb" type="checkbox" id="dMer" value="3"><label class="day-lbl" for="dMer">Mer</label>
+            <input class="day-cb" type="checkbox" id="dJeu" value="4"><label class="day-lbl" for="dJeu">Jeu</label>
+            <input class="day-cb" type="checkbox" id="dVen" value="5"><label class="day-lbl" for="dVen">Ven</label>
+            <input class="day-cb" type="checkbox" id="dSam" value="6"><label class="day-lbl" for="dSam">Sam</label>
+            <input class="day-cb" type="checkbox" id="dDim" value="0"><label class="day-lbl" for="dDim">Dim</label>
+          </div>
+        </div>
+        <div class="form-row-3">
+          <div class="field">
+            <label>Début</label>
+            <input class="inp" type="time" id="rDebut">
+          </div>
+          <div class="field">
+            <label>Fin</label>
+            <input class="inp" type="time" id="rFin">
+          </div>
+          <div class="field">
+            <label>Type</label>
+            <select class="inp" id="rType">
+              <option value="Entraînement">Entraînement</option>
+              <option value="Séance">Séance</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Du</label>
+            <input class="inp" type="date" id="rFrom">
+          </div>
+          <div class="field">
+            <label>Au</label>
+            <input class="inp" type="date" id="rTo">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Lieu</label>
+            <input class="inp" type="text" id="rLieu" placeholder="Stade de la Chambrerie – Terrain 3">
+          </div>
+          <div class="field">
+            <label>Ville</label>
+            <input class="inp" type="text" id="rAdresse" placeholder="Tours">
+          </div>
+        </div>
+        <button class="btn btn-prim" id="saveRec">Ajouter la récurrence</button>
+      </div>
+    </div>
+
+    <div class="card" id="recCard">
+      <div class="card-head">
+        <h3><img src="emojis/drapeau.png" alt="">Récurrences actives</h3>
+      </div>
+      <div class="rec-list" id="recList"></div>
+    </div>
+  </div>
+
+  <!-- TAB ÉVÉNEMENTS -->
+  <div class="tab-content" id="contentEv">
+    <div class="card">
+      <div class="card-head">
+        <h3 id="evFormTitle"><img src="emojis/ballon.png" alt="">Nouvel événement ponctuel</h3>
+        <div style="display:flex;gap:8px;align-items:center">
+          <label class="btn btn-ghost btn-sm" for="csvImport" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="m7 12 5-5 5 5"/><path d="M5 3h14"/></svg>Importer CSV</label>
+          <input type="file" id="csvImport" accept=".csv" style="display:none">
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="field">
+            <label>Section</label>
+            <select class="inp" id="eSection">
+              <option value="footus">Foot US Senior</option>
+              <option value="flag">Flag Senior</option>
+              <option value="footus_jr">Foot US Junior</option>
+              <option value="flag_jr">Flag Junior</option>
+              <option value="ecole">École de Flag</option>
+              <option value="club">Vie du club</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Titre</label>
+            <input class="inp" type="text" id="eTitre" placeholder="Ex : Champ. Mixte – J1">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Date</label>
+            <input class="inp" type="date" id="eDate">
+          </div>
+          <div class="field">
+            <label>Type</label>
+            <select class="inp" id="eType">
+              <option value="Tournoi">Tournoi</option>
+              <option value="Match">Match</option>
+              <option value="Finale">Finale</option>
+              <option value="Événement club">Événement club</option>
+              <option value="Assemblée">Assemblée</option>
+              <option value="Gala">Gala</option>
+              <option value="Anniversaire">Anniversaire</option>
+              <option value="Stage">Stage</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Début</label>
+            <input class="inp" type="time" id="eDebut">
+          </div>
+          <div class="field">
+            <label>Fin</label>
+            <input class="inp" type="time" id="eFin">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Lieu</label>
+            <input class="inp" type="text" id="eLieu">
+          </div>
+          <div class="field">
+            <label>Ville</label>
+            <input class="inp" type="text" id="eAdresse">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Domicile / Extérieur</label>
+            <select class="inp" id="eDomicile">
+              <option value="">Non précisé</option>
+              <option value="oui">Domicile</option>
+              <option value="non">Extérieur</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Notes</label>
+            <input class="inp" type="text" id="eNotes" placeholder="Infos complémentaires…">
+          </div>
+        </div>
+        <div class="field">
+          <label>Arbitres apportés (prénoms)</label>
+          <input class="inp" type="text" id="eArbitres" placeholder="Ex : Julien, Marie, Karim">
+        </div>
+        <div style="display:flex;gap:9px">
+          <button class="btn btn-prim" id="saveEv">Ajouter l'événement</button>
+          <button class="btn btn-ghost" id="cancelEv" style="display:none">Annuler</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head" style="flex-wrap:wrap;gap:10px">
+        <h3><img src="emojis/dossier.png" alt="">Événements enregistrés <span class="tab-count" id="evCountBadge">0</span></h3>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input class="inp" type="text" id="searchEv" placeholder="Rechercher…" style="width:180px;padding:7px 12px;font-size:13px">
+          <button class="btn btn-danger btn-sm" id="wipeEvBtn" title="Supprimer tous les événements ponctuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6v14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6"/></svg>Tout supprimer</button>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; padding: 12px 18px 0; padding-bottom: 12px">
+        <button class="sec-filter-btn active" id="fAll" data-sec="all" style="--sc:#555;--sc2:#333">Tous</button>
+        <button class="sec-filter-btn" id="fFlag" data-sec="flag" style="--sc:#f0a020;--sc2:#c07a10"><span class="sec-filter-dot" style="background:#f0a020"></span>Flag Senior</button>
+        <button class="sec-filter-btn" id="fFootus" data-sec="footus" style="--sc:#c8383f;--sc2:#a02f35"><span class="sec-filter-dot" style="background:#c8383f"></span>Foot US Senior</button>
+        <button class="sec-filter-btn" id="fFootusJr" data-sec="footus_jr" style="--sc:#3B82C4;--sc2:#2c649c"><span class="sec-filter-dot" style="background:#3B82C4"></span>Foot US Junior</button>
+        <button class="sec-filter-btn" id="fFlagJr" data-sec="flag_jr" style="--sc:#8B5CF6;--sc2:#6d3fd4"><span class="sec-filter-dot" style="background:#8B5CF6"></span>Flag Junior</button>
+        <button class="sec-filter-btn" id="fEcole" data-sec="ecole" style="--sc:#2B6E66;--sc2:#1e4f49"><span class="sec-filter-dot" style="background:#2B6E66"></span>École de Flag</button>
+        <button class="sec-filter-btn" id="fClub" data-sec="club" style="--sc:#9A6B4F;--sc2:#7a533c"><span class="sec-filter-dot" style="background:#9A6B4F"></span>Vie du club</button>
+      </div>
+      <div class="ev-list" id="evList"></div>
+    </div>
+  </div>
+</div>
+
+</div></div>
+
+<!-- MODAL CONFIRM -->
+<div class="overlay" id="confirmOverlay">
+  <div class="modal confirm-box">
+    <h3>Supprimer ?</h3>
+    <p id="confirmText">Cette action est irréversible.</p>
+    <div class="modal-actions">
+      <button class="btn btn-danger" style="flex:1" id="confirmYes">Supprimer</button>
+      <button class="btn btn-ghost" style="flex:1" id="confirmNo">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EXCEPTION RECURRENCE -->
+<div class="overlay" id="exOverlay" style="z-index:60">
+  <div class="modal">
+    <h3 id="exTitle">Exception d'entraînement</h3>
+    <p style="font-size:13px;color:var(--soft);line-height:1.5" id="exDesc"></p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+      <button class="btn btn-danger btn-full" id="exCancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg>Annuler cet entraînement</button>
+      <div style="border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:12px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.06em">Ou reporter à une autre date</div>
+        <div class="form-row">
+          <div class="field"><label>Nouvelle date</label><input class="inp" type="date" id="exNewDate"></div>
+          <div class="field"><label>Nouveau début</label><input class="inp" type="time" id="exNewDebut"></div>
+        </div>
+        <div class="field"><label>Nouveau lieu (optionnel)</label><input class="inp" type="text" id="exNewLieu"></div>
+        <button class="btn btn-prim btn-full" id="exMove">↗ Reporter à cette date</button>
+      </div>
+    </div>
+    <button class="btn btn-ghost btn-full" id="exClose" style="margin-top:4px">Fermer</button>
+  </div>
+</div>
+
+<!-- MODAL DATES RÉCURRENCE -->
+<div class="overlay" id="datesOverlay">
+  <div class="modal" style="max-width:560px">
+    <h3 id="datesTitle">Dates générées</h3>
+    <p style="font-size:12px;color:var(--soft)">Clique sur une date pour la gérer (annuler ou reporter).</p>
+    <div id="datesList" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;max-height:320px;overflow-y:auto"></div>
+    <button class="btn btn-ghost btn-full" id="datesClose" style="margin-top:12px">Fermer</button>
+  </div>
+</div>
+
+<!-- MODAL EDIT RECURRENCE -->
+<div class="overlay" id="editRecOverlay">
+  <div class="modal">
+    <h3>Modifier la récurrence</h3>
+    <div class="field"><label>Titre</label><input class="inp" id="erTitre"></div>
+    <div class="form-row">
+      <div class="field"><label>Début</label><input class="inp" type="time" id="erDebut"></div>
+      <div class="field"><label>Fin</label><input class="inp" type="time" id="erFin"></div>
+    </div>
+    <div class="form-row">
+      <div class="field"><label>Du</label><input class="inp" type="date" id="erFrom"></div>
+      <div class="field"><label>Au</label><input class="inp" type="date" id="erTo"></div>
+    </div>
+    <div class="form-row">
+      <div class="field"><label>Lieu</label><input class="inp" id="erLieu"></div>
+      <div class="field"><label>Ville</label><input class="inp" id="erAdresse"></div>
+    </div>
+    <div class="field">
+      <label>Jours</label>
+      <div class="days-row" id="erDaysRow">
+        <input class="day-cb" type="checkbox" id="erLun" value="1"><label class="day-lbl" for="erLun">Lun</label>
+        <input class="day-cb" type="checkbox" id="erMar" value="2"><label class="day-lbl" for="erMar">Mar</label>
+        <input class="day-cb" type="checkbox" id="erMer" value="3"><label class="day-lbl" for="erMer">Mer</label>
+        <input class="day-cb" type="checkbox" id="erJeu" value="4"><label class="day-lbl" for="erJeu">Jeu</label>
+        <input class="day-cb" type="checkbox" id="erVen" value="5"><label class="day-lbl" for="erVen">Ven</label>
+        <input class="day-cb" type="checkbox" id="erSam" value="6"><label class="day-lbl" for="erSam">Sam</label>
+        <input class="day-cb" type="checkbox" id="erDim" value="0"><label class="day-lbl" for="erDim">Dim</label>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-prim" style="flex:1" id="erSave">Enregistrer</button>
+      <button class="btn btn-ghost" style="flex:1" id="erCancel">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.REC_KEY = 'pionniers_recurrences';
+    this.EV_KEY  = 'pionniers_single_events';
+    this.ALL_KEY = 'pionniers_events'; // lu par le calendrier
+    this.PW      = 'pionniers';
+    this.editEvId  = null;
+    this.editRecId = null;
+    this.deleteTarget = null;
+    this.deleteType   = null;
+    this.search = '';
+
+    this.SECTIONS = {
+      footus:    {label:'Foot US Senior', hex:'#c8383f'},
+      flag:      {label:'Flag Senior',    hex:'#f0a020'},
+      footus_jr: {label:'Foot US Junior', hex:'#3B82C4'},
+      flag_jr:   {label:'Flag Junior',    hex:'#8B5CF6'},
+      ecole:     {label:'École de Flag',  hex:'#2B6E66'},
+      club:      {label:'Vie du club',    hex:'#9A6B4F'},
+    };
+    this.DAYS_FR = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+    this.EX_KEY  = 'pionniers_exceptions'; // {recId_date: 'cancelled'|{newDate,newDebut,newLieu}}
+    this.currentRecForDates = null;
+    this.currentExDate = null;
+
+    if (sessionStorage.getItem('pionniers_admin') === '1') this._showAdmin();
+
+    this._bindAll();
+
+    // Pré-remplir récurrences par défaut si vide
+    if (!localStorage.getItem(this.REC_KEY)) this._seedDefaults();
+  }
+
+  _seedDefaults() {
+    const recs = [
+      {id:this._uid(),section:'footus_jr',titre:'Entr. Foot US Junior U13-U18',days:[1],debut:'19:00',fin:'20:30',from:'2026-08-17',to:'2027-06-30',lieu:'Stade de la Chambrerie – Terrain 3',adresse:'Tours',type:'Entraînement'},
+      {id:this._uid(),section:'flag_jr',  titre:'Entr. Flag Junior U13-U18',   days:[1],debut:'19:00',fin:'20:30',from:'2026-08-17',to:'2027-06-30',lieu:'Stade de la Chambrerie – Terrain 3',adresse:'Tours',type:'Entraînement'},
+      {id:this._uid(),section:'footus',   titre:'Entr. Foot US Senior',        days:[1],debut:'20:30',fin:'23:00',from:'2026-08-17',to:'2027-06-30',lieu:'Stade de la Chambrerie – Terrain 3',adresse:'Tours',type:'Entraînement'},
+      {id:this._uid(),section:'flag',     titre:'Entr. Flag Senior',           days:[1],debut:'20:30',fin:'23:00',from:'2026-08-17',to:'2027-06-30',lieu:'Stade de la Chambrerie – Terrain 3',adresse:'Tours',type:'Entraînement'},
+      {id:this._uid(),section:'footus',   titre:'Entr. Foot US Senior',        days:[3],debut:'21:00',fin:'23:00',from:'2026-08-17',to:'2027-06-30',lieu:'Stade de la Chambrerie – Terrain 3',adresse:'Tours',type:'Entraînement'},
+      {id:this._uid(),section:'flag',     titre:'Entr. Flag Senior',           days:[3],debut:'21:00',fin:'23:00',from:'2026-08-17',to:'2027-06-30',lieu:'Stade de la Chambrerie – Terrain 3',adresse:'Tours',type:'Entraînement'},
+      {id:this._uid(),section:'footus_jr',titre:'Entr. Foot US Junior U15-U18',days:[4],debut:'19:00',fin:'20:30',from:'2026-08-17',to:'2027-06-30',lieu:'Stade de la Chambrerie – Terrain 3',adresse:'Tours',type:'Entraînement'},
+      {id:this._uid(),section:'flag',     titre:'Entr. Flag Senior',           days:[4],debut:'20:30',fin:'23:00',from:'2026-08-17',to:'2027-06-30',lieu:'Stade de la Chambrerie – Terrain 3',adresse:'Tours',type:'Entraînement'},
+      {id:this._uid(),section:'footus',   titre:'Entr. Foot US Senior',        days:[5],debut:'20:00',fin:'23:00',from:'2026-08-17',to:'2027-06-30',lieu:'Stade de la Chambrerie – Terrain 3',adresse:'Tours',type:'Entraînement'},
+      {id:this._uid(),section:'ecole',    titre:'École de Flag (U9-U18)',      days:[6],debut:'10:00',fin:'12:00',from:'2026-09-05',to:'2027-06-28',lieu:'Stade de la Chambrerie – Terrain 3',adresse:'Tours',type:'Séance'},
+    ];
+    localStorage.setItem(this.REC_KEY, JSON.stringify(recs));
+  }
+
+  _bindAll() {
+    // Login
+    const pw = document.getElementById('pwInput');
+    document.getElementById('loginBtn').onclick = () => this._tryLogin();
+    pw.addEventListener('keydown', e => { if(e.key==='Enter') this._tryLogin(); });
+
+    // Topbar
+    document.getElementById('logoutBtn').onclick = () => {
+      sessionStorage.removeItem('pionniers_admin');
+      document.getElementById('loginScreen').style.display='';
+      document.getElementById('adminWrap').style.display='none';
+      document.getElementById('pwInput').value='';
+    };
+    document.getElementById('exportBtn').onclick = () => this._exportCSV();
+
+    // Tabs
+    document.getElementById('tabRec').onclick = () => this._setTab('rec');
+    document.getElementById('tabEv').onclick  = () => this._setTab('ev');
+
+    // Recurrence form
+    document.getElementById('saveRec').onclick = () => this._saveRec();
+
+    // Event form
+    document.getElementById('saveEv').onclick    = () => this._saveEv();
+    document.getElementById('cancelEv').onclick  = () => this._cancelEvEdit();
+    document.getElementById('searchEv').oninput  = e => { this.search = e.target.value.toLowerCase(); this._renderEvList(); };
+    this.filterSec = 'all';
+    document.querySelectorAll('.sec-filter-btn').forEach(btn => {
+      btn.onclick = () => {
+        this.filterSec = btn.getAttribute('data-sec');
+        document.querySelectorAll('.sec-filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+        this._renderEvList();
+      };
+    });
+
+    // Confirm modal
+    document.getElementById('wipeEvBtn').onclick = () => this._askWipe();
+    document.getElementById('confirmYes').onclick = () => this._confirmDelete();
+    document.getElementById('confirmNo').onclick  = () => this._closeConfirm();
+    document.getElementById('confirmOverlay').onclick = e => { if(e.target.id==='confirmOverlay') this._closeConfirm(); };
+
+    // Edit rec modal
+    document.getElementById('erSave').onclick   = () => this._saveEditRec();
+    document.getElementById('erCancel').onclick = () => document.getElementById('editRecOverlay').classList.remove('open');
+    document.getElementById('editRecOverlay').onclick = e => { if(e.target.id==='editRecOverlay') document.getElementById('editRecOverlay').classList.remove('open'); };
+
+    // CSV import
+    document.getElementById('csvImport').onchange = e => this._importCSV(e);
+
+    // Exception modal
+    document.getElementById('exCancel').onclick = () => this._applyException('cancel');
+    document.getElementById('exMove').onclick   = () => this._applyException('move');
+    document.getElementById('exClose').onclick  = () => document.getElementById('exOverlay').classList.remove('open');
+    document.getElementById('exOverlay').onclick = e => { if(e.target.id==='exOverlay') document.getElementById('exOverlay').classList.remove('open'); };
+
+    // Dates modal
+    document.getElementById('datesClose').onclick = () => document.getElementById('datesOverlay').classList.remove('open');
+    document.getElementById('datesOverlay').onclick = e => { if(e.target.id==='datesOverlay') document.getElementById('datesOverlay').classList.remove('open'); };
+  }
+
+  _tryLogin() {
+    const val = (document.getElementById('pwInput').value||'').trim();
+    const stored = localStorage.getItem('pionniers_admin_pw') || this.PW;
+    if (val === stored) {
+      document.getElementById('loginErr').classList.remove('show');
+      sessionStorage.setItem('pionniers_admin','1');
+      this._showAdmin();
+    } else {
+      document.getElementById('loginErr').classList.add('show');
+      document.getElementById('pwInput').value='';
+    }
+  }
+
+  _showAdmin() {
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('adminWrap').style.display='flex';
+    this._renderRecList();
+    this._renderEvList();
+    this._syncCalendar();
+  }
+
+  _setTab(t) {
+    ['rec','ev'].forEach(tab => {
+      document.getElementById('tab'+this._cap(tab)).classList.toggle('active', tab===t);
+      document.getElementById('content'+this._cap(tab)).classList.toggle('active', tab===t);
+    });
+  }
+
+  /* ---- RECURRENCES ---- */
+  _loadRecs() { try { return JSON.parse(localStorage.getItem(this.REC_KEY)||'[]'); } catch(e){return[];} }
+  _storeRecs(r) { localStorage.setItem(this.REC_KEY, JSON.stringify(r)); }
+  _loadExs() { try { return JSON.parse(localStorage.getItem(this.EX_KEY)||'{}'); } catch(e){return {};} }
+  _storeExs(x) { localStorage.setItem(this.EX_KEY, JSON.stringify(x)); }
+
+  _saveRec() {
+    const days = [...document.querySelectorAll('#daysRow .day-cb:checked')].map(c=>parseInt(c.value));
+    if(!days.length) { this._toast('Sélectionne au moins un jour','err'); return; }
+    const titre = document.getElementById('rTitre').value.trim();
+    const from  = document.getElementById('rFrom').value;
+    const to    = document.getElementById('rTo').value;
+    if(!titre||!from||!to) { this._toast('Titre, début et fin sont obligatoires','err'); return; }
+    const rec = {
+      id: this._uid(),
+      section: document.getElementById('rSection').value,
+      titre, days,
+      debut:   document.getElementById('rDebut').value,
+      fin:     document.getElementById('rFin').value,
+      from, to,
+      lieu:    document.getElementById('rLieu').value.trim(),
+      adresse: document.getElementById('rAdresse').value.trim(),
+      type:    document.getElementById('rType').value,
+    };
+    const recs = this._loadRecs();
+    recs.push(rec);
+    this._storeRecs(recs);
+    this._renderRecList();
+    this._syncCalendar();
+    this._toast('Récurrence ajoutée ✓','ok');
+    // Reset
+    document.getElementById('rTitre').value='';
+    document.getElementById('rFrom').value='';
+    document.getElementById('rTo').value='';
+    document.getElementById('rDebut').value='';
+    document.getElementById('rFin').value='';
+    document.getElementById('rLieu').value='';
+    document.getElementById('rAdresse').value='';
+    document.querySelectorAll('#daysRow .day-cb').forEach(c=>c.checked=false);
+  }
+
+  _renderRecList() {
+    const recs = this._loadRecs();
+    document.getElementById('cntRec').textContent = recs.length;
+    const container = document.getElementById('recList');
+    if(!recs.length) { container.innerHTML='<div class="empty-msg">Aucune récurrence. Ajoute-en une ci-dessus.</div>'; return; }
+    container.innerHTML = recs.map((r,i) => {
+      const s = this.SECTIONS[r.section]||{hex:'#555'};
+      const daysStr = (r.days||[]).sort((a,b)=>a-b).map(d=>this.DAYS_FR[d]).join(', ');
+      const period = `${r.from} → ${r.to}`;
+      const time   = r.debut ? (r.fin ? `${r.debut}–${r.fin}` : r.debut) : '';
+      return `<div class="rec-item">
+        <span class="rec-dot" style="background:${s.hex}"></span>
+        <div class="rec-info">
+          <div class="rec-title">${this._esc(r.titre)}</div>
+          <div class="rec-meta">${daysStr} · ${time} · ${period}</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" data-dates-rec="${i}" title="Voir les dates"><img src="emojis/calendrier.png" alt=""></button>
+        <button class="btn btn-ghost btn-sm" data-edit-rec="${i}" title="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+        <button class="btn btn-danger btn-sm" data-del-rec="${i}" data-title="${this._esc(r.titre)}" title="Supprimer">✕</button>
+      </div>`;
+    }).join('');
+    container.querySelectorAll('[data-dates-rec]').forEach(b =>
+      b.onclick = () => this._openDates(parseInt(b.getAttribute('data-dates-rec')))
+    );
+    container.querySelectorAll('[data-edit-rec]').forEach(b =>
+      b.onclick = () => this._openEditRec(parseInt(b.getAttribute('data-edit-rec')))
+    );
+    container.querySelectorAll('[data-del-rec]').forEach(b =>
+      b.onclick = () => this._askDelete('rec', parseInt(b.getAttribute('data-del-rec')), b.getAttribute('data-title'))
+    );
+  }
+
+  _openEditRec(idx) {
+    const r = this._loadRecs()[idx]; if(!r) return;
+    this.editRecId = idx;
+    document.getElementById('erTitre').value  = r.titre||'';
+    document.getElementById('erDebut').value  = r.debut||'';
+    document.getElementById('erFin').value    = r.fin||'';
+    document.getElementById('erFrom').value   = r.from||'';
+    document.getElementById('erTo').value     = r.to||'';
+    document.getElementById('erLieu').value   = r.lieu||'';
+    document.getElementById('erAdresse').value= r.adresse||'';
+    document.querySelectorAll('#erDaysRow .day-cb').forEach(c => {
+      c.checked = (r.days||[]).includes(parseInt(c.value));
+    });
+    document.getElementById('editRecOverlay').classList.add('open');
+  }
+
+  _saveEditRec() {
+    if(this.editRecId === null) return;
+    const recs = this._loadRecs();
+    const r = recs[this.editRecId];
+    const days = [...document.querySelectorAll('#erDaysRow .day-cb:checked')].map(c=>parseInt(c.value));
+    if(!days.length) { this._toast('Sélectionne au moins un jour','err'); return; }
+    r.titre   = document.getElementById('erTitre').value.trim() || r.titre;
+    r.debut   = document.getElementById('erDebut').value;
+    r.fin     = document.getElementById('erFin').value;
+    r.from    = document.getElementById('erFrom').value;
+    r.to      = document.getElementById('erTo').value;
+    r.lieu    = document.getElementById('erLieu').value.trim();
+    r.adresse = document.getElementById('erAdresse').value.trim();
+    r.days    = days;
+    this._storeRecs(recs);
+    document.getElementById('editRecOverlay').classList.remove('open');
+    this._renderRecList();
+    this._syncCalendar();
+    this._toast('Récurrence mise à jour ✓','ok');
+  }
+
+  /* ---- DATES & EXCEPTIONS ---- */
+  _openDates(idx) {
+    const r = this._loadRecs()[idx]; if(!r) return;
+    this.currentRecForDates = idx;
+    const exs = this._loadExs();
+    document.getElementById('datesTitle').textContent = r.titre + ' — dates';
+    const start = new Date(r.from+'T12:00'), end = new Date(r.to+'T12:00');
+    const dates = [];
+    const d = new Date(start);
+    while(d <= end) {
+      if((r.days||[]).includes(d.getDay())) {
+        const iso = this._isoOf(d);
+        dates.push(iso);
+      }
+      d.setDate(d.getDate()+1);
+    }
+    const container = document.getElementById('datesList');
+    container.innerHTML = dates.map(iso => {
+      const key = r.id+'_'+iso;
+      const ex = exs[key];
+      const d2 = new Date(iso+'T12:00');
+      const label = d2.toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'short'});
+      let cls = 'btn btn-ghost btn-sm';
+      let badge = '';
+      if(ex === 'cancelled') { cls='btn btn-danger btn-sm'; badge=' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg>'; }
+      else if(ex && ex.newDate) { cls='btn btn-gold btn-sm'; badge=' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>'; }
+      return `<button class="${cls}" data-ex-date="${iso}" style="font-size:11px">${label}${badge}</button>`;
+    }).join('');
+    container.querySelectorAll('[data-ex-date]').forEach(b =>
+      b.onclick = () => this._openException(idx, b.getAttribute('data-ex-date'))
+    );
+    document.getElementById('datesOverlay').classList.add('open');
+  }
+
+  _openException(recIdx, date) {
+    const r = this._loadRecs()[recIdx]; if(!r) return;
+    this.currentRecForDates = recIdx;
+    this.currentExDate = date;
+    const d = new Date(date+'T12:00');
+    const label = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+    document.getElementById('exTitle').textContent = r.titre;
+    document.getElementById('exDesc').textContent = `Exception pour le ${label}`;
+    document.getElementById('exNewDate').value  = date;
+    document.getElementById('exNewDebut').value = r.debut||'';
+    document.getElementById('exNewLieu').value  = '';
+    document.getElementById('exOverlay').classList.add('open');
+  }
+
+  _applyException(type) {
+    if(this.currentRecForDates === null || !this.currentExDate) return;
+    const r = this._loadRecs()[this.currentRecForDates]; if(!r) return;
+    const key = r.id+'_'+this.currentExDate;
+    const exs = this._loadExs();
+    if(type === 'cancel') {
+      exs[key] = 'cancelled';
+      this._toast('Entraînement annulé ✓','ok');
+    } else {
+      const newDate  = document.getElementById('exNewDate').value;
+      const newDebut = document.getElementById('exNewDebut').value;
+      const newLieu  = document.getElementById('exNewLieu').value.trim();
+      if(!newDate) { this._toast('Indique une nouvelle date','err'); return; }
+      exs[key] = { newDate, newDebut: newDebut||r.debut, newLieu: newLieu||r.lieu };
+      this._toast('Entraînement reporté ✓','ok');
+    }
+    this._storeExs(exs);
+    this._syncCalendar();
+    document.getElementById('exOverlay').classList.remove('open');
+    // Refresh dates modal if open
+    if(document.getElementById('datesOverlay').classList.contains('open')) {
+      this._openDates(this.currentRecForDates);
+    }
+  }
+
+  _isoOf(d) {
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+
+  /* ---- CSV IMPORT ---- */
+  _importCSV(e) {
+    const file = e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const text = ev.target.result;
+      const lines = text.split('\n').map(l=>l.trim()).filter(Boolean);
+      if(!lines.length) { this._toast('Fichier vide','err'); return; }
+      // Detect headers
+      const headers = lines[0].split(',').map(h=>h.replace(/^"|"$/g,'').toLowerCase().trim());
+      const rows = lines.slice(1).map(line => {
+        const vals = this._parseCSVLine(line);
+        const obj = {};
+        headers.forEach((h,i) => obj[h] = (vals[i]||'').trim());
+        return obj;
+      }).filter(r => r.section && r.date);
+      if(!rows.length) { this._toast('Aucun événement trouvé dans le CSV','err'); return; }
+      const evs = this._loadEvs();
+      let added = 0;
+      rows.forEach(r => {
+        // Only import non-recurring events (skip Entraînement/Séance)
+        const type = (r.type||'').toLowerCase();
+        const isRecurring = type === 'entraînement' || type === 'séance' || type === 'entrainement' || type === 'seance';
+        if(!isRecurring) {
+          evs.push({
+            id: this._uid(),
+            section: r.section||'club', titre: r.titre||r.title||'Événement',
+            date: r.date, debut: r.debut||r.debut||'', fin: r.fin||'',
+            lieu: r.lieu||'', adresse: r.adresse||'', type: r.type||'',
+            domicile: r.domicile||'', notes: r.notes||'', arbitres: r.arbitres||'',
+          });
+          added++;
+        }
+      });
+      this._storeEvs(evs);
+      this._renderEvList();
+      this._syncCalendar();
+      this._toast(`${added} événements importés ✓`,'ok');
+      e.target.value='';
+    };
+    reader.readAsText(file, 'utf-8');
+  }
+
+  _parseCSVLine(line) {
+    const result = []; let cur = '', inQ = false;
+    for(let i=0;i<line.length;i++){
+      if(line[i]==='"'){ inQ=!inQ; }
+      else if(line[i]===','&&!inQ){ result.push(cur); cur=''; }
+      else cur+=line[i];
+    }
+    result.push(cur);
+    return result;
+  }
+
+  /* ---- SINGLE EVENTS ---- */
+  _loadEvs() { try { return JSON.parse(localStorage.getItem(this.EV_KEY)||'[]'); } catch(e){return[];} }
+  _storeEvs(e) { localStorage.setItem(this.EV_KEY, JSON.stringify(e)); }
+
+  _saveEv() {
+    const g = id => (document.getElementById(id)||{}).value||'';
+    const ev = {
+      id: this.editEvId || this._uid(),
+      section: g('eSection'), titre: g('eTitre').trim(), date: g('eDate'),
+      debut: g('eDebut'), fin: g('eFin'), lieu: g('eLieu').trim(),
+      adresse: g('eAdresse').trim(), type: g('eType'),
+      domicile: g('eDomicile'), notes: g('eNotes').trim(), arbitres: g('eArbitres').trim(),
+    };
+    if(!ev.titre||!ev.date) { this._toast('Titre et date obligatoires','err'); return; }
+    const evs = this._loadEvs();
+    if(this.editEvId) {
+      const idx = evs.findIndex(e=>e.id===this.editEvId);
+      if(idx>=0) evs[idx]=ev; else evs.push(ev);
+      this._toast('Événement mis à jour ✓','ok');
+    } else {
+      evs.push(ev);
+      this._toast('Événement ajouté ✓','ok');
+    }
+    this._storeEvs(evs);
+    this._cancelEvEdit();
+    this._renderEvList();
+    this._syncCalendar();
+  }
+
+  _cancelEvEdit() {
+    this.editEvId = null;
+    document.getElementById('evFormTitle').textContent = 'Nouvel événement ponctuel';
+    document.getElementById('saveEv').textContent = 'Ajouter l\'événement';
+    document.getElementById('cancelEv').style.display = 'none';
+    ['eTitre','eDate','eDebut','eFin','eLieu','eAdresse','eNotes','eArbitres'].forEach(id=>{
+      const el=document.getElementById(id); if(el) el.value='';
+    });
+    document.getElementById('eSection').value='flag';
+    document.getElementById('eType').value='Tournoi';
+    document.getElementById('eDomicile').value='';
+  }
+
+  _startEvEdit(id) {
+    const ev = this._loadEvs().find(e=>e.id===id); if(!ev) return;
+    this.editEvId = id;
+    const s = id2 => { const el=document.getElementById(id2); if(el) el.value=ev[id2.slice(1).toLowerCase()]||''; };
+    document.getElementById('eSection').value  = ev.section||'flag';
+    document.getElementById('eTitre').value    = ev.titre||'';
+    document.getElementById('eDate').value     = ev.date||'';
+    document.getElementById('eDebut').value    = ev.debut||'';
+    document.getElementById('eFin').value      = ev.fin||'';
+    document.getElementById('eLieu').value     = ev.lieu||'';
+    document.getElementById('eAdresse').value  = ev.adresse||'';
+    document.getElementById('eType').value     = ev.type||'Tournoi';
+    document.getElementById('eDomicile').value = ev.domicile||'';
+    document.getElementById('eNotes').value    = ev.notes||'';
+    document.getElementById('eArbitres').value = ev.arbitres||'';
+    document.getElementById('evFormTitle').textContent = 'Modifier l\'événement';
+    document.getElementById('saveEv').textContent = 'Mettre à jour';
+    document.getElementById('cancelEv').style.display='';
+    document.querySelector('.tab-content.active .card').scrollIntoView({behavior:'smooth'});
+  }
+
+  _renderEvList() {
+    const evs = this._loadEvs();
+    document.getElementById('cntEv').textContent = evs.length;
+    if(document.getElementById('evCountBadge')) document.getElementById('evCountBadge').textContent = evs.length;
+    let list = [...evs];
+    if(this.filterSec && this.filterSec !== 'all') list = list.filter(e => e.section === this.filterSec);
+    if(this.search) list = list.filter(e=>(e.titre+e.lieu+e.notes).toLowerCase().includes(this.search));
+    list.sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+    const container = document.getElementById('evList');
+    if(!list.length){
+      container.innerHTML='<div class="empty-msg">Aucun événement ponctuel. Ajoute des compétitions, matchs, événements club…</div>';
+      return;
+    }
+    container.innerHTML = list.map(ev => {
+      const s = this.SECTIONS[ev.section]||{hex:'#555'};
+      const d = ev.date ? new Date(ev.date+'T12:00') : null;
+      const dateStr = d ? d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+      const time = ev.debut ? (ev.fin?`${ev.debut}–${ev.fin}`:ev.debut) : '';
+      return `<div class="ev-row">
+        <span class="ev-dot" style="background:${s.hex}"></span>
+        <span class="ev-date">${dateStr}</span>
+        <span class="ev-title" title="${this._esc(ev.titre)}">${this._esc(ev.titre)}</span>
+        <span class="ev-time">${time}</span>
+        <div class="ev-actions">
+          <button class="btn btn-ghost btn-sm" data-edit-ev="${ev.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+          <button class="btn btn-danger btn-sm" data-del-ev="${ev.id}" data-title="${this._esc(ev.titre)}">✕</button>
+        </div>
+      </div>`;
+    }).join('');
+    container.querySelectorAll('[data-edit-ev]').forEach(b=>
+      b.onclick=()=>this._startEvEdit(b.getAttribute('data-edit-ev'))
+    );
+    container.querySelectorAll('[data-del-ev]').forEach(b=>
+      b.onclick=()=>this._askDelete('ev', b.getAttribute('data-del-ev'), b.getAttribute('data-title'))
+    );
+  }
+
+  /* ---- SYNC CALENDAR ---- */
+  _syncCalendar() {
+    const recs = this._loadRecs();
+    const evs  = this._loadEvs();
+    const exs  = this._loadExs();
+    const all  = [];
+
+    // Expand recurrences with exceptions
+    recs.forEach(r => {
+      const start = new Date(r.from+'T12:00'), end = new Date(r.to+'T12:00');
+      const d = new Date(start);
+      while(d <= end) {
+        if((r.days||[]).includes(d.getDay())) {
+          const iso = this._isoOf(d);
+          const key = r.id+'_'+iso;
+          const ex  = exs[key];
+          if(ex === 'cancelled') {
+            // skip — annulé
+          } else if(ex && ex.newDate) {
+            // reporté : on pousse à la nouvelle date
+            all.push({section:r.section, titre:r.titre+' (reporté)', date:ex.newDate,
+              debut:ex.newDebut||r.debut, fin:r.fin, lieu:ex.newLieu||r.lieu,
+              adresse:r.adresse, type:r.type, domicile:'oui', notes:'Reporté du '+iso});
+          } else {
+            all.push({section:r.section, titre:r.titre, date:iso,
+              debut:r.debut, fin:r.fin, lieu:r.lieu, adresse:r.adresse,
+              type:r.type, domicile:'oui', notes:''});
+          }
+        }
+        d.setDate(d.getDate()+1);
+      }
+    });
+
+    // Add single events
+    evs.forEach(e => all.push({section:e.section, titre:e.titre, date:e.date,
+      debut:e.debut, fin:e.fin, lieu:e.lieu, adresse:e.adresse,
+      type:e.type, domicile:e.domicile, notes:e.notes, arbitres:e.arbitres||''}));
+
+    all.sort((a,b) => a.date.localeCompare(b.date));
+    localStorage.setItem(this.ALL_KEY, JSON.stringify(all));
+  }
+
+  /* ---- DELETE ---- */
+  _askDelete(type, id, titre) {
+    this.deleteTarget = id;
+    this.deleteType   = type;
+    document.getElementById('confirmText').textContent = `"${titre}" sera supprimé définitivement.`;
+    document.getElementById('confirmOverlay').classList.add('open');
+  }
+
+  _askWipe() {
+    const n = this._loadEvs().length;
+    if (!n) { this._toast('Aucun événement à supprimer'); return; }
+    this.deleteType = 'wipe'; this.deleteTarget = null;
+    document.querySelector('#confirmOverlay h3').textContent = 'Vider la liste ?';
+    document.getElementById('confirmText').textContent =
+      `Les ${n} événements ponctuels seront supprimés définitivement. Les récurrences ne sont pas touchées.`;
+    document.getElementById('confirmYes').textContent = `Supprimer les ${n} événements`;
+    document.getElementById('confirmOverlay').classList.add('open');
+  }
+
+  _confirmDelete() {
+    if(this.deleteType==='wipe'){
+      this._storeEvs([]);
+      this._renderEvList();
+      this._syncCalendar();
+      this._toast('Liste vidée ✓','ok');
+      this._closeConfirm();
+      return;
+    }
+    if(this.deleteType==='rec'){
+      const recs = this._loadRecs();
+      recs.splice(parseInt(this.deleteTarget),1);
+      this._storeRecs(recs);
+      this._renderRecList();
+    } else {
+      const evs = this._loadEvs().filter(e=>e.id!==this.deleteTarget);
+      this._storeEvs(evs);
+      this._renderEvList();
+    }
+    this._syncCalendar();
+    this._toast('Supprimé ✓','ok');
+    this._closeConfirm();
+  }
+
+  _closeConfirm() {
+    this.deleteTarget=null; this.deleteType=null;
+    document.querySelector('#confirmOverlay h3').textContent = 'Supprimer ?';
+    document.getElementById('confirmYes').textContent = 'Supprimer';
+    document.getElementById('confirmOverlay').classList.remove('open');
+  }
+
+  /* ---- EXPORT ---- */
+  _exportCSV() {
+    this._syncCalendar();
+    const all = JSON.parse(localStorage.getItem(this.ALL_KEY)||'[]');
+    if(!all.length){ this._toast('Aucun événement','err'); return; }
+    const headers=['section','titre','date','debut','fin','lieu','adresse','type','domicile','notes','arbitres'];
+    const esc = v=>`"${String(v||'').replace(/"/g,'""')}"`;
+    const csv=[headers.join(','),...all.map(e=>headers.map(h=>esc(e[h])).join(','))].join('\n');
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+    a.download='Pionniers_Calendrier.csv';
+    a.click();
+    this._toast(`CSV exporté — ${all.length} événements ✓`,'ok');
+  }
+
+  /* ---- UTILS ---- */
+  _uid() { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+  _cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+  _esc(s){ return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  _toast(msg, type) {
+    const t=document.getElementById('toast');
+    t.textContent=(type==='ok'?'✓ ':'✗ ')+msg;
+    t.className='toast '+type;
+    void t.offsetWidth;
+    t.classList.add('show');
+    clearTimeout(this._tt);
+    this._tt=setTimeout(()=>t.classList.remove('show'),2800);
+  }
+  renderVals(){ return {}; }
+}
+</script>
+</body>
+</html>
