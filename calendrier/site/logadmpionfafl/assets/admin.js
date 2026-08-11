@@ -162,7 +162,16 @@ class PionniersAdmin {
         this._api('singles.php'),
       ]);
     } catch (e) {
-      if (e.message !== 'auth') this._toast('Chargement impossible : ' + e.message, 'err');
+      if (e.message !== 'auth') {
+        this._toast('Chargement impossible : ' + e.message, 'err');
+        // Un échec de chargement ne doit JAMAIS ressembler à une liste vide
+        const msg = '<div class="empty-msg">⚠️ Impossible de charger les données (' + this._esc(e.message) +
+          '). Tes récurrences et événements sont intacts sur le serveur — recharge la page.</div>';
+        const rl = document.getElementById('recList');
+        const el = document.getElementById('evList');
+        if (rl) rl.innerHTML = msg;
+        if (el) el.innerHTML = msg;
+      }
       return;
     }
     this._renderRecList();
