@@ -93,8 +93,8 @@ select.inp option{background:var(--s)}
 .card{background:var(--s);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow)}
 .card-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
 .card-head h3{font-family:var(--font-display);font-weight:800;font-size:19px;letter-spacing:-.04em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:8px}
-img[src^="emojis/"]{width:17px;height:17px;object-fit:contain;flex:none;vertical-align:-3px}
-.brand-avatar img[src^="emojis/"]{width:21px;height:21px}
+img[src^="../assets/emojis/"]{width:17px;height:17px;object-fit:contain;flex:none;vertical-align:-3px}
+.brand-avatar img[src^="../assets/emojis/"]{width:21px;height:21px}
 .brand-avatar{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--amber-grad);border:1px solid rgba(214,130,0,.5);box-shadow:inset 0 1px 0 rgba(255,235,200,.5),0 6px 14px -6px rgba(245,160,0,.55)}
 .brand-avatar img{width:21px;height:21px;object-fit:contain;display:block}
 .card-body{padding:16px 18px;display:flex;flex-direction:column;gap:12px}
@@ -171,7 +171,7 @@ body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
 .topbar-logo{font-size:18px;gap:8px;min-width:0}
 .topbar-logo span{white-space:nowrap}
 .brand-avatar{width:30px;height:30px}
-.brand-avatar img[src^="emojis/"]{width:18px;height:18px}
+.brand-avatar img[src^="../assets/emojis/"]{width:18px;height:18px}
 .topbar-right{gap:6px;flex-wrap:nowrap}
 .topbar-right .btn{min-height:38px;padding:0 12px}
 #logoutBtn{width:38px;padding:0}

@@ -265,7 +265,16 @@ class PionniersAdmin {
     this.editRecId = id;
     // Section et Type sont désormais éditables (impossibles à corriger avant)
     const sec = document.getElementById('erSection'); if (sec) sec.value = r.section || 'footus';
-    const typ = document.getElementById('erType');    if (typ) typ.value = r.type || 'Entraînement';
+    const typ = document.getElementById('erType');
+    if (typ) {
+      // le type n'est jamais perdu : s'il manque au select, on l'y ajoute
+      if (r.type && ![...typ.options].some(o => o.value === r.type)) {
+        const o = document.createElement('option');
+        o.value = o.textContent = r.type;
+        typ.appendChild(o);
+      }
+      typ.value = r.type || 'Entraînement';
+    }
     document.getElementById('erTitre').value  = r.titre||'';
     document.getElementById('erDebut').value  = r.debut||'';
     document.getElementById('erFin').value    = r.fin||'';
