@@ -127,7 +127,7 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
 .chip.chip-solo{border-color:rgba(245,160,0,.75);color:var(--gold-ink);background:rgba(255,173,0,.14)}
 
 /* grille mois */
-.cal-grid{display:grid;grid-template-columns:22px repeat(7,1fr);gap:6px;row-gap:6px}
+.cal-grid{display:grid;grid-template-columns:22px repeat(7,minmax(0,1fr));gap:6px;row-gap:6px}
 /* vue mois : tout tient dans l'écran, pas de scroll */
 .fitmonth{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .fitmonth #calRoot{flex:1 1 auto;min-height:0;display:flex}
@@ -148,7 +148,7 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
 .weeknum-head{opacity:0!important}
 /* vue saison */
 /* GRILLE ANNUELLE (vue Saison) */
-.saison-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.saison-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
 .smonth{background:var(--glass);border:1px solid rgba(24,24,27,.10);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
 .smonth-head{font-family:var(--font-display);font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:-.02em;color:var(--ink);padding:7px 9px;background:#f4f4f5;border-bottom:1px solid rgba(24,24,27,.10);position:sticky;top:0;z-index:1}
 .smonth-yr{font-family:"Space Mono",monospace;font-size:10px;color:var(--ink-soft);font-weight:700}
@@ -166,8 +166,8 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
 .schip{border:0;cursor:pointer;border-radius:3px;padding:1px 4px;font-size:8.5px;font-weight:700;color:#fff;line-height:1.3;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:.9;transition:filter .1s,transform .1s}
 .schip:hover{filter:brightness(1.2);transform:translateY(-1px);opacity:1}
 .schip.gold{color:#1a1008}
-@media(max-width:900px){.saison-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:560px){.saison-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.saison-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.saison-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .cell{background:var(--glass);border:1px solid rgba(24,24,27,.10);border-radius:14px;height:180px;padding:10px 8px 9px;display:flex;flex-direction:column;transition:border-color .15s ease,background .15s ease;overflow:hidden}
 .cell-evs{margin-top:auto;display:flex;flex-direction:column;gap:5px}
 
@@ -206,7 +206,7 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
 .more:hover{color:var(--gold)}
 
 /* vue semaine */
-.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:4px}
+.week-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:4px}
 .week-col{display:flex;flex-direction:column;gap:6px}
 .week-head{display:flex;flex-direction:column;align-items:center;padding:10px 4px 8px;border-radius:16px;background:var(--glass);border:1px solid rgba(24,24,27,.10)}
 .week-head.today-col{background:rgba(255,173,0,.08);border-color:rgba(255,173,0,.55);box-shadow:0 8px 22px -14px rgba(255,173,0,.4)}
@@ -343,7 +343,7 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
   .viewtoggle{flex:1;justify-content:space-between}
   .viewtoggle button{flex:1;padding:8px 4px;font-size:12px}
   /* grille mois : colonne semaine réduite, cases plus compactes */
-  .cal-grid{grid-template-columns:15px repeat(7,1fr);gap:3px}
+  .cal-grid{grid-template-columns:15px repeat(7,minmax(0,1fr));gap:3px}
   .weeknum-cell{font-size:7px;padding-top:5px}
   .cell{height:132px;border-radius:9px;padding:6px 5px 6px}
   .daynum{font-size:22px}
@@ -372,7 +372,7 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
 @media(max-width:440px){
   .wordmark{font-size:24px}
   /* vue mois : la semaine en lettres compactes, plus de place aux jours */
-  .cal-grid{grid-template-columns:repeat(7,1fr);gap:2px}
+  .cal-grid{grid-template-columns:repeat(7,minmax(0,1fr));gap:2px}
   .weeknum-cell{display:none}
   .cell{height:116px}
   .daynum{font-size:19px}
