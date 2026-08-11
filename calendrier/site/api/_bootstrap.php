@@ -67,7 +67,13 @@ function pnr_db(): PDO
     if ($pdo instanceof PDO) {
         return $pdo;
     }
-    $pdo = new PDO('sqlite:' . pnr_data_dir() . '/pionniers.db');
+    $dbFile = pnr_data_dir() . '/pionniers.db';
+    // Premier démarrage : la graine (saison 2026-2027 validée par le club)
+    // devient la base vivante, puis n'est plus jamais relue.
+    if (!is_file($dbFile) && is_file(__DIR__ . '/seed.db')) {
+        copy(__DIR__ . '/seed.db', $dbFile);
+    }
+    $pdo = new PDO('sqlite:' . $dbFile);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->exec('PRAGMA foreign_keys = ON');
     $pdo->exec('PRAGMA journal_mode = WAL');

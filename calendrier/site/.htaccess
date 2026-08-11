@@ -29,5 +29,8 @@
 <FilesMatch "^(_bootstrap\.php|config\.php|config\.php\.example)$">
   Require all denied
 </FilesMatch>
+<FilesMatch "\.db$">
+  Require all denied
+</FilesMatch>
 
 AddDefaultCharset UTF-8

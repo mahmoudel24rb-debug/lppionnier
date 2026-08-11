@@ -1,0 +1,49 @@
+[
+ {
+  "section": "flag",
+  "titre": "Entr. Flag Senior",
+  "days": [
+   1,
+   4
+  ],
+  "debut": "20:00",
+  "fin": "22:30",
+  "from": "2026-09-03",
+  "to": "2027-06-28",
+  "lieu": "Stade de la Chambrerie",
+  "adresse": "Tours",
+  "type": "Entraînement",
+  "_exceptions": []
+ },
+ {
+  "section": "footus",
+  "titre": "Entr. Foot US Senior",
+  "days": [
+   1,
+   4
+  ],
+  "debut": "20:00",
+  "fin": "22:30",
+  "from": "2026-09-03",
+  "to": "2027-06-28",
+  "lieu": "Stade de la Chambrerie",
+  "adresse": "Tours",
+  "type": "Entraînement",
+  "_exceptions": []
+ },
+ {
+  "section": "ecole",
+  "titre": "École de Flag",
+  "days": [
+   6
+  ],
+  "debut": "10:00",
+  "fin": "12:00",
+  "from": "2026-09-05",
+  "to": "2027-06-26",
+  "lieu": "Stade de la Chambrerie",
+  "adresse": "Tours",
+  "type": "Séance",
+  "_exceptions": []
+ }
+]
