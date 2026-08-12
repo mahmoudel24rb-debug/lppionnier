@@ -329,6 +329,10 @@
     flex-direction: column; gap: 0;
     flex: 1 1 auto; min-height: 0; justify-content: flex-start;
     overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    /* fondu aux bords : le contenu qui sort de la zone scrollable s'estompe au
+       lieu d'être tranché net sous l'en-tête */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
   }
   .imt-half { flex: none; flex-shrink: 0; padding: 30px 24px; }
   .imt-half:first-child { margin-top: auto; }
