@@ -300,14 +300,16 @@
   font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
   text-transform: uppercase; color: rgba(255, 250, 240, 0.55);
 }
-.imt-field input, .imt-field textarea {
+.imt-field input, .imt-field textarea, .imt-field select {
   background: rgba(255, 250, 240, 0.05); border: 1px solid rgba(255, 250, 240, 0.14);
   border-radius: 12px; padding: 11px 14px; color: var(--rf-cream, #fffaf0);
   font-size: 14px; font-family: inherit; letter-spacing: -0.02em; outline: none;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
+.imt-field select { appearance: none; cursor: pointer; }
+.imt-field select option { background: #2a0f12; color: var(--rf-cream, #fffaf0); }
 .imt-field input::placeholder, .imt-field textarea::placeholder { color: rgba(255, 250, 240, 0.35); }
-.imt-field input:focus, .imt-field textarea:focus { border-color: var(--rf-amber, #ffad00); background: rgba(255, 250, 240, 0.07); }
+.imt-field input:focus, .imt-field textarea:focus, .imt-field select:focus { border-color: var(--rf-amber, #ffad00); background: rgba(255, 250, 240, 0.07); }
 
 /* Responsive */
 @media (max-width: 720px) {

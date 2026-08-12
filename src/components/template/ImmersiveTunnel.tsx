@@ -12,6 +12,19 @@ import { mobileLines } from '@/lib/mobileLines';
 import AllOffersBoard from './AllOffersBoard';
 import './immersive.css';
 
+/* « Comment as-tu connu le club ? » — les VALEURS restent en français
+   (whitelist côté candidature.php), seuls les libellés affichés changent. */
+const CONNU_OPTIONS = [
+  { value: '', fr: 'Non précisé', en: 'Not specified' },
+  { value: 'Réseaux sociaux', fr: 'Réseaux sociaux', en: 'Social media' },
+  { value: 'Bouche à oreille', fr: 'Bouche à oreille', en: 'Word of mouth' },
+  { value: 'Passage devant le stade', fr: 'Passage devant le stade', en: 'Walked past the stadium' },
+  { value: 'Recherche Google', fr: 'Recherche Google', en: 'Google search' },
+  { value: 'Événement ou démonstration', fr: 'Événement ou démonstration', en: 'Event or demo' },
+  { value: 'Presse / médias', fr: 'Presse / médias', en: 'Press / media' },
+  { value: 'Autre', fr: 'Autre', en: 'Other' },
+];
+
 const PARTICLES = Array.from({ length: 22 }, (_, i) => {
   const seed = (i * 9301 + 49297) % 233280;
   const r = (n: number) => ((seed * (n + 1)) % 100) / 100;
@@ -53,6 +66,9 @@ const UI = {
     emailPh: 'prenom@email.com',
     tel: 'Téléphone',
     telPh: '06 12 34 56 78',
+    annee: 'Année de naissance',
+    anneePh: 'Ex : 2008',
+    connu: 'Comment as-tu connu le club ?',
     offreVisee: 'Offre visée',
     message: 'Message',
     messagePh: 'Parle-nous de ta motivation…',
@@ -90,6 +106,9 @@ const UI = {
     emailPh: 'name@email.com',
     tel: 'Phone',
     telPh: '+33 6 12 34 56 78',
+    annee: 'Birth year',
+    anneePh: 'e.g. 2008',
+    connu: 'How did you hear about the club?',
     offreVisee: 'Selected offer',
     message: 'Message',
     messagePh: 'Tell us what motivates you…',
@@ -430,6 +449,15 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
               <div className="imt-field"><label>{ui.nom}</label><input name="nom" required placeholder={ui.nomPh} /></div>
               <div className="imt-field"><label>{ui.email}</label><input name="email" type="email" required placeholder={ui.emailPh} /></div>
               <div className="imt-field"><label>{ui.tel}</label><input name="telephone" type="tel" placeholder={ui.telPh} /></div>
+              <div className="imt-field"><label>{ui.annee}</label><input name="annee_naissance" type="number" inputMode="numeric" min={1930} max={2023} placeholder={ui.anneePh} /></div>
+              <div className="imt-field">
+                <label>{ui.connu}</label>
+                <select name="connu" defaultValue="">
+                  {CONNU_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>{lang === 'en' ? o.en : o.fr}</option>
+                  ))}
+                </select>
+              </div>
               <div className="imt-field full"><label>{ui.offreVisee}</label><input defaultValue={detail.titre.replace(/\n/g, ' ')} readOnly /></div>
               <div className="imt-field full"><label>{ui.message}</label><textarea name="message" rows={2} placeholder={ui.messagePh} /></div>
             </div>

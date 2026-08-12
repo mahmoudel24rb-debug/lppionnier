@@ -68,14 +68,24 @@ $prenom    = trim((string)($_POST['prenom'] ?? ''));
 $nom       = trim((string)($_POST['nom'] ?? ''));
 $email     = trim((string)($_POST['email'] ?? ''));
 $telephone = trim((string)($_POST['telephone'] ?? ''));
+$annee     = trim((string)($_POST['annee_naissance'] ?? ''));
+$connu     = trim((string)($_POST['connu'] ?? ''));
 $message   = trim((string)($_POST['message'] ?? ''));
 $offreId   = trim((string)($_POST['offre_id'] ?? ''));
 $lang      = ($_POST['lang'] ?? 'fr') === 'en' ? 'en' : 'fr';
+
+// « Comment as-tu connu le club ? » — valeurs autorisées (alignées sur le front)
+$connuAutorises = [
+    '', 'Réseaux sociaux', 'Bouche à oreille', 'Passage devant le stade',
+    'Recherche Google', 'Événement ou démonstration', 'Presse / médias', 'Autre',
+];
 
 if (
     !isset($offres[$offreId])
     || $prenom === '' || $nom === ''
     || filter_var($email, FILTER_VALIDATE_EMAIL) === false
+    || ($annee !== '' && !preg_match('/^(19[3-9]\d|20[0-2]\d)$/', $annee))
+    || !in_array($connu, $connuAutorises, true)
 ) {
     http_response_code(422);
     echo json_encode(['ok' => false, 'error' => 'invalid']);
@@ -96,6 +106,8 @@ $corps = "Nouvelle candidature depuis le site de recrutement\n\n"
     . "Nom : {$nom}\n"
     . "Email : {$email}\n"
     . 'Téléphone : ' . ($telephone !== '' ? $telephone : '—') . "\n"
+    . 'Année de naissance : ' . ($annee !== '' ? $annee : '—') . "\n"
+    . 'A connu le club via : ' . ($connu !== '' ? $connu : '—') . "\n"
     . "Langue du site : {$lang}\n\n"
     . 'Message :' . "\n" . ($message !== '' ? $message : '—') . "\n";
 
