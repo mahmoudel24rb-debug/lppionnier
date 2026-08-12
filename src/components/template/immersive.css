@@ -321,13 +321,23 @@
   .imt-cards { padding: 18px 12vw; gap: 14px; }
   .imt-card { width: min(76vw, 290px); min-height: 0; padding: 24px 20px; }
   .imt-arrow { width: 34px; height: 34px; }
-  /* 2 options : empilées et compactes, centrées (plus de vide à scroller) */
-  .imt-split { flex-direction: column; justify-content: center; gap: 0; }
-  .imt-half { flex: none; padding: 30px 24px; }
+  /* 2 options empilées : centrées quand ça tient, SCROLLABLES sinon (hotfix
+     08/2026 rétro-porté — un contenu plus haut que l'écran était inatteignable).
+     L'astuce margin auto sur premier/dernier enfant garde le centrage visuel
+     tant qu'il n'y a pas de débordement. */
+  .imt-split {
+    flex-direction: column; gap: 0;
+    flex: 1 1 auto; min-height: 0; justify-content: flex-start;
+    overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  }
+  .imt-half { flex: none; flex-shrink: 0; padding: 30px 24px; }
+  .imt-half:first-child { margin-top: auto; }
+  .imt-half:last-child { margin-bottom: auto; }
   .imt-split:hover .imt-half, .imt-split .imt-half:hover { flex: none; }
   .imt-half + .imt-half { border-top: 1px solid rgba(255, 173, 0, 0.25); }
   .imt-split-divider { display: none; }
   .imt-half-icon svg { width: 46px; height: 46px; }
+  .imt-half-icon img { height: 52px; }
   .imt-half-title { font-size: 32px; }
   /* max-width: none — les lignes éditoriales (~40 car.) doivent tenir dans les 342px utiles */
   .imt-half-desc { font-size: 13px; min-height: 0; max-width: none; }

@@ -11,9 +11,9 @@ const T = {
     title: "On t'attend au stade.",
     horairesTitle: 'Entraînements',
     horaires: [
-      { cat: 'Seniors · Foot US compétition', heures: 'Lun & Jeu · 20h30 à 22h30' },
+      { cat: 'Seniors · Foot US compétition', heures: 'Lun & Ven · 20h30 à 22h30 / Mer · 21h00 à 23h00' },
       { cat: 'Flag mixte seniors', heures: 'Lun & Jeu · 20h30 à 22h30' },
-      { cat: 'Juniors · Foot US & Flag', heures: 'Lun & Jeu · 19h00 à 20h30' },
+      { cat: 'Juniors · Foot US & Flag', heures: 'Lun & Jeu · 19h00 à 21h00' },
       { cat: 'École de flag', heures: 'Samedi · 10h00 à 12h00' },
     ],
   },
@@ -22,9 +22,9 @@ const T = {
     title: "We'll see you at the stadium.",
     horairesTitle: 'Practice schedule',
     horaires: [
-      { cat: 'Seniors · Tackle football', heures: 'Mon & Thu · 8:30–10:30 pm' },
+      { cat: 'Seniors · Tackle football', heures: 'Mon & Fri · 8:30–10:30 pm / Wed · 9–11 pm' },
       { cat: 'Co-ed senior flag', heures: 'Mon & Thu · 8:30–10:30 pm' },
-      { cat: 'Juniors · Tackle & flag', heures: 'Mon & Thu · 7:00–8:30 pm' },
+      { cat: 'Juniors · Tackle & flag', heures: 'Mon & Thu · 7:00–9:00 pm' },
       { cat: 'Flag academy', heures: 'Saturday · 10 am–12 pm' },
     ],
   },

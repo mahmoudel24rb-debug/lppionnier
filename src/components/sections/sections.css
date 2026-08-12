@@ -467,7 +467,12 @@ a.sc-horaires { display: grid; }
   padding: 14px 2px; border-top: 1px solid var(--sc-line);
 }
 .sc-horaire-cat { font-weight: 700; font-size: 15px; letter-spacing: -0.02em; color: var(--rf-cream); }
-.sc-horaire-time { font-size: 14px; letter-spacing: -0.01em; color: var(--rf-amber); white-space: nowrap; }
+/* white-space normal : les horaires multi-créneaux (« Lun & Ven · … / Mer · … »)
+   doivent pouvoir passer à la ligne (hotfix 08/2026 rétro-porté) */
+.sc-horaire-time { font-size: 14px; letter-spacing: -0.01em; color: var(--rf-amber); white-space: normal; text-align: right; }
+@media (max-width: 640px) {
+  .sc-horaire-time { text-align: left; }
+}
 
 /* ============================================================
    EN-BUT — CTA final
