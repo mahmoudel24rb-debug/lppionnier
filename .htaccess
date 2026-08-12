@@ -8,6 +8,11 @@
   RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
   RewriteCond %{HTTPS} off
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Filet de sécurité : les anciennes URL préfixées /lppionnier (démo) sont
+  # servies depuis la racine (repris du hotfix 08/2026).
+  RewriteRule ^lppionnier/?$ / [L]
+  RewriteRule ^lppionnier/(.*)$ /$1 [L]
 </IfModule>
 
 # Page 404 générée par le build Next
