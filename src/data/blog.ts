@@ -3,6 +3,7 @@ import ArticlePratiquer from '@/content/pratiquer-foot-us-france';
 import ArticleFlag from '@/content/flag-football-cest-quoi';
 import ArticleAdulte from '@/content/commencer-foot-us-adulte';
 import ArticleSportCollectif from '@/content/sport-collectif-tours';
+import ArticleSportEnfant from '@/content/sport-enfant-tours';
 
 /**
  * Registre des articles du blog (FR uniquement : le SEO vise des requêtes
@@ -85,6 +86,20 @@ export const ARTICLES: ArticleMeta[] = [
     minutesLecture: 12,
     motCle: 'sport collectif Tours',
     content: ArticleSportCollectif,
+  },
+  {
+    slug: 'quel-sport-pour-mon-enfant-tours',
+    titre: 'Quel sport pour mon enfant à Tours ? Le guide des parents',
+    titreCourt: 'Quel sport pour mon enfant ?',
+    titleSeo: 'Quel sport pour mon enfant à Tours ? Guide parents',
+    description:
+      'Choisir le sport de votre enfant selon son tempérament : panorama des activités à Tours, repères par âge et école de flag dès 6 ans, sans contact.',
+    emoji: 'jeunes',
+    datePublication: '2026-08-22',
+    dateModif: '2026-08-22',
+    minutesLecture: 11,
+    motCle: 'quel sport pour mon enfant',
+    content: ArticleSportEnfant,
   },
 ];
 
