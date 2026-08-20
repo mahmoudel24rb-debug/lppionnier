@@ -2,6 +2,7 @@ import type { ComponentType } from 'react';
 import ArticlePratiquer from '@/content/pratiquer-foot-us-france';
 import ArticleFlag from '@/content/flag-football-cest-quoi';
 import ArticleAdulte from '@/content/commencer-foot-us-adulte';
+import ArticleSportCollectif from '@/content/sport-collectif-tours';
 
 /**
  * Registre des articles du blog (FR uniquement : le SEO vise des requêtes
@@ -70,6 +71,20 @@ export const ARTICLES: ArticleMeta[] = [
     minutesLecture: 10,
     motCle: 'commencer le football américain adulte',
     content: ArticleAdulte,
+  },
+  {
+    slug: 'sport-collectif-tours',
+    titre: 'Quel sport collectif pratiquer à Tours ? Le guide pour bien choisir',
+    titreCourt: 'Quel sport collectif à Tours ?',
+    titleSeo: 'Quel sport collectif pratiquer à Tours ? Le guide',
+    description:
+      'Foot, rugby, basket, hand, volley, foot US, flag : le panorama des sports collectifs à Tours et les bons critères pour choisir celui où tu vas rester.',
+    emoji: 'partenaire',
+    datePublication: '2026-08-22',
+    dateModif: '2026-08-22',
+    minutesLecture: 12,
+    motCle: 'sport collectif Tours',
+    content: ArticleSportCollectif,
   },
 ];
 
