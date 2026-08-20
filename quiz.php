@@ -1,10 +1,10 @@
 <?php
 /**
- * Lead magnet « Quel poste jouer ? » — Pionniers de Touraine.
+ * Lead magnet « Quel poste jouer ? » : Pionniers de Touraine.
  * Reçoit le lead du quiz (prénom + email + résultat) et l'envoie à
  * recrutement@pionniersdetouraine.fr via _mailer.php.
  *
- * NOTE : la démo GitHub Pages n'exécute pas PHP — le front affiche alors le
+ * NOTE : la démo GitHub Pages n'exécute pas PHP : le front affiche alors le
  * résultat sans capture d'email. Script prévu pour l'hébergement o2switch.
  */
 declare(strict_types=1);

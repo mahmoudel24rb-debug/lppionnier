@@ -1,6 +1,6 @@
 <?php
 /**
- * Module d'envoi commun — Pionniers de Touraine.
+ * Module d'envoi commun : Pionniers de Touraine.
  * Utilisé par contact.php et candidature.php (une seule implémentation d'envoi).
  * L'accès HTTP direct à ce fichier est bloqué par le .htaccess.
  *
