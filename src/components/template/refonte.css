@@ -1,5 +1,5 @@
 /* ============================================================
-   Refonte design (maquette Figma) — header + hero.
+   Refonte design (maquette Figma) : header + hero.
    Polices fournies par le designer + palette exacte.
    ============================================================ */
 @font-face {
@@ -75,7 +75,7 @@
   font-family: 'Neuething', sans-serif; font-size: 15px; color: var(--rf-cream); text-decoration: none;
 }
 .rf-phone svg { color: var(--rf-amber); }
-/* Bouton ambre premium (glossy + relief 3D) — partagé header/hero */
+/* Bouton ambre premium (glossy + relief 3D) : partagé header/hero */
 .rf-join {
   position: relative; font-family: 'Neuething', sans-serif; font-weight: 700; font-size: 14px;
   color: #3a1604; white-space: nowrap; cursor: pointer;

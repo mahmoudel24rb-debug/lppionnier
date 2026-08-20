@@ -12,7 +12,7 @@ const SITE = 'https://recrutement.pionniersdetouraine.fr';
 export const metadata: Metadata = {
   title: 'Quel poste jouer au football américain ? Fais le test',
   description:
-    'Taille, gabarit, vitesse, rapport au contact : réponds à 8 questions et découvre ton poste idéal au football américain ou au flag, calibré sur les profils NFL et NCAA.',
+    'Taille, poids, vitesse, rapport au contact : réponds à 9 questions et découvre ton poste idéal au football américain ou au flag, calibré sur les profils NFL et NCAA.',
   ...(IS_DEMO
     ? {}
     : {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
           type: 'website',
           title: 'Quel poste jouer au football américain ? Fais le test',
           description:
-            'Un test de scouting en 8 questions pour trouver ton poste idéal — foot US ou flag football.',
+            'Un test de scouting en 9 questions pour trouver ton poste idéal, en foot US ou en flag football.',
           url: `${SITE}/quel-poste-football-americain/`,
           siteName: 'Pionniers de Touraine',
           locale: 'fr_FR',
@@ -40,8 +40,8 @@ export default function QuizPage() {
             <p className="sc-eyebrow">Le test des Pionniers</p>
             <h1 className="sc-title">Quel poste jouer au football américain ?</h1>
             <p className="sc-lead" style={{ margin: '18px auto 0' }}>
-              Chaque gabarit a un poste où il devient une arme. Réponds à 8 questions et notre
-              algorithme de scouting — calibré sur les gabarits réels des joueurs NFL et NCAA —
+              Chaque gabarit a un poste où il devient une arme. Réponds à 9 questions et notre
+              algorithme de scouting, calibré sur les gabarits réels des joueurs NFL et NCAA,
               te propose le tien, en foot US comme en flag.
             </p>
           </div>
@@ -68,8 +68,8 @@ export default function QuizPage() {
                   Le <strong>quarterback</strong> dirige le jeu et lance ; le <strong>running
                   back</strong> perce les défenses ballon en main ; les <strong>receveurs</strong>
                   courent des tracés précis pour attraper les passes ; le <strong>tight
-                  end</strong>, hybride, bloque et attrape ; la <strong>ligne offensive</strong> —
-                  les gabarits les plus costauds — protège le quarterback sur chaque action.
+                  end</strong>, hybride, bloque et attrape ; la <strong>ligne offensive</strong>
+                  (les gabarits les plus costauds) protège le quarterback sur chaque action.
                 </p>
               </div>
               <div className="sc-card" style={{ cursor: 'default' }}>
@@ -86,7 +86,7 @@ export default function QuizPage() {
                 <p className="sc-card-desc">
                   En <strong>flag football</strong> (5 contre 5, sans contact, olympique aux JO
                   de Los Angeles 2028), on retrouve le quarterback, les receveurs et les
-                  défenseurs — la vitesse et la lecture remplacent les plaquages. Notre test
+                  défenseurs : la vitesse et la lecture remplacent les plaquages. Notre test
                   t'oriente aussi vers ces postes si le contact n'est pas ton truc.
                 </p>
               </div>

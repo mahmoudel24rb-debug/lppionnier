@@ -27,7 +27,7 @@ export default function BlogPage() {
             <h1 className="sc-title">Comprendre et débuter le foot US</h1>
             <p className="sc-lead" style={{ margin: '18px auto 0' }}>
               Guides écrits par un club de football américain fondé en 1987 : les règles, les
-              postes, l'équipement, et tout ce qu'il faut pour te lancer — en France comme en
+              postes, l'équipement, et tout ce qu'il faut pour te lancer, en France comme en
               Touraine.
             </p>
           </div>
@@ -50,8 +50,8 @@ export default function BlogPage() {
                 <span className="blogc-card-icon"><img src={getEmoji('jouer')} alt="" loading="lazy" /></span>
                 <h2 className="sc-card-title">Quel poste est fait pour toi ?</h2>
                 <p className="sc-card-desc">
-                  8 questions, un algorithme de scouting calibré sur les gabarits NFL et NCAA, et
-                  ton poste idéal — foot US ou flag.
+                  9 questions, un algorithme de scouting calibré sur les gabarits NFL et NCAA, et
+                  ton poste idéal, en foot US ou en flag.
                 </p>
                 <span className="blogc-card-meta">Test interactif · 2 min</span>
                 <span className="sc-card-cta">Faire le test</span>

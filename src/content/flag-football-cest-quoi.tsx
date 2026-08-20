@@ -2,14 +2,14 @@ import Link from 'next/link';
 import { CtaQuiz, CtaTunnel } from '@/components/blog/CtaEncart';
 
 /**
- * Article — mot-clé : « flag football c'est quoi » (+ angle JO Los Angeles 2028).
+ * Article. Mot-clé : « flag football c'est quoi » (+ angle JO Los Angeles 2028).
  */
 export default function ArticleFlag() {
   return (
     <>
       <p>
         Le <strong>flag football</strong> est la version sans contact du football américain : au
-        lieu de plaquer le porteur du ballon, on lui arrache un « flag » — un ruban accroché à sa
+        lieu de plaquer le porteur du ballon, on lui arrache un « flag », un ruban accroché à sa
         ceinture par un scratch. Tout le reste y est : les passes spectaculaires, les tracés, les
         feintes, la stratégie… mais sans les chocs. Résultat : un sport mixte, accessible dès
         l'enfance, qui explose partout dans le monde au point de devenir <strong>discipline
@@ -24,7 +24,7 @@ export default function ArticleFlag() {
 
       <h2 id="regles">Les règles du flag football, expliquées en 3 minutes</h2>
       <p>
-        Si tu n'as jamais regardé un match de football américain, voici l'essentiel — et si tu en
+        Si tu n'as jamais regardé un match de football américain, voici l'essentiel. Et si tu en
         as déjà vu, tu vas reconnaître exactement le même jeu, en version condensée :
       </p>
       <ul>
@@ -53,7 +53,7 @@ export default function ArticleFlag() {
         <li>
           <strong>Les interceptions comptent double plaisir :</strong> une défense qui attrape
           une passe adverse peut remonter le ballon et marquer. Les retournements de situation
-          sont permanents — c'est ce qui rend les matchs si spectaculaires.
+          sont permanents : c'est ce qui rend les matchs si spectaculaires.
         </li>
       </ul>
       <p>
@@ -66,33 +66,33 @@ export default function ArticleFlag() {
       <p>
         Pour te projeter, voici à quoi ressemblent dix secondes de flag. Ton équipe attaque à 25
         mètres de l'en-but. Dans le huddle, ta quarterback annonce la combinaison : toi, tu cours
-        un « out » à cinq mètres — droit devant, puis coupe sèche vers la touche. Snap. Tu
-        exploses sur tes trois premiers appuis, ton défenseur recule, tu plantes ta coupe — un
+        un « out » à cinq mètres : droit devant, puis coupe sèche vers la touche. Snap. Tu
+        exploses sur tes trois premiers appuis, ton défenseur recule, tu plantes ta coupe. Un
         mètre d'écart, c'est assez. Le ballon arrive fort, tu le prends à deux mains, pivote,
         remonte le terrain. Un défenseur plonge sur ta ceinture : tu sens le scratch céder à
         l'instant où tu franchis la ligne des dix mètres. L'action est finie, huit mètres
-        gagnés, tout le monde se relève en souriant — et on remet ça dans vingt secondes.
+        gagnés, tout le monde se relève en souriant, et on remet ça dans vingt secondes.
         Multiplie par quarante actions et tu as un match : une accumulation de duels éclairs, de
         décisions et de petites victoires. Aucun chrono de course à pied ne t'offrira jamais ça.
       </p>
 
       <h2 id="origines">D'où vient le flag football ?</h2>
       <p>
-        Le flag est né aux États-Unis au milieu du XXe siècle — d'abord dans les bases
+        Le flag est né aux États-Unis au milieu du XXe siècle, d'abord dans les bases
         militaires puis dans les écoles et les entraînements, partout où l'on voulait jouer au
         football sans les risques du plaquage. Longtemps considéré comme un simple outil
         d'initiation, il est devenu une discipline à part entière : championnats scolaires et
         universitaires américains (notamment féminins, en pleine explosion), circuits
         internationaux sous l'égide de l'IFAF, et championnats nationaux dans des dizaines de
-        pays — dont la France, où la FFFA organise la pratique en clubs. La consécration
+        pays, dont la France, où la FFFA organise la pratique en clubs. La consécration
         olympique de 2028 n'est donc pas un caprice du calendrier : c'est l'aboutissement de
         trente ans de croissance continue d'un format qui a résolu la grande contradiction du
-        football américain — garder l'intelligence et le spectacle du jeu, retirer les impacts.
+        football américain : garder l'intelligence et le spectacle du jeu, retirer les impacts.
       </p>
 
       <h2 id="differences">Flag ou foot US casqué : les vraies différences</h2>
       <p>
-        Le flag n'est pas un football américain « au rabais » — c'est le même sport, recentré sur
+        Le flag n'est pas un football américain « au rabais » : c'est le même sport, recentré sur
         la vitesse, la précision et la lecture du jeu. Concrètement :
       </p>
       <ul>
@@ -103,18 +103,18 @@ export default function ArticleFlag() {
         </li>
         <li>
           <strong>Le rythme.</strong> À 5 contre 5 sur terrain réduit, tout le monde touche le
-          ballon, tout le monde défend, tout le monde court — beaucoup plus de ballons joués par
+          ballon, tout le monde défend, tout le monde court : beaucoup plus de ballons joués par
           personne qu'à 11 contre 11.
         </li>
         <li>
           <strong>La mixité.</strong> Le flag se pratique très largement en équipes mixtes,
           notamment en loisir et dans de nombreux championnats. Sur un terrain de flag, ce qui
-          compte, c'est le tracé et les mains — pas le gabarit.
+          compte, c'est le tracé et les mains, pas le gabarit.
         </li>
         <li>
           <strong>La porte d'entrée.</strong> Le flag est le chemin le plus court pour comprendre
           le football américain : mêmes tracés, mêmes lectures, mêmes termes. Beaucoup de joueurs
-          de casqué sont passés par le flag — et beaucoup de joueurs de flag n'éprouvent jamais
+          de casqué sont passés par le flag, et beaucoup de joueurs de flag n'éprouvent jamais
           le besoin d'aller au contact, et c'est très bien aussi.
         </li>
       </ul>
@@ -140,7 +140,7 @@ export default function ArticleFlag() {
         </li>
         <li>
           <strong>La France est concernée au premier chef</strong> : nos équipes de France de
-          flag, masculine et féminine, figurent parmi les nations européennes compétitives — et
+          flag, masculine et féminine, figurent parmi les nations européennes compétitives, et
           une qualification olympique se joue dès maintenant, dans les clubs, avec la génération
           qui s'entraîne aujourd'hui.
         </li>
@@ -159,14 +159,14 @@ export default function ArticleFlag() {
 
       <CtaQuiz
         titre="Flag ou casqué : quel profil es-tu ?"
-        texte="Réponds à 8 questions — gabarit, vitesse, rapport au contact — et notre algorithme de scouting te dit quel poste te correspond, en flag comme en foot US."
+        texte="Réponds à 9 questions (gabarit, poids, vitesse, rapport au contact) et notre algorithme de scouting te dit quel poste te correspond, en flag comme en foot US."
         bouton="Je découvre mon poste"
       />
 
       <h2 id="postes">Les postes au flag : cinq rôles, cinq personnalités</h2>
       <p>
-        À 5 contre 5, chaque joueur compte double. Voici les rôles types d'une équipe de flag —
-        tu vas vite reconnaître le tien :
+        À 5 contre 5, chaque joueur compte double. Voici les rôles types d'une équipe de flag.
+        Tu vas vite reconnaître le tien :
       </p>
       <ul>
         <li>
@@ -186,7 +186,7 @@ export default function ArticleFlag() {
         </li>
         <li>
           <strong>Le rusher</strong> (en défense) : le seul autorisé à traverser pour presser le
-          quarterback, en partant à sept mètres. Explosivité pure et timing — le poste qui fait
+          quarterback, en partant à sept mètres. Explosivité pure et timing : le poste qui fait
           lever les bancs quand le QB adverse doit se débarrasser du ballon en catastrophe.
         </li>
         <li>
@@ -197,7 +197,7 @@ export default function ArticleFlag() {
       </ul>
       <p>
         Tu hésites sur ton profil ? Notre <Link href="/quel-poste-football-americain/">test de
-        poste</Link> couvre aussi les rôles du flag — il t'orientera en huit questions.
+        poste</Link> couvre aussi les rôles du flag : il t'orientera en neuf questions.
       </p>
 
       <h2 id="lexique">Le petit lexique pour survivre à ta première séance</h2>
@@ -207,12 +207,12 @@ export default function ArticleFlag() {
       <ul>
         <li><strong>Snap</strong> : la remise du ballon qui lance chaque action.</li>
         <li><strong>Down</strong> : une tentative. L'attaque en a quatre pour franchir la mi-terrain, puis quatre pour marquer.</li>
-        <li><strong>Touchdown (TD)</strong> : 6 points — le ballon franchit la ligne d'en-but.</li>
+        <li><strong>Touchdown (TD)</strong> : 6 points, le ballon franchit la ligne d'en-but.</li>
         <li><strong>Conversion</strong> : la transformation à 1 ou 2 points tentée après un touchdown.</li>
-        <li><strong>Route (tracé)</strong> : le chemin précis que court un receveur — slant, out, go, post…</li>
+        <li><strong>Route (tracé)</strong> : le chemin précis que court un receveur (slant, out, go, post…).</li>
         <li><strong>Blitz / rush</strong> : la pression sur le quarterback.</li>
-        <li><strong>Interception</strong> : passe volée par la défense — qui peut contre-attaquer dans la foulée.</li>
-        <li><strong>Flag guarding</strong> : protéger son flag avec la main ou le bras — interdit, et pénalisé.</li>
+        <li><strong>Interception</strong> : passe volée par la défense, qui peut contre-attaquer dans la foulée.</li>
+        <li><strong>Flag guarding</strong> : protéger son flag avec la main ou le bras. Interdit, et pénalisé.</li>
         <li><strong>Playbook</strong> : le recueil des combinaisons de ton équipe.</li>
         <li><strong>Huddle</strong> : le regroupement éclair où le QB annonce la combinaison avant chaque action.</li>
       </ul>
@@ -233,7 +233,7 @@ export default function ArticleFlag() {
         Autre atout que les débutants découvrent vite : les <strong>remplacements illimités</strong>.
         Tu gères ton intensité, tu souffles quand tu en as besoin, et tu montes en volume au fil
         des semaines. Le flag est exigeant avec ceux qui veulent la gagne, et indulgent avec ceux
-        qui reviennent de loin — les deux dans la même équipe.
+        qui reviennent de loin. Les deux dans la même équipe.
       </p>
 
       <h2 id="pour-qui">À qui s'adresse le flag football ?</h2>
@@ -249,12 +249,12 @@ export default function ArticleFlag() {
         </li>
         <li>
           <strong>Des ados et jeunes adultes</strong> qui découvrent le football américain par le
-          flag avant, parfois, de basculer vers le casqué — le geste technique est le même, seule
+          flag avant, parfois, de basculer vers le casqué : le geste technique est le même, seule
           la finition change.
         </li>
         <li>
           <strong>Des adultes qui reprennent le sport</strong> : cardio réel mais sans impacts,
-          intensité modulable, apprentissage rapide — le flag est probablement le sport collectif
+          intensité modulable, apprentissage rapide : le flag est probablement le sport collectif
           le plus indulgent qui soit pour un retour après des années de pause. On en parle aussi
           dans notre article <Link href="/blog/commencer-le-football-americain-adulte/">commencer
           le foot US à l'âge adulte</Link>.
@@ -264,7 +264,7 @@ export default function ArticleFlag() {
           mains, leurs tracés et leur vitesse pendant l'intersaison.
         </li>
         <li>
-          <strong>Des groupes d'amis et des couples</strong> — parce qu'un sport mixte où l'on
+          <strong>Des groupes d'amis et des couples</strong>, parce qu'un sport mixte où l'on
           peut débuter ensemble le même soir, il n'y en a pas tant que ça.
         </li>
       </ul>
@@ -278,7 +278,7 @@ export default function ArticleFlag() {
       <p>
         Le mode d'emploi tient en trois lignes : trouve un club affilié FFFA près de chez toi
         (l'annuaire de la fédération ou une recherche « flag football + ta ville » suffisent),
-        écris-lui, et viens essayer — une tenue de sport et des crampons moulés suffisent, le
+        écris-lui, et viens essayer : une tenue de sport et des crampons moulés suffisent, le
         club fournit ceintures et ballons. La licence flag est en général plus abordable que la
         licence contact, et les séances d'essai sont gratuites dans la plupart des clubs.
       </p>
@@ -293,7 +293,7 @@ export default function ArticleFlag() {
       <h3>Le flag football est-il mixte ?</h3>
       <p>
         Très largement, oui. En loisir et dans beaucoup de championnats, filles et garçons
-        jouent dans la même équipe — c'est même l'un des rares sports collectifs où débuter en
+        jouent dans la même équipe. C'est même l'un des rares sports collectifs où débuter en
         couple ou entre amis de gabarits différents fonctionne naturellement. En compétition
         internationale (et aux JO 2028), les tournois sont séparés masculin/féminin.
       </p>
@@ -306,7 +306,7 @@ export default function ArticleFlag() {
       </p>
       <h3>Faut-il avoir joué au foot US pour se mettre au flag ?</h3>
       <p>
-        Pas du tout — la majorité des joueurs de flag n'ont jamais porté de casque. Dans l'autre
+        Pas du tout : la majorité des joueurs de flag n'ont jamais porté de casque. Dans l'autre
         sens, le flag est la meilleure école pour ensuite passer au contact si l'envie vient :
         mêmes tracés, mêmes lectures, même vocabulaire.
       </p>
@@ -319,7 +319,7 @@ export default function ArticleFlag() {
 
       <CtaTunnel
         titre="Essaie le flag cette semaine"
-        texte="Si tu es à Tours ou dans les environs, l'équipe flag mixte des Pionniers accueille les débutants toute l'année — première semaine offerte, ceinture et ballon fournis."
+        texte="Si tu es à Tours ou dans les environs, l'équipe flag mixte des Pionniers accueille les débutants toute l'année : première semaine offerte, ceinture et ballon fournis."
         bouton="Je viens essayer le flag"
       />
 
@@ -330,16 +330,16 @@ export default function ArticleFlag() {
       </p>
       <ul>
         <li>
-          <strong>L'école de flag</strong> — le samedi matin (10h-12h), pour les enfants : éveil
+          <strong>L'école de flag</strong>, le samedi matin (10h-12h), pour les enfants : éveil
           au jeu, motricité, premiers tracés, dans l'esprit ludique d'un sport sans contact.
         </li>
         <li>
-          <strong>Le flag mixte seniors</strong> — deux soirs par semaine (lundi et jeudi), pour
+          <strong>Le flag mixte seniors</strong>, deux soirs par semaine (lundi et jeudi), pour
           les adultes : du débutant complet au joueur confirmé, filles et garçons dans la même
           équipe.
         </li>
         <li>
-          <strong>Les juniors</strong> — qui alternent flag et foot US dans leur formation.
+          <strong>Les juniors</strong>, qui alternent flag et foot US dans leur formation.
         </li>
       </ul>
       <p>

@@ -1,5 +1,5 @@
 /**
- * Parcours d'orientation et de recrutement — Pionniers de Touraine.
+ * Parcours d'orientation et de recrutement : Pionniers de Touraine.
  * Modélisé d'après TUNNELv2.2.
  *
  * Principe : l'utilisateur exprime d'abord sa MOTIVATION (arbre de choix),
@@ -46,7 +46,7 @@ export type Node = {
 const sec = (heading: string, ...items: string[]): OfferSection => ({ heading, items });
 
 // ─────────────────────────────────────────────────────────────
-// JOUER — fiches Découverte / Rejoindre, Jeunes / Seniors
+// JOUER : fiches Découverte / Rejoindre, Jeunes / Seniors
 // ─────────────────────────────────────────────────────────────
 const FA_DECOUVRIR: Node = {
   id: 'fa-decouvrir', label: 'Découvrir le\nFootball Américain', icon: 'decouvrir',
@@ -189,7 +189,7 @@ const FLAG_REJOINDRE: Node = {
 };
 
 // ─────────────────────────────────────────────────────────────
-// INVESTISSEMENT — fiches missions détaillées
+// INVESTISSEMENT : fiches missions détaillées
 // ─────────────────────────────────────────────────────────────
 const ORGANISER: Offer = {
   id: 'org-events', titre: "Équipe Organisation\n& Événements",

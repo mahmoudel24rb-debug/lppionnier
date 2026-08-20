@@ -3,7 +3,7 @@ import Link from 'next/link';
 /**
  * Encart CTA posé dans la zone de lecture claire des articles.
  * - variante « tunnel » : bouton data-open-tunnel (capté par TunnelLauncher,
- *   monté globalement dans le layout) — attention, ne jamais mettre le mot
+ *   monté globalement dans le layout) : attention, ne jamais mettre le mot
  *   « rejoindre » dans un libellé de lien qui ne doit PAS ouvrir le tunnel.
  * - variante « quiz » : lien vers la page du test de poste.
  */
@@ -23,7 +23,7 @@ export function CtaQuiz({ titre, texte, bouton }: { titre?: string; texte?: stri
       <p className="blogc-cta-title">{titre ?? 'Quel poste est fait pour toi ?'}</p>
       <p>
         {texte ??
-          'Réponds à 8 questions : notre algorithme de scouting, calibré sur les gabarits réels des joueurs NFL et NCAA, te propose ton poste idéal — foot US ou flag.'}
+          'Réponds à 9 questions : notre algorithme de scouting, calibré sur les gabarits réels des joueurs NFL et NCAA, te propose ton poste idéal, en foot US ou en flag.'}
       </p>
       <Link className="sc-btn" href="/quel-poste-football-americain/">{bouton ?? 'Je fais le test'}</Link>
     </aside>

@@ -4,7 +4,7 @@ import ArticleFlag from '@/content/flag-football-cest-quoi';
 import ArticleAdulte from '@/content/commencer-foot-us-adulte';
 
 /**
- * Registre des articles du blog (FR uniquement — le SEO vise des requêtes
+ * Registre des articles du blog (FR uniquement : le SEO vise des requêtes
  * françaises). L'ordre du tableau = ordre d'affichage sur /blog/.
  * Le contenu de chaque article vit dans src/content/<slug>.tsx.
  */

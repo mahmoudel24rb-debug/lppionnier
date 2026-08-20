@@ -1,16 +1,16 @@
 /**
- * Quiz « Quel poste jouer au football américain ? » — données + scoring.
+ * Quiz « Quel poste jouer au football américain ? » : données + scoring.
  *
  * La matrice de points est calibrée sur les gabarits types par poste issus des
  * données publiques du NFL Combine / NCAA (ordres de grandeur moyens) :
- *   QB ~1m88/102kg, 40yd ~4.8s — direction de jeu, lecture
- *   RB ~1m78/97kg,  ~4.5s     — compact, explosif, porteur de balle
- *   WR ~1m83/91kg,  ~4.45s    — vitesse, mains, tracés
- *   TE ~1m93/114kg, ~4.7s     — hybride grand + costaud + mains
- *   OL ~1m93/141kg, ~5.2s     — masse, protection, technique
- *   DL ~1m90/129kg, ~4.9s     — masse explosive, pression
- *   LB ~1m85/109kg, ~4.65s    — polyvalence, plaquage, instinct
- *   DB ~1m80/93kg,  ~4.45s    — vitesse, duels, lecture des passes
+ *   QB ~1m88/102kg, 40yd ~4.8s : direction de jeu, lecture
+ *   RB ~1m78/97kg,  ~4.5s     : compact, explosif, porteur de balle
+ *   WR ~1m83/91kg,  ~4.45s    : vitesse, mains, tracés
+ *   TE ~1m93/114kg, ~4.7s     : hybride grand + costaud + mains
+ *   OL ~1m93/141kg, ~5.2s     : masse, protection, technique
+ *   DL ~1m90/129kg, ~4.9s     : masse explosive, pression
+ *   LB ~1m85/109kg, ~4.65s    : polyvalence, plaquage, instinct
+ *   DB ~1m80/93kg,  ~4.45s    : vitesse, duels, lecture des passes
  * En flag (5v5, sans contact) : QB flag (précision/lecture), receveur
  * (appuis/mains), défenseur (anticipation/arrachage de flag).
  */
@@ -55,6 +55,16 @@ export const QUESTIONS: Question[] = [
       { id: 'petit', fr: 'Moins d’1m75', en: 'Under 5′9″', pts: { rb: 2, db: 2, wr: 1, 'flag-rec': 2, 'flag-def': 1 } },
       { id: 'moyen', fr: 'Entre 1m75 et 1m85', en: '5′9″ to 6′1″', pts: { wr: 2, lb: 1, db: 1, qb: 1, 'flag-qb': 1 } },
       { id: 'grand', fr: 'Plus d’1m85', en: 'Over 6′1″', pts: { te: 2, ol: 2, dl: 1, qb: 2, wr: 1 } },
+    ],
+  },
+  {
+    id: 'poids',
+    fr: 'Ton poids ?',
+    en: 'Your weight?',
+    reponses: [
+      { id: 'leger', fr: 'Moins de 70 kg', en: 'Under 155 lbs', pts: { db: 2, wr: 1, rb: 1, 'flag-rec': 2, 'flag-def': 1 } },
+      { id: 'moyen', fr: 'Entre 70 et 90 kg', en: '155 to 200 lbs', pts: { qb: 1, lb: 1, rb: 1, wr: 1, 'flag-qb': 1 } },
+      { id: 'lourd', fr: 'Plus de 90 kg', en: 'Over 200 lbs', pts: { ol: 3, dl: 2, te: 1 } },
     ],
   },
   {
@@ -190,8 +200,8 @@ export const POSTES: Record<PosteId, Poste> = {
   },
   dl: {
     id: 'dl', fr: 'Ligne Défensive', en: 'Defensive Line', emoji: '26-pioche',
-    descFr: 'Le premier rideau : ta mission est simple — traverser la ligne adverse et faire vivre un enfer au quarterback.',
-    descEn: 'The first wall: your mission is simple — beat the man in front of you and make the quarterback’s life miserable.',
+    descFr: 'Le premier rideau : ta mission est simple : traverser la ligne adverse et faire vivre un enfer au quarterback.',
+    descEn: 'The first wall: your mission is simple : beat the man in front of you and make the quarterback’s life miserable.',
     atouts: [
       { fr: 'Puissance explosive dès le snap', en: 'Explosive power off the snap' },
       { fr: 'Le contact est ton élément naturel', en: 'Contact is your natural habitat' },
@@ -223,8 +233,8 @@ export const POSTES: Record<PosteId, Poste> = {
   },
   'flag-qb': {
     id: 'flag-qb', fr: 'Quarterback (Flag)', en: 'Quarterback (Flag)', emoji: '22-flag-football',
-    descFr: 'Le cerveau du 5 contre 5 : lecture éclair, précision chirurgicale, zéro contact — que du jeu.',
-    descEn: 'The brain of 5v5: split-second reads, surgical accuracy, zero contact — pure playmaking.',
+    descFr: 'Le cerveau du 5 contre 5 : lecture éclair, précision chirurgicale, zéro contact : que du jeu.',
+    descEn: 'The brain of 5v5: split-second reads, surgical accuracy, zero contact : pure playmaking.',
     atouts: [
       { fr: 'Vision et vitesse de décision', en: 'Vision and decision speed' },
       { fr: 'La précision avant la puissance', en: 'Accuracy over arm strength' },
@@ -234,8 +244,8 @@ export const POSTES: Record<PosteId, Poste> = {
   },
   'flag-rec': {
     id: 'flag-rec', fr: 'Receveur (Flag)', en: 'Receiver (Flag)', emoji: '20-joueuse-flag-buste-emoji-v3',
-    descFr: 'L’artiste du flag : appuis tranchants, tracés précis, mains sûres — un mètre d’écart te suffit.',
-    descEn: 'The flag artist: sharp cuts, precise routes, sure hands — one yard of separation is all you need.',
+    descFr: 'L’artiste du flag : appuis tranchants, tracés précis, mains sûres : un mètre d’écart te suffit.',
+    descEn: 'The flag artist: sharp cuts, precise routes, sure hands : one yard of separation is all you need.',
     atouts: [
       { fr: 'Agilité et changements de direction', en: 'Agility and change of direction' },
       { fr: 'Des mains fiables dans les moments chauds', en: 'Reliable hands when it matters' },
@@ -245,8 +255,8 @@ export const POSTES: Record<PosteId, Poste> = {
   },
   'flag-def': {
     id: 'flag-def', fr: 'Défenseur (Flag)', en: 'Defender (Flag)', emoji: '10-drapeau',
-    descFr: 'Le chasseur de flags : anticipation, placement et mains rapides — les interceptions gagnent les matchs.',
-    descEn: 'The flag hunter: anticipation, positioning, and quick hands — interceptions win games.',
+    descFr: 'Le chasseur de flags : anticipation, placement et mains rapides : les interceptions gagnent les matchs.',
+    descEn: 'The flag hunter: anticipation, positioning, and quick hands : interceptions win games.',
     atouts: [
       { fr: 'Lecture du jeu et anticipation', en: 'Play reading and anticipation' },
       { fr: 'Réflexes d’arracheur de flags', en: 'Flag-pulling reflexes' },

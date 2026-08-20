@@ -42,7 +42,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   if (!article) notFound();
   const Content = article.content;
 
-  // JSON-LD : Article + fil d'Ariane (URLs prod uniquement — la démo est noindex).
+  // JSON-LD : Article + fil d'Ariane (URLs prod uniquement, la démo est noindex).
   const jsonLd = IS_DEMO
     ? null
     : {

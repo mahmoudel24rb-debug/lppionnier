@@ -5,8 +5,10 @@ import { FaPhoneAlt, FaBars, FaTimes } from 'react-icons/fa';
 import { asset } from '@/lib/asset';
 import { useLang, LangToggle } from '@/lib/i18n';
 
-// Ancres de la landing (une seule page) — doivent correspondre aux id des
-// sections. `blog/` est une vraie route (concaténée à home qui finit par /).
+// Ancres de la landing (une seule page) : doivent correspondre aux id des
+// sections. Même header partout : les ancres sont préfixées par la home, donc
+// depuis /blog/... elles renvoient vers la section de la page d'accueil.
+// `blog/` est une vraie route (concaténée à home qui finit par /).
 const LINKS = [
   { href: '#top', fr: 'Accueil', en: 'Home' },
   { href: '#club', fr: 'Le club', en: 'The club' },

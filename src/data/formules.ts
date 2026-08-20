@@ -1,4 +1,4 @@
-// Adhésions Pionniers de Touraine — tarifs réels (saison 2026/2027), FR + EN.
+// Adhésions Pionniers de Touraine : tarifs réels (saison 2026/2027), FR + EN.
 // Le bouton renvoie vers la campagne d'adhésion HelloAsso du club.
 import type { Lang } from '@/lib/i18n';
 

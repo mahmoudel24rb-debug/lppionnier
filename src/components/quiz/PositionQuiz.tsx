@@ -13,7 +13,7 @@ const T = {
     introTag: 'Test de scouting · 2 minutes',
     introTitle: 'Quel poste est fait pour toi ?',
     introDesc:
-      'Réponds à 8 questions sur ton gabarit, tes qualités et ton rapport au contact. Notre algorithme de scouting — calibré sur les gabarits réels des joueurs NFL et NCAA — te propose ton poste idéal, en foot US ou en flag.',
+      'Réponds à 9 questions sur ta taille, ton poids, tes qualités et ton rapport au contact. Notre algorithme de scouting, calibré sur les gabarits réels des joueurs NFL et NCAA, te propose ton poste idéal, en foot US ou en flag.',
     start: 'Lancer le test',
     back: 'Question précédente',
     gateTag: 'Analyse prête',
@@ -25,7 +25,7 @@ const T = {
     emailPh: 'prenom@email.com',
     voir: 'Voir mon poste',
     envoi: 'Analyse en cours…',
-    note: 'Ton email sert uniquement au club pour te recontacter — jamais revendu, jamais de spam.',
+    note: 'Ton email sert uniquement au club pour te recontacter : jamais revendu, jamais de spam.',
     scoutTag: 'Le scout analyse ton profil',
     scoutLines: [
       'Lecture de ton gabarit…',
@@ -42,25 +42,25 @@ const T = {
     ctaSub: 'Semaine découverte offerte chez les Pionniers de Touraine',
     lire: 'Lire le guide du débutant',
     retry: 'Refaire le test',
-    leadKo: 'L’envoi de l’email n’a pas fonctionné — ton résultat reste affiché, et tu peux nous écrire à',
+    leadKo: 'L’envoi de l’email n’a pas fonctionné. Ton résultat reste affiché, et tu peux nous écrire à',
   },
   en: {
     introTag: 'Scouting test · 2 minutes',
     introTitle: 'Which position fits you?',
     introDesc:
-      'Answer 8 questions about your build, your strengths, and how you feel about contact. Our scouting algorithm — calibrated on real NFL and NCAA player profiles — suggests your ideal position, in tackle or flag.',
+      'Answer 9 questions about your height, weight, strengths, and how you feel about contact. Our scouting algorithm, calibrated on real NFL and NCAA player profiles, suggests your ideal position, in tackle or flag.',
     start: 'Start the test',
     back: 'Previous question',
     gateTag: 'Analysis ready',
     gateTitle: 'Your scouting report is ready',
-    gateDesc: 'Tell us where to send it — your position shows right after.',
+    gateDesc: 'Tell us where to send it: your position shows right after.',
     prenom: 'First name',
     prenomPh: 'Your first name',
     email: 'Email',
     emailPh: 'name@email.com',
     voir: 'See my position',
     envoi: 'Analyzing…',
-    note: 'Your email is only used by the club to get back to you — never sold, never spammed.',
+    note: 'Your email is only used by the club to get back to you: never sold, never spammed.',
     scoutTag: 'The scout is reviewing your profile',
     scoutLines: [
       'Reading your frame…',
@@ -77,7 +77,7 @@ const T = {
     ctaSub: 'Free trial week with the Pionniers de Touraine',
     lire: 'Read the beginner guide',
     retry: 'Retake the test',
-    leadKo: 'The email could not be sent — your result stays on screen, and you can write to us at',
+    leadKo: 'The email could not be sent. Your result stays on screen, and you can write to us at',
   },
 };
 

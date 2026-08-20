@@ -6,7 +6,7 @@ import { useLang } from '@/lib/i18n';
 import { mobileLines } from '@/lib/mobileLines';
 
 /**
- * CTA final — l'en-but au bout de la descente de terrain.
+ * CTA final : l'en-but au bout de la descente de terrain.
  * Reprend le bouton exact du hero (.rf-cta) pour boucler la boucle.
  */
 const T = {

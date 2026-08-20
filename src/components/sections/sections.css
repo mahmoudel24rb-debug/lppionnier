@@ -1,5 +1,5 @@
 /* ============================================================
-   Sections après le hero — charte exacte de la maquette hero :
+   Sections après le hero : charte exacte de la maquette hero :
    fond bordeaux profond, crème #fffaf0, ambre #ffad00,
    Futura Condensed (titres, maj) / Neuething (corps).
    Fil conducteur : la page descend le terrain, section après
@@ -30,7 +30,7 @@ img { max-width: 100%; }
   --sc-cream-55: rgba(255, 250, 240, 0.55);
   --sc-cream-38: rgba(255, 250, 240, 0.38);
   --sc-line: rgba(255, 250, 240, 0.09);
-  /* verre bordeaux — même recette que la pilule du header */
+  /* verre bordeaux : même recette que la pilule du header */
   --sc-glass: linear-gradient(180deg, rgba(128, 53, 58, 0.26) 0%, rgba(90, 34, 38, 0.34) 100%);
   --sc-glass-border: rgba(255, 255, 255, 0.06);
 }
@@ -61,7 +61,7 @@ img { max-width: 100%; }
 }
 .sc-lead strong { color: var(--rf-cream); font-weight: 700; }
 
-/* ── Marqueur de yards (séparateur de sections) — SVG terrain du designer ── */
+/* ── Marqueur de yards (séparateur de sections) : SVG terrain du designer ── */
 .sc-yard {
   position: relative; z-index: 1; /* au-dessus des calques décoratifs des sections (texture/halo) */
   max-width: 1200px; margin: 0 auto clamp(28px, 3.5vw, 46px); padding: 0;
@@ -265,7 +265,7 @@ img { max-width: 100%; }
 }
 .sc-ppp-poster:hover img,
 .sc-ppp-poster:hover video { transform: rotate(0deg) scale(1.015); }
-/* Vidéo PPP : fichier ré-encodé au cadre utile (484×608, ~4/5) —
+/* Vidéo PPP : fichier ré-encodé au cadre utile (484×608, ~4/5) -
    ratio naturel, aucune bande ni recadrage nécessaire. */
 .sc-ppp-poster video { width: min(100%, 380px); margin: 0 auto; }
 .sc-ppp-logo { height: 56px; width: auto; margin-bottom: 18px; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45)); }
@@ -352,7 +352,7 @@ img { max-width: 100%; }
 .sc-price-card .sc-btn { margin-top: auto; width: 100%; }
 .sc-pricing-note { margin: 26px 0 0; font-size: 13px; letter-spacing: -0.02em; color: var(--sc-cream-55); text-align: center; }
 
-/* Bandeau donation — permanent, indépendant de l'onglet */
+/* Bandeau donation : permanent, indépendant de l'onglet */
 .sc-donation {
   display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap;
   margin-top: clamp(28px, 3.5vw, 44px); padding: 24px 30px; border-radius: 22px;
@@ -420,7 +420,7 @@ img { max-width: 100%; }
 /* ── Formulaire de contact ── */
 .sc-contact-block { margin-top: 22px; }
 .sc-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
-/* min-width: 0 — sans lui, le <select> à texte long impose sa largeur
+/* min-width: 0 : sans lui, le <select> à texte long impose sa largeur
    intrinsèque à la colonne de grille et déborde du panneau sur mobile. */
 .sc-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .sc-field--full { grid-column: 1 / -1; }
@@ -475,7 +475,7 @@ a.sc-horaires { display: grid; }
 }
 
 /* ============================================================
-   EN-BUT — CTA final
+   EN-BUT : CTA final
    ============================================================ */
 .sc-endzone { overflow: hidden; text-align: center; }
 .sc-endzone::before {

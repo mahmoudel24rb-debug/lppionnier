@@ -1,7 +1,7 @@
 /* ============================================================
    Quiz « Quel poste jouer ? » (préfixe qz-)
    Reprend les patterns visuels du tunnel immersif (immersive.css)
-   mais en version inline dans la page — immersive.css n'est chargé
+   mais en version inline dans la page : immersive.css n'est chargé
    que dans l'overlay, d'où la copie locale des styles utiles.
    ============================================================ */
 
@@ -120,15 +120,15 @@
 
 /* ---------- résultat ---------- */
 .qz-result-badge {
-  display: inline-flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   width: 96px; height: 96px; border-radius: 50%;
   background: rgba(255, 173, 0, 0.13);
   border: 1px solid rgba(255, 173, 0, 0.4);
-  margin-bottom: 18px;
+  margin: 0 auto 18px;
 }
 .qz-result-badge img { width: 52px; height: 52px; object-fit: contain; }
 .qz-result-tag {
-  display: inline-block;
+  display: block;
   font-family: 'Neuething', sans-serif; font-weight: 700; font-size: 12px;
   letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--rf-amber, #ffad00); margin-bottom: 10px;

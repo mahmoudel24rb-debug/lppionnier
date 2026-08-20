@@ -1,5 +1,5 @@
 /**
- * Version anglaise du tunnel — structure et ids strictement identiques à funnel.ts.
+ * Version anglaise du tunnel : structure et ids strictement identiques à funnel.ts.
  * Toute modification structurelle doit être faite dans les DEUX fichiers.
  *
  * Seuls les champs textuels (label, desc, question, titre, punchline, paragraphs,
@@ -13,7 +13,7 @@ import type { Node, Offer } from './funnel';
 const sec = (heading: string, ...items: string[]) => ({ heading, items });
 
 // ─────────────────────────────────────────────────────────────
-// PLAY — Discovery / Join, Youth / Seniors
+// PLAY : Discovery / Join, Youth / Seniors
 // ─────────────────────────────────────────────────────────────
 const FA_DECOUVRIR: Node = {
   id: 'fa-decouvrir', label: 'Discover\nAmerican Football', icon: 'decouvrir',
@@ -132,7 +132,7 @@ const FLAG_REJOINDRE: Node = {
   children: [
     {
       id: 'flag-rej-jeunes', label: 'Youth', icon: 'jeunes-flag',
-      desc: 'Build your athletic qualities\nand team skills in a non-contact\ndiscipline — modern, accessible\nand NFL Flag.',
+      desc: 'Build your athletic qualities\nand team skills in a non-contact\ndiscipline: modern, accessible\nand NFL Flag.',
       offers: [{
         id: 'flag-rej-jeunes-o', titre: 'Youth Section ·\nFlag Football',
         punchline: 'Join our Flag Football\nyouth section.',
@@ -156,7 +156,7 @@ const FLAG_REJOINDRE: Node = {
 };
 
 // ─────────────────────────────────────────────────────────────
-// GETTING INVOLVED — detailed role descriptions
+// GETTING INVOLVED : detailed role descriptions
 // ─────────────────────────────────────────────────────────────
 const ORGANISER: Offer = {
   id: 'org-events', titre: 'Events\n& Operations Team',

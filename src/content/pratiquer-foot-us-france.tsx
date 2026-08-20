@@ -3,7 +3,7 @@ import { CtaQuiz, CtaTunnel } from '@/components/blog/CtaEncart';
 import { asset } from '@/lib/asset';
 
 /**
- * Article pilier — mot-clé : « pratiquer le football américain en France ».
+ * Article pilier. Mot-clé : « pratiquer le football américain en France ».
  * Rédigé par un club (Pionniers de Touraine, fondé en 1987) qui parle à toute
  * la France, avec une section locale en fin d'article.
  */
@@ -13,14 +13,14 @@ export default function ArticlePratiquer() {
       <p>
         Tu regardes la NFL le dimanche soir, tu as vibré devant le Super Bowl, et une question
         commence à tourner dans ta tête : <strong>est-ce qu'on peut vraiment pratiquer le football
-        américain en France ?</strong> La réponse est oui — et c'est beaucoup plus accessible que
+        américain en France ?</strong> La réponse est oui, et c'est beaucoup plus accessible que
         tu ne l'imagines. Il existe des clubs partout sur le territoire, des catégories pour tous
         les âges, une version sans contact pour celles et ceux qui ne veulent pas plaquer, et des
         semaines d'essai gratuites dans la plupart des clubs.
       </p>
       <p>
         Ce guide a été écrit par les <strong>Pionniers de Touraine</strong>, club de football
-        américain et de flag football fondé à Tours en <strong>1987</strong> — l'un des plus
+        américain et de flag football fondé à Tours en <strong>1987</strong>, l'un des plus
         anciens de France. En presque quarante ans, on a vu débuter des centaines de joueuses et
         de joueurs qui n'avaient jamais touché un ballon ovale. Voici tout ce qu'il faut savoir
         pour te lancer, où que tu sois en France.
@@ -55,8 +55,8 @@ export default function ArticlePratiquer() {
       <p>
         Le niveau français progresse d'ailleurs vite : des joueurs formés en France atteignent les
         championnats universitaires américains (NCAA), le championnat européen ELF, et l'équipe de
-        France figure régulièrement parmi les meilleures nations européennes. Mais surtout — et
-        c'est ce qui nous intéresse ici — <strong>le foot US en France est un sport de clubs de
+        France figure régulièrement parmi les meilleures nations européennes. Mais surtout, et
+        c'est ce qui nous intéresse ici, <strong>le foot US en France est un sport de clubs de
         proximité</strong>, où l'immense majorité des licenciés a commencé adulte ou adolescent,
         sans aucune expérience préalable.
       </p>
@@ -64,8 +64,8 @@ export default function ArticlePratiquer() {
         Autre idée reçue à évacuer tout de suite : non, ce n'est pas un sport réservé aux
         « armoires à glace ». Une équipe de football américain a besoin de <em>tous</em> les
         gabarits : des rapides et légers, des grands aux longs bras, des costauds, des stratèges.
-        C'est précisément ce qui en fait l'un des sports collectifs les plus inclusifs qui soient
-        — chacun a un rôle taillé pour son profil.
+        C'est précisément ce qui en fait l'un des sports collectifs les plus inclusifs qui
+        soient : chacun a un rôle taillé pour son profil.
       </p>
 
       <h2 id="quel-age">À quel âge peut-on commencer ?</h2>
@@ -85,7 +85,7 @@ export default function ArticlePratiquer() {
           épaulière, protège-dents) et un apprentissage très encadré des techniques de plaquage.
         </li>
         <li>
-          <strong>Adultes</strong> : c'est LA spécificité du foot US français — on peut débuter
+          <strong>Adultes</strong> : c'est LA spécificité du foot US français. On peut débuter
           en senior à 20, 25, 30 ans et même au-delà, en contact comme en flag. La majorité des
           joueurs des championnats régionaux ont commencé adultes. Si le sujet te concerne, on a
           écrit un article entier pour répondre à la question :{' '}
@@ -117,7 +117,7 @@ export default function ArticlePratiquer() {
           <tbody>
             <tr>
               <th scope="row">Contact</th>
-              <td>Plaquages, blocs — un vrai sport de combat collectif</td>
+              <td>Plaquages, blocs : un vrai sport de combat collectif</td>
               <td>Aucun : on arrache un flag à la ceinture</td>
             </tr>
             <tr>
@@ -138,7 +138,7 @@ export default function ArticlePratiquer() {
             <tr>
               <th scope="row">Pour qui ?</th>
               <td>Celles et ceux qui veulent le grand frisson du contact</td>
-              <td>Enfants, reprise du sport, allergiques au plaquage — et les JO 2028 !</td>
+              <td>Enfants, reprise du sport, allergiques au plaquage... et les JO 2028 !</td>
             </tr>
           </tbody>
         </table>
@@ -146,8 +146,8 @@ export default function ArticlePratiquer() {
       <p>
         Le flag n'est pas un « sous-foot US » : c'est une discipline à part entière, olympique à
         partir des <strong>Jeux de Los Angeles 2028</strong>, avec ses championnats et ses équipes
-        de France. C'est aussi la meilleure porte d'entrée pour apprendre le jeu — les tracés, les
-        lectures de défense, le timing des passes — avant, éventuellement, de passer au contact.
+        de France. C'est aussi la meilleure porte d'entrée pour apprendre le jeu (les tracés, les
+        lectures de défense, le timing des passes) avant, éventuellement, de passer au contact.
         On t'explique tout dans notre article{' '}
         <Link href="/blog/flag-football-cest-quoi/">le flag football, c'est quoi ?</Link>
       </p>
@@ -176,7 +176,7 @@ export default function ArticlePratiquer() {
           d'entraînement et un moyen de contact.
         </li>
         <li>
-          <strong>Le bouche-à-oreille</strong> : demande autour de toi — le foot US est une petite
+          <strong>Le bouche-à-oreille</strong> : demande autour de toi. Le foot US est une petite
           famille, et il y a de fortes chances qu'un collègue, un ami d'ami ou un ancien camarade
           de lycée joue ou ait joué quelque part.
         </li>
@@ -207,7 +207,7 @@ export default function ArticlePratiquer() {
         <li>
           Un <strong>certificat médical</strong> de non-contre-indication à la pratique du
           football américain (ou le questionnaire de santé selon ta situation) est demandé à
-          l'inscription — comme dans tous les sports à licence.
+          l'inscription, comme dans tous les sports à licence.
         </li>
         <li>
           La plupart des clubs acceptent le <strong>paiement en plusieurs fois</strong>, et de
@@ -222,7 +222,7 @@ export default function ArticlePratiquer() {
       <p>
         Rapporté au nombre d'entraînements (deux à trois par semaine pendant une saison qui court
         de septembre à juin), le foot US reste l'un des sports collectifs au meilleur rapport
-        heures de jeu / prix — surtout quand le club prête l'équipement, et c'est justement le
+        heures de jeu / prix, surtout quand le club prête l'équipement, et c'est justement le
         point suivant.
       </p>
 
@@ -242,7 +242,7 @@ export default function ArticlePratiquer() {
           investissement personnel restera les crampons et éventuellement un protège-dents.
         </li>
         <li>
-          <strong>Pour le contact</strong> : casque et épaulière sont indispensables — et la
+          <strong>Pour le contact</strong> : casque et épaulière sont indispensables, et la
           plupart des clubs, dont les Pionniers, <strong>prêtent un équipement complet aux
           débutants</strong> pour la première saison. Seul le protège-dents (quelques euros) doit
           être personnel, hygiène oblige.
@@ -267,12 +267,12 @@ export default function ArticlePratiquer() {
       <ul>
         <li>
           <strong>L'échauffement collectif</strong> (15-20 min) : course, mobilité, éducatifs
-          d'appuis. Rien d'insurmontable — chacun à son rythme.
+          d'appuis. Rien d'insurmontable : chacun à son rythme.
         </li>
         <li>
           <strong>Les fondamentaux par ateliers</strong> (30-40 min) : attraper un ballon, le
           porter, se mettre en position, courir un tracé. Les débutants sont regroupés avec un
-          coach dédié : personne ne te jettera dans un plaquage le premier soir — dans les clubs
+          coach dédié : personne ne te jettera dans un plaquage le premier soir. Dans les clubs
           sérieux, le contact ne s'apprend que progressivement, technique d'abord.
         </li>
         <li>
@@ -304,8 +304,8 @@ export default function ArticlePratiquer() {
         Onze joueurs sur le terrain, et presque autant de métiers différents : le
         <strong> quarterback</strong> qui dirige l'attaque et lance, le <strong>running
         back</strong> qui perce les défenses ballon en main, les <strong>receveurs</strong> qui
-        courent des tracés au cordeau, la <strong>ligne offensive</strong> — les colosses
-        stratèges qui protègent leur quarterback —, la <strong>ligne défensive</strong> qui vit
+        courent des tracés au cordeau, la <strong>ligne offensive</strong> (les colosses
+        stratèges qui protègent leur quarterback), la <strong>ligne défensive</strong> qui vit
         pour le sack, les <strong>linebackers</strong>, couteaux suisses de la défense, et les
         <strong> defensive backs</strong>, duellistes des airs. Grand, petit, massif, léger,
         explosif, endurant : <strong>chaque gabarit a un poste où il devient une arme</strong>.
@@ -313,10 +313,10 @@ export default function ArticlePratiquer() {
       <p>
         C'est exactement pour répondre à cette question qu'on a construit notre test :{' '}
         <Link href="/quel-poste-football-americain/">quel poste jouer au football
-        américain ?</Link> Huit questions sur ton gabarit, tes qualités et ton rapport au
-        contact, et notre algorithme de scouting — calibré sur les profils réels des joueurs NFL
-        et universitaires — te propose le poste où tu as le plus de chances de t'éclater, en foot
-        US ou en flag.
+        américain ?</Link> Neuf questions sur ta taille, ton poids, tes qualités et ton rapport
+        au contact, et notre algorithme de scouting, calibré sur les profils réels des joueurs
+        NFL et universitaires, te propose le poste où tu as le plus de chances de t'éclater, en
+        foot US ou en flag.
       </p>
 
       <h2 id="faq">Questions fréquentes</h2>
@@ -329,7 +329,7 @@ export default function ArticlePratiquer() {
       </p>
       <h3>Est-ce que c'est dangereux ?</h3>
       <p>
-        C'est un sport de contact, avec les risques inhérents — mais un contact
+        C'est un sport de contact, avec les risques inhérents, mais un contact
         <em> équipé, enseigné et arbitré</em>. Casque et épaulière homologués, apprentissage
         progressif du plaquage, règles strictes protégeant les joueurs : la pratique en club
         encadré n'a rien à voir avec les compilations de chocs vues sur les réseaux. Et si le
@@ -337,7 +337,7 @@ export default function ArticlePratiquer() {
       </p>
       <h3>Peut-on jouer sans connaître les règles ?</h3>
       <p>
-        Oui — presque tout le monde débute comme ça. Il suffit de savoir qu'une attaque a quatre
+        Oui : presque tout le monde débute comme ça. Il suffit de savoir qu'une attaque a quatre
         tentatives pour avancer de dix yards : tout le reste s'apprend sur le terrain, en jouant.
         Après un mois d'entraînements, tu regarderas un match de NFL en comprenant ce qui se
         passe. Promis.
@@ -346,7 +346,7 @@ export default function ArticlePratiquer() {
       <p>
         Évidemment. Le flag se pratique largement en mixte, des équipes et championnats féminins
         de contact existent, et l'équipe de France féminine de flag vise les JO de Los Angeles.
-        Dans la plupart des clubs, les filles s'entraînent et jouent — au flag comme au casqué.
+        Dans la plupart des clubs, les filles s'entraînent et jouent, au flag comme au casqué.
       </p>
       <h3>Quelle est la différence avec le rugby ?</h3>
       <p>
@@ -354,7 +354,7 @@ export default function ArticlePratiquer() {
         l'arrière ; au football américain, le jeu est découpé en actions de quelques secondes,
         préparées comme des coups d'échecs, et la passe vers l'avant est l'arme principale.
         Concrètement : le foot US demande moins d'endurance continue mais plus d'explosivité, et
-        beaucoup plus de stratégie mémorisée — chaque équipe joue avec un « playbook » de
+        beaucoup plus de stratégie mémorisée : chaque équipe joue avec un « playbook » de
         dizaines de combinaisons. Les anciens rugbymen s'y reconvertissent d'ailleurs très bien,
         et l'inverse est vrai aussi.
       </p>
@@ -363,13 +363,13 @@ export default function ArticlePratiquer() {
         Quatre quart-temps de 12 minutes en France (temps de jeu arrêté), soit environ deux
         heures à deux heures trente au total avec les arrêts de chrono et la mi-temps. C'est un
         format d'après-midi : les matchs se jouent généralement le week-end, et l'équipe fait le
-        déplacement ensemble — l'ambiance de bus fait partie intégrante du sport.
+        déplacement ensemble : l'ambiance de bus fait partie intégrante du sport.
       </p>
       <h3>Quand commence la saison ? Peut-on s'inscrire en cours d'année ?</h3>
       <p>
         La saison sportive court de <strong>septembre à juin</strong> : la rentrée est le moment
         idéal pour débuter, avec les groupes de nouveaux. Mais les clubs accueillent des
-        débutants toute l'année — en cours de saison, tu t'entraînes, tu progresses, et tu seras
+        débutants toute l'année : en cours de saison, tu t'entraînes, tu progresses, et tu seras
         prêt pour la saison suivante.
       </p>
 
@@ -378,7 +378,7 @@ export default function ArticlePratiquer() {
         Si tu vis à <strong>Tours ou en Indre-et-Loire</strong>, tu n'as même pas besoin de
         chercher : les Pionniers de Touraine t'attendent au <strong>Stade de la Chambrerie</strong>
         (Tours Nord). Foot US contact en senior et en jeunes, <strong>flag mixte</strong>, école
-        de flag le samedi matin pour les enfants — et une <strong>semaine découverte
+        de flag le samedi matin pour les enfants, et une <strong>semaine découverte
         offerte</strong>, équipement prêté, pour essayer sans rien débourser. Les tarifs à jour
         des adhésions sont détaillés sur <a href={`${asset('/')}#adhesions`}>notre page
         adhésions</a>.

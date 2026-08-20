@@ -12,7 +12,7 @@ import { mobileLines } from '@/lib/mobileLines';
 import AllOffersBoard from './AllOffersBoard';
 import './immersive.css';
 
-/* « Comment as-tu connu le club ? » — les VALEURS restent en français
+/* « Comment as-tu connu le club ? » : les VALEURS restent en français
    (whitelist côté candidature.php), seuls les libellés affichés changent. */
 const CONNU_OPTIONS = [
   { value: '', fr: 'Non précisé', en: 'Not specified' },
@@ -299,7 +299,7 @@ export default function ImmersiveTunnel({ onClose, initialOfferId }: { onClose: 
         </div>
       )}
 
-      {/* ÉTAPE — split (2 choix) */}
+      {/* ÉTAPE : split (2 choix) */}
       {view === 'choices' && isSplit && current.children && (
         <div className="imt-split">
           <span className="imt-split-divider" />
@@ -317,7 +317,7 @@ export default function ImmersiveTunnel({ onClose, initialOfferId }: { onClose: 
         </div>
       )}
 
-      {/* ÉTAPE — carrousel (3+ choix) */}
+      {/* ÉTAPE : carrousel (3+ choix) */}
       {view === 'choices' && !isSplit && current.children && (
         <div className="imt-stage">
          <div className="imt-stage-col">
@@ -349,7 +349,7 @@ export default function ImmersiveTunnel({ onClose, initialOfferId }: { onClose: 
         </div>
       )}
 
-      {/* ÉTAPE — liste des offres (si plusieurs) */}
+      {/* ÉTAPE : liste des offres (si plusieurs) */}
       {view === 'offers' && current.offers && (
         <div className="imt-stage">
           <div className="imt-stage-col">
@@ -373,7 +373,7 @@ export default function ImmersiveTunnel({ onClose, initialOfferId }: { onClose: 
         </div>
       )}
 
-      {/* ÉTAPE — toutes les offres (affichage final) */}
+      {/* ÉTAPE : toutes les offres (affichage final) */}
       {view === 'all' && (
         <AllOffersBoard
           query={boardQuery}
@@ -384,7 +384,7 @@ export default function ImmersiveTunnel({ onClose, initialOfferId }: { onClose: 
         />
       )}
 
-      {/* ÉTAPE — fiche détaillée */}
+      {/* ÉTAPE : fiche détaillée */}
       {view === 'detail' && detail && (
         <div className="imt-stage imt-scroll">
           <article className="imt-detail">
@@ -415,7 +415,7 @@ export default function ImmersiveTunnel({ onClose, initialOfferId }: { onClose: 
         </div>
       )}
 
-      {/* ÉTAPE — formulaire */}
+      {/* ÉTAPE : formulaire */}
       {view === 'form' && detail && (
         <div className="imt-stage imt-scroll">
           <form
@@ -482,7 +482,7 @@ export default function ImmersiveTunnel({ onClose, initialOfferId }: { onClose: 
         </div>
       )}
 
-      {/* ÉTAPE — confirmation */}
+      {/* ÉTAPE : confirmation */}
       {view === 'done' && (
         <div className="imt-stage">
           <div style={{ textAlign: 'center' }}>

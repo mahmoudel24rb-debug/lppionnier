@@ -1,10 +1,10 @@
 <?php
 /**
- * Formulaire de candidature du tunnel immersif — Pionniers de Touraine.
+ * Formulaire de candidature du tunnel immersif : Pionniers de Touraine.
  * Reçoit les candidatures (offres du tunnel + candidature spontanée) et les
  * envoie à recrutement@pionniersdetouraine.fr via _mailer.php.
  *
- * NOTE : la démo GitHub Pages n'exécute pas PHP — le front bascule alors sur
+ * NOTE : la démo GitHub Pages n'exécute pas PHP : le front bascule alors sur
  * un repli mailto. Ce script est prévu pour l'hébergement final (o2switch).
  */
 declare(strict_types=1);
@@ -28,7 +28,7 @@ if (trim((string)($_POST['website'] ?? '')) !== '') {
 /**
  * Whitelist des offres : id => titre FR (le titre vient du serveur, jamais du
  * client). Générée depuis getAllOffers() de src/data/funnel.ts + la candidature
- * spontanée — À RÉGÉNÉRER si les offres du tunnel changent.
+ * spontanée : À RÉGÉNÉRER si les offres du tunnel changent.
  */
 $offres = [
     'fa-dec-jeunes-o' => 'Semaine découverte · Jeunes (Foot US)',
@@ -74,7 +74,7 @@ $message   = trim((string)($_POST['message'] ?? ''));
 $offreId   = trim((string)($_POST['offre_id'] ?? ''));
 $lang      = ($_POST['lang'] ?? 'fr') === 'en' ? 'en' : 'fr';
 
-// « Comment as-tu connu le club ? » — valeurs autorisées (alignées sur le front)
+// « Comment as-tu connu le club ? » : valeurs autorisées (alignées sur le front)
 $connuAutorises = [
     '', 'Réseaux sociaux', 'Bouche à oreille', 'Passage devant le stade',
     'Recherche Google', 'Événement ou démonstration', 'Presse / médias', 'Autre',
@@ -105,11 +105,11 @@ $corps = "Nouvelle candidature depuis le site de recrutement\n\n"
     . "Prénom : {$prenom}\n"
     . "Nom : {$nom}\n"
     . "Email : {$email}\n"
-    . 'Téléphone : ' . ($telephone !== '' ? $telephone : '—') . "\n"
-    . 'Année de naissance : ' . ($annee !== '' ? $annee : '—') . "\n"
-    . 'A connu le club via : ' . ($connu !== '' ? $connu : '—') . "\n"
+    . 'Téléphone : ' . ($telephone !== '' ? $telephone : '-') . "\n"
+    . 'Année de naissance : ' . ($annee !== '' ? $annee : '-') . "\n"
+    . 'A connu le club via : ' . ($connu !== '' ? $connu : '-') . "\n"
     . "Langue du site : {$lang}\n\n"
-    . 'Message :' . "\n" . ($message !== '' ? $message : '—') . "\n";
+    . 'Message :' . "\n" . ($message !== '' ? $message : '-') . "\n";
 
 $envoye = pnr_envoyer($sujet, $corps, $email);
 if (!$envoye) {

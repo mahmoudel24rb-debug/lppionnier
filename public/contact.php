@@ -1,9 +1,9 @@
 <?php
 /**
- * Formulaire de contact — Pionniers de Touraine.
+ * Formulaire de contact : Pionniers de Touraine.
  * Envoie les messages à recrutement@pionniersdetouraine.fr.
  *
- * NOTE : la démo GitHub Pages n'exécute pas PHP — ce script est prévu pour
+ * NOTE : la démo GitHub Pages n'exécute pas PHP : ce script est prévu pour
  * l'hébergement final (o2switch). Côté front, ContactForm bascule sur un
  * repli mailto si le POST échoue.
  */

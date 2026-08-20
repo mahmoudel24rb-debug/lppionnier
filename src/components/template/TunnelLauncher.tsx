@@ -10,7 +10,7 @@ import ImmersiveTunnel from './ImmersiveTunnel';
  */
 export default function TunnelLauncher() {
   const [open, setOpen] = useState(false);
-  // Offre à ouvrir directement (deep-link du quiz) — null = parcours normal
+  // Offre à ouvrir directement (deep-link du quiz) : null = parcours normal
   const [offerId, setOfferId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function TunnelLauncher() {
       }
     };
     // `open-tunnel` peut être un CustomEvent avec { detail: { offerId } }
-    // (résultat du quiz) — les dispatchs historiques sans detail restent valides.
+    // (résultat du quiz) : les dispatchs historiques sans detail restent valides.
     const onEvent = (e: Event) => {
       setOfferId((e as CustomEvent<{ offerId?: string }>).detail?.offerId ?? null);
       setOpen(true);
