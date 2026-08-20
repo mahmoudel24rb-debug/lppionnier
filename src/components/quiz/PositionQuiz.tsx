@@ -2,7 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { QUESTIONS, computeResult, type QuizResult } from '@/data/quizPostes';
+import {
+  QUESTIONS,
+  computeResult,
+  TAILLE_MIN, TAILLE_MAX, POIDS_MIN, POIDS_MAX,
+  type Mensurations,
+  type QuizResult,
+} from '@/data/quizPostes';
 import { asset } from '@/lib/asset';
 import { track } from '@/lib/track';
 import { useLang } from '@/lib/i18n';
@@ -13,9 +19,16 @@ const T = {
     introTag: 'Test de scouting · 2 minutes',
     introTitle: 'Quel poste est fait pour toi ?',
     introDesc:
-      'Réponds à 9 questions sur ta taille, ton poids, tes qualités et ton rapport au contact. Notre algorithme de scouting, calibré sur les gabarits réels des joueurs NFL et NCAA, te propose ton poste idéal, en foot US ou en flag.',
+      'Réponds à 8 questions sur ta taille, ton poids, tes qualités et ton rapport au contact. Notre algorithme de scouting, calibré sur les gabarits réels des joueurs NFL et NCAA, te propose ton poste idéal, en foot US ou en flag.',
     start: 'Lancer le test',
     back: 'Question précédente',
+    mensuTitle: 'Tes mensurations',
+    mensuTaille: 'Taille (cm)',
+    mensuTaillePh: 'Ex : 183',
+    mensuPoids: 'Poids (kg)',
+    mensuPoidsPh: 'Ex : 96',
+    mensuNext: 'Continuer',
+    mensuKo: 'Entre une taille entre 120 et 220 cm et un poids entre 40 et 180 kg.',
     gateTag: 'Analyse prête',
     gateTitle: 'Ton rapport de scouting est prêt',
     gateDesc: 'Dis-nous où l’envoyer : ton poste s’affiche juste après.',
@@ -38,6 +51,9 @@ const T = {
     resultTagFlag: 'Ton poste en flag football',
     atoutsTitle: 'Pourquoi toi :',
     refsPrefix: 'Même famille de profil :',
+    profilPrefix: 'Ton profil :',
+    secondPrefix: 'Aussi compatible :',
+    disclaimer: '* Ce test donne une orientation d’après ton gabarit et tes préférences : sur le terrain, l’avis des coachs fait foi.',
     cta: 'Candidater maintenant',
     ctaSub: 'Semaine découverte offerte chez les Pionniers de Touraine',
     lire: 'Lire le guide du débutant',
@@ -48,9 +64,16 @@ const T = {
     introTag: 'Scouting test · 2 minutes',
     introTitle: 'Which position fits you?',
     introDesc:
-      'Answer 9 questions about your height, weight, strengths, and how you feel about contact. Our scouting algorithm, calibrated on real NFL and NCAA player profiles, suggests your ideal position, in tackle or flag.',
+      'Answer 8 questions about your height, weight, strengths, and how you feel about contact. Our scouting algorithm, calibrated on real NFL and NCAA player profiles, suggests your ideal position, in tackle or flag.',
     start: 'Start the test',
     back: 'Previous question',
+    mensuTitle: 'Your measurements',
+    mensuTaille: 'Height (cm)',
+    mensuTaillePh: 'Ex : 183',
+    mensuPoids: 'Weight (kg)',
+    mensuPoidsPh: 'Ex : 96',
+    mensuNext: 'Continue',
+    mensuKo: 'Enter a height between 120 and 220 cm and a weight between 40 and 180 kg.',
     gateTag: 'Analysis ready',
     gateTitle: 'Your scouting report is ready',
     gateDesc: 'Tell us where to send it: your position shows right after.',
@@ -73,6 +96,9 @@ const T = {
     resultTagFlag: 'Your flag football position',
     atoutsTitle: 'Why you:',
     refsPrefix: 'Same profile family:',
+    profilPrefix: 'Your profile:',
+    secondPrefix: 'Also a fit:',
+    disclaimer: '* This test is an indication based on your build and preferences: on the field, the coaches’ assessment is final.',
     cta: 'Apply now',
     ctaSub: 'Free trial week with the Pionniers de Touraine',
     lire: 'Read the beginner guide',
@@ -81,13 +107,39 @@ const T = {
   },
 };
 
-type Step = 'intro' | number | 'gate' | 'analyse' | 'result';
+type Step = 'intro' | 'mensurations' | number | 'gate' | 'analyse' | 'result';
+
+/** 6 questions à choix + la taille + le poids saisis à l'écran mensurations. */
+const TOTAL_ETAPES = 8;
+
+/**
+ * Progression d'un écran : `dots` = points allumés (l'écran mensurations en
+ * couvre deux, taille + poids, la barre se remplit donc jusqu'à 8 sur la
+ * dernière question), `num` = numéro d'étape affiché sous la barre.
+ */
+function progression(s: Step): { dots: number; num: number } {
+  if (s === 'mensurations') return { dots: 3, num: 2 };
+  if (typeof s === 'number') {
+    const n = s === 0 ? 1 : s + 3;
+    return { dots: n, num: n };
+  }
+  return { dots: 0, num: 0 };
+}
+
+/** 183 → « 1m83 » (affichage FR uniquement, l'EN reste en cm). */
+function formatTaille(cm: number): string {
+  return `${Math.floor(cm / 100)}m${String(cm % 100).padStart(2, '0')}`;
+}
 
 export default function PositionQuiz() {
   const { lang } = useLang();
   const t = T[lang];
   const [step, setStep] = useState<Step>('intro');
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [tailleTxt, setTailleTxt] = useState('');
+  const [poidsTxt, setPoidsTxt] = useState('');
+  const [mensurations, setMensurations] = useState<Mensurations>({ taille: 0, poids: 0 });
+  const [mensuKo, setMensuKo] = useState(false);
   const [result, setResult] = useState<QuizResult | null>(null);
   const [sending, setSending] = useState(false);
   const [leadKo, setLeadKo] = useState(false);
@@ -98,13 +150,34 @@ export default function PositionQuiz() {
     setAnswers(next);
     if (!started.current) { started.current = true; track('quiz-start'); }
     const idx = typeof step === 'number' ? step : 0;
-    if (idx + 1 < QUESTIONS.length) setStep(idx + 1);
-    else { setResult(computeResult(next)); setStep('gate'); }
+    // L'écran mensurations s'intercale juste après la question d'âge.
+    if (idx === 0) setStep('mensurations');
+    else if (idx + 1 < QUESTIONS.length) setStep(idx + 1);
+    else { setResult(computeResult(next, mensurations)); setStep('gate'); }
+  };
+
+  const validerMensurations = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const taille = Number(tailleTxt.trim());
+    const poids = Number(poidsTxt.trim());
+    const ok =
+      tailleTxt.trim() !== '' && poidsTxt.trim() !== ''
+      && Number.isFinite(taille) && Number.isFinite(poids)
+      && taille >= TAILLE_MIN && taille <= TAILLE_MAX
+      && poids >= POIDS_MIN && poids <= POIDS_MAX;
+    if (!ok) { setMensuKo(true); return; }
+    setMensurations({ taille: Math.round(taille), poids: Math.round(poids) });
+    setMensuKo(false);
+    setStep(1);
   };
 
   const back = () => {
-    if (typeof step === 'number') setStep(step === 0 ? 'intro' : step - 1);
-    else if (step === 'gate') setStep(QUESTIONS.length - 1);
+    if (step === 'mensurations') setStep(0);
+    else if (typeof step === 'number') {
+      if (step === 0) setStep('intro');
+      else if (step === 1) setStep('mensurations');
+      else setStep(step - 1);
+    } else if (step === 'gate') setStep(QUESTIONS.length - 1);
   };
 
   const submitLead = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -115,6 +188,8 @@ export default function PositionQuiz() {
     body.set('poste', result.poste.id);
     body.set('discipline', result.discipline);
     body.set('age', result.age);
+    body.set('taille', String(mensurations.taille));
+    body.set('poids', String(mensurations.poids));
     body.set('lang', lang);
     try {
       const res = await fetch(asset('/quiz.php'), { method: 'POST', body });
@@ -147,7 +222,14 @@ export default function PositionQuiz() {
     window.dispatchEvent(new CustomEvent('open-tunnel', { detail: { offerId: result.offerId } }));
   };
 
-  const restart = () => { setAnswers({}); setResult(null); setLeadKo(false); setStep(0); };
+  const restart = () => {
+    setAnswers({});
+    setTailleTxt(''); setPoidsTxt('');
+    setMensurations({ taille: 0, poids: 0 });
+    setMensuKo(false);
+    setResult(null); setLeadKo(false);
+    setStep(0);
+  };
 
   return (
     <div className="qz-zone">
@@ -162,12 +244,55 @@ export default function PositionQuiz() {
         </div>
       )}
 
+      {step === 'mensurations' && (
+        <div className="qz-fade">
+          <div className="qz-progress" aria-hidden>
+            {Array.from({ length: TOTAL_ETAPES }, (_, i) => (
+              <span key={i} className={`qz-dot ${i < progression(step).dots ? 'on' : ''}`} />
+            ))}
+          </div>
+          <p className="qz-sub">{`${progression(step).num} / ${TOTAL_ETAPES}`}</p>
+          <h2 className="qz-q">{t.mensuTitle}</h2>
+          <form className="qz-form" onSubmit={validerMensurations} noValidate>
+            <div className="qz-measures">
+              <div className="qz-field">
+                <label htmlFor="qz-taille">{t.mensuTaille}</label>
+                <input
+                  id="qz-taille" name="taille" type="number" inputMode="numeric"
+                  min={TAILLE_MIN} max={TAILLE_MAX} required
+                  placeholder={t.mensuTaillePh}
+                  value={tailleTxt}
+                  onChange={(e) => setTailleTxt(e.target.value)}
+                />
+              </div>
+              <div className="qz-field">
+                <label htmlFor="qz-poids">{t.mensuPoids}</label>
+                <input
+                  id="qz-poids" name="poids" type="number" inputMode="numeric"
+                  min={POIDS_MIN} max={POIDS_MAX} required
+                  placeholder={t.mensuPoidsPh}
+                  value={poidsTxt}
+                  onChange={(e) => setPoidsTxt(e.target.value)}
+                />
+              </div>
+            </div>
+            {mensuKo && <p className="qz-error">{t.mensuKo}</p>}
+            <div className="qz-actions" style={{ marginTop: 18 }}>
+              <button className="sc-btn" type="submit">{t.mensuNext}</button>
+            </div>
+          </form>
+          <button className="qz-back" type="button" onClick={back}>← {t.back}</button>
+        </div>
+      )}
+
       {typeof step === 'number' && (
         <div className="qz-fade" key={step}>
           <div className="qz-progress" aria-hidden>
-            {QUESTIONS.map((_, i) => <span key={i} className={`qz-dot ${i <= step ? 'on' : ''}`} />)}
+            {Array.from({ length: TOTAL_ETAPES }, (_, i) => (
+              <span key={i} className={`qz-dot ${i < progression(step).dots ? 'on' : ''}`} />
+            ))}
           </div>
-          <p className="qz-sub">{`${step + 1} / ${QUESTIONS.length}`}</p>
+          <p className="qz-sub">{`${progression(step).num} / ${TOTAL_ETAPES}`}</p>
           <h2 className="qz-q">{lang === 'en' ? QUESTIONS[step].en : QUESTIONS[step].fr}</h2>
           <div className="qz-answers" style={{ marginTop: 26 }}>
             {QUESTIONS[step].reponses.map((r) => (
@@ -228,6 +353,18 @@ export default function PositionQuiz() {
             {result.poste.atouts.map((a) => <li key={a.fr}>{lang === 'en' ? a.en : a.fr}</li>)}
           </ul>
           <p className="qz-refs">{t.refsPrefix} {result.poste.refs}</p>
+          <p className="qz-profil">
+            {t.profilPrefix}{' '}
+            {lang === 'en'
+              ? `${mensurations.taille} cm · ${mensurations.poids} kg`
+              : `${formatTaille(mensurations.taille)} · ${mensurations.poids} kg`}
+          </p>
+          {result.secondPoste && (
+            <p className="qz-second">
+              {t.secondPrefix} {lang === 'en' ? result.secondPoste.en : result.secondPoste.fr}
+            </p>
+          )}
+          <p className="qz-disclaimer">{t.disclaimer}</p>
           {leadKo && (
             <p className="qz-note">
               {t.leadKo}{' '}

@@ -159,7 +159,7 @@ export default function ArticleFlag() {
 
       <CtaQuiz
         titre="Flag ou casqué : quel profil es-tu ?"
-        texte="Réponds à 9 questions (gabarit, poids, vitesse, rapport au contact) et notre algorithme de scouting te dit quel poste te correspond, en flag comme en foot US."
+        texte="Réponds à 8 questions (taille, poids, vitesse, rapport au contact) et notre algorithme de scouting te dit quel poste te correspond, en flag comme en foot US."
         bouton="Je découvre mon poste"
       />
 
@@ -197,7 +197,7 @@ export default function ArticleFlag() {
       </ul>
       <p>
         Tu hésites sur ton profil ? Notre <Link href="/quel-poste-football-americain/">test de
-        poste</Link> couvre aussi les rôles du flag : il t'orientera en neuf questions.
+        poste</Link> couvre aussi les rôles du flag : il t'orientera en huit questions.
       </p>
 
       <h2 id="lexique">Le petit lexique pour survivre à ta première séance</h2>

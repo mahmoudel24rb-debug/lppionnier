@@ -100,6 +100,17 @@
 .qz-field input:focus { border-color: var(--rf-amber, #ffad00); background: rgba(255, 250, 240, 0.07); }
 .qz-note { font-size: 12.5px; color: var(--sc-cream-38, rgba(255, 250, 240, 0.38)); margin-top: 12px; }
 
+/* ---------- mensurations (taille + poids) ---------- */
+.qz-measures {
+  display: flex; gap: 14px;
+  max-width: 420px; margin: 0 auto; width: 100%;
+}
+.qz-measures .qz-field { flex: 1 1 0; margin-bottom: 0; }
+.qz-error {
+  margin: 12px 0 0; font-size: 13px; line-height: 1.45;
+  color: rgba(255, 180, 120, 0.9);
+}
+
 /* ---------- analyse « scout » ---------- */
 .qz-scout {
   max-width: 460px; margin: 0 auto; text-align: left;
@@ -154,6 +165,19 @@
   color: var(--sc-cream-55, rgba(255, 250, 240, 0.55));
   letter-spacing: 0.02em;
 }
+.qz-profil {
+  margin: 14px 0 0; font-size: 14px;
+  color: var(--sc-cream-72, rgba(255, 250, 240, 0.72));
+}
+.qz-second {
+  margin: 6px 0 0; font-size: 13.5px;
+  color: var(--rf-amber, #ffad00);
+}
+.qz-disclaimer {
+  max-width: 460px; margin: 14px auto 0;
+  font-size: 12px; line-height: 1.5;
+  color: var(--sc-cream-38, rgba(255, 250, 240, 0.38));
+}
 .qz-actions {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 28px;
 }
@@ -163,5 +187,7 @@
   .qz-zone { min-height: 480px; padding: 28px 18px; border-radius: 22px; }
   .qz-answers { flex-direction: column; align-items: stretch; }
   .qz-answer { flex: none; min-width: 0; }
+  .qz-measures { flex-direction: column; gap: 0; }
+  .qz-measures .qz-field { margin-bottom: 14px; }
   .qz-actions .sc-btn, .qz-actions .sc-btn-ghost { width: 100%; justify-content: center; }
 }

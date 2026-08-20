@@ -87,7 +87,7 @@ export default function ArticleAdulte() {
 
       <CtaQuiz
         titre="Ton gabarit est une arme : découvre laquelle"
-        texte="9 questions sur ta taille, ton poids, ton explosivité et ton rapport au contact : notre algorithme de scouting, calibré sur les profils réels NFL et NCAA, te dit où tu serais le plus dangereux."
+        texte="8 questions sur ta taille, ton poids, ton explosivité et ton rapport au contact : notre algorithme de scouting, calibré sur les profils réels NFL et NCAA, te dit où tu serais le plus dangereux."
         bouton="Je trouve mon poste"
       />
 

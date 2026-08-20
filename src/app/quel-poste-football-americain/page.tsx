@@ -12,7 +12,7 @@ const SITE = 'https://recrutement.pionniersdetouraine.fr';
 export const metadata: Metadata = {
   title: 'Quel poste jouer au football américain ? Fais le test',
   description:
-    'Taille, poids, vitesse, rapport au contact : réponds à 9 questions et découvre ton poste idéal au football américain ou au flag, calibré sur les profils NFL et NCAA.',
+    'Taille, poids, vitesse, rapport au contact : réponds à 8 questions et découvre ton poste idéal au football américain ou au flag, calibré sur les profils NFL et NCAA.',
   ...(IS_DEMO
     ? {}
     : {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
           type: 'website',
           title: 'Quel poste jouer au football américain ? Fais le test',
           description:
-            'Un test de scouting en 9 questions pour trouver ton poste idéal, en foot US ou en flag football.',
+            'Un test de scouting en 8 questions pour trouver ton poste idéal, en foot US ou en flag football.',
           url: `${SITE}/quel-poste-football-americain/`,
           siteName: 'Pionniers de Touraine',
           locale: 'fr_FR',
@@ -40,7 +40,7 @@ export default function QuizPage() {
             <p className="sc-eyebrow">Le test des Pionniers</p>
             <h1 className="sc-title">Quel poste jouer au football américain ?</h1>
             <p className="sc-lead" style={{ margin: '18px auto 0' }}>
-              Chaque gabarit a un poste où il devient une arme. Réponds à 9 questions et notre
+              Chaque gabarit a un poste où il devient une arme. Réponds à 8 questions et notre
               algorithme de scouting, calibré sur les gabarits réels des joueurs NFL et NCAA,
               te propose le tien, en foot US comme en flag.
             </p>

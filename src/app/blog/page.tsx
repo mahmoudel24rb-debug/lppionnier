@@ -50,7 +50,7 @@ export default function BlogPage() {
                 <span className="blogc-card-icon"><img src={getEmoji('jouer')} alt="" loading="lazy" /></span>
                 <h2 className="sc-card-title">Quel poste est fait pour toi ?</h2>
                 <p className="sc-card-desc">
-                  9 questions, un algorithme de scouting calibré sur les gabarits NFL et NCAA, et
+                  8 questions, un algorithme de scouting calibré sur les gabarits NFL et NCAA, et
                   ton poste idéal, en foot US ou en flag.
                 </p>
                 <span className="blogc-card-meta">Test interactif · 2 min</span>

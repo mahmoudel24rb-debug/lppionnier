@@ -313,7 +313,7 @@ export default function ArticlePratiquer() {
       <p>
         C'est exactement pour répondre à cette question qu'on a construit notre test :{' '}
         <Link href="/quel-poste-football-americain/">quel poste jouer au football
-        américain ?</Link> Neuf questions sur ta taille, ton poids, tes qualités et ton rapport
+        américain ?</Link> Huit questions sur ta taille, ton poids, tes qualités et ton rapport
         au contact, et notre algorithme de scouting, calibré sur les profils réels des joueurs
         NFL et universitaires, te propose le poste où tu as le plus de chances de t'éclater, en
         foot US ou en flag.

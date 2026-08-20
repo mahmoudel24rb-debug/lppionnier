@@ -1,8 +1,9 @@
 /**
  * Quiz « Quel poste jouer au football américain ? » : données + scoring.
  *
- * La matrice de points est calibrée sur les gabarits types par poste issus des
- * données publiques du NFL Combine / NCAA (ordres de grandeur moyens) :
+ * Le gabarit (taille + poids saisis librement) est comparé aux profils réels par
+ * poste via la table ANTHRO plus bas ; les questions n'apportent que les
+ * préférences de jeu. Ordres de grandeur NFL Combine / NCAA :
  *   QB ~1m88/102kg, 40yd ~4.8s : direction de jeu, lecture
  *   RB ~1m78/97kg,  ~4.5s     : compact, explosif, porteur de balle
  *   WR ~1m83/91kg,  ~4.45s    : vitesse, mains, tracés
@@ -21,6 +22,11 @@ export type PosteId =
 
 export type AgeGroup = 'moins16' | '16-19' | '20plus';
 export type Discipline = 'foot-us' | 'flag';
+
+/** Bornes de saisie de l'écran mensurations (garde-fou anti-faute de frappe). */
+export const TAILLE_MIN = 120, TAILLE_MAX = 220, POIDS_MIN = 40, POIDS_MAX = 180;
+
+export type Mensurations = { taille: number; poids: number };
 
 export type Reponse = {
   id: string;
@@ -48,36 +54,6 @@ export const QUESTIONS: Question[] = [
     ],
   },
   {
-    id: 'taille',
-    fr: 'Ta taille ?',
-    en: 'How tall are you?',
-    reponses: [
-      { id: 'petit', fr: 'Moins d’1m75', en: 'Under 5′9″', pts: { rb: 2, db: 2, wr: 1, 'flag-rec': 2, 'flag-def': 1 } },
-      { id: 'moyen', fr: 'Entre 1m75 et 1m85', en: '5′9″ to 6′1″', pts: { wr: 2, lb: 1, db: 1, qb: 1, 'flag-qb': 1 } },
-      { id: 'grand', fr: 'Plus d’1m85', en: 'Over 6′1″', pts: { te: 2, ol: 2, dl: 1, qb: 2, wr: 1 } },
-    ],
-  },
-  {
-    id: 'poids',
-    fr: 'Ton poids ?',
-    en: 'Your weight?',
-    reponses: [
-      { id: 'leger', fr: 'Moins de 70 kg', en: 'Under 155 lbs', pts: { db: 2, wr: 1, rb: 1, 'flag-rec': 2, 'flag-def': 1 } },
-      { id: 'moyen', fr: 'Entre 70 et 90 kg', en: '155 to 200 lbs', pts: { qb: 1, lb: 1, rb: 1, wr: 1, 'flag-qb': 1 } },
-      { id: 'lourd', fr: 'Plus de 90 kg', en: 'Over 200 lbs', pts: { ol: 3, dl: 2, te: 1 } },
-    ],
-  },
-  {
-    id: 'gabarit',
-    fr: 'Ton gabarit ?',
-    en: 'Your build?',
-    reponses: [
-      { id: 'leger', fr: 'Fin et léger', en: 'Lean and light', pts: { wr: 2, db: 2, 'flag-rec': 2, 'flag-qb': 1 } },
-      { id: 'athletique', fr: 'Athlétique', en: 'Athletic', pts: { rb: 2, lb: 2, qb: 1, te: 1, 'flag-def': 1 } },
-      { id: 'costaud', fr: 'Costaud, du coffre', en: 'Big and strong', pts: { ol: 3, dl: 3, te: 1 } },
-    ],
-  },
-  {
     id: 'vitesse',
     fr: 'Côté vitesse ?',
     en: 'How fast are you?',
@@ -102,11 +78,11 @@ export const QUESTIONS: Question[] = [
     fr: 'Ton rôle rêvé sur un terrain ?',
     en: 'Your dream role on the field?',
     reponses: [
-      { id: 'diriger', fr: 'Diriger le jeu et lancer', en: 'Run the offense and throw', pts: { qb: 3, 'flag-qb': 3 } },
-      { id: 'attraper', fr: 'Attraper des passes', en: 'Catch passes', pts: { wr: 3, te: 2, 'flag-rec': 3 } },
-      { id: 'courir', fr: 'Courir avec le ballon', en: 'Run with the ball', pts: { rb: 3, 'flag-rec': 1 } },
-      { id: 'defendre', fr: 'Défendre et plaquer', en: 'Defend and tackle', pts: { lb: 2, db: 2, dl: 1, 'flag-def': 3 } },
-      { id: 'proteger', fr: 'Protéger mes coéquipiers', en: 'Protect my teammates', pts: { ol: 3, dl: 1 } },
+      { id: 'diriger', fr: 'Diriger le jeu et lancer', en: 'Run the offense and throw', pts: { qb: 4, 'flag-qb': 4 } },
+      { id: 'attraper', fr: 'Attraper des passes', en: 'Catch passes', pts: { wr: 4, te: 2, 'flag-rec': 3 } },
+      { id: 'courir', fr: 'Courir avec le ballon', en: 'Run with the ball', pts: { rb: 4, 'flag-rec': 1 } },
+      { id: 'defendre', fr: 'Défendre et plaquer', en: 'Defend and tackle', pts: { lb: 3, db: 3, dl: 2, 'flag-def': 3 } },
+      { id: 'proteger', fr: 'Protéger mes coéquipiers', en: 'Protect my teammates', pts: { ol: 4, dl: 1 } },
     ],
   },
   {
@@ -269,15 +245,48 @@ export const POSTES: Record<PosteId, Poste> = {
 const FOOT_US: PosteId[] = ['qb', 'rb', 'wr', 'te', 'ol', 'dl', 'lb', 'db'];
 const FLAG: PosteId[] = ['flag-qb', 'flag-rec', 'flag-def'];
 
+/**
+ * Profils anthropométriques par poste (foot US uniquement : en flag, le gabarit
+ * ne discrimine pas les rôles).
+ *
+ * Calibrés sur les moyennes NFL Combine / NCAA (QB ~1m89/102 kg, RB ~1m79/97,
+ * WR ~1m85/91, TE ~1m93/114, OL ~1m94/140, DL ~1m90/115-137, LB ~1m87/105-109,
+ * DB ~1m83/84-93), décalées d'environ -10 % sur le poids et -3 % sur la taille
+ * pour le niveau club français, avec des écarts-types élargis (un club amateur
+ * recrute des morphologies bien plus dispersées qu'une draft).
+ *
+ * muH : taille moyenne en cm · sigmaH : écart-type taille
+ * muW : poids moyen en kg  · sigmaW : écart-type poids
+ */
+const ANTHRO: Record<string, { muH: number; sigmaH: number; muW: number; sigmaW: number }> = {
+  qb: { muH: 185, sigmaH: 7, muW: 92, sigmaW: 12 },
+  rb: { muH: 177, sigmaH: 6, muW: 88, sigmaW: 12 },
+  wr: { muH: 181, sigmaH: 7, muW: 82, sigmaW: 10 },
+  te: { muH: 189, sigmaH: 6, muW: 103, sigmaW: 12 },
+  ol: { muH: 186, sigmaH: 8, muW: 122, sigmaW: 18 },
+  dl: { muH: 184, sigmaH: 8, muW: 108, sigmaW: 16 },
+  lb: { muH: 181, sigmaH: 7, muW: 95, sigmaW: 12 },
+  db: { muH: 178, sigmaH: 7, muW: 78, sigmaW: 10 },
+};
+
 export type QuizResult = {
   poste: Poste;
+  /** 2e poste du classement (foot US uniquement, null en flag). */
+  secondPoste: Poste | null;
   discipline: Discipline;
   age: AgeGroup;
   offerId: string;
 };
 
-/** Calcule le résultat à partir des réponses { questionId: reponseId }. */
-export function computeResult(answers: Record<string, string>): QuizResult {
+/**
+ * Calcule le résultat à partir des réponses { questionId: reponseId } et des
+ * mensurations saisies.
+ *
+ * Score foot US = compatibilité de gabarit (gaussienne 2D sur taille et poids,
+ * max 8 points quand le profil colle pile) + points de préférences.
+ * Score flag = préférences seules.
+ */
+export function computeResult(answers: Record<string, string>, mensurations: Mensurations): QuizResult {
   const scores = {} as Record<PosteId, number>;
   (Object.keys(POSTES) as PosteId[]).forEach((p) => { scores[p] = 0; });
   for (const q of QUESTIONS) {
@@ -285,15 +294,31 @@ export function computeResult(answers: Record<string, string>): QuizResult {
     if (!r?.pts) continue;
     for (const [p, n] of Object.entries(r.pts)) scores[p as PosteId] += n as number;
   }
+  // Bonus anthropométrique : uniquement sur les postes foot US.
+  for (const p of FOOT_US) {
+    const a = ANTHRO[p];
+    if (!a) continue;
+    const zh = (mensurations.taille - a.muH) / a.sigmaH;
+    const zw = (mensurations.poids - a.muW) / a.sigmaW;
+    scores[p] += 8 * Math.exp(-(zh * zh + zw * zw) / 2);
+  }
   const discipline: Discipline = answers.contact === 'evite' ? 'flag' : 'foot-us';
   const pool = discipline === 'flag' ? FLAG : FOOT_US;
   // Départage stable : à points égaux, l'ordre du pool tranche (postes « accessibles » d'abord côté flag).
-  const best = pool.reduce((a, b) => (scores[b] > scores[a] ? b : a), pool[0]);
+  const classement = pool.slice().sort((a, b) => scores[b] - scores[a]);
+  const best = classement[0];
+  const second = discipline === 'flag' ? null : (classement[1] ?? null);
   const age = (answers.age as AgeGroup) ?? '20plus';
   const jeunes = age !== '20plus';
   const offerId =
     discipline === 'flag'
       ? (jeunes ? 'flag-dec-jeunes-o' : 'flag-dec-seniors-o')
       : (jeunes ? 'fa-dec-jeunes-o' : 'fa-dec-seniors-o');
-  return { poste: POSTES[best], discipline, age, offerId };
+  return {
+    poste: POSTES[best],
+    secondPoste: second ? POSTES[second] : null,
+    discipline,
+    age,
+    offerId,
+  };
 }

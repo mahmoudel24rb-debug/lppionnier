@@ -23,7 +23,7 @@ export function CtaQuiz({ titre, texte, bouton }: { titre?: string; texte?: stri
       <p className="blogc-cta-title">{titre ?? 'Quel poste est fait pour toi ?'}</p>
       <p>
         {texte ??
-          'Réponds à 9 questions : notre algorithme de scouting, calibré sur les gabarits réels des joueurs NFL et NCAA, te propose ton poste idéal, en foot US ou en flag.'}
+          'Réponds à 8 questions : notre algorithme de scouting, calibré sur les gabarits réels des joueurs NFL et NCAA, te propose ton poste idéal, en foot US ou en flag.'}
       </p>
       <Link className="sc-btn" href="/quel-poste-football-americain/">{bouton ?? 'Je fais le test'}</Link>
     </aside>
