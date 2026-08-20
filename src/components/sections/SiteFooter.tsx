@@ -10,6 +10,8 @@ const NAV = [
   { href: '#sections', fr: 'Nos sections', en: 'Our sections' },
   { href: '#adhesions', fr: 'Adhésions', en: 'Memberships' },
   { href: '#infos', fr: 'Infos pratiques', en: 'Practical info' },
+  { href: 'blog/', fr: 'Blog', en: 'Blog' },
+  { href: 'quel-poste-football-americain/', fr: 'Quel poste jouer ?', en: 'Which position?' },
 ];
 
 const BADGES = [

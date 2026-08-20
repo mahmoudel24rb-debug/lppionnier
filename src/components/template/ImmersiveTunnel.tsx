@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { FaArrowLeft, FaTimes, FaChevronLeft, FaChevronRight, FaCheck, FaPaperPlane } from 'react-icons/fa';
-import { TUNNEL, SPONTANE, resolveOffer, type Node, type Offer, type OfferCategory } from '@/data/funnel';
+import { TUNNEL, SPONTANE, resolveOffer, getAllOffers, type Node, type Offer, type OfferCategory } from '@/data/funnel';
 import { TUNNEL_EN, SPONTANE_EN } from '@/data/funnel.en';
 import { getEmoji } from '@/lib/funnelIcons';
 import { asset } from '@/lib/asset';
@@ -123,7 +123,7 @@ const UI = {
   },
 };
 
-export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
+export default function ImmersiveTunnel({ onClose, initialOfferId }: { onClose: () => void; initialOfferId?: string }) {
   const { lang } = useLang();
   const ui = UI[lang];
   const root = lang === 'en' ? TUNNEL_EN : TUNNEL;
@@ -143,10 +143,12 @@ export default function ImmersiveTunnel({ onClose }: { onClose: () => void }) {
   const [boardCat, setBoardCat] = useState<'tous' | OfferCategory>('tous');
 
   // La langue ne peut changer que tunnel fermé (le toggle est sous l'overlay),
-  // mais on resynchronise la racine par sécurité.
+  // mais on resynchronise la racine par sécurité. Le deep-link (résultat du
+  // quiz) survit au reset : l'offre est re-résolue dans l'arbre de la langue
+  // courante (ids identiques FR/EN).
   useEffect(() => {
     setPath([root]);
-    setDetail(null);
+    setDetail(initialOfferId ? getAllOffers(root).find((o) => o.id === initialOfferId) ?? null : null);
     setFormOpen(false);
     setShowAll(false);
     setSent(false);

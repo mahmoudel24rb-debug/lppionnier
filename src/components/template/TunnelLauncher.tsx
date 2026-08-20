@@ -10,6 +10,8 @@ import ImmersiveTunnel from './ImmersiveTunnel';
  */
 export default function TunnelLauncher() {
   const [open, setOpen] = useState(false);
+  // Offre à ouvrir directement (deep-link du quiz) — null = parcours normal
+  const [offerId, setOfferId] = useState<string | null>(null);
 
   useEffect(() => {
     // Libellés de CTA qui ouvrent le tunnel (en plus de #rejoindre / data-open-tunnel)
@@ -31,7 +33,12 @@ export default function TunnelLauncher() {
         setOpen(true);
       }
     };
-    const onEvent = () => setOpen(true);
+    // `open-tunnel` peut être un CustomEvent avec { detail: { offerId } }
+    // (résultat du quiz) — les dispatchs historiques sans detail restent valides.
+    const onEvent = (e: Event) => {
+      setOfferId((e as CustomEvent<{ offerId?: string }>).detail?.offerId ?? null);
+      setOpen(true);
+    };
     // Deep-link : ouvrir directement si l'URL contient #rejoindre
     if (window.location.hash === '#rejoindre') setOpen(true);
     document.addEventListener('click', onClick);
@@ -43,5 +50,5 @@ export default function TunnelLauncher() {
   }, []);
 
   if (!open) return null;
-  return <ImmersiveTunnel onClose={() => setOpen(false)} />;
+  return <ImmersiveTunnel initialOfferId={offerId ?? undefined} onClose={() => { setOpen(false); setOfferId(null); }} />;
 }

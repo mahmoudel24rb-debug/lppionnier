@@ -5,13 +5,15 @@ import { FaPhoneAlt, FaBars, FaTimes } from 'react-icons/fa';
 import { asset } from '@/lib/asset';
 import { useLang, LangToggle } from '@/lib/i18n';
 
-// Ancres de la landing (une seule page) — doivent correspondre aux id des sections.
+// Ancres de la landing (une seule page) — doivent correspondre aux id des
+// sections. `blog/` est une vraie route (concaténée à home qui finit par /).
 const LINKS = [
   { href: '#top', fr: 'Accueil', en: 'Home' },
   { href: '#club', fr: 'Le club', en: 'The club' },
   { href: '#sections', fr: 'Nos sections', en: 'Our sections' },
   { href: '#adhesions', fr: 'Adhésions', en: 'Memberships' },
   { href: '#infos', fr: 'Infos pratiques', en: 'Practical info' },
+  { href: 'blog/', fr: 'Blog', en: 'Blog' },
 ];
 
 const PHONE = '07 87 01 80 26';
