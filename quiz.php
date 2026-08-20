@@ -38,9 +38,12 @@ $postes = [
     'dl' => 'Ligne Défensive',
     'lb' => 'Linebacker',
     'db' => 'Defensive Back',
+    'k' => 'Kicker / Punter',
     'flag-qb' => 'Quarterback (Flag)',
     'flag-rec' => 'Receveur (Flag)',
-    'flag-def' => 'Défenseur (Flag)',
+    'flag-db' => 'Defensive Back (Flag)',
+    'flag-blitz' => 'Blitzeur (Flag)',
+    'flag-double' => 'Receveur + Defensive Back (Flag)',
 ];
 $disciplines = ['foot-us' => 'Foot US', 'flag' => 'Flag football'];
 $ages = ['moins16' => 'Moins de 16 ans', '16-19' => '16 à 19 ans', '20plus' => '20 ans et plus'];
