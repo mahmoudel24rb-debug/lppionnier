@@ -50,7 +50,13 @@ $email      = trim((string)($_POST['email'] ?? ''));
 $poste      = trim((string)($_POST['poste'] ?? ''));
 $discipline = trim((string)($_POST['discipline'] ?? ''));
 $age        = trim((string)($_POST['age'] ?? ''));
+$taille     = trim((string)($_POST['taille'] ?? ''));
+$poids      = trim((string)($_POST['poids'] ?? ''));
 $lang       = ($_POST['lang'] ?? 'fr') === 'en' ? 'en' : 'fr';
+
+// Mensurations : entiers uniquement, bornées comme côté front (quizPostes.ts).
+$tailleOk = ctype_digit($taille) && (int)$taille >= 120 && (int)$taille <= 220;
+$poidsOk  = ctype_digit($poids) && (int)$poids >= 40 && (int)$poids <= 180;
 
 if (
     $prenom === ''
@@ -58,6 +64,8 @@ if (
     || !isset($postes[$poste])
     || !isset($disciplines[$discipline])
     || !isset($ages[$age])
+    || !$tailleOk
+    || !$poidsOk
 ) {
     http_response_code(422);
     echo json_encode(['ok' => false, 'error' => 'invalid']);
@@ -66,11 +74,14 @@ if (
 
 $prenom = mb_substr(pnr_sans_retour_ligne($prenom), 0, 80);
 $email  = pnr_sans_retour_ligne($email);
+$taille = (int)$taille;
+$poids  = (int)$poids;
 
 $sujet = "Lead quiz - {$postes[$poste]}";
 $corps = "Nouveau lead depuis le quiz « Quel poste jouer ? »\n\n"
     . "Prénom : {$prenom}\n"
     . "Email : {$email}\n"
+    . "Gabarit : {$taille} cm · {$poids} kg\n"
     . "Poste proposé : {$postes[$poste]}\n"
     . "Discipline : {$disciplines[$discipline]}\n"
     . "Tranche d'âge : {$ages[$age]}\n"
