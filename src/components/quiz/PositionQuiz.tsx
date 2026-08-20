@@ -3,10 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
-  QUESTIONS,
+  QUESTIONS_COMMUNES,
+  QUESTIONS_FOOTUS,
+  QUESTIONS_FLAG,
   computeResult,
   TAILLE_MIN, TAILLE_MAX, POIDS_MIN, POIDS_MAX,
   type Mensurations,
+  type Question,
   type QuizResult,
 } from '@/data/quizPostes';
 import { asset } from '@/lib/asset';
@@ -56,7 +59,8 @@ const T = {
     disclaimer: '* Ce test donne une orientation d’après ton gabarit et tes préférences : sur le terrain, l’avis des coachs fait foi.',
     cta: 'Candidater maintenant',
     ctaSub: 'Semaine découverte offerte chez les Pionniers de Touraine',
-    lire: 'Lire le guide du débutant',
+    lireFootUs: 'Lire le guide du débutant',
+    lireFlag: 'Découvrir le flag football',
     retry: 'Refaire le test',
     leadKo: 'L’envoi de l’email n’a pas fonctionné. Ton résultat reste affiché, et tu peux nous écrire à',
   },
@@ -101,16 +105,39 @@ const T = {
     disclaimer: '* This test is an indication based on your build and preferences: on the field, the coaches’ assessment is final.',
     cta: 'Apply now',
     ctaSub: 'Free trial week with the Pionniers de Touraine',
-    lire: 'Read the beginner guide',
+    lireFootUs: 'Read the beginner guide',
+    lireFlag: 'Discover flag football',
     retry: 'Retake the test',
     leadKo: 'The email could not be sent. Your result stays on screen, and you can write to us at',
   },
 };
 
-type Step = 'intro' | 'mensurations' | number | 'gate' | 'analyse' | 'result';
+type Step = 'intro' | number | 'gate' | 'analyse' | 'result';
+
+/** Un écran du parcours : une question à choix, ou l'écran de mensurations. */
+type Ecran = { kind: 'q'; q: Question } | { kind: 'mensu' };
 
 /** 6 questions à choix + la taille + le poids saisis à l'écran mensurations. */
 const TOTAL_ETAPES = 8;
+
+/**
+ * Parcours dynamique : âge, mensurations, vitesse, contact, puis les 3 questions
+ * de la branche choisie par la réponse « contact ». Toujours 7 écrans.
+ */
+function branche(contact?: string): Question[] {
+  return contact === 'evite' ? QUESTIONS_FLAG : QUESTIONS_FOOTUS;
+}
+
+function ecrans(contact?: string): Ecran[] {
+  const [age, vitesse, contactQ] = QUESTIONS_COMMUNES;
+  return [
+    { kind: 'q', q: age },
+    { kind: 'mensu' },
+    { kind: 'q', q: vitesse },
+    { kind: 'q', q: contactQ },
+    ...branche(contact).map((q): Ecran => ({ kind: 'q', q })),
+  ];
+}
 
 /**
  * Progression d'un écran : `dots` = points allumés (l'écran mensurations en
@@ -118,9 +145,10 @@ const TOTAL_ETAPES = 8;
  * dernière question), `num` = numéro d'étape affiché sous la barre.
  */
 function progression(s: Step): { dots: number; num: number } {
-  if (s === 'mensurations') return { dots: 3, num: 2 };
   if (typeof s === 'number') {
-    const n = s === 0 ? 1 : s + 3;
+    if (s === 0) return { dots: 1, num: 1 };
+    if (s === 1) return { dots: 3, num: 2 };
+    const n = s + 2;
     return { dots: n, num: n };
   }
   return { dots: 0, num: 0 };
@@ -145,14 +173,23 @@ export default function PositionQuiz() {
   const [leadKo, setLeadKo] = useState(false);
   const started = useRef(false);
 
+  // Écrans du parcours en cours (dépend de la branche choisie sur « contact »).
+  const liste = ecrans(answers.contact);
+  const ecran: Ecran | null = typeof step === 'number' ? (liste[step] ?? null) : null;
+
   const answer = (qId: string, rId: string) => {
     const next = { ...answers, [qId]: rId };
+    // Changement de branche : on purge les réponses de l'autre branche pour ne
+    // pas polluer le scoring si l'utilisateur est revenu sur la question contact.
+    if (qId === 'contact') {
+      const autre = rId === 'evite' ? QUESTIONS_FOOTUS : QUESTIONS_FLAG;
+      for (const q of autre) delete next[q.id];
+    }
     setAnswers(next);
     if (!started.current) { started.current = true; track('quiz-start'); }
     const idx = typeof step === 'number' ? step : 0;
-    // L'écran mensurations s'intercale juste après la question d'âge.
-    if (idx === 0) setStep('mensurations');
-    else if (idx + 1 < QUESTIONS.length) setStep(idx + 1);
+    const total = ecrans(next.contact).length;
+    if (idx + 1 < total) setStep(idx + 1);
     else { setResult(computeResult(next, mensurations)); setStep('gate'); }
   };
 
@@ -168,16 +205,14 @@ export default function PositionQuiz() {
     if (!ok) { setMensuKo(true); return; }
     setMensurations({ taille: Math.round(taille), poids: Math.round(poids) });
     setMensuKo(false);
-    setStep(1);
+    setStep(2);
   };
 
   const back = () => {
-    if (step === 'mensurations') setStep(0);
-    else if (typeof step === 'number') {
+    if (typeof step === 'number') {
       if (step === 0) setStep('intro');
-      else if (step === 1) setStep('mensurations');
       else setStep(step - 1);
-    } else if (step === 'gate') setStep(QUESTIONS.length - 1);
+    } else if (step === 'gate') setStep(liste.length - 1);
   };
 
   const submitLead = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -244,7 +279,7 @@ export default function PositionQuiz() {
         </div>
       )}
 
-      {step === 'mensurations' && (
+      {ecran?.kind === 'mensu' && (
         <div className="qz-fade">
           <div className="qz-progress" aria-hidden>
             {Array.from({ length: TOTAL_ETAPES }, (_, i) => (
@@ -285,18 +320,18 @@ export default function PositionQuiz() {
         </div>
       )}
 
-      {typeof step === 'number' && (
-        <div className="qz-fade" key={step}>
+      {ecran?.kind === 'q' && (
+        <div className="qz-fade" key={ecran.q.id}>
           <div className="qz-progress" aria-hidden>
             {Array.from({ length: TOTAL_ETAPES }, (_, i) => (
               <span key={i} className={`qz-dot ${i < progression(step).dots ? 'on' : ''}`} />
             ))}
           </div>
           <p className="qz-sub">{`${progression(step).num} / ${TOTAL_ETAPES}`}</p>
-          <h2 className="qz-q">{lang === 'en' ? QUESTIONS[step].en : QUESTIONS[step].fr}</h2>
+          <h2 className="qz-q">{lang === 'en' ? ecran.q.en : ecran.q.fr}</h2>
           <div className="qz-answers" style={{ marginTop: 26 }}>
-            {QUESTIONS[step].reponses.map((r) => (
-              <button key={r.id} className="qz-answer" type="button" onClick={() => answer(QUESTIONS[step].id, r.id)}>
+            {ecran.q.reponses.map((r) => (
+              <button key={r.id} className="qz-answer" type="button" onClick={() => answer(ecran.q.id, r.id)}>
                 {lang === 'en' ? r.en : r.fr}
               </button>
             ))}
@@ -375,7 +410,15 @@ export default function PositionQuiz() {
           )}
           <div className="qz-actions">
             <button className="sc-btn" type="button" onClick={apply}>{t.cta}</button>
-            <Link className="sc-btn-ghost" href="/blog/comment-pratiquer-le-football-americain-en-france/">{t.lire}</Link>
+            {/* Lien secondaire contextuel : article flag en flag, guide pilier sinon. */}
+            <Link
+              className="sc-btn-ghost"
+              href={result.discipline === 'flag'
+                ? '/blog/flag-football-cest-quoi/'
+                : '/blog/comment-pratiquer-le-football-americain-en-france/'}
+            >
+              {result.discipline === 'flag' ? t.lireFlag : t.lireFootUs}
+            </Link>
           </div>
           <p className="qz-note">{t.ctaSub}</p>
           <button className="qz-back" type="button" onClick={restart}>{t.retry}</button>

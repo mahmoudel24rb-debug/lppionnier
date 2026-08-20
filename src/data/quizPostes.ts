@@ -12,13 +12,19 @@
  *   DL ~1m90/129kg, ~4.9s     : masse explosive, pression
  *   LB ~1m85/109kg, ~4.65s    : polyvalence, plaquage, instinct
  *   DB ~1m80/93kg,  ~4.45s    : vitesse, duels, lecture des passes
+ *   K  : pas de gabarit type, la frappe de balle prime (aucune entrée ANTHRO)
  * En flag (5v5, sans contact) : QB flag (précision/lecture), receveur
- * (appuis/mains), défenseur (anticipation/arrachage de flag).
+ * (appuis/mains), defensive back (couverture), blitzeur (course sur le QB) et le
+ * profil double receveur + DB pour les joueurs complets.
+ *
+ * Le parcours est en deux branches : trois questions communes (âge, vitesse,
+ * contact) puis trois questions propres à la discipline choisie par la réponse
+ * « contact » (QUESTIONS_FOOTUS ou QUESTIONS_FLAG).
  */
 
 export type PosteId =
-  | 'qb' | 'rb' | 'wr' | 'te' | 'ol' | 'dl' | 'lb' | 'db'
-  | 'flag-qb' | 'flag-rec' | 'flag-def';
+  | 'qb' | 'rb' | 'wr' | 'te' | 'ol' | 'dl' | 'lb' | 'db' | 'k'
+  | 'flag-qb' | 'flag-rec' | 'flag-db' | 'flag-blitz' | 'flag-double';
 
 export type AgeGroup = 'moins16' | '16-19' | '20plus';
 export type Discipline = 'foot-us' | 'flag';
@@ -42,7 +48,8 @@ export type Question = {
   reponses: Reponse[];
 };
 
-export const QUESTIONS: Question[] = [
+/** Tronc commun : posé à tout le monde, la réponse « contact » choisit la branche. */
+export const QUESTIONS_COMMUNES: Question[] = [
   {
     id: 'age',
     fr: 'Quel âge as-tu ?',
@@ -58,7 +65,7 @@ export const QUESTIONS: Question[] = [
     fr: 'Côté vitesse ?',
     en: 'How fast are you?',
     reponses: [
-      { id: 'explosif', fr: 'Explosif : je pars comme une balle', en: 'Explosive: I fly off the line', pts: { wr: 2, db: 2, rb: 2, 'flag-rec': 1, 'flag-def': 1 } },
+      { id: 'explosif', fr: 'Explosif : je pars comme une balle', en: 'Explosive: I fly off the line', pts: { wr: 2, db: 2, rb: 2, 'flag-rec': 1, 'flag-db': 1 } },
       { id: 'moyen', fr: 'Dans la moyenne', en: 'About average', pts: { qb: 1, lb: 1, te: 1, 'flag-qb': 1 } },
       { id: 'puissant', fr: 'Plus puissant que rapide', en: 'More power than speed', pts: { ol: 2, dl: 1 } },
     ],
@@ -70,19 +77,24 @@ export const QUESTIONS: Question[] = [
     reponses: [
       { id: 'adore', fr: 'J’adore : c’est ce qui m’attire', en: 'I love it: that’s the appeal', pts: { dl: 2, lb: 2, ol: 1, rb: 1 } },
       { id: 'ok', fr: 'Ça me tente, à apprendre', en: 'Curious, willing to learn', pts: { te: 1, rb: 1, lb: 1, db: 1 } },
-      { id: 'evite', fr: 'Je préfère éviter les chocs', en: 'I’d rather avoid hits', pts: { 'flag-qb': 2, 'flag-rec': 2, 'flag-def': 2 } },
+      { id: 'evite', fr: 'Je préfère éviter les chocs', en: 'I’d rather avoid hits', pts: { 'flag-qb': 2, 'flag-rec': 2, 'flag-db': 2 } },
     ],
   },
+];
+
+/** Branche foot US : posée si le contact est « adore » ou « ok ». */
+export const QUESTIONS_FOOTUS: Question[] = [
   {
     id: 'role',
     fr: 'Ton rôle rêvé sur un terrain ?',
     en: 'Your dream role on the field?',
     reponses: [
-      { id: 'diriger', fr: 'Diriger le jeu et lancer', en: 'Run the offense and throw', pts: { qb: 4, 'flag-qb': 4 } },
-      { id: 'attraper', fr: 'Attraper des passes', en: 'Catch passes', pts: { wr: 4, te: 2, 'flag-rec': 3 } },
-      { id: 'courir', fr: 'Courir avec le ballon', en: 'Run with the ball', pts: { rb: 4, 'flag-rec': 1 } },
-      { id: 'defendre', fr: 'Défendre et plaquer', en: 'Defend and tackle', pts: { lb: 3, db: 3, dl: 2, 'flag-def': 3 } },
+      { id: 'diriger', fr: 'Diriger le jeu et lancer', en: 'Run the offense and throw', pts: { qb: 4 } },
+      { id: 'attraper', fr: 'Attraper des passes', en: 'Catch passes', pts: { wr: 4, te: 2 } },
+      { id: 'courir', fr: 'Courir avec le ballon', en: 'Run with the ball', pts: { rb: 4 } },
+      { id: 'defendre', fr: 'Défendre et plaquer', en: 'Defend and tackle', pts: { lb: 3, db: 3, dl: 2 } },
       { id: 'proteger', fr: 'Protéger mes coéquipiers', en: 'Protect my teammates', pts: { ol: 4, dl: 1 } },
+      { id: 'frapper', fr: 'Frapper le ballon au pied', en: 'Kick the ball', pts: { k: 10 } },
     ],
   },
   {
@@ -90,8 +102,8 @@ export const QUESTIONS: Question[] = [
     fr: 'Plutôt stratège ou instinctif ?',
     en: 'Strategist or instinctive?',
     reponses: [
-      { id: 'stratege', fr: 'Stratège : je lis, j’anticipe', en: 'Strategist: I read and anticipate', pts: { qb: 2, ol: 1, db: 1, 'flag-qb': 2 } },
-      { id: 'instinctif', fr: 'Instinctif : je sens le jeu', en: 'Instinctive: I feel the game', pts: { rb: 1, dl: 1, lb: 1, wr: 1, 'flag-def': 1 } },
+      { id: 'stratege', fr: 'Stratège : je lis, j’anticipe', en: 'Strategist: I read and anticipate', pts: { qb: 2, ol: 1, db: 1 } },
+      { id: 'instinctif', fr: 'Instinctif : je sens le jeu', en: 'Instinctive: I feel the game', pts: { rb: 1, dl: 1, lb: 1, wr: 1 } },
     ],
   },
   {
@@ -99,8 +111,46 @@ export const QUESTIONS: Question[] = [
     fr: 'Ton moteur ?',
     en: 'Your engine?',
     reponses: [
-      { id: 'endurant', fr: 'Endurant : je répète les efforts', en: 'Endurance: I repeat efforts all day', pts: { wr: 1, db: 1, lb: 1, 'flag-rec': 1 } },
+      { id: 'endurant', fr: 'Endurant : je répète les efforts', en: 'Endurance: I repeat efforts all day', pts: { wr: 1, db: 1, lb: 1 } },
       { id: 'sprinteur', fr: 'Tout dans l’explosion, puis je souffle', en: 'All-out bursts, then recover', pts: { ol: 1, dl: 1, rb: 1 } },
+    ],
+  },
+];
+
+/** Branche flag : posée si le contact est « evite ». */
+export const QUESTIONS_FLAG: Question[] = [
+  {
+    id: 'kiff',
+    fr: 'Sur un terrain, ton kiff c’est ?',
+    en: 'On the field, what’s your thing?',
+    reponses: [
+      { id: 'attraper', fr: 'Attraper des passes', en: 'Catching passes', pts: { 'flag-rec': 4 } },
+      { id: 'lancer', fr: 'Lancer des passes', en: 'Throwing passes', pts: { 'flag-qb': 4 } },
+      { id: 'courir-ballon', fr: 'Courir ballon en main', en: 'Running with the ball', pts: { 'flag-rec': 3 } },
+      { id: 'pression', fr: 'Mettre la pression sur le QB', en: 'Rushing the QB', pts: { 'flag-blitz': 4 } },
+      { id: 'defendre', fr: 'Défendre les passes', en: 'Defending passes', pts: { 'flag-db': 4 } },
+      // Le profil complet : traité à part dans computeResult (poste flag-double).
+      { id: 'les-deux', fr: 'Attraper ET défendre', en: 'Catching AND defending', pts: {} },
+    ],
+  },
+  {
+    id: 'courir',
+    fr: 'Courir, tu aimes ?',
+    en: 'How do you feel about running?',
+    reponses: [
+      { id: 'adore', fr: 'J’adore courir partout', en: 'I love running everywhere', pts: { 'flag-blitz': 2, 'flag-db': 1, 'flag-rec': 1 } },
+      { id: 'ca-va', fr: 'Ça va, sans plus', en: 'It’s fine', pts: {} },
+      { id: 'le-moins', fr: 'Le moins possible', en: 'As little as possible', pts: { 'flag-qb': 2 } },
+    ],
+  },
+  {
+    id: 'ballon',
+    fr: 'À l’aise ballon en main ?',
+    en: 'Comfortable with the ball in your hands?',
+    reponses: [
+      { id: 'tres', fr: 'Très à l’aise', en: 'Very comfortable', pts: { 'flag-rec': 2, 'flag-qb': 2 } },
+      { id: 'correct', fr: 'Correct', en: 'Decent', pts: {} },
+      { id: 'pas-mon-fort', fr: 'Pas mon fort', en: 'Not my strength', pts: { 'flag-db': 2, 'flag-blitz': 2 } },
     ],
   },
 ];
@@ -186,7 +236,7 @@ export const POSTES: Record<PosteId, Poste> = {
     refs: 'Aaron Donald · Myles Garrett',
   },
   lb: {
-    id: 'lb', fr: 'Linebacker', en: 'Linebacker', emoji: '09-arbitre-touchdown-mains-interieures',
+    id: 'lb', fr: 'Linebacker', en: 'Linebacker', emoji: '05-megaphone',
     descFr: 'Le cœur de la défense : tu plaques, tu couvres, tu lis le jeu et tu es partout où le ballon va.',
     descEn: 'The heart of the defense: you tackle, you cover, you read the play, and you’re everywhere the ball goes.',
     atouts: [
@@ -206,6 +256,17 @@ export const POSTES: Record<PosteId, Poste> = {
       { fr: 'Le cran de jouer les un-contre-un', en: 'The nerve to play one-on-one islands' },
     ],
     refs: 'Sauce Gardner · Minkah Fitzpatrick',
+  },
+  k: {
+    id: 'k', fr: 'Kicker / Punter', en: 'Kicker / Punter', emoji: '09-arbitre-touchdown-mains-interieures',
+    descFr: 'Le poste qui gagne les matchs au pied : coups d’envoi, dégagements et field goals, sang-froid obligatoire. Idéal ancien footballeur ou rugbyman.',
+    descEn: 'The position that wins games with your foot: kickoffs, punts, and field goals, composure required. Ideal for a former soccer or rugby player.',
+    atouts: [
+      { fr: 'Une frappe de balle propre', en: 'A clean strike of the ball' },
+      { fr: 'Le calme dans les moments chauds', en: 'Calm when the pressure is on' },
+      { fr: 'Un rôle décisif sans besoin d’années de musculation', en: 'A decisive role without years in the weight room' },
+    ],
+    refs: 'Justin Tucker · Harrison Butker',
   },
   'flag-qb': {
     id: 'flag-qb', fr: 'Quarterback (Flag)', en: 'Quarterback (Flag)', emoji: '22-flag-football',
@@ -229,25 +290,48 @@ export const POSTES: Record<PosteId, Poste> = {
     ],
     refs: 'Le poste qui brille en 5v5 · JO Los Angeles 2028',
   },
-  'flag-def': {
-    id: 'flag-def', fr: 'Défenseur (Flag)', en: 'Defender (Flag)', emoji: '10-drapeau',
-    descFr: 'Le chasseur de flags : anticipation, placement et mains rapides : les interceptions gagnent les matchs.',
-    descEn: 'The flag hunter: anticipation, positioning, and quick hands : interceptions win games.',
+  'flag-db': {
+    id: 'flag-db', fr: 'Defensive Back (Flag)', en: 'Defensive Back (Flag)', emoji: '10-drapeau',
+    descFr: 'Le mur du 5 contre 5, corner ou safety : lecture, placement, mains rapides, et l’interception qui retourne un match.',
+    descEn: 'The wall of 5v5, corner or safety: reads, positioning, quick hands, and the interception that flips a game.',
     atouts: [
-      { fr: 'Lecture du jeu et anticipation', en: 'Play reading and anticipation' },
+      { fr: 'Lecture du jeu', en: 'Play reading' },
       { fr: 'Réflexes d’arracheur de flags', en: 'Flag-pulling reflexes' },
-      { fr: 'Chaque passe adverse est une occasion', en: 'Every opposing pass is an opportunity' },
+      { fr: 'Le cran des un-contre-un', en: 'The nerve for one-on-one islands' },
     ],
-    refs: 'Le mur du 5 contre 5 · JO Los Angeles 2028',
+    refs: 'Le mur du 5v5 · JO Los Angeles 2028',
+  },
+  'flag-blitz': {
+    id: 'flag-blitz', fr: 'Blitzeur (Flag)', en: 'Rusher (Flag)', emoji: '16-drapeau-nfl-flag',
+    descFr: 'La terreur des quarterbacks : sept mètres d’élan, zéro contact, une mission : arriver avant la passe.',
+    descEn: 'Every quarterback’s nightmare: seven metres of run-up, zero contact, one mission: get there before the pass.',
+    atouts: [
+      { fr: 'Explosivité pure', en: 'Pure explosiveness' },
+      { fr: 'Timing du départ', en: 'Timing off the snap' },
+      { fr: 'Moteur inépuisable', en: 'A motor that never quits' },
+    ],
+    refs: 'Le chrono du 5v5 · JO Los Angeles 2028',
+  },
+  'flag-double': {
+    id: 'flag-double', fr: 'Receveur + Defensive Back', en: 'Receiver + Defensive Back', emoji: '23-soutien-quatre-bras-inclusif',
+    descFr: 'Le double plateau : tu attaques ET tu défends, le profil complet que tout coach de flag veut dans son cinq, avec le pick 6 en spécialité.',
+    descEn: 'The two-way player: you attack AND you defend, the complete profile every flag coach wants in his five, with the pick 6 as your specialty.',
+    atouts: [
+      { fr: 'Des mains des deux côtés du ballon', en: 'Hands on both sides of the ball' },
+      { fr: 'Vision offensive ET défensive', en: 'Offensive AND defensive vision' },
+      { fr: 'Le profil à interceptions retournées en touchdown', en: 'The profile that turns interceptions into touchdowns' },
+    ],
+    refs: 'Le couteau suisse du 5v5 · JO Los Angeles 2028',
   },
 };
 
-const FOOT_US: PosteId[] = ['qb', 'rb', 'wr', 'te', 'ol', 'dl', 'lb', 'db'];
-const FLAG: PosteId[] = ['flag-qb', 'flag-rec', 'flag-def'];
+const FOOT_US: PosteId[] = ['qb', 'rb', 'wr', 'te', 'ol', 'dl', 'lb', 'db', 'k'];
+/** Ordre de départage côté flag (le poste flag-double est attribué à part). */
+const FLAG: PosteId[] = ['flag-rec', 'flag-db', 'flag-blitz', 'flag-qb'];
 
 /**
  * Profils anthropométriques par poste (foot US uniquement : en flag, le gabarit
- * ne discrimine pas les rôles).
+ * ne discrimine pas les rôles ; le kicker non plus, sa frappe seule compte).
  *
  * Calibrés sur les moyennes NFL Combine / NCAA (QB ~1m89/102 kg, RB ~1m79/97,
  * WR ~1m85/91, TE ~1m93/114, OL ~1m94/140, DL ~1m90/115-137, LB ~1m87/105-109,
@@ -271,7 +355,7 @@ const ANTHRO: Record<string, { muH: number; sigmaH: number; muW: number; sigmaW:
 
 export type QuizResult = {
   poste: Poste;
-  /** 2e poste du classement (foot US uniquement, null en flag). */
+  /** 2e poste du classement (null pour le profil double flag). */
   secondPoste: Poste | null;
   discipline: Discipline;
   age: AgeGroup;
@@ -284,36 +368,67 @@ export type QuizResult = {
  *
  * Score foot US = compatibilité de gabarit (gaussienne 2D sur taille et poids,
  * max 8 points quand le profil colle pile) + points de préférences.
- * Score flag = préférences seules.
+ * Score flag = préférences + un petit bonus de gabarit atypique (petit ou grand)
+ * sur les postes de défense.
  */
 export function computeResult(answers: Record<string, string>, mensurations: Mensurations): QuizResult {
+  const discipline: Discipline = answers.contact === 'evite' ? 'flag' : 'foot-us';
   const scores = {} as Record<PosteId, number>;
   (Object.keys(POSTES) as PosteId[]).forEach((p) => { scores[p] = 0; });
-  for (const q of QUESTIONS) {
+
+  // Seules les questions réellement posées comptent : tronc commun + branche.
+  const posees = [
+    ...QUESTIONS_COMMUNES,
+    ...(discipline === 'flag' ? QUESTIONS_FLAG : QUESTIONS_FOOTUS),
+  ];
+  for (const q of posees) {
     const r = q.reponses.find((x) => x.id === answers[q.id]);
     if (!r?.pts) continue;
     for (const [p, n] of Object.entries(r.pts)) scores[p as PosteId] += n as number;
   }
-  // Bonus anthropométrique : uniquement sur les postes foot US.
-  for (const p of FOOT_US) {
-    const a = ANTHRO[p];
-    if (!a) continue;
-    const zh = (mensurations.taille - a.muH) / a.sigmaH;
-    const zw = (mensurations.poids - a.muW) / a.sigmaW;
-    scores[p] += 8 * Math.exp(-(zh * zh + zw * zw) / 2);
+
+  if (discipline === 'flag') {
+    // Gabarit atypique : les petits gabarits vont vite au sol, les grands
+    // couvrent l'espace. Les deux profitent aux postes défensifs du 5v5.
+    if (mensurations.taille < 175) { scores['flag-db'] += 1; scores['flag-blitz'] += 1; }
+    if (mensurations.taille > 185) { scores['flag-db'] += 1; scores['flag-blitz'] += 1; }
+  } else {
+    // Bonus anthropométrique : uniquement sur les postes foot US référencés.
+    for (const p of FOOT_US) {
+      const a = ANTHRO[p];
+      if (!a) continue;
+      const zh = (mensurations.taille - a.muH) / a.sigmaH;
+      const zw = (mensurations.poids - a.muW) / a.sigmaW;
+      scores[p] += 8 * Math.exp(-(zh * zh + zw * zw) / 2);
+    }
   }
-  const discipline: Discipline = answers.contact === 'evite' ? 'flag' : 'foot-us';
-  const pool = discipline === 'flag' ? FLAG : FOOT_US;
-  // Départage stable : à points égaux, l'ordre du pool tranche (postes « accessibles » d'abord côté flag).
-  const classement = pool.slice().sort((a, b) => scores[b] - scores[a]);
-  const best = classement[0];
-  const second = discipline === 'flag' ? null : (classement[1] ?? null);
+
   const age = (answers.age as AgeGroup) ?? '20plus';
   const jeunes = age !== '20plus';
   const offerId =
     discipline === 'flag'
       ? (jeunes ? 'flag-dec-jeunes-o' : 'flag-dec-seniors-o')
       : (jeunes ? 'fa-dec-jeunes-o' : 'fa-dec-seniors-o');
+
+  // Profil complet en flag : attaque ET défense, sans passer par le classement.
+  if (discipline === 'flag' && answers.kiff === 'les-deux') {
+    return { poste: POSTES['flag-double'], secondPoste: null, discipline, age, offerId };
+  }
+
+  // Kicker : choisir « Frapper le ballon au pied » garantit le résultat, quel que
+  // soit le gabarit (sinon une anthropométrie qui colle bien à un autre poste
+  // pouvait dépasser les 10 points du kicker). La 2e piste = meilleur poste de
+  // champ, calculée sur le classement sans le kicker.
+  if (discipline === 'foot-us' && answers.role === 'frapper') {
+    const champ = FOOT_US.filter((p) => p !== 'k').sort((a, b) => scores[b] - scores[a]);
+    return { poste: POSTES['k'], secondPoste: POSTES[champ[0]] ?? null, discipline, age, offerId };
+  }
+
+  const pool = discipline === 'flag' ? FLAG : FOOT_US;
+  // Départage stable : à points égaux, l'ordre du pool tranche (postes « accessibles » d'abord côté flag).
+  const classement = pool.slice().sort((a, b) => scores[b] - scores[a]);
+  const best = classement[0];
+  const second = classement[1] ?? null;
   return {
     poste: POSTES[best],
     secondPoste: second ? POSTES[second] : null,
