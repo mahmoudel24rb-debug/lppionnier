@@ -14,7 +14,7 @@
 </url>
 <url>
 <loc>https://recrutement.pionniersdetouraine.fr/blog/</loc>
-<lastmod>2026-08-20</lastmod>
+<lastmod>2026-08-22</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
@@ -33,6 +33,12 @@
 <url>
 <loc>https://recrutement.pionniersdetouraine.fr/blog/commencer-le-football-americain-adulte/</loc>
 <lastmod>2026-08-20</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://recrutement.pionniersdetouraine.fr/blog/sport-collectif-tours/</loc>
+<lastmod>2026-08-22</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.8</priority>
 </url>
