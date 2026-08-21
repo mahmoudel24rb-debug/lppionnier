@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import SiteHeader from '@/components/template/SiteHeader';
 import SiteFooter from '@/components/sections/SiteFooter';
 import YardLine from '@/components/sections/YardLine';
 import PositionQuiz from '@/components/quiz/PositionQuiz';
-import '@/components/blog/blog.css';
+import '@/components/quiz/hero.css';
 
 const IS_DEMO = (process.env.NEXT_PUBLIC_BASE_PATH ?? '/lppionnier') !== '/';
 const SITE = 'https://recrutement.pionniersdetouraine.fr';
@@ -93,13 +92,19 @@ export default function QuizPage() {
             </div>
             <p className="sc-lead" style={{ marginTop: 28 }}>
               Envie d'aller plus loin ? Lis notre{' '}
-              <Link href="/blog/comment-pratiquer-le-football-americain-en-france/" style={{ color: 'var(--rf-amber)' }}>
+              <a
+                href="https://pionniersdetouraine.fr/blog/comment-pratiquer-le-football-americain-en-france/"
+                style={{ color: 'var(--rf-amber)' }}
+              >
                 guide complet pour débuter le football américain en France
-              </Link>{' '}
+              </a>{' '}
               ou découvre{' '}
-              <Link href="/blog/flag-football-cest-quoi/" style={{ color: 'var(--rf-amber)' }}>
+              <a
+                href="https://pionniersdetouraine.fr/blog/flag-football-cest-quoi/"
+                style={{ color: 'var(--rf-amber)' }}
+              >
                 le flag football
-              </Link>.
+              </a>.
             </p>
           </div>
         </section>

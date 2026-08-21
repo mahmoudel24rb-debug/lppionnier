@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import {
   QUESTIONS_COMMUNES,
   QUESTIONS_FOOTUS,
@@ -410,15 +409,16 @@ export default function PositionQuiz() {
           )}
           <div className="qz-actions">
             <button className="sc-btn" type="button" onClick={apply}>{t.cta}</button>
-            {/* Lien secondaire contextuel : article flag en flag, guide pilier sinon. */}
-            <Link
+            {/* Lien secondaire contextuel vers le blog du site racine :
+                article flag en flag, guide pilier sinon. */}
+            <a
               className="sc-btn-ghost"
               href={result.discipline === 'flag'
-                ? '/blog/flag-football-cest-quoi/'
-                : '/blog/comment-pratiquer-le-football-americain-en-france/'}
+                ? 'https://pionniersdetouraine.fr/blog/flag-football-cest-quoi/'
+                : 'https://pionniersdetouraine.fr/blog/comment-pratiquer-le-football-americain-en-france/'}
             >
               {result.discipline === 'flag' ? t.lireFlag : t.lireFootUs}
-            </Link>
+            </a>
           </div>
           <p className="qz-note">{t.ctaSub}</p>
           <button className="qz-back" type="button" onClick={restart}>{t.retry}</button>

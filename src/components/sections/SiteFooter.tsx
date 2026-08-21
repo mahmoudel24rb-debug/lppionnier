@@ -4,13 +4,15 @@ import Link from 'next/link';
 import { asset } from '@/lib/asset';
 import { useLang } from '@/lib/i18n';
 
-const NAV = [
+// `external: true` = URL absolue (passerelle vers le site racine), les autres
+// entrées sont relatives et préfixées par la home.
+const NAV: { href: string; fr: string; en: string; external?: boolean }[] = [
   { href: '#top', fr: 'Accueil', en: 'Home' },
   { href: '#club', fr: 'Le club', en: 'The club' },
   { href: '#sections', fr: 'Nos sections', en: 'Our sections' },
   { href: '#adhesions', fr: 'Adhésions', en: 'Memberships' },
   { href: '#infos', fr: 'Infos pratiques', en: 'Practical info' },
-  { href: 'blog/', fr: 'Blog', en: 'Blog' },
+  { href: 'https://pionniersdetouraine.fr/blog/', fr: 'Blog', en: 'Blog', external: true },
   { href: 'quel-poste-football-americain/', fr: 'Quel poste jouer ?', en: 'Which position?' },
 ];
 
@@ -68,7 +70,7 @@ export default function SiteFooter() {
           <nav className="sc-footer-links">
             {NAV.map((l) => (
               // Ancres préfixées par la home : fonctionnent aussi depuis /mentions-legales.
-              <a key={l.href} href={`${asset('/')}${l.href}`}>
+              <a key={l.href} href={l.external ? l.href : `${asset('/')}${l.href}`}>
                 {lang === 'en' ? l.en : l.fr}
               </a>
             ))}

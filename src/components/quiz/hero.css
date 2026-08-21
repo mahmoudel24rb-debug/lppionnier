@@ -1,0 +1,19 @@
+/* ============================================================
+   Hero de la page quiz (classes blogc- héritées de l'ancien blog).
+   Le blog a migré vers le site racine (08/2026) : seules les règles
+   encore utilisées par /quel-poste-football-americain/ sont conservées.
+   Charte : tokens de refonte.css / sections.css.
+   ============================================================ */
+
+.blogc-hero {
+  /* compense le header fixed, comme .sc-legal */
+  padding: clamp(126px, 13vw, 176px) 24px clamp(40px, 5vw, 64px);
+}
+.blogc-hero-inner { max-width: 860px; margin: 0 auto; text-align: center; }
+
+.blogc-hero h1 { margin: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .blogc-hero { padding-left: 20px; padding-right: 20px; }
+}

@@ -7,15 +7,13 @@ import { useLang, LangToggle } from '@/lib/i18n';
 
 // Ancres de la landing (une seule page) : doivent correspondre aux id des
 // sections. Même header partout : les ancres sont préfixées par la home, donc
-// depuis /blog/... elles renvoient vers la section de la page d'accueil.
-// `blog/` est une vraie route (concaténée à home qui finit par /).
+// depuis les autres pages elles renvoient vers la section de la page d'accueil.
 const LINKS = [
   { href: '#top', fr: 'Accueil', en: 'Home' },
   { href: '#club', fr: 'Le club', en: 'The club' },
   { href: '#sections', fr: 'Nos sections', en: 'Our sections' },
   { href: '#adhesions', fr: 'Adhésions', en: 'Memberships' },
   { href: '#infos', fr: 'Infos pratiques', en: 'Practical info' },
-  { href: 'blog/', fr: 'Blog', en: 'Blog' },
 ];
 
 const PHONE = '07 87 01 80 26';
