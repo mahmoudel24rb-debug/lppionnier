@@ -9,6 +9,10 @@
   RewriteCond %{HTTPS} off
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+  # Blog migre vers le site racine (08/2026) : redirections permanentes
+  RewriteRule ^blog/?$ https://pionniersdetouraine.fr/blog/ [R=301,L]
+  RewriteRule ^blog/(.+)$ https://pionniersdetouraine.fr/blog/$1 [R=301,L]
+
   # Filet de sécurité : les anciennes URL préfixées /lppionnier (démo) sont
   # servies depuis la racine (repris du hotfix 08/2026).
   RewriteRule ^lppionnier/?$ / [L]
