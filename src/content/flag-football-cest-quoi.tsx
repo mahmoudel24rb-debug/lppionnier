@@ -2,350 +2,332 @@ import Link from 'next/link';
 import { CtaQuiz, CtaTunnel } from '@/components/blog/CtaEncart';
 
 /**
- * Article. Mot-clé : « flag football c'est quoi » (+ angle JO Los Angeles 2028).
+ * Article. Mot-clé : « flag football tours ».
+ * Texte rédigé par l’équipe du club, repris au mot près : ne pas réécrire.
+ * Seules insertions autorisées : liens internes sur des mots déjà présents,
+ * l’encart quiz après la section des postes et l’encart tunnel final.
  */
 export default function ArticleFlag() {
   return (
     <>
       <p>
-        Le <strong>flag football</strong> est la version sans contact du football américain : au
-        lieu de plaquer le porteur du ballon, on lui arrache un « flag », un ruban accroché à sa
-        ceinture par un scratch. Tout le reste y est : les passes spectaculaires, les tracés, les
-        feintes, la stratégie… mais sans les chocs. Résultat : un sport mixte, accessible dès
-        l'enfance, qui explose partout dans le monde au point de devenir <strong>discipline
-        olympique aux Jeux de Los Angeles 2028</strong>.
+        <strong>
+          Le flag football est un sport collectif d’opposition joué à 5 contre 5 avec un ballon
+          ovale.
+        </strong>{' '}
+        L’attaque cherche à progresser jusqu’à la zone d’en-but adverse ; la défense arrête
+        l’action en retirant l’un des deux flags portés à la ceinture du porteur de balle. Sans
+        plaquage ni blocage, le jeu repose sur la vitesse, les appuis, la précision, la lecture
+        tactique et la coordination collective.
       </p>
       <p>
-        Chez les Pionniers de Touraine, on pratique le flag depuis des années, des enfants de
-        l'école de flag du samedi matin aux adultes de l'équipe mixte du lundi soir. Voici tout ce
-        qu'il faut savoir : les règles expliquées simplement, les différences avec le foot US
-        « casqué », pourquoi les JO vont tout changer, et comment t'y mettre dès cette saison.
+        Le flag partage une histoire, un ballon et une partie de son vocabulaire avec le football
+        américain. Mais il possède son propre règlement, ses contraintes, ses profils de joueurs,
+        ses championnats et désormais son rendez-vous olympique : la discipline fera ses débuts aux
+        Jeux de Los Angeles 2028.
+      </p>
+      <p>
+        À Tours, les Pionniers de Touraine développent cette pratique des jeunes jusqu’aux seniors,
+        du premier entraînement à la compétition nationale. Voici comment le flag se joue, ce qu’il
+        exige vraiment et à quels profils il peut correspondre.
       </p>
 
-      <h2 id="regles">Les règles du flag football, expliquées en 3 minutes</h2>
+      <h2 id="definition">Qu’est-ce que le flag football ?</h2>
       <p>
-        Si tu n'as jamais regardé un match de football américain, voici l'essentiel. Et si tu en
-        as déjà vu, tu vas reconnaître exactement le même jeu, en version condensée :
+        Le flag football est une discipline de conquête de territoire. À chaque action, l’attaque
+        combine des courses, des tracés et des passes pour créer un espace libre. La défense répond
+        par du marquage individuel ou en zone, de la pression sur le quarterback et une lecture
+        collective des intentions adverses.
       </p>
+      <p>
+        L’action s’arrête lorsqu’une passe tombe au sol, que le porteur sort du terrain, qu’un score
+        est inscrit ou qu’un défenseur retire un flag. Ce geste s’appelle le déflagage. Il remplace
+        le plaquage, mais il ne transforme pas le match en promenade : pour réussir, il faut
+        accélérer, freiner, changer de direction, communiquer et prendre des décisions en quelques
+        secondes.
+      </p>
+
+      <h2 id="regles">Les règles du flag football en 3 minutes</h2>
       <ul>
         <li>
-          <strong>5 contre 5</strong>, sur un terrain réduit (environ 50 yards de long, soit la
-          moitié d'un terrain classique), des mi-temps courtes : le format international est
-          rapide et intense.
+          <strong>Deux équipes de cinq joueurs.</strong> Le format international et olympique se
+          joue à 5 contre 5.
         </li>
         <li>
-          <strong>Le but : marquer des touchdowns.</strong> L'attaque part de sa moitié de terrain
-          et doit amener le ballon dans la zone d'en-but adverse, par la passe ou par la course.
-          Un touchdown vaut 6 points, suivi d'une transformation à 1 ou 2 points tentée près de
-          l'en-but.
+          <strong>Un terrain compact.</strong> La zone de jeu mesure 50 yards de long sur 25 yards
+          de large, auxquels s’ajoutent deux zones d’en-but de 10 yards : 70 yards au total.
         </li>
         <li>
-          <strong>Quatre tentatives pour avancer.</strong> L'attaque dispose de quatre
-          « downs » pour franchir la mi-terrain, puis quatre autres pour marquer. Chaque action
-          démarre par un snap au quarterback, qui lance ou transmet le ballon.
+          <strong>Quatre tentatives pour franchir le milieu.</strong> Si l’attaque y parvient, elle
+          obtient une nouvelle série de quatre tentatives pour marquer. Sinon, la possession change
+          de camp.
         </li>
         <li>
-          <strong>Le « plaquage » = arracher un flag.</strong> Dès qu'un défenseur retire un flag
-          de la ceinture du porteur du ballon, l'action s'arrête là où il se trouvait. Aucun
-          contact volontaire n'est autorisé : ni plaquage, ni bloc, ni écran. C'est LA règle qui
-          change tout.
+          <strong>Chaque action commence par un snap.</strong> Le centre transmet le ballon au
+          quarterback, qui organise le jeu par la passe ou par une transmission.
         </li>
         <li>
-          <strong>Les interceptions comptent double plaisir :</strong> une défense qui attrape
-          une passe adverse peut remonter le ballon et marquer. Les retournements de situation
-          sont permanents : c'est ce qui rend les matchs si spectaculaires.
+          <strong>Sept secondes pour décider.</strong> Après le snap, le quarterback dispose de sept
+          secondes pour lancer ou transmettre le ballon.
+        </li>
+        <li>
+          <strong>Un touchdown vaut 6 points.</strong> Il est suivi d’une tentative de
+          transformation à 1 ou 2 points.
+        </li>
+        <li>
+          <strong>Le déflagage met fin à l’action.</strong> Le défenseur doit retirer un flag
+          accessible sans saisir, bloquer ni plaquer le porteur du ballon.
+        </li>
+        <li>
+          <strong>Pas de course dans les cinq derniers yards avant l’en-but.</strong> Dans cette
+          zone, l’attaque doit compléter un jeu de passe avant.
+        </li>
+        <li>
+          <strong>Les interceptions peuvent être remontées.</strong> Une lecture défensive réussie
+          peut donc inverser immédiatement le rapport de force et aller jusqu’au touchdown.
         </li>
       </ul>
       <p>
-        L'équipement se résume à une ceinture à flags, un protège-dents, des crampons et un
-        ballon. Pas de casque, pas d'épaulière : tu peux jouer ton premier match une semaine
-        après ta première séance.
+        Cette architecture produit des séquences courtes et très denses. Une équipe n’a que quelques
+        secondes pour s’aligner, identifier la défense, lancer son tracé et exécuter la combinaison.
+        La précision collective compte autant que la vitesse individuelle.
       </p>
 
-      <h2 id="action-type">Une action type, racontée</h2>
+      <h2 id="differences">Le flag n’est pas du football américain au rabais</h2>
       <p>
-        Pour te projeter, voici à quoi ressemblent dix secondes de flag. Ton équipe attaque à 25
-        mètres de l'en-but. Dans le huddle, ta quarterback annonce la combinaison : toi, tu cours
-        un « out » à cinq mètres : droit devant, puis coupe sèche vers la touche. Snap. Tu
-        exploses sur tes trois premiers appuis, ton défenseur recule, tu plantes ta coupe. Un
-        mètre d'écart, c'est assez. Le ballon arrive fort, tu le prends à deux mains, pivote,
-        remonte le terrain. Un défenseur plonge sur ta ceinture : tu sens le scratch céder à
-        l'instant où tu franchis la ligne des dix mètres. L'action est finie, huit mètres
-        gagnés, tout le monde se relève en souriant, et on remet ça dans vingt secondes.
-        Multiplie par quarante actions et tu as un match : une accumulation de duels éclairs, de
-        décisions et de petites victoires. Aucun chrono de course à pied ne t'offrira jamais ça.
+        Les règles officielles de la FFFA sont claires : même si le règlement du flag s’appuie
+        historiquement sur celui du football américain, toutes les situations propres au flag sont
+        réglementées indépendamment. Le 5 contre 5, les zones de non-course, le déflagage, les
+        priorités de passage, l’absence de blocage et de coups de pied créent un jeu différent dans
+        son rythme comme dans ses choix tactiques.
+      </p>
+      <p>
+        Le{' '}
+        <Link href="/blog/comment-pratiquer-le-football-americain-en-france/">
+          football américain
+        </Link>{' '}
+        au contact valorise notamment le combat de ligne, les blocs, les plaquages, la gestion des
+        unités et la spécialisation de nombreux postes. Le flag concentre le jeu sur l’espace, les
+        duels d’appuis, la qualité de passe, les mains, le timing et la lecture. Les deux
+        disciplines ont des racines communes ; aucune n’est la version mineure de l’autre.
       </p>
 
-      <h2 id="origines">D'où vient le flag football ?</h2>
+      <h2 id="exigences">Un sport rapide, athlétique et profondément stratégique</h2>
+      <h3>En attaque : créer l’espace avant qu’il n’existe</h3>
       <p>
-        Le flag est né aux États-Unis au milieu du XXe siècle, d'abord dans les bases
-        militaires puis dans les écoles et les entraînements, partout où l'on voulait jouer au
-        football sans les risques du plaquage. Longtemps considéré comme un simple outil
-        d'initiation, il est devenu une discipline à part entière : championnats scolaires et
-        universitaires américains (notamment féminins, en pleine explosion), circuits
-        internationaux sous l'égide de l'IFAF, et championnats nationaux dans des dizaines de
-        pays, dont la France, où la FFFA organise la pratique en clubs. La consécration
-        olympique de 2028 n'est donc pas un caprice du calendrier : c'est l'aboutissement de
-        trente ans de croissance continue d'un format qui a résolu la grande contradiction du
-        football américain : garder l'intelligence et le spectacle du jeu, retirer les impacts.
+        Une bonne attaque ne se contente pas d’envoyer des receveurs courir. Elle combine des tracés
+        pour étirer une zone, isoler un défenseur ou provoquer une mauvaise communication. Le
+        quarterback doit identifier la couverture, anticiper l’ouverture et lancer avant même que le
+        receveur ne soit complètement démarqué. Les receveurs, eux, doivent vendre une direction,
+        casser leurs appuis au bon moment et rester synchronisés avec le ballon.
+      </p>
+      <h3>En défense : lire, communiquer, refermer</h3>
+      <p>
+        La défense choisit ses leviers : couvrir en homme à homme, protéger des zones, masquer sa
+        structure ou envoyer un blitzeur depuis la profondeur réglementaire. Tous les défenseurs
+        placés à sept yards ou davantage peuvent franchir la ligne de mêlée ; jusqu’à deux peuvent
+        se signaler comme blitzeurs pour obtenir une priorité de passage. Le défi n’est donc pas
+        seulement de courir vite, mais de comprendre ce que l’attaque cherche à provoquer.
+      </p>
+      <h3>Physiquement : répéter des efforts explosifs</h3>
+      <p>
+        Un match enchaîne accélérations, freinages, changements de direction, sauts de réception et
+        sprints courts. « Sans contact » signifie que les plaquages et les blocs sont interdits ;
+        cela ne signifie pas « sans intensité ». À haut niveau, le flag demande de l’explosivité, de
+        la mobilité, de la coordination, des mains fiables et la capacité à reproduire ces qualités
+        sous fatigue.
       </p>
 
-      <h2 id="differences">Flag ou foot US casqué : les vraies différences</h2>
+      <h2 id="profils">Quels profils réussissent en flag football ?</h2>
       <p>
-        Le flag n'est pas un football américain « au rabais » : c'est le même sport, recentré sur
-        la vitesse, la précision et la lecture du jeu. Concrètement :
+        On peut débuter sans avoir pratiqué le football américain. Mais les qualités développées
+        dans d’autres disciplines se transfèrent particulièrement bien au flag :
       </p>
       <ul>
         <li>
-          <strong>Le contact.</strong> Au casqué, plaquer et bloquer font partie du jeu et
-          s'apprennent avec un équipement complet. Au flag, le contact est interdit : la défense
-          gagne par le placement et l'anticipation, pas par l'impact.
+          <strong>Tennis, badminton et sports de raquette :</strong> lecture de trajectoire,
+          réaction, coordination oeil-main, reprises d’appuis et capacité à gagner un duel dans un
+          espace court.
         </li>
         <li>
-          <strong>Le rythme.</strong> À 5 contre 5 sur terrain réduit, tout le monde touche le
-          ballon, tout le monde défend, tout le monde court : beaucoup plus de ballons joués par
-          personne qu'à 11 contre 11.
+          <strong>Basketball :</strong> changements de direction, démarquage, lecture des espaces,
+          réception en mouvement, défense individuelle et communication.
         </li>
         <li>
-          <strong>La mixité.</strong> Le flag se pratique très largement en équipes mixtes,
-          notamment en loisir et dans de nombreux championnats. Sur un terrain de flag, ce qui
-          compte, c'est le tracé et les mains, pas le gabarit.
+          <strong>Football :</strong> appels, accélérations, orientation du corps, vision
+          périphérique et compréhension du jeu sans ballon.
         </li>
         <li>
-          <strong>La porte d'entrée.</strong> Le flag est le chemin le plus court pour comprendre
-          le football américain : mêmes tracés, mêmes lectures, mêmes termes. Beaucoup de joueurs
-          de casqué sont passés par le flag, et beaucoup de joueurs de flag n'éprouvent jamais
-          le besoin d'aller au contact, et c'est très bien aussi.
+          <strong>Rugby :</strong> manipulation du ballon ovale, lignes de course, lecture défensive
+          et capacité à avancer dans un espace qui se referme.
+        </li>
+        <li>
+          <strong>Handball :</strong> feintes, explosivité, précision de passe, prises d’information
+          et capacité à attaquer les intervalles.
+        </li>
+        <li>
+          <strong>Athlétisme et préparation physique :</strong> vitesse pure, qualité de pied,
+          relance et répétition de sprints.
         </li>
       </ul>
       <p>
-        Envie de comparer en détail les deux pratiques, les équipements et les coûts ? Notre{' '}
-        <Link href="/blog/comment-pratiquer-le-football-americain-en-france/">guide complet pour
-        débuter le football américain en France</Link> consacre une section entière au choix
-        entre flag et contact.
+        Ces passerelles font du flag une excellente discipline de transition ou un second projet
+        sportif pour des joueuses et joueurs déjà athlétiques. Elles ne ferment pas la porte aux
+        débutants : la technique de passe, les tracés, la défense et le playbook s’apprennent à
+        l’entraînement. Ce qui compte au départ, c’est l’envie de progresser, d’écouter et de
+        s’engager dans le collectif.
       </p>
 
-      <h2 id="jo-2028">Les JO de Los Angeles 2028 : pourquoi tout le monde parle du flag</h2>
+      <h2 id="postes">Les postes et rôles au flag football</h2>
       <p>
-        En octobre 2023, le Comité International Olympique a officialisé l'entrée du flag
-        football au programme des <strong>Jeux Olympiques de Los Angeles 2028</strong>, en tournoi
-        masculin et féminin à 5 contre 5. Pour un sport encore confidentiel en France il y a dix
-        ans, c'est un séisme :
+        À cinq contre cinq, les rôles sont identifiables mais moins figés qu’au football américain à
+        onze. Selon les systèmes et les remplacements, un même joueur peut contribuer de plusieurs
+        façons.
       </p>
       <ul>
         <li>
-          <strong>La NFL pousse fort</strong> : la ligue américaine investit massivement dans le
-          flag mondial, et des stars NFL ont déjà annoncé rêver des Jeux. L'exposition médiatique
-          du flag va exploser d'ici 2028.
+          <strong>Le quarterback (QB)</strong> pilote l’attaque. Il annonce ou ajuste la
+          combinaison, lit la défense et distribue le ballon avec précision et rythme.
         </li>
         <li>
-          <strong>La France est concernée au premier chef</strong> : nos équipes de France de
-          flag, masculine et féminine, figurent parmi les nations européennes compétitives, et
-          une qualification olympique se joue dès maintenant, dans les clubs, avec la génération
-          qui s'entraîne aujourd'hui.
+          <strong>Le centre</strong> réalise le snap puis devient immédiatement une option de
+          réception. Sa disponibilité et sa compréhension des espaces sont essentielles.
         </li>
         <li>
-          <strong>Les clubs français recrutent</strong> : partout en France, les sections flag
-          s'ouvrent ou s'agrandissent. C'est le meilleur moment de l'histoire de ce sport pour
-          s'y mettre : dans cinq ans, tu pourras dire que tu jouais « avant les JO ».
+          <strong>Les receveurs</strong> créent la séparation par leurs tracés, leurs changements
+          d’allure et leurs appuis. Ils doivent aussi sécuriser la réception et gagner des yards
+          après la passe.
+        </li>
+        <li>
+          <strong>Le porteur de balle</strong> utilise vision, accélération et pivots pour
+          progresser sans protéger ses flags avec les bras ou les mains.
+        </li>
+        <li>
+          <strong>Le blitzeur</strong> met le quarterback sous pression depuis une position
+          réglementaire. Son départ, sa trajectoire et son timing peuvent accélérer toute la
+          décision offensive.
+        </li>
+        <li>
+          <strong>Les défenseurs de couverture</strong> protègent des zones ou suivent les
+          receveurs. Ils lisent les tracés, ferment les angles de passe, déflaguent et recherchent
+          l’interception.
         </li>
       </ul>
+
+      <CtaQuiz />
+
+      <h2 id="accessible">Accessible ne veut pas dire seulement loisir</h2>
       <p>
-        Et ce n'est pas qu'un argument marketing : l'effet olympique, c'est plus de moyens pour
-        la formation, plus de tournois, plus de médiatisation, et à terme des sections flag dans
-        les écoles. Le flag de 2028 ressemblera au handball de 1992 : un sport qui bascule dans
-        une autre dimension.
+        Le flag est accessible parce qu’il demande peu d’équipement, qu’il interdit le plaquage et
+        qu’un débutant peut rapidement participer à des situations de jeu. Cette accessibilité
+        permet à des femmes et des hommes, à des jeunes et à des adultes, de partager une même
+        culture sportive.
+      </p>
+      <p>
+        Mais la discipline possède aussi une vraie filière de compétition : championnats nationaux,
+        Coupe de France, sélections et compétitions internationales. On peut venir découvrir un
+        nouveau sport, rechercher un collectif ou construire un projet de performance. Ces ambitions
+        coexistent sans réduire le flag à une simple activité de loisir.
       </p>
 
-      <CtaQuiz
-        titre="Flag ou casqué : quel profil es-tu ?"
-        texte="Réponds à 8 questions (taille, poids, vitesse, rapport au contact) et notre algorithme de scouting te dit quel poste te correspond, en flag comme en foot US."
-        bouton="Je découvre mon poste"
-      />
-
-      <h2 id="postes">Les postes au flag : cinq rôles, cinq personnalités</h2>
+      <h2 id="mixite">Le flag football est-il mixte ?</h2>
       <p>
-        À 5 contre 5, chaque joueur compte double. Voici les rôles types d'une équipe de flag.
-        Tu vas vite reconnaître le tien :
+        En France, une partie importante de la pratique en club est mixte, notamment dans le
+        championnat national. La Coupe de France propose aussi des compétitions féminines et
+        masculines. À l’international et aux Jeux Olympiques de 2028, les tournois seront séparés
+        entre femmes et hommes.
+      </p>
+      <p>
+        La mixité ne signifie pas que toutes les qualités se valent ou que le niveau physique
+        disparaît. Elle met en avant la complémentarité : vitesse, précision, mains, lecture,
+        explosivité et communication peuvent s’exprimer dans des rôles différents au service du même
+        système.
+      </p>
+
+      <h2 id="jo-2028">Pourquoi les JO de Los Angeles 2028 changent la dimension du flag</h2>
+      <p>
+        Le flag football fera ses débuts olympiques à Los Angeles en 2028, avec un tournoi féminin
+        et un tournoi masculin à 5 contre 5. Cette reconnaissance ne crée pas la discipline : elle
+        consacre une pratique déjà structurée par des fédérations, des équipes nationales et des
+        compétitions internationales.
+      </p>
+      <p>
+        À deux ans des Jeux, l’enjeu pour les clubs français est concret : accueillir davantage de
+        pratiquants, former les jeunes, renforcer les équipes féminines et masculines, développer
+        l’arbitrage et élever le niveau de jeu. Commencer aujourd’hui, c’est rejoindre un sport en
+        pleine accélération sans attendre que les projecteurs olympiques s’allument.
+      </p>
+
+      <h2 id="tours">Où pratiquer le flag football à Tours ?</h2>
+      <p>
+        Les Pionniers de Touraine accueillent les joueuses et joueurs de flag football au Stade de
+        la Chambrerie, 2-4 rue de Tartifume à Tours, en Indre-et-Loire et en région
+        Centre-Val de Loire. Pour la saison 2026-2027, le club propose plusieurs parcours :
       </p>
       <ul>
         <li>
-          <strong>Le quarterback (QB)</strong> : le cerveau. Il annonce la combinaison, lit la
-          défense en deux secondes et distribue le ballon. Pas besoin d'un canon à la place du
-          bras : au flag, la précision et la vitesse de décision priment sur la puissance.
+          <strong>Flag mixte seniors :</strong> entraînements le lundi et le jeudi de 20 h 30 à
+          22 h 30 ; équipe engagée en championnat mixte D1 et dans les épreuves féminines et
+          masculines de la Coupe de France.
         </li>
         <li>
-          <strong>Le centre</strong> : il snappe le ballon au QB puis devient immédiatement une
-          option de passe courte. Poste sous-coté, adoré des joueurs malins qui savent se rendre
-          disponibles.
+          <strong>Juniors :</strong> football américain et flag le lundi et le jeudi de 19 h à
+          21 h.
         </li>
         <li>
-          <strong>Les receveurs</strong> : les artistes. Leurs armes : des appuis tranchants, des
-          tracés précis au mètre près et des mains sûres. C'est le poste rêvé des profils vifs et
-          des anciens joueurs de sports de raquette ou de basket.
-        </li>
-        <li>
-          <strong>Le rusher</strong> (en défense) : le seul autorisé à traverser pour presser le
-          quarterback, en partant à sept mètres. Explosivité pure et timing : le poste qui fait
-          lever les bancs quand le QB adverse doit se débarrasser du ballon en catastrophe.
-        </li>
-        <li>
-          <strong>Les défenseurs</strong> : mi-cornerbacks, mi-safeties, ils couvrent les
-          receveurs, lisent les yeux du QB et chassent l'interception. Les meilleurs arracheurs
-          de flags gagnent des matchs à eux seuls.
+          <strong>École de flag :</strong> le samedi de 10 h à 12 h, pour apprendre les fondamentaux, développer la motricité et
+          progresser dans un cadre structuré.
         </li>
       </ul>
       <p>
-        Tu hésites sur ton profil ? Notre <Link href="/quel-poste-football-americain/">test de
-        poste</Link> couvre aussi les rôles du flag : il t'orientera en huit questions.
-      </p>
-
-      <h2 id="lexique">Le petit lexique pour survivre à ta première séance</h2>
-      <p>
-        Le flag parle anglais, mais rassure-toi : dix mots suffisent pour tout comprendre.
-      </p>
-      <ul>
-        <li><strong>Snap</strong> : la remise du ballon qui lance chaque action.</li>
-        <li><strong>Down</strong> : une tentative. L'attaque en a quatre pour franchir la mi-terrain, puis quatre pour marquer.</li>
-        <li><strong>Touchdown (TD)</strong> : 6 points, le ballon franchit la ligne d'en-but.</li>
-        <li><strong>Conversion</strong> : la transformation à 1 ou 2 points tentée après un touchdown.</li>
-        <li><strong>Route (tracé)</strong> : le chemin précis que court un receveur (slant, out, go, post…).</li>
-        <li><strong>Blitz / rush</strong> : la pression sur le quarterback.</li>
-        <li><strong>Interception</strong> : passe volée par la défense, qui peut contre-attaquer dans la foulée.</li>
-        <li><strong>Flag guarding</strong> : protéger son flag avec la main ou le bras. Interdit, et pénalisé.</li>
-        <li><strong>Playbook</strong> : le recueil des combinaisons de ton équipe.</li>
-        <li><strong>Huddle</strong> : le regroupement éclair où le QB annonce la combinaison avant chaque action.</li>
-      </ul>
-
-      <h2 id="physique">Le flag est-il vraiment moins physique ? Parlons cash</h2>
-      <p>
-        « Sans contact » ne veut pas dire « sans effort ». Un match de flag, c'est une succession
-        de sprints, de changements de direction et de duels d'appuis : cardio et cuisses
-        travaillent sérieusement, et tu finiras tes premières séances heureux et lessivé. En
-        revanche, ce que le flag retire, ce sont les <strong>impacts</strong> : pas de plaquages,
-        pas de blocs, pas de chocs tête contre tête. Résultat : un profil de risque comparable à
-        celui des autres sports de course et d'appuis (l'entorse de cheville reste la blessure
-        classique), très loin des contraintes du casqué. C'est précisément ce qui en fait le
-        format idéal pour reprendre le sport après des années de pause, ou pour durer : au flag,
-        on joue encore à 45 ans, et personne ne trouve ça remarquable.
-      </p>
-      <p>
-        Autre atout que les débutants découvrent vite : les <strong>remplacements illimités</strong>.
-        Tu gères ton intensité, tu souffles quand tu en as besoin, et tu montes en volume au fil
-        des semaines. Le flag est exigeant avec ceux qui veulent la gagne, et indulgent avec ceux
-        qui reviennent de loin. Les deux dans la même équipe.
-      </p>
-
-      <h2 id="pour-qui">À qui s'adresse le flag football ?</h2>
-      <p>
-        À peu près tout le monde, et ce n'est pas une formule. Dans une même semaine, notre
-        section flag voit passer :
-      </p>
-      <ul>
-        <li>
-          <strong>Des enfants de 6 à 12 ans</strong>, pour qui le flag est le format d'initiation
-          idéal : on apprend à attraper, courir des tracés et lire le jeu, sans aucun choc, dans
-          un cadre ultra-ludique. C'est l'école de flag du samedi matin.
-        </li>
-        <li>
-          <strong>Des ados et jeunes adultes</strong> qui découvrent le football américain par le
-          flag avant, parfois, de basculer vers le casqué : le geste technique est le même, seule
-          la finition change.
-        </li>
-        <li>
-          <strong>Des adultes qui reprennent le sport</strong> : cardio réel mais sans impacts,
-          intensité modulable, apprentissage rapide : le flag est probablement le sport collectif
-          le plus indulgent qui soit pour un retour après des années de pause. On en parle aussi
-          dans notre article <Link href="/blog/commencer-le-football-americain-adulte/">commencer
-          le foot US à l'âge adulte</Link>.
-        </li>
-        <li>
-          <strong>Des joueuses et joueurs de casqué</strong> qui viennent y travailler leurs
-          mains, leurs tracés et leur vitesse pendant l'intersaison.
-        </li>
-        <li>
-          <strong>Des groupes d'amis et des couples</strong>, parce qu'un sport mixte où l'on
-          peut débuter ensemble le même soir, il n'y en a pas tant que ça.
-        </li>
-      </ul>
-      <p>
-        Côté condition physique : si tu peux enchaîner quelques sprints de vingt mètres avec des
-        pauses, tu peux jouer au flag. L'endurance et la vitesse viennent en jouant, et les
-        remplacements sont illimités.
-      </p>
-
-      <h2 id="commencer">Comment commencer le flag football ?</h2>
-      <p>
-        Le mode d'emploi tient en trois lignes : trouve un club affilié FFFA près de chez toi
-        (l'annuaire de la fédération ou une recherche « flag football + ta ville » suffisent),
-        écris-lui, et viens essayer : une tenue de sport et des crampons moulés suffisent, le
-        club fournit ceintures et ballons. La licence flag est en général plus abordable que la
-        licence contact, et les séances d'essai sont gratuites dans la plupart des clubs.
-      </p>
-      <p>
-        Un conseil de coach pour ta première séance : ne stresse pas sur les règles. Retiens
-        juste « quatre tentatives pour avancer, pas de contact, arrache le flag », et le reste
-        viendra en jouant. Au bout de trois séances, tu appelleras les tracés par leur nom
-        anglais comme tout le monde.
-      </p>
-
-      <h2 id="faq">Questions fréquentes sur le flag football</h2>
-      <h3>Le flag football est-il mixte ?</h3>
-      <p>
-        Très largement, oui. En loisir et dans beaucoup de championnats, filles et garçons
-        jouent dans la même équipe. C'est même l'un des rares sports collectifs où débuter en
-        couple ou entre amis de gabarits différents fonctionne naturellement. En compétition
-        internationale (et aux JO 2028), les tournois sont séparés masculin/féminin.
-      </p>
-      <h3>À partir de quel âge un enfant peut-il jouer ?</h3>
-      <p>
-        Dès 6-8 ans dans la plupart des écoles de flag. Le format est parfait pour les enfants :
-        pas de contact, beaucoup de courses et de jeux de ballon, des règles simples. C'est
-        aussi, de plus en plus, le format retenu par l'école et le sport scolaire pour faire
-        découvrir le football américain.
-      </p>
-      <h3>Faut-il avoir joué au foot US pour se mettre au flag ?</h3>
-      <p>
-        Pas du tout : la majorité des joueurs de flag n'ont jamais porté de casque. Dans l'autre
-        sens, le flag est la meilleure école pour ensuite passer au contact si l'envie vient :
-        mêmes tracés, mêmes lectures, même vocabulaire.
-      </p>
-      <h3>Que faut-il acheter pour commencer ?</h3>
-      <p>
-        Des crampons moulés (foot ou rugby) et un protège-dents. La ceinture à flags et les
-        ballons sont fournis par le club. Budget de départ : moins de 50 €, souvent avec des
-        affaires que tu possèdes déjà.
+        Tu viens du basket, du tennis, du football, du rugby, du handball, de l’athlétisme - ou tu
+        n’as encore aucune expérience ? Le staff t’aide à identifier les qualités que tu peux
+        transférer, le rôle qui te correspond et les axes à travailler. Les débutants sont
+        bienvenus, mais l’objectif reste clair : apprendre, progresser et contribuer au collectif.
       </p>
 
       <CtaTunnel
-        titre="Essaie le flag cette semaine"
-        texte="Si tu es à Tours ou dans les environs, l'équipe flag mixte des Pionniers accueille les débutants toute l'année : première semaine offerte, ceinture et ballon fournis."
-        bouton="Je viens essayer le flag"
+        titre="Envie d’essayer ?"
+        texte="Rejoins une séance de découverte de flag football à Tours avec les Pionniers de Touraine. Viens en tenue de sport ; le club fournit les ballons et les ceintures à flags."
+        bouton="Je viens essayer"
       />
 
-      <h2 id="tours">Le flag à Tours : l'école du samedi et l'équipe mixte des Pionniers</h2>
+      <h2 id="faq">Questions fréquentes sur le flag football</h2>
+      <h3>Quelle est la différence entre le flag football et le football américain ?</h3>
       <p>
-        En Touraine, le flag football, c'est chez les <strong>Pionniers de Touraine</strong>, au
-        Stade de la Chambrerie à Tours :
+        Les deux disciplines partagent des origines, le ballon, le touchdown, le snap et une partie
+        du vocabulaire tactique. Le flag se joue principalement à 5 contre 5 sans plaquage, sans
+        blocage ni jeu au pied. Son règlement, son terrain, son rythme et plusieurs de ses concepts
+        sont spécifiques.
       </p>
-      <ul>
-        <li>
-          <strong>L'école de flag</strong>, le samedi matin (10h-12h), pour les enfants : éveil
-          au jeu, motricité, premiers tracés, dans l'esprit ludique d'un sport sans contact.
-        </li>
-        <li>
-          <strong>Le flag mixte seniors</strong>, deux soirs par semaine (lundi et jeudi), pour
-          les adultes : du débutant complet au joueur confirmé, filles et garçons dans la même
-          équipe.
-        </li>
-        <li>
-          <strong>Les juniors</strong>, qui alternent flag et foot US dans leur formation.
-        </li>
-      </ul>
+      <h3>Faut-il avoir joué au foot US pour commencer ?</h3>
       <p>
-        Et comme pour toutes nos sections, la <strong>semaine découverte est offerte</strong> :
-        tu viens, tu essaies, et tu décides ensuite. À cinq ans des Jeux de Los Angeles, il n'y
-        aura jamais eu de meilleur moment pour attraper ton premier flag.
+        Non. Les techniques et le règlement s’apprennent au club. Les expériences acquises dans
+        d’autres sports collectifs, de raquette ou d’explosivité peuvent même constituer une
+        excellente base.
+      </p>
+      <h3>Le flag football est-il un sport de compétition ?</h3>
+      <p>
+        Oui. La France organise des championnats nationaux et une Coupe de France, et la discipline
+        possède des compétitions internationales ainsi que des équipes nationales. Elle entrera au
+        programme olympique à Los Angeles en 2028.
+      </p>
+      <h3>Le flag football est-il physique ?</h3>
+      <p>
+        Oui. Il demande des sprints, des changements de direction, des freinages, de la coordination
+        et de la répétition d’efforts. L’absence de plaquage réduit les impacts recherchés, mais pas
+        l’intensité athlétique.
+      </p>
+      <h3>Peut-on pratiquer le flag football en mixte ?</h3>
+      <p>
+        Oui. Le championnat de France de clubs comprend une pratique mixte. Il existe également des
+        compétitions féminines et masculines, notamment en Coupe de France et à l’international.
+      </p>
+      <h3>Où faire du flag football à Tours ou en Indre-et-Loire ?</h3>
+      <p>
+        Les Pionniers de Touraine s’entraînent au Stade de la Chambrerie à Tours. Le club propose du
+        flag pour les seniors, les juniors et les enfants, avec des séances de découverte pour les
+        nouveaux pratiquants.
       </p>
     </>
   );

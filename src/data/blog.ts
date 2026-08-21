@@ -47,16 +47,16 @@ export const ARTICLES: ArticleMeta[] = [
   },
   {
     slug: 'flag-football-cest-quoi',
-    titre: 'Le flag football, c’est quoi ? Règles, différences avec le foot US et JO 2028',
-    titreCourt: 'Le flag football, c’est quoi ?',
-    titleSeo: 'Le flag football, c’est quoi ? Règles et JO 2028',
+    titre: 'Flag football : règles, postes et où jouer à Tours',
+    titreCourt: 'Flag football : règles et postes',
+    titleSeo: 'Flag football : règles, postes et où jouer à Tours',
     description:
-      'Le flag football expliqué simplement : règles du 5 contre 5, différences avec le football américain, pourquoi il sera aux JO de Los Angeles 2028 et comment s’y mettre.',
+      'Le flag football expliqué : règles du 5 contre 5, postes et rôles, mixité, JO de Los Angeles 2028 et où jouer à Tours avec les Pionniers de Touraine.',
     emoji: 'flag',
     datePublication: '2026-08-20',
-    dateModif: '2026-08-20',
-    minutesLecture: 11,
-    motCle: 'flag football c’est quoi',
+    dateModif: '2026-08-22',
+    minutesLecture: 9,
+    motCle: 'flag football tours',
     content: ArticleFlag,
   },
   {
