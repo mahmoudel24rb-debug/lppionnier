@@ -1,4 +1,4 @@
-# Calendrier Pionniers — calendrier.pionniersdetouraine.fr (o2switch)
+# Calendrier Pionniers : calendrier.pionniersdetouraine.fr (o2switch)
 
 # www → sans www, puis HTTPS forcé
 <IfModule mod_rewrite.c>
@@ -11,7 +11,7 @@
 
 # L'admin et l'API ne sont jamais indexés (pas de robots.txt : il révélerait le chemin)
 <IfModule mod_headers.c>
-  SetEnvIf Request_URI "^/(logadmpionfafl|api)" NOINDEX
+  SetEnvIf Request_URI "^/(logadmpionfafl|api|private)" NOINDEX
   Header set X-Robots-Tag "noindex, nofollow" env=NOINDEX
 
   <FilesMatch "\.(css|js|woff2?|ttf)$">
@@ -26,7 +26,7 @@
 </IfModule>
 
 # Fichiers internes de l'API inaccessibles en direct
-<FilesMatch "^(_bootstrap\.php|config\.php|config\.php\.example)$">
+<FilesMatch "^(_bootstrap\.php|_events_common\.php|config\.php|config\.php\.example)$">
   Require all denied
 </FilesMatch>
 <FilesMatch "\.db$">

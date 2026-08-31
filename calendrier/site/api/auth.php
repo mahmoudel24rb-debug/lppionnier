@@ -1,10 +1,12 @@
 <?php
 /**
- * Authentification de l'admin du calendrier.
- *   GET             → { ok, admin }              (état de session)
+ * Authentification du calendrier : admin du club ou responsable de section.
+ *   GET             → { ok, admin, role }        (état de session)
  *   POST {password} → connexion (rate-limit : 5 échecs / 15 min / IP)
  *   POST {action:"logout"} → déconnexion
- * Le hash du mot de passe vit dans config.php (PNR_ADMIN_HASH), jamais en clair.
+ * Les hashs vivent dans config.php (PNR_ADMIN_HASH, PNR_SECTION_HASHES),
+ * jamais en clair. Un même formulaire sert aux deux rôles : le mot de passe
+ * saisi désigne le rôle obtenu.
  */
 declare(strict_types=1);
 require __DIR__ . '/_bootstrap.php';
@@ -13,7 +15,7 @@ pnr_session_start();
 $method = $_SERVER['REQUEST_METHOD'] ?? '';
 
 if ($method === 'GET') {
-    pnr_json(['ok' => true, 'admin' => pnr_is_admin()]);
+    pnr_json(['ok' => true, 'admin' => pnr_is_admin(), 'role' => pnr_role()]);
 }
 if ($method !== 'POST') {
     pnr_json(['ok' => false, 'error' => 'method'], 405);
@@ -45,12 +47,32 @@ if (count($fails) >= 5) {
 }
 
 $password = (string)($body['password'] ?? '');
-if ($password !== '' && password_verify($password, PNR_ADMIN_HASH)) {
+// Le mot de passe admin d'abord, puis les mots de passe de section.
+$sectionHashes = defined('PNR_SECTION_HASHES') ? PNR_SECTION_HASHES : [];
+$matched = null; // 'admin' ou une section de PNR_SECTIONS
+if ($password !== '') {
+    if (password_verify($password, PNR_ADMIN_HASH)) {
+        $matched = 'admin';
+    } else {
+        foreach ($sectionHashes as $section => $hash) {
+            if (in_array($section, PNR_SECTIONS, true) && is_string($hash) && $hash !== ''
+                && password_verify($password, $hash)) {
+                $matched = $section;
+                break;
+            }
+        }
+    }
+}
+if ($matched !== null) {
     unset($throttle[$ip]);
     file_put_contents($throttleFile, json_encode($throttle));
     session_regenerate_id(true);
-    $_SESSION['pnr_admin'] = true;
-    pnr_json(['ok' => true, 'admin' => true]);
+    if ($matched === 'admin') {
+        $_SESSION['pnr_admin'] = true;
+    } else {
+        $_SESSION['pnr_section'] = $matched;
+    }
+    pnr_json(['ok' => true, 'admin' => $matched === 'admin', 'role' => $matched]);
 }
 
 $fails[] = $now;

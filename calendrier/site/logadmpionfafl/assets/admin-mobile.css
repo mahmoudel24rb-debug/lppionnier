@@ -1,4 +1,4 @@
-/* Reconstruit depuis le handoff designer — CSS d'origine conservé. */
+/* Reconstruit depuis le handoff designer : CSS d'origine conservé. */
 
 /* Space Mono auto-hébergée (remplace Google Fonts) */
 @font-face{font-family:'Space Mono';src:url('../../assets/fonts/SpaceMono-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
@@ -160,7 +160,7 @@ img[src^="../assets/emojis/"]{width:17px;height:17px;object-fit:contain;flex:non
 .sec-filter-btn[data-sec="all"].active{background:var(--ink);border-color:var(--ink);color:#fff}
 .sec-filter-dot{width:9px;height:9px;border-radius:3px;flex:none}
 
-/* ====== MOBILE — page dédiée téléphone ====== */
+/* ====== MOBILE : page dédiée téléphone ====== */
 html,body{-webkit-text-size-adjust:100%}
 body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
 .admin-body{display:block}
@@ -204,7 +204,7 @@ body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
 .card-body{padding:14px;gap:14px}
 .form-row,.form-row-3{grid-template-columns:1fr}
 
-/* champs et boutons — cibles tactiles 44px+ */
+/* champs et boutons : cibles tactiles 44px+ */
 .inp{font-size:16px;padding:13px 14px;border-radius:12px;min-height:48px}
 textarea.inp{min-height:88px}
 .field label{font-size:10px}
@@ -250,3 +250,38 @@ textarea.inp{min-height:88px}
 
 /* login */
 .login-box{border-radius:16px;padding:28px 20px}
+
+/* RÔLE CONNECTÉ (topbar) */
+.role-badge{display:inline-flex;align-items:center;min-width:0;background:var(--shi);border:1px solid var(--line);
+  border-radius:999px;padding:4px 10px;font-size:10px;font-weight:600;color:var(--soft);white-space:nowrap}
+.role-badge-lab{display:none}
+.role-badge b{color:var(--ink);font-weight:700;display:block;max-width:104px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* SELECTS VERROUILLÉS SUR LA SECTION DU RÔLE */
+.inp:disabled,.inp.is-locked{background:var(--shi);color:var(--soft);opacity:1;cursor:not-allowed}
+
+/* PASTILLE VISIBILITÉ PRIVÉE */
+.priv-badge{display:inline-block;margin-left:7px;padding:1px 7px;border-radius:999px;
+  background:rgba(255,173,0,.16);border:1px solid rgba(245,160,0,.4);color:var(--gold-ink);
+  font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;vertical-align:1px}
+
+/* RÉCURRENCE EN LECTURE SEULE (rôle d'une autre section) */
+.rec-item.is-readonly{grid-template-columns:12px minmax(0,1fr)}
+
+/* MODAL EXCEPTION : MOTIF ET SUPPRESSION */
+.ex-hint{font-size:11.5px;color:var(--soft);line-height:1.45;margin-top:-4px}
+.ex-danger{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+.ex-remove-hint{font-size:11.5px;color:#e05555;line-height:1.45}
+.btn-dark{background:var(--ink);color:#fff;border:1px solid var(--ink)}
+.btn-dark:hover{background:#000;color:#fff}
+.btn-dark.is-confirm{background:#e05555;border-color:#e05555}
+
+/* MODAL DATES : ÉTAT SUPPRIMÉ ET LÉGENDE */
+.date-removed{text-decoration:line-through;text-decoration-thickness:1.5px}
+.dates-legend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:10.5px;color:var(--soft)}
+.dates-legend span{display:inline-flex;align-items:center;gap:5px}
+.dl-chip{width:9px;height:9px;border-radius:3px;flex:none;display:inline-block}
+.dl-cancelled{background:#e05555}
+.dl-moved{background:var(--gold)}
+.dl-removed{background:var(--ink)}

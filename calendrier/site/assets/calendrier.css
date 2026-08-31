@@ -1,4 +1,4 @@
-/* Reconstruit depuis le handoff designer — CSS d'origine conservé à l'identique,
+/* Reconstruit depuis le handoff designer : CSS d'origine conservé à l'identique,
    hors corrections listées en fin de fichier. */
 
 /* Space Mono auto-hébergée (remplace Google Fonts) */
@@ -78,7 +78,7 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
   .navitem{width:auto;flex:none;padding:7px 11px;font-size:12px}
 }
 
-/* header — hero façon DA marque */
+/* header : hero façon DA marque */
 .board{background:radial-gradient(ellipse at 50% 0%,#5A171C 0%,#3A1014 48%,#140708 100%);
   color:var(--ink);border-radius:16px;padding:36px 24px 32px;box-shadow:var(--shadow);
   position:relative;overflow:hidden;border:1px solid rgba(200,56,63,.28);text-align:center}
@@ -174,13 +174,13 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
 .cell-none{margin-top:auto;display:flex;align-items:center;gap:6px;font-size:9.5px;color:rgba(24,24,27,.18);padding:2px 3px;white-space:nowrap}
 .cell-none::before{content:"";width:7px;height:7px;border-radius:50%;border:1px solid rgba(24,24,27,.14);flex:none}
 .cell:hover{border-color:rgba(255,173,0,.28)}
-/* cases vides — hachurées en diagonale */
+/* cases vides : hachurées en diagonale */
 .cell.cell-empty{
   background:repeating-linear-gradient(-45deg,#efeff1 0px,#efeff1 4px,#e6e6ea 4px,#e6e6ea 9px);
   border-color:rgba(24,24,27,.07);
 }
 .cell.cell-empty:hover{border-color:rgba(24,24,27,.10)}
-/* jours passés — atténués */
+/* jours passés : atténués */
 .cell.cell-past .daynum{color:rgba(24,24,27,.3)}
 .cell.cell-past .ev{opacity:.45}
 .cell.cell-past .more{opacity:.35}
@@ -189,7 +189,7 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
 .week-col.week-past .week-mo{opacity:.34}
 .week-col.week-past .week-ev{opacity:.38;filter:saturate(.35)}
 .cell.out{background:transparent;border-color:transparent}
-/* débordement mois suivant — atténué */
+/* débordement mois suivant : atténué */
 .cell.out .ev{opacity:.3}
 .cell.out .more{opacity:.25}
 .daynum{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.04em;color:var(--ink);align-self:flex-start;line-height:.9;padding:0 3px}
@@ -250,7 +250,7 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
 /* chip overflow */
 .ev{overflow:hidden;position:relative}
 .week-ev{overflow:hidden;position:relative}
-/* piste de défilement — contient uniquement le titre, pas l'horaire */
+/* piste de défilement : contient uniquement le titre, pas l'horaire */
 .ev-scroll-track{position:relative;overflow:hidden;flex:1;min-width:0}
 .ev-scroll-track::before,.ev-scroll-track::after{
   content:"";position:absolute;top:0;bottom:0;width:12px;z-index:2;pointer-events:none;
@@ -305,7 +305,7 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
   .wordmark{color:#111!important}
   .eyebrow{color:#8a5a00!important}
   .board-sub,.ink-soft{color:#555!important}
-  /* chips : contour coloré, fond blanc — pas d'aplats d'encre */
+  /* chips : contour coloré, fond blanc : pas d'aplats d'encre */
   .week-ev,.schip{background:#fff!important;color:var(--ev-bg)!important;border:1.5px solid var(--ev-bg)!important;box-shadow:none!important;opacity:1!important}
   .ev{background:#fff!important;color:#111!important;border:0!important;box-shadow:none!important;opacity:1!important}
   .ev .ev-dot{border:1px solid rgba(0,0,0,.25)!important}
@@ -414,4 +414,114 @@ body{background:#eeeef0;color:var(--ink);font-family:var(--font-body);-webkit-fo
   /* B31 : les sections désactivées restent identifiables sur papier */
   .chip[aria-pressed="false"]{opacity:.35 !important;text-decoration:line-through !important}
   .cal-notice{display:none}
+}
+
+/* ══ Annulations · vacances et fériés · calendrier interne ══ */
+
+/* ── Séances annulées : gris commun à toutes les sections, barré, désaturé ── */
+.ev-cancelled{opacity:.55;filter:grayscale(.4)}
+.ev.ev-cancelled .ev-title,
+.week-ev.ev-cancelled .ev-title,
+.schip.ev-cancelled,
+.arow.ev-cancelled .a-title{text-decoration:line-through}
+.week-ev.ev-cancelled,.schip.ev-cancelled{color:#fff}
+.arow.ev-cancelled{opacity:.62;filter:grayscale(.4)}
+.arow.ev-cancelled .a-meta,.arow.ev-cancelled .a-time{text-decoration:none}
+
+/* ── Vacances scolaires et jours fériés ── */
+.daytag{display:block;align-self:flex-start;max-width:100%;margin-top:3px;padding:1px 5px;border-radius:4px;
+  font-size:8.5px;font-weight:700;letter-spacing:.02em;line-height:1.25;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.daytag-vac{background:rgba(255,173,0,.2);color:#8a5c00}
+.daytag-ferie{background:rgba(139,92,246,.16);color:#5b3ea8}
+/* vue mois « tout à l'écran » : l'étiquette ne prend pas de hauteur, sinon
+   elle mangerait la place calculée pour les chips */
+.fitmonth .cell{position:relative}
+.fitmonth .cell .daytag{position:absolute;top:5px;right:5px;max-width:calc(100% - 34px);margin:0;font-size:8px}
+/* vue mois : teinte de la case (sans écraser aujourd'hui ni le hors-mois) */
+.cell.day-vac:not(.today):not(.out){background:#fff6e2;border-color:rgba(245,160,0,.22)}
+.cell.day-ferie:not(.today):not(.out){background:#f2edfd;border-color:rgba(139,92,246,.22)}
+.cell.cell-empty.day-vac:not(.today){background:repeating-linear-gradient(-45deg,#fff6e2 0px,#fff6e2 4px,#f5e6c8 4px,#f5e6c8 9px)}
+.cell.cell-empty.day-ferie:not(.today){background:repeating-linear-gradient(-45deg,#f2edfd 0px,#f2edfd 4px,#e6dcf9 4px,#e6dcf9 9px)}
+/* vue semaine : teinte de la colonne */
+.week-col.day-vac{background:rgba(255,173,0,.07);border-radius:14px}
+.week-col.day-ferie{background:rgba(139,92,246,.07);border-radius:14px}
+.week-col.day-vac .week-head:not(.today-col){background:#fff8e8;border-color:rgba(245,160,0,.25)}
+.week-col.day-ferie .week-head:not(.today-col){background:#f4effd;border-color:rgba(139,92,246,.25)}
+.week-head .daytag{align-self:center;text-align:center;margin-top:4px}
+/* vue saison : teinte du carré jour */
+.sday.day-vac:not(.sday-today){background:#fff6e2}
+.sday.day-ferie:not(.sday-today){background:#f2edfd}
+
+/* ── Légende (non cliquable), à la suite des filtres ── */
+.legend{display:inline-flex;align-items:center;flex-wrap:wrap;gap:6px;flex:none}
+.legend-sep{width:1px;height:16px;background:var(--line);flex:none;margin:0 2px}
+.legend-item{display:inline-flex;align-items:center;gap:6px;padding:5px 12px 5px 10px;
+  border:1px dashed rgba(24,24,27,.2);border-radius:999px;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.02em;color:rgba(24,24,27,.5);white-space:nowrap}
+.legend-item .dot{width:8px;height:8px;border-radius:2px;flex:none}
+.dot-cancelled{background:#8a8f98}
+.dot-vac{background:#f6dfae;border:1px solid rgba(245,160,0,.45)}
+.dot-ferie{background:#cdbdf7;border:1px solid rgba(139,92,246,.45)}
+.dot-priv{background:var(--bordeaux)}
+
+/* ── Marqueurs « privé » (calendrier interne uniquement) ── */
+.ev-priv{font-family:"Space Mono",monospace;font-size:7.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:1px 5px;border-radius:999px;line-height:1.3;white-space:nowrap;
+  background:rgba(200,56,63,.14);color:#8f2a30;border:1px solid rgba(200,56,63,.35)}
+.ev .ev-priv{position:absolute;top:2px;right:2px;z-index:3}
+.ev.ev-priv-on .ev-scroll-track{margin-right:34px}
+.week-ev .ev-priv{align-self:flex-start;margin-top:3px;background:rgba(255,255,255,.22);color:#fff;border-color:rgba(255,255,255,.45)}
+.week-ev.gold .ev-priv{background:rgba(26,16,8,.12);color:#1a1008;border-color:rgba(26,16,8,.3)}
+.schip.schip-priv{background:rgba(200,56,63,.12);color:#8f2a30;border:1px dashed rgba(200,56,63,.5);cursor:default;opacity:1}
+.schip.schip-priv:hover{filter:none;transform:none}
+.badge-priv{background:rgba(200,56,63,.12);color:#8f2a30;border:1px solid rgba(200,56,63,.32)}
+/* pastilles d'état dans la fiche */
+.modal-badges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+.badge-cancel,.badge-priv-modal{display:inline-flex;align-items:center;font-family:"Space Mono",monospace;
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
+.badge-cancel{background:#6f7480;color:#fff;border:1px solid rgba(255,255,255,.4)}
+.badge-priv-modal{background:rgba(255,255,255,.2);color:inherit;border:1px solid rgba(255,255,255,.5)}
+.modal-top.gold .badge-priv-modal{background:rgba(26,16,8,.12);border-color:rgba(26,16,8,.3)}
+
+/* ── Calendrier interne : bandeau et écran de connexion ── */
+.private-banner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  background:linear-gradient(180deg,rgba(200,56,63,.12),rgba(200,56,63,.05));
+  border:1px solid rgba(200,56,63,.3);border-radius:10px;padding:8px 12px;margin:0 0 5px}
+.pb-tag{font-family:"Space Mono",monospace;font-size:10px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;background:var(--bordeaux);color:#fff;border-radius:999px;padding:3px 10px;flex:none}
+.pb-txt{font-size:12.5px;color:#7a2a2f;font-weight:600;min-width:0;flex:1 1 auto}
+.pb-out{margin-left:auto;flex:none;height:32px;padding:0 14px;border-radius:999px;
+  border:1px solid rgba(200,56,63,.45);background:#fff;color:#8f2a30;font-family:var(--font-body);
+  font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;
+  transition:background .12s ease}
+.pb-out:hover{background:rgba(200,56,63,.1)}
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-box{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+  padding:32px 28px;width:100%;max-width:380px;display:flex;flex-direction:column;gap:18px}
+.login-logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;
+  font-size:26px;letter-spacing:-.05em;text-transform:uppercase;color:var(--ink)}
+.login-logo b{color:var(--bordeaux);font-weight:800}
+.login-sub{font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.45}
+.login-field{display:flex;flex-direction:column;gap:6px}
+.login-field label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.inp{background:var(--surface-hi);border:1px solid var(--line);border-radius:10px;color:var(--ink);
+  font-family:var(--font-body);font-size:14px;padding:12px 14px;width:100%;transition:border-color .15s ease}
+.inp:focus{outline:none;border-color:rgba(245,160,0,.7);box-shadow:0 0 0 3px rgba(255,173,0,.15)}
+.err-msg{font-size:12px;color:#a12b32;background:rgba(200,56,63,.1);border:1px solid rgba(200,56,63,.25);
+  border-radius:8px;padding:9px 12px;display:none}
+.err-msg.show{display:block}
+.btn-full{flex:none;width:100%}
+
+@media print{
+  /* annulations : lisibles au trait, sans aplat gris */
+  .ev.ev-cancelled,.week-ev.ev-cancelled,.schip.ev-cancelled,.arow.ev-cancelled{opacity:.72 !important;filter:none !important}
+  .ev.ev-cancelled .ev-title,.week-ev.ev-cancelled .ev-title,
+  .schip.ev-cancelled,.arow.ev-cancelled .a-title{text-decoration:line-through !important}
+  .daytag{background:transparent !important;color:#555 !important;border:1px solid #ccc}
+  .legend-item{background:#fff !important;color:#333 !important;border:1px dashed #bbb !important}
+  .legend-item .dot{border:1px solid rgba(0,0,0,.3)}
+  .private-banner{background:#fff !important;border:1px solid #999 !important}
+  .pb-txt{color:#111 !important}
+  .pb-out,.login-wrap{display:none !important}
 }

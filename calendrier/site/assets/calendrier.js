@@ -1,5 +1,5 @@
 
-/* Calendrier Pionniers de Touraine — logique commune desktop/mobile.
+/* Calendrier Pionniers de Touraine : logique commune desktop/mobile.
    Reconstruction fidèle du handoff designer (différences mobile sous
    `this.mobile`) ; données servies par l'API (/api/events.php). */
 (() => {
@@ -27,6 +27,17 @@ class PionniersCalendrier {
     this.today = new Date(); this.today.setHours(0,0,0,0);
     this.cursor = new Date(this.today);
     this.active = new Set(Object.keys(this.SECTIONS));
+
+    // Calendrier interne (dossier /private) : API et assets un cran plus haut,
+    // flux privé derrière une session.
+    this.scope     = document.body.dataset.scope === "private" ? "private" : "public";
+    this.apiBase   = this.scope === "private" ? "../api/"    : "api/";
+    this.assetBase = this.scope === "private" ? "../assets/" : "assets/";
+
+    // Vacances scolaires / jours fériés (fichier optionnel jours-speciaux.js)
+    this.SPECIAUX = this._buildSpeciaux(
+      typeof window !== "undefined" ? window.PIONNIERS_JOURS_SPECIAUX : null);
+    this.hasSpeciaux = Object.keys(this.SPECIAUX).length > 0;
 
     const q = id => document.getElementById(id);
     q("prev").onclick     = () => this._nav(-1);
@@ -60,6 +71,7 @@ class PionniersCalendrier {
         const h = document.querySelector(".mtop");
         if (h) document.documentElement.style.setProperty("--mtop-h", Math.round(h.getBoundingClientRect().height) + "px");
       };
+      this._syncTopH = syncTopH;
       syncTopH(); window.addEventListener("resize", syncTopH);
       burger.onclick = () => setDrawer(!drawer.classList.contains("open"));
       q("drawerClose").onclick = () => setDrawer(false);
@@ -120,6 +132,7 @@ class PionniersCalendrier {
 
 
   async _boot() {
+    if (this.scope === "private") return this._bootPrivate();
     const done = (rows) => {
       this.evts = this._norm(rows);
       this._buildFilters();
@@ -127,7 +140,7 @@ class PionniersCalendrier {
       this._checkHash();
     };
     try {
-      const res = await fetch("api/events.php", { cache: "no-cache" });
+      const res = await fetch(this.apiBase + "events.php", { cache: "no-cache" });
       if (!res.ok) throw new Error("HTTP " + res.status);
       const rows = await res.json();
       done(Array.isArray(rows) ? rows : []);
@@ -136,6 +149,118 @@ class PionniersCalendrier {
       done([]);
       this._notice("Impossible de charger le calendrier. Vérifie ta connexion puis recharge la page.");
     }
+  }
+
+  // ── Calendrier interne : session, login, flux privé ──────────────────────
+
+  /** Démarrage de /private : état de session, puis login ou calendrier. */
+  async _bootPrivate() {
+    this._bindLogin();
+    let role = null;
+    try {
+      const res = await fetch(this.apiBase + "auth.php", { cache: "no-store" });
+      if (res.ok) {
+        const j = await res.json();
+        role = j && j.role ? j.role : null;
+      }
+    } catch (err) { /* hors ligne : l'écran de login le dira à la tentative */ }
+    if (!role) { this._showLogin(); return; }
+    await this._loadPrivate();
+  }
+
+  /** Charge le flux interne (public + privé) et affiche le calendrier. */
+  async _loadPrivate() {
+    this._showCalendar();
+    const done = (rows) => {
+      this.evts = this._norm(rows);
+      this._buildFilters();
+      this._render();
+      this._checkHash();
+    };
+    try {
+      const res = await fetch(this.apiBase + "events-private.php", { cache: "no-store" });
+      if (res.status === 401) {
+        this.evts = [];
+        this._showLogin("Session expirée. Reconnecte-toi pour voir le calendrier interne.");
+        return;
+      }
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const rows = await res.json();
+      done(Array.isArray(rows) ? rows : []);
+      this._notice(this.evts.length ? "" : "Aucun événement enregistré pour le moment.");
+    } catch (err) {
+      done([]);
+      this._notice("Impossible de charger le calendrier interne. Vérifie ta connexion puis recharge la page.");
+    }
+  }
+
+  _bindLogin() {
+    const btn = document.getElementById("loginBtn");
+    const pw  = document.getElementById("pwInput");
+    if (btn) btn.onclick = () => this._tryLogin();
+    if (pw)  pw.addEventListener("keydown", e => { if (e.key === "Enter") this._tryLogin(); });
+    const out = document.getElementById("logoutBtn");
+    if (out) out.onclick = async () => {
+      try {
+        await fetch(this.apiBase + "auth.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "logout" }),
+        });
+      } catch (err) { /* déconnexion locale quoi qu'il arrive */ }
+      this.evts = [];
+      this._notice("");
+      this._showLogin();
+    };
+  }
+
+  async _tryLogin() {
+    const pw = document.getElementById("pwInput"); if (!pw) return;
+    const val = (pw.value || "").trim(); if (!val) return;
+    const err = document.getElementById("loginErr");
+    const fail = (msg) => {
+      if (err) { err.textContent = msg; err.classList.add("show"); }
+      pw.value = ""; pw.focus();
+    };
+    try {
+      const res = await fetch(this.apiBase + "auth.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: val }),
+      });
+      if (res.status === 429) { fail("Trop de tentatives. Réessaie plus tard."); return; }
+      if (!res.ok)            { fail("Mot de passe incorrect."); return; }
+      const j = await res.json().catch(() => null);
+      if (!j || !j.ok || !j.role) { fail("Mot de passe incorrect."); return; }
+      if (err) { err.textContent = ""; err.classList.remove("show"); }
+      pw.value = "";
+      await this._loadPrivate();
+    } catch (e) {
+      fail("Connexion impossible. Vérifie ta connexion puis réessaie.");
+    }
+  }
+
+  _showLogin(msg) {
+    const ls = document.getElementById("loginScreen");
+    const cw = document.getElementById("calWrap");
+    if (cw) cw.style.display = "none";
+    if (ls) ls.style.display = "";
+    const err = document.getElementById("loginErr");
+    if (err) {
+      if (msg) { err.textContent = msg; err.classList.add("show"); }
+      else     { err.textContent = ""; err.classList.remove("show"); }
+    }
+    const pw = document.getElementById("pwInput");
+    if (pw) { pw.value = ""; pw.focus(); }
+  }
+
+  _showCalendar() {
+    const ls = document.getElementById("loginScreen");
+    const cw = document.getElementById("calWrap");
+    if (ls) ls.style.display = "none";
+    if (cw) cw.style.display = "";
+    // l'en-tête mobile était masqué : sa hauteur (sticky) doit être remesurée
+    if (this._syncTopH) this._syncTopH();
   }
 
   /** Bandeau d'information sous les filtres (vide = masqué). */
@@ -168,13 +293,13 @@ class PionniersCalendrier {
     return rows
       .filter(r => r && r.section && r.date && this.SECTIONS[String(r.section).trim()])
       .map(r => ({
-        // id stable fourni par l'API (rec:{uuid}:{date} / ev:{uuid}) — corrige
+        // id stable fourni par l'API (rec:{uuid}:{date} / ev:{uuid}) : corrige
         // les collisions de l'ancien id dérivé tronqué à 40 caractères.
         id:      String(r.id || "").trim(),
         section: String(r.section).trim(),
-        // séance reportée : le suffixe et la note sont générés à l'affichage
-        // (mêmes libellés qu'avant, mais la donnée stockée reste propre)
-        titre:   (r.titre||"Événement").trim() + (r.moved ? " (reporté)" : ""),
+        // séance reportée ou annulée : le suffixe et la note sont générés à
+        // l'affichage (mêmes libellés qu'avant, la donnée stockée reste propre)
+        titre:   (r.titre||"Événement").trim() + (r.moved ? " (reporté)" : "") + (r.cancelled ? " (ANNULÉ)" : ""),
         date:    String(r.date).trim(),
         debut:   (r.debut||"").trim(),
         fin:     (r.fin||"").trim(),
@@ -182,10 +307,70 @@ class PionniersCalendrier {
         adresse: (r.adresse||"").trim(),
         type:    (r.type||"").trim(),
         domicile:(r.domicile||"").trim().toLowerCase(),
-        notes:   (r.notes||"").trim() || (r.moved && r.original_date ? "Reporté du " + r.original_date : ""),
+        cancelled: !!r.cancelled,
+        motif:   (r.motif||"").trim(),
+        // uniquement servi par le flux interne ('public' | 'prive')
+        visibilite: (r.visibilite||"").trim(),
+        notes:   (r.notes||"").trim()
+                 || (r.cancelled ? ((r.motif||"").trim() || "Séance annulée") : "")
+                 || (r.moved && r.original_date ? "Reporté du " + r.original_date : ""),
         arbitres:(r.arbitres||"").trim(),
       }))
       .sort((a,b) => (a.date+a.debut).localeCompare(b.date+b.debut));
+  }
+
+  /** Indexe les vacances et jours fériés par date ISO (fichier optionnel). */
+  _buildSpeciaux(src) {
+    const map = {};
+    if (!src || typeof src !== "object") return map;
+    const at = iso => (map[iso] || (map[iso] = {}));
+    (Array.isArray(src.vacances) ? src.vacances : []).forEach(v => {
+      if (!v || !v.from || !v.to) return;
+      const end = new Date(String(v.to) + "T12:00");
+      const d = new Date(String(v.from) + "T12:00");
+      if (isNaN(d) || isNaN(end)) return;
+      let first = true, guard = 0;
+      while (d <= end && guard++ < 400) {
+        const cur = at(this._isoOf(d));
+        cur.vac = v.nom || "Vacances scolaires";
+        if (first) { cur.vacStart = true; first = false; }
+        d.setDate(d.getDate() + 1);
+      }
+    });
+    (Array.isArray(src.feries) ? src.feries : []).forEach(f => {
+      if (!f || !f.date) return;
+      at(String(f.date).trim()).ferie = f.nom || "Jour férié";
+    });
+    return map;
+  }
+
+  /** { vac?, vacStart?, ferie? } pour une date ISO, ou null. */
+  _spec(iso) { return (this.SPECIAUX && this.SPECIAUX[iso]) || null; }
+
+  /** Classe de teinte à poser sur la cellule / colonne / ligne du jour. */
+  _specCls(sp) { return sp ? (sp.ferie ? " day-ferie" : (sp.vac ? " day-vac" : "")) : ""; }
+
+  /** Étiquettes discrètes : le férié, et le premier jour d'une période. */
+  _specTags(sp) {
+    if (!sp) return "";
+    let out = "";
+    if (sp.ferie) out += `<span class="daytag daytag-ferie">${this._esc(sp.ferie)}</span>`;
+    if (sp.vac && sp.vacStart) out += `<span class="daytag daytag-vac">${this._esc(sp.vac)}</span>`;
+    return out;
+  }
+
+  /** Vue semaine : une étiquette sous la date, tous les jours concernés. */
+  _weekSpecTag(sp) {
+    if (!sp) return "";
+    if (sp.ferie) return `<span class="daytag daytag-ferie">${this._esc(sp.ferie)}</span>`;
+    if (sp.vac)   return `<span class="daytag daytag-vac">${this._esc(sp.vac)}</span>`;
+    return "";
+  }
+
+  /** Texte de tooltip pour les vues compactes (saison). */
+  _specTitle(sp) {
+    if (!sp) return "";
+    return [sp.ferie, sp.vac].filter(Boolean).join(" · ");
   }
 
   _buildFilters() {
@@ -214,6 +399,23 @@ class PionniersCalendrier {
       this._chipBtns[key] = b;
       box.appendChild(b);
     }
+    this._buildLegend(box);
+  }
+
+  /** Légende non cliquable, à la suite des filtres de section. */
+  _buildLegend(box) {
+    const items = [`<span class="legend-item"><span class="dot dot-cancelled"></span>Annulé</span>`];
+    if (this.hasSpeciaux) {
+      items.push(`<span class="legend-item"><span class="dot dot-vac"></span>Vacances scolaires</span>`);
+      items.push(`<span class="legend-item"><span class="dot dot-ferie"></span>Jour férié</span>`);
+    }
+    if (this.scope === "private") {
+      items.push(`<span class="legend-item"><span class="dot dot-priv"></span>Événement privé</span>`);
+    }
+    const wrap = document.createElement("span");
+    wrap.className = "legend";
+    wrap.innerHTML = `<span class="legend-sep" aria-hidden="true"></span>` + items.join("");
+    box.appendChild(wrap);
   }
 
   _syncFilters() {
@@ -297,10 +499,11 @@ class PionniersCalendrier {
   _renderNextCard() {
     const todayIso = this._isoOf(this.today);
     // aujourd'hui : ne proposer que ce qui n'est pas déjà passé (les événements
-    // sans heure restent affichés — impossible de savoir s'ils sont finis)
+    // sans heure restent affichés : impossible de savoir s'ils sont finis)
     const now = new Date();
     const nowHM = String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
-    const upcoming = this._shown().filter(e =>
+    // une séance annulée n'est plus « la prochaine »
+    const upcoming = this._shown().filter(e => !e.cancelled).filter(e =>
         e.date > todayIso || (e.date === todayIso && (!e.debut || e.debut >= nowHM)))
       .sort((a, b) => (a.date + (a.debut || "")).localeCompare(b.date + (b.debut || "")));
     const isTrain = e => /entra|séance|seance|stage|camp|combine/i.test(e.type || "") || /entr\./i.test(e.titre || "");
@@ -425,7 +628,7 @@ class PionniersCalendrier {
     const first = new Date(y, mo, 1);
     const start = new Date(y, mo, 1 - ((first.getDay()+6)%7));
     const map = this._evByDate();
-    // Nombre exact de lignes (4, 5 ou 6 selon le mois) — pas de ligne vide inutile
+    // Nombre exact de lignes (4, 5 ou 6 selon le mois) : pas de ligne vide inutile
     const offset = (first.getDay()+6)%7;
     const daysInMonth = new Date(y, mo+1, 0).getDate();
     const totalCells = Math.ceil((offset + daysInMonth) / 7) * 7;
@@ -444,7 +647,9 @@ class PionniersCalendrier {
       const d = new Date(start); d.setDate(start.getDate() + i);
       const iso = this._isoOf(d), out = d.getMonth() !== mo, isT = d.getTime() === this.today.getTime();
       const evs = map[iso] || [];
+      const sp = this._spec(iso);
       let inner = `<span class="daynum">${String(d.getDate()).padStart(2, "0")}</span>`;
+      if (sp && !out) inner += this._specTags(sp);
       if (evs.length) {
         const cap = this._evCap === 0 ? 0 : (this._evCap || 3);
         let list = evs.slice(0, cap).map(e => this._chip(e)).join("");
@@ -459,7 +664,9 @@ class PionniersCalendrier {
       }
       const isEmpty = !evs.length && !out && !isT;
       const isPast = d.getTime() < this.today.getTime() && !isT;
-      cells += `<div class="cell${out?" out":""}${isT?" today":""}${isEmpty?" cell-empty":""}${isPast?" cell-past":""}">${inner}</div>`;
+      const spCls = out ? "" : this._specCls(sp);
+      const spTtl = out ? "" : this._specTitle(sp);
+      cells += `<div class="cell${out?" out":""}${isT?" today":""}${isEmpty?" cell-empty":""}${isPast?" cell-past":""}${spCls}"${spTtl?` title="${this._esc(spTtl)}"`:""}>${inner}</div>`;
     }
     return `<div class="cal-grid">${cells}</div>`;
   }
@@ -472,11 +679,14 @@ class PionniersCalendrier {
       const iso = this._isoOf(d), isT = d.getTime() === this.today.getTime();
       const evs = this._shown().filter(e => e.date === iso);
       const isPast = d.getTime() < this.today.getTime() && !isT;
-      html += `<div class="week-col${isPast ? " week-past" : ""}">
+      const sp = this._spec(iso);
+      const spTtl = this._specTitle(sp);
+      html += `<div class="week-col${isPast ? " week-past" : ""}${this._specCls(sp)}"${spTtl?` title="${this._esc(spTtl)}"`:""}>
         <div class="week-head${isT ? " today-col" : ""}">
           <span class="week-wd">${this.WD[i]}</span>
           <span class="week-num${isT ? " today-num" : ""}">${d.getDate()}</span>
           <span class="week-mo">${this.MONTHS[d.getMonth()].toLowerCase()}</span>
+          ${sp ? this._weekSpecTag(sp) : ""}
         </div>
         <div class="week-evs">`;
       if (!evs.length) html += `<span class="week-empty">${this.mobile ? "Rien de prévu" : "·"}</span>`;
@@ -506,14 +716,15 @@ class PionniersCalendrier {
         <div class="agenda-items">`;
       byDay[iso].forEach(e => {
         const s = this.SECTIONS[e.section];
-        const time = e.debut ? (e.fin ? `${e.debut}–${e.fin}` : e.debut) : "—";
+        const time = e.debut ? (e.fin ? `${e.debut}–${e.fin}` : e.debut) : "-";
         const hav = e.domicile === "oui" ? `<span class="a-tag badge-dom">Domicile</span>`
                   : e.domicile === "non" ? `<span class="a-tag badge-ext">Extérieur</span>` : "";
-        html += `<div class="arow" data-id="${this._idOf(e)}">
-          <span class="bar" style="background:${s.hex}"></span>
+        const priv = this._isPriv(e) ? `<span class="a-tag badge-priv">Privé</span>` : "";
+        html += `<div class="arow${e.cancelled?" ev-cancelled":""}" data-id="${this._idOf(e)}">
+          <span class="bar" style="background:${this._evHex(e)}"></span>
           <span class="a-time">${time}</span>
           <div class="a-body">
-            <div class="a-title">${this._esc(e.titre)}${hav}</div>
+            <div class="a-title">${this._esc(e.titre)}${hav}${priv}</div>
             <div class="a-meta">${s.label}${e.lieu ? " · "+this._esc(e.lieu) : ""}${e.adresse ? ", "+this._esc(e.adresse) : ""}</div>
           </div>
         </div>`;
@@ -523,14 +734,25 @@ class PionniersCalendrier {
     return html + "</div>";
   }
 
+  /** Gris commun à toutes les sections : le code visuel de l'annulation. */
+  _evHex(e) { return e.cancelled ? "#8a8f98" : this.SECTIONS[e.section].hex; }
+
+  _isPriv(e) { return e.visibilite === "prive"; }
+
   _chip(e) {
-    const s = this.SECTIONS[e.section];
-    return `<button class="ev" style="--ev-bg:${s.hex}" data-id="${this._idOf(e)}"><span class="ev-dot" style="background:${s.hex}"></span><span class="ev-scroll-track"><span class="ev-title">${this._esc(e.titre)}</span></span>${e.debut?`<span class="ev-time">${e.debut}</span>`:""}</button>`;
+    const hex = this._evHex(e);
+    const priv = this._isPriv(e);
+    return `<button class="ev${e.cancelled?" ev-cancelled":""}${priv?" ev-priv-on":""}" style="--ev-bg:${hex}" data-id="${this._idOf(e)}"><span class="ev-dot" style="background:${hex}"></span><span class="ev-scroll-track"><span class="ev-title">${this._esc(e.titre)}</span></span>${e.debut?`<span class="ev-time">${e.debut}</span>`:""}${priv?`<span class="ev-priv">Privé</span>`:""}</button>`;
   }
 
   _weekChip(e) {
     const s = this.SECTIONS[e.section];
-    return `<button class="week-ev${s.light?" gold":""}" style="background:${s.hex};--ev-bg:${s.hex}" data-id="${this._idOf(e)}">${e.debut?`<div class="ev-time">${e.debut}${e.fin?"–"+e.fin:""}</div>`:""}<span class="ev-scroll-track"><div class="ev-title">${this._esc(e.titre)}</div></span></button>`;
+    const hex = this._evHex(e);
+    // fond gris forcé quand c'est annulé : plus de couleur de section, donc
+    // plus de variante « gold » (texte sombre) non plus
+    const gold = s.light && !e.cancelled;
+    const priv = this._isPriv(e);
+    return `<button class="week-ev${gold?" gold":""}${e.cancelled?" ev-cancelled":""}${priv?" ev-priv-on":""}" style="background:${hex};--ev-bg:${hex}" data-id="${this._idOf(e)}">${e.debut?`<div class="ev-time">${e.debut}${e.fin?"–"+e.fin:""}</div>`:""}<span class="ev-scroll-track"><div class="ev-title">${this._esc(e.titre)}</div></span>${priv?`<span class="ev-priv">Privé</span>`:""}</button>`;
   }
 
   _bindEvBtns() {
@@ -553,6 +775,16 @@ class PionniersCalendrier {
     document.getElementById("mSec").textContent = s.label;
     document.getElementById("mTitle").textContent = e.titre;
 
+    // pastilles d'état (annulé / privé) sous le nom de section
+    const badges = document.getElementById("mBadges");
+    if (badges) {
+      let b = "";
+      if (e.cancelled)     b += `<span class="badge-cancel">ANNULÉ</span>`;
+      if (this._isPriv(e)) b += `<span class="badge-priv-modal">PRIVÉ</span>`;
+      badges.innerHTML = b;
+      badges.style.display = b ? "" : "none";
+    }
+
     const d = new Date(e.date + "T00:00");
     const dateStr = d.toLocaleDateString("fr-FR", {weekday:"long",day:"numeric",month:"long",year:"numeric"});
     const time = e.debut ? (e.fin ? `${e.debut} – ${e.fin}` : `À partir de ${e.debut}`) : "Horaire à préciser";
@@ -560,17 +792,23 @@ class PionniersCalendrier {
               : e.domicile === "non" ? `<span class="badge-hav badge-ext">Extérieur</span>` : "";
 
     let body = "";
-    const ico = f => `<img src="assets/emojis/${f}.webp" alt="">`;
+    const ico = f => `<img src="${this.assetBase}emojis/${f}.webp" alt="">`;
+    const cancelNote = e.cancelled ? (e.motif || "Séance annulée") : "";
     body += this._row(ico("calendrier"), "Date",    this._cap(dateStr));
     body += this._row(ico("horloge"),   "Horaire", time);
+    if (e.cancelled)         body += this._row(ico("dossier"), "Motif", this._esc(cancelNote));
     if (e.lieu || e.adresse) body += this._row(ico("drapeau"), "Lieu", this._esc([e.lieu, e.adresse].filter(Boolean).join(", ")));
     if (e.type || hav)       body += this._row(ico("ballon"), "Type", `${this._esc(e.type)} ${hav}`);
     if (e.arbitres)          body += this._row(ico("arbitre"), "Arbitres", this._esc(e.arbitres));
-    if (e.notes)             body += this._row(ico("dossier"), "Infos", this._esc(e.notes));
+    // la note générée pour une annulation est déjà affichée en « Motif »
+    if (e.notes && e.notes !== cancelNote) body += this._row(ico("dossier"), "Infos", this._esc(e.notes));
     document.getElementById("mBody").innerHTML = body;
 
-    document.getElementById("mGcal").href = this._gcalURL(e);
-    document.getElementById("mIcs").onclick = () => this._downloadICS(e);
+    const gcalBtn = document.getElementById("mGcal");
+    const icsBtn  = document.getElementById("mIcs");
+    // rien à ajouter dans son agenda quand la séance est annulée
+    if (gcalBtn) { gcalBtn.href = this._gcalURL(e); gcalBtn.style.display = e.cancelled ? "none" : ""; }
+    if (icsBtn)  { icsBtn.onclick = () => this._downloadICS(e); icsBtn.style.display = e.cancelled ? "none" : ""; }
 
     const sh = document.getElementById("mShare");
     if (sh) sh.onclick = () => {
@@ -630,7 +868,7 @@ class PionniersCalendrier {
     const p = new URLSearchParams({
       action:"TEMPLATE", text:e.titre,
       dates:`${this._dt(e,"s")}/${this._dt(e,"e")}`,
-      details:[e.type, e.notes].filter(Boolean).join(" — "),
+      details:[e.type, e.notes].filter(Boolean).join(" : "),
       location:[e.lieu, e.adresse].filter(Boolean).join(", "),
     });
     return "https://calendar.google.com/calendar/render?" + p.toString();
@@ -725,11 +963,18 @@ class PionniersCalendrier {
         let chips = '';
         evs.forEach(e => {
           const s = this.SECTIONS[e.section];
+          const hex = this._evHex(e);
+          const gold = s.light && !e.cancelled;
           const short = this._shortLabel(e);
-          chips += `<button class="schip${s.light?' gold':''}" style="background:${s.hex};--ev-bg:${s.hex}" data-id="${this._idOf(e)}" title="${this._esc(e.titre)}">${this._esc(short)}</button>`;
+          const ttl = this._esc(e.titre) + (e.cancelled ? ' (annulé)' : '');
+          chips += `<button class="schip${gold?' gold':''}${e.cancelled?' ev-cancelled':''}${this._isPriv(e)?' ev-priv-on':''}" style="background:${hex};--ev-bg:${hex}" data-id="${this._idOf(e)}" title="${ttl}">${this._esc(short)}</button>`;
+          if (this._isPriv(e)) chips += `<span class="schip schip-priv" title="Événement privé">Privé</span>`;
         });
-        const rowCls = ['sday', isWE?'sday-we':'', isT?'sday-today':'', isPast?'sday-past':''].filter(Boolean).join(' ');
-        html += `<div class="${rowCls}">
+        const sp = this._spec(iso);
+        const spTtl = this._specTitle(sp);
+        const rowCls = ['sday', isWE?'sday-we':'', isT?'sday-today':'', isPast?'sday-past':'',
+                        this._specCls(sp).trim()].filter(Boolean).join(' ');
+        html += `<div class="${rowCls}"${spTtl?` title="${this._esc(spTtl)}"`:''}>
           ${weekBadge}
           <span class="snum">${day}</span>
           <span class="sletter">${DL[dow]}</span>

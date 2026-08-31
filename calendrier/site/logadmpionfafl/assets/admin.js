@@ -1,4 +1,4 @@
-/* Admin du calendrier Pionniers — logique commune desktop/mobile.
+/* Admin du calendrier Pionniers : logique commune desktop/mobile.
    Reconstruction fidèle du handoff designer, avec :
    - stockage via l'API (../api/*.php) au lieu du localStorage,
    - authentification par session serveur (le mot de passe n'est plus côté client),
@@ -23,6 +23,7 @@ class PionniersAdmin {
     this.currentRecForDates = null; // id de récurrence
     this.currentExDate = null;
     this.currentExState = null;     // exception existante sur la date ouverte
+    this.role = null;               // 'admin' ou clé de section, null = déconnecté
 
     this.SECTIONS = {
       footus:    {label:'Foot US Senior', hex:'#c8383f'},
@@ -63,9 +64,53 @@ class PionniersAdmin {
   async _checkSession() {
     try {
       const s = await this._api("auth.php");
-      if (s && s.admin) { await this._showAdmin(); return; }
+      // Connecté = un rôle est attribué (admin OU responsable de section)
+      if (s && s.role) { this.role = s.role; await this._showAdmin(); return; }
     } catch (e) { /* hors ligne : l'écran de login l'indiquera à la tentative */ }
     this._showLogin();
+  }
+
+  /* ---- RÔLES ---- */
+  _isAdmin() { return this.role === 'admin'; }
+
+  /** Un rôle de section ne pilote que sa propre section. */
+  _canEdit(section) { return this._isAdmin() || (!!this.role && this.role === section); }
+
+  /** Section proposée par défaut dans les formulaires. */
+  _defaultSection() {
+    return this._isAdmin() || !this.SECTIONS[this.role] ? 'footus' : this.role;
+  }
+
+  /** Verrouille les selects de section quand le rôle est une section. */
+  _lockSections() {
+    const locked = !this._isAdmin() && !!this.SECTIONS[this.role];
+    ['eSection','rSection','erSection'].forEach(id => {
+      const sel = document.getElementById(id);
+      if (!sel) return;
+      if (locked) { sel.value = this.role; sel.disabled = true; sel.classList.add('is-locked'); }
+      else { sel.disabled = false; sel.classList.remove('is-locked'); }
+    });
+  }
+
+  /** Applique le rôle à l'interface : badge, verrous, outils réservés à l'admin. */
+  _applyRole() {
+    const admin = this._isAdmin();
+    const badge = document.getElementById('roleBadge');
+    const val   = document.getElementById('roleBadgeVal');
+    if (badge && val) {
+      const label = admin ? 'Administrateur' : ((this.SECTIONS[this.role]||{}).label || this.role || '');
+      val.textContent = label;
+      badge.title = 'Connecté : ' + label;
+      badge.style.display = this.role ? '' : 'none';
+    }
+    this._lockSections();
+    // Import CSV en masse et purge totale : admin uniquement (le serveur refuse de toute façon)
+    const impLbl = document.getElementById('csvImportLabel');
+    if (impLbl) impLbl.style.display = admin ? '' : 'none';
+    const impInp = document.getElementById('csvImport');
+    if (impInp) impInp.disabled = !admin;
+    const wipe = document.getElementById('wipeEvBtn');
+    if (wipe) wipe.style.display = admin ? '' : 'none';
   }
 
   _bindAll() {
@@ -117,10 +162,12 @@ class PionniersAdmin {
     // Exception modal
     document.getElementById('exCancel').onclick = () => this._applyException('cancel');
     document.getElementById('exMove').onclick   = () => this._applyException('move');
+    const exRemove = document.getElementById('exRemove');
+    if (exRemove) exRemove.onclick = () => this._askRemoveSeance();
     const exRestore = document.getElementById('exRestore');
     if (exRestore) exRestore.onclick = () => this._restoreException();
-    document.getElementById('exClose').onclick  = () => document.getElementById('exOverlay').classList.remove('open');
-    document.getElementById('exOverlay').onclick = e => { if(e.target.id==='exOverlay') document.getElementById('exOverlay').classList.remove('open'); };
+    document.getElementById('exClose').onclick  = () => this._closeException();
+    document.getElementById('exOverlay').onclick = e => { if(e.target.id==='exOverlay') this._closeException(); };
 
     // Dates modal
     document.getElementById('datesClose').onclick = () => document.getElementById('datesOverlay').classList.remove('open');
@@ -132,7 +179,9 @@ class PionniersAdmin {
     if (!val) return;
     const err = document.getElementById('loginErr');
     try {
-      await this._api('auth.php', 'POST', { password: val });
+      const s = await this._api('auth.php', 'POST', { password: val });
+      // le mot de passe saisi détermine le rôle (admin ou section)
+      this.role = (s && s.role) || null;
       err.classList.remove('show');
       document.getElementById('pwInput').value = '';
       await this._showAdmin();
@@ -145,6 +194,7 @@ class PionniersAdmin {
   }
 
   _showLogin() {
+    this.role = null;
     document.getElementById('loginScreen').style.display = '';
     document.getElementById('adminWrap').style.display = 'none';
   }
@@ -152,6 +202,7 @@ class PionniersAdmin {
   async _showAdmin() {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('adminWrap').style.display = 'flex';
+    this._applyRole();
     await this._refresh();
   }
 
@@ -166,7 +217,7 @@ class PionniersAdmin {
         this._toast('Chargement impossible : ' + e.message, 'err');
         // Un échec de chargement ne doit JAMAIS ressembler à une liste vide
         const msg = '<div class="empty-msg">⚠️ Impossible de charger les données (' + this._esc(e.message) +
-          '). Tes récurrences et événements sont intacts sur le serveur — recharge la page.</div>';
+          '). Tes récurrences et événements sont intacts sur le serveur : recharge la page.</div>';
         const rl = document.getElementById('recList');
         const el = document.getElementById('evList');
         if (rl) rl.innerHTML = msg;
@@ -199,7 +250,21 @@ class PionniersAdmin {
       lieu:    g(prefix+'Lieu').trim(),
       adresse: g(prefix+'Adresse').trim(),
       type:    g(prefix+'Type'),
+      visibilite: g(prefix+'Visibilite') || 'public',
     };
+  }
+
+  /** Pré-remplit un select de visibilité sans jamais perdre la valeur stockée. */
+  _fillVisibilite(id, val) {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    const v = val || 'public';
+    if (![...sel.options].some(o => o.value === v)) {
+      const o = document.createElement('option');
+      o.value = o.textContent = v;
+      sel.appendChild(o);
+    }
+    sel.value = v;
   }
 
   _validateRec(r) {
@@ -224,6 +289,7 @@ class PionniersAdmin {
       const el = document.getElementById(id); if (el) el.value = '';
     });
     document.querySelectorAll('#daysRow .day-cb').forEach(c=>c.checked=false);
+    this._fillVisibilite('rVisibilite', 'public');
   }
 
   _renderRecList() {
@@ -236,15 +302,18 @@ class PionniersAdmin {
       const daysStr = (r.days||[]).slice().sort((a,b)=>a-b).map(d=>this.DAYS_FR[d]).join(', ');
       const period = `${this._esc(r.from)} → ${this._esc(r.to)}`;
       const time   = r.debut ? (r.fin ? `${this._esc(r.debut)}–${this._esc(r.fin)}` : this._esc(r.debut)) : '';
-      return `<div class="rec-item">
-        <span class="rec-dot" style="background:${s.hex}"></span>
-        <div class="rec-info">
-          <div class="rec-title">${this._esc(r.titre)}</div>
-          <div class="rec-meta">${daysStr} · ${time} · ${period}</div>
-        </div>
+      const priv   = r.visibilite === 'prive' ? '<span class="priv-badge">Privé</span>' : '';
+      const can    = this._canEdit(r.section);
+      const actions = can ? `
         <button class="btn btn-ghost btn-sm" data-dates-rec="${this._esc(r.id)}" title="Voir les dates"><img src="../assets/emojis/calendrier.webp" alt=""></button>
         <button class="btn btn-ghost btn-sm" data-edit-rec="${this._esc(r.id)}" title="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
-        <button class="btn btn-danger btn-sm" data-del-rec="${this._esc(r.id)}" data-title="${this._esc(r.titre)}" title="Supprimer">✕</button>
+        <button class="btn btn-danger btn-sm" data-del-rec="${this._esc(r.id)}" data-title="${this._esc(r.titre)}" title="Supprimer">✕</button>` : '';
+      return `<div class="rec-item${can ? '' : ' is-readonly'}">
+        <span class="rec-dot" style="background:${s.hex}"></span>
+        <div class="rec-info">
+          <div class="rec-title">${this._esc(r.titre)}${priv}</div>
+          <div class="rec-meta">${daysStr} · ${time} · ${period}</div>
+        </div>${actions}
       </div>`;
     }).join('');
     container.querySelectorAll('[data-dates-rec]').forEach(b =>
@@ -264,7 +333,10 @@ class PionniersAdmin {
     const r = this._recById(id); if(!r) return;
     this.editRecId = id;
     // Section et Type sont désormais éditables (impossibles à corriger avant)
-    const sec = document.getElementById('erSection'); if (sec) sec.value = r.section || 'footus';
+    const sec = document.getElementById('erSection');
+    if (sec) sec.value = this._isAdmin() ? (r.section || 'footus') : this._defaultSection();
+    this._lockSections();
+    this._fillVisibilite('erVisibilite', r.visibilite);
     const typ = document.getElementById('erType');
     if (typ) {
       // le type n'est jamais perdu : s'il manque au select, on l'y ajoute
@@ -311,7 +383,7 @@ class PionniersAdmin {
     const exMap = {};
     exs.forEach(x => exMap[x.original_date] = x);
     this._exMap = exMap;
-    document.getElementById('datesTitle').textContent = r.titre + ' — dates';
+    document.getElementById('datesTitle').textContent = r.titre + ' : dates';
     const start = new Date(r.from+'T12:00'), end = new Date(r.to+'T12:00');
     const dates = [];
     const d = new Date(start);
@@ -328,9 +400,11 @@ class PionniersAdmin {
       const label = d2.toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'short'});
       let cls = 'btn btn-ghost btn-sm';
       let badge = '';
-      if(ex && ex.kind === 'cancelled') { cls='btn btn-danger btn-sm'; badge=' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg>'; }
-      else if(ex && ex.kind === 'moved') { cls='btn btn-gold btn-sm'; badge=' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>'; }
-      return `<button class="${cls}" data-ex-date="${iso}" style="font-size:11px">${label}${badge}</button>`;
+      let title = 'Gérer cette date';
+      if(ex && ex.kind === 'cancelled') { cls='btn btn-danger btn-sm'; title='Annulée (visible, grisée)'; badge=' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg>'; }
+      else if(ex && ex.kind === 'moved') { cls='btn btn-gold btn-sm'; title='Reportée'; badge=' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>'; }
+      else if(ex && ex.kind === 'removed') { cls='btn btn-dark btn-sm date-removed'; title='Supprimée (masquée du calendrier)'; badge=' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 5.1A9.5 9.5 0 0 1 12 5c5 0 9 4.5 9 7a11 11 0 0 1-2.3 3.4M6.3 6.4C3.9 8 2 10.4 2 12c0 2.5 4 7 10 7a10 10 0 0 0 4.1-.9"/></svg>'; }
+      return `<button class="${cls}" data-ex-date="${iso}" title="${title}" style="font-size:11px">${label}${badge}</button>`;
     }).join('');
     container.querySelectorAll('[data-ex-date]').forEach(b =>
       b.onclick = () => this._openException(id, b.getAttribute('data-ex-date'))
@@ -346,11 +420,21 @@ class PionniersAdmin {
     const d = new Date(date+'T12:00');
     const label = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
     document.getElementById('exTitle').textContent = r.titre;
-    const desc = this.currentExState
-      ? (this.currentExState.kind === 'cancelled'
-          ? `Séance du ${label} : ANNULÉE` : `Séance du ${label} : reportée au ${this.currentExState.new_date}`)
-      : `Exception pour le ${label}`;
+    let desc = `Exception pour le ${label}`;
+    if (this.currentExState) {
+      const k = this.currentExState.kind;
+      if (k === 'cancelled') {
+        desc = `Séance du ${label} : ANNULÉE (visible, grisée)`;
+      } else if (k === 'removed') {
+        desc = `Séance du ${label} : SUPPRIMÉE (masquée du calendrier)`;
+      } else {
+        desc = `Séance du ${label} : reportée au ${this.currentExState.new_date}`;
+      }
+    }
     document.getElementById('exDesc').textContent = desc;
+    const motif = document.getElementById('exMotif');
+    if (motif) motif.value = this.currentExState?.motif || '';
+    this._resetExRemove();
     document.getElementById('exNewDate').value  = this.currentExState?.new_date || date;
     document.getElementById('exNewDebut').value = this.currentExState?.new_debut || r.debut || '';
     const exFin = document.getElementById('exNewFin');
@@ -361,12 +445,48 @@ class PionniersAdmin {
     document.getElementById('exOverlay').classList.add('open');
   }
 
+  /** Suppression d'une séance : confirmation en deux clics sur le bouton. */
+  _askRemoveSeance() {
+    const btn = document.getElementById('exRemove');
+    if (!btn) return;
+    if (btn.dataset.confirm === '1') { this._resetExRemove(); this._applyException('remove'); return; }
+    btn.dataset.confirm = '1';
+    btn.classList.add('is-confirm');
+    btn.textContent = 'Confirmer la suppression';
+    const hint = document.getElementById('exRemoveHint');
+    if (hint) hint.style.display = '';
+    clearTimeout(this._exRemoveTimer);
+    this._exRemoveTimer = setTimeout(() => this._resetExRemove(), 6000);
+  }
+
+  _resetExRemove() {
+    clearTimeout(this._exRemoveTimer);
+    const btn = document.getElementById('exRemove');
+    if (btn) {
+      btn.dataset.confirm = '';
+      btn.classList.remove('is-confirm');
+      btn.textContent = 'Supprimer cette séance';
+    }
+    const hint = document.getElementById('exRemoveHint');
+    if (hint) hint.style.display = 'none';
+  }
+
+  _closeException() {
+    this._resetExRemove();
+    document.getElementById('exOverlay').classList.remove('open');
+  }
+
   async _applyException(type) {
     if(this.currentRecForDates === null || !this.currentExDate) return;
     const r = this._recById(this.currentRecForDates); if(!r) return;
     const body = { recurrence_id: r.id, original_date: this.currentExDate };
     if(type === 'cancel') {
       body.kind = 'cancelled';
+      const m = document.getElementById('exMotif');
+      const motif = m ? m.value.trim().slice(0, 140) : '';
+      if (motif) body.motif = motif;
+    } else if(type === 'remove') {
+      body.kind = 'removed';
     } else {
       const newDate  = document.getElementById('exNewDate').value;
       const newDebut = document.getElementById('exNewDebut').value;
@@ -385,8 +505,9 @@ class PionniersAdmin {
     }
     try { await this._api('exceptions.php', 'PUT', body); }
     catch (e) { if (e.message !== 'auth') this._toast(e.message, 'err'); return; }
-    this._toast(type === 'cancel' ? 'Entraînement annulé ✓' : 'Entraînement reporté ✓','ok');
-    document.getElementById('exOverlay').classList.remove('open');
+    const msgs = { cancel: 'Entraînement annulé ✓', remove: 'Séance supprimée ✓', move: 'Entraînement reporté ✓' };
+    this._toast(msgs[type] || 'Exception enregistrée ✓','ok');
+    this._closeException();
     await this._refresh();
     if(document.getElementById('datesOverlay').classList.contains('open')) {
       this._openDates(this.currentRecForDates);
@@ -402,7 +523,7 @@ class PionniersAdmin {
       });
     } catch (e) { if (e.message !== 'auth') this._toast(e.message, 'err'); return; }
     this._toast('Séance rétablie ✓','ok');
-    document.getElementById('exOverlay').classList.remove('open');
+    this._closeException();
     await this._refresh();
     if(document.getElementById('datesOverlay').classList.contains('open')) {
       this._openDates(this.currentRecForDates);
@@ -425,6 +546,9 @@ class PionniersAdmin {
       const o = {};
       headers.forEach((h,i) => o[h] = (vals[i]||'').trim());
       if (o.title && !o.titre) o.titre = o.title;
+      // colonne visibilite optionnelle : tout ce qui n'est pas « prive » redevient public
+      const vis = (o.visibilite||'').toLowerCase();
+      o.visibilite = (vis === 'prive' || vis === 'privé') ? 'prive' : 'public';
       return o;
     });
     const recurring = [];
@@ -435,7 +559,7 @@ class PionniersAdmin {
       else candidates.push(o);
     });
     if(!candidates.length) {
-      this._toast(`Aucun événement ponctuel à importer (${recurring.length} lignes d'entraînements/séances ignorées — gère-les via les récurrences)`, 'err');
+      this._toast(`Aucun événement ponctuel à importer (${recurring.length} lignes d'entraînements/séances ignorées : gère-les via les récurrences)`, 'err');
       return;
     }
     let rep;
@@ -486,6 +610,7 @@ class PionniersAdmin {
       debut: g('eDebut'), fin: g('eFin'), lieu: g('eLieu').trim(),
       adresse: g('eAdresse').trim(), type: g('eType'),
       domicile: g('eDomicile'), notes: g('eNotes').trim(), arbitres: g('eArbitres').trim(),
+      visibilite: g('eVisibilite') || 'public',
     };
     if(!ev.titre||!ev.date) { this._toast('Titre et date obligatoires','err'); return; }
     if(ev.debut && ev.fin && ev.fin <= ev.debut) { this._toast('L\'heure de fin doit être après le début','err'); return; }
@@ -511,15 +636,18 @@ class PionniersAdmin {
       const el=document.getElementById(id); if(el) el.value='';
     });
     // défauts cohérents avec le premier chargement du formulaire
-    document.getElementById('eSection').value='footus';
+    document.getElementById('eSection').value=this._defaultSection();
     document.getElementById('eType').value='Tournoi';
     document.getElementById('eDomicile').value='';
+    this._fillVisibilite('eVisibilite', 'public');
   }
 
   _startEvEdit(id) {
     const ev = this.evs.find(e=>e.id===id); if(!ev) return;
     this.editEvId = id;
-    document.getElementById('eSection').value  = ev.section||'footus';
+    document.getElementById('eSection').value  = this._isAdmin() ? (ev.section||'footus') : this._defaultSection();
+    this._lockSections();
+    this._fillVisibilite('eVisibilite', ev.visibilite);
     document.getElementById('eTitre').value    = ev.titre||'';
     document.getElementById('eDate').value     = ev.date||'';
     document.getElementById('eDebut').value    = ev.debut||'';
@@ -560,16 +688,18 @@ class PionniersAdmin {
     container.innerHTML = list.map(ev => {
       const s = this.SECTIONS[ev.section]||{hex:'#555'};
       const d = ev.date ? new Date(ev.date+'T12:00') : null;
-      const dateStr = d ? d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+      const dateStr = d ? d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'}) : '-';
       const time = ev.debut ? (ev.fin?`${this._esc(ev.debut)}–${this._esc(ev.fin)}`:this._esc(ev.debut)) : '';
+      const priv = ev.visibilite === 'prive' ? '<span class="priv-badge">Privé</span>' : '';
+      const actions = this._canEdit(ev.section) ? `
+          <button class="btn btn-ghost btn-sm" data-edit-ev="${this._esc(ev.id)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+          <button class="btn btn-danger btn-sm" data-del-ev="${this._esc(ev.id)}" data-title="${this._esc(ev.titre)}">✕</button>` : '';
       return `<div class="ev-row">
         <span class="ev-dot" style="background:${s.hex}"></span>
         <span class="ev-date">${dateStr}</span>
-        <span class="ev-title" title="${this._esc(ev.titre)}">${this._esc(ev.titre)}</span>
+        <span class="ev-title" title="${this._esc(ev.titre)}">${this._esc(ev.titre)}${priv}</span>
         <span class="ev-time">${time}</span>
-        <div class="ev-actions">
-          <button class="btn btn-ghost btn-sm" data-edit-ev="${this._esc(ev.id)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
-          <button class="btn btn-danger btn-sm" data-del-ev="${this._esc(ev.id)}" data-title="${this._esc(ev.titre)}">✕</button>
+        <div class="ev-actions">${actions}
         </div>
       </div>`;
     }).join('');
@@ -631,7 +761,7 @@ class PionniersAdmin {
     try { all = await this._api('events.php'); }
     catch (e) { if (e.message !== 'auth') this._toast(e.message, 'err'); return; }
     if(!all.length){ this._toast('Aucun événement','err'); return; }
-    const headers=['section','titre','date','debut','fin','lieu','adresse','type','domicile','notes','arbitres'];
+    const headers=['section','titre','date','debut','fin','lieu','adresse','type','domicile','notes','arbitres','visibilite'];
     const esc = v=>`"${String(v||'').replace(/"/g,'""')}"`;
     // BOM UTF-8 (accents corrects dans Excel) + CRLF
     const csv='﻿'+[headers.join(','),...all.map(e=>headers.map(h=>esc(e[h])).join(','))].join('\r\n');
@@ -641,7 +771,7 @@ class PionniersAdmin {
     a.download='Pionniers_Calendrier.csv';
     a.click();
     setTimeout(()=>URL.revokeObjectURL(url), 5000);
-    this._toast(`CSV exporté — ${all.length} événements ✓`,'ok');
+    this._toast(`CSV exporté : ${all.length} événements ✓`,'ok');
   }
 
   /* ---- UTILS ---- */

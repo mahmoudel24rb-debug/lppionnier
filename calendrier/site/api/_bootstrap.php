@@ -12,8 +12,9 @@ declare(strict_types=1);
 const PNR_SECTIONS = ['footus', 'flag', 'footus_jr', 'flag_jr', 'ecole', 'club'];
 const PNR_MAX_RECURRENCE_DAYS = 731; // amplitude max d'une récurrence : 2 ans
 
-// ── Config (hash du mot de passe admin) ─────────────────────────────────────
-// config.php définit PNR_ADMIN_HASH (password_hash). Voir config.php.example.
+// ── Config (hashs des mots de passe) ────────────────────────────────────────
+// config.php définit PNR_ADMIN_HASH et PNR_SECTION_HASHES (password_hash).
+// Voir config.php.example.
 $configFile = __DIR__ . '/config.php';
 if (is_file($configFile)) {
     require $configFile;
@@ -49,6 +50,35 @@ function pnr_require_admin(): void
     }
 }
 
+/**
+ * Rôle de la session : 'admin', une section de PNR_SECTIONS, ou null.
+ * Un responsable de section pose $_SESSION['pnr_section'] (jamais pnr_admin).
+ */
+function pnr_role(): ?string
+{
+    pnr_session_start();
+    if (($_SESSION['pnr_admin'] ?? false) === true) {
+        return 'admin';
+    }
+    $section = (string)($_SESSION['pnr_section'] ?? '');
+    return in_array($section, PNR_SECTIONS, true) ? $section : null;
+}
+
+/** Toute session identifiée (admin ou responsable de section). */
+function pnr_require_member(): void
+{
+    if (pnr_role() === null) {
+        pnr_json(['ok' => false, 'error' => 'auth'], 401);
+    }
+}
+
+/** Droit d'écriture sur une section donnée. */
+function pnr_can_edit_section(string $section): bool
+{
+    $role = pnr_role();
+    return $role === 'admin' || ($role !== null && $role === $section);
+}
+
 // ── Base ───────────────────────────────────────────────────────────────────
 function pnr_data_dir(): string
 {
@@ -77,12 +107,34 @@ function pnr_db(): PDO
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->exec('PRAGMA foreign_keys = ON');
     $pdo->exec('PRAGMA journal_mode = WAL');
+    pnr_schema($pdo);
+    return $pdo;
+}
+
+/** La colonne existe-t-elle dans la table ? (PRAGMA table_info) */
+function pnr_has_column(PDO $pdo, string $table, string $column): bool
+{
+    foreach ($pdo->query('PRAGMA table_info(' . $table . ')') as $c) {
+        if (($c['name'] ?? '') === $column) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Schéma de la base : tables de base (bases neuves) puis migrations versionnées
+ * via PRAGMA user_version. Idempotent, jamais destructif.
+ */
+function pnr_schema(PDO $pdo): void
+{
     $pdo->exec("CREATE TABLE IF NOT EXISTS recurrences (
         id TEXT PRIMARY KEY, section TEXT NOT NULL, titre TEXT NOT NULL,
         days TEXT NOT NULL, debut TEXT NOT NULL DEFAULT '', fin TEXT NOT NULL DEFAULT '',
         from_date TEXT NOT NULL, to_date TEXT NOT NULL,
         lieu TEXT NOT NULL DEFAULT '', adresse TEXT NOT NULL DEFAULT '',
         type TEXT NOT NULL DEFAULT 'Entraînement',
+        visibilite TEXT NOT NULL DEFAULT 'public',
         updated_at TEXT NOT NULL DEFAULT (datetime('now')))");
     $pdo->exec("CREATE TABLE IF NOT EXISTS single_events (
         id TEXT PRIMARY KEY, section TEXT NOT NULL, titre TEXT NOT NULL,
@@ -90,15 +142,65 @@ function pnr_db(): PDO
         lieu TEXT NOT NULL DEFAULT '', adresse TEXT NOT NULL DEFAULT '',
         type TEXT NOT NULL DEFAULT '', domicile TEXT NOT NULL DEFAULT '',
         notes TEXT NOT NULL DEFAULT '', arbitres TEXT NOT NULL DEFAULT '',
+        visibilite TEXT NOT NULL DEFAULT 'public',
         updated_at TEXT NOT NULL DEFAULT (datetime('now')))");
     $pdo->exec("CREATE TABLE IF NOT EXISTS recurrence_exceptions (
         recurrence_id TEXT NOT NULL REFERENCES recurrences(id) ON DELETE CASCADE,
         original_date TEXT NOT NULL,
-        kind TEXT NOT NULL CHECK (kind IN ('cancelled','moved')),
+        kind TEXT NOT NULL CHECK (kind IN ('cancelled','moved','removed')),
+        motif TEXT NOT NULL DEFAULT '',
         new_date TEXT, new_debut TEXT, new_fin TEXT, new_lieu TEXT,
         updated_at TEXT NOT NULL DEFAULT (datetime('now')),
         PRIMARY KEY (recurrence_id, original_date))");
-    return $pdo;
+
+    if ((int)$pdo->query('PRAGMA user_version')->fetchColumn() < 1) {
+        pnr_migrate_v1($pdo);
+    }
+}
+
+/**
+ * Migration 1 : visibilité (public/privé) sur les deux tables d'événements,
+ * et exceptions enrichies (kind 'removed' + motif d'annulation).
+ * SQLite ne sait pas modifier une contrainte CHECK : la table des exceptions
+ * est recréée puis rechargée à l'identique (motif vide sur l'existant).
+ */
+function pnr_migrate_v1(PDO $pdo): void
+{
+    // PRAGMA foreign_keys est sans effet dans une transaction : le couper avant.
+    $pdo->exec('PRAGMA foreign_keys = OFF');
+    $pdo->beginTransaction();
+    try {
+        foreach (['single_events', 'recurrences'] as $table) {
+            if (!pnr_has_column($pdo, $table, 'visibilite')) {
+                $pdo->exec("ALTER TABLE {$table} ADD COLUMN visibilite TEXT NOT NULL DEFAULT 'public'");
+            }
+        }
+        if (!pnr_has_column($pdo, 'recurrence_exceptions', 'motif')) {
+            $pdo->exec('ALTER TABLE recurrence_exceptions RENAME TO recurrence_exceptions_old');
+            $pdo->exec("CREATE TABLE recurrence_exceptions (
+                recurrence_id TEXT NOT NULL REFERENCES recurrences(id) ON DELETE CASCADE,
+                original_date TEXT NOT NULL,
+                kind TEXT NOT NULL CHECK (kind IN ('cancelled','moved','removed')),
+                motif TEXT NOT NULL DEFAULT '',
+                new_date TEXT, new_debut TEXT, new_fin TEXT, new_lieu TEXT,
+                updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+                PRIMARY KEY (recurrence_id, original_date))");
+            $pdo->exec("INSERT INTO recurrence_exceptions
+                (recurrence_id, original_date, kind, motif, new_date, new_debut, new_fin, new_lieu, updated_at)
+                SELECT recurrence_id, original_date, kind, '', new_date, new_debut, new_fin, new_lieu, updated_at
+                FROM recurrence_exceptions_old");
+            $pdo->exec('DROP TABLE recurrence_exceptions_old');
+        }
+        $pdo->exec('PRAGMA user_version = 1');
+        $pdo->commit();
+    } catch (Throwable $e) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        $pdo->exec('PRAGMA foreign_keys = ON');
+        throw $e;
+    }
+    $pdo->exec('PRAGMA foreign_keys = ON');
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -162,7 +264,9 @@ function pnr_validate_single(array $in): array
         'domicile' => strtolower(trim((string)($in['domicile'] ?? ''))),
         'notes'    => mb_substr(trim((string)($in['notes'] ?? '')), 0, 2000),
         'arbitres' => pnr_clean((string)($in['arbitres'] ?? '')),
+        'visibilite' => strtolower(trim((string)($in['visibilite'] ?? ''))),
     ];
+    if ($d['visibilite'] === '') $d['visibilite'] = 'public';
     if (!in_array($d['section'], PNR_SECTIONS, true)) $err[] = 'section';
     if ($d['titre'] === '')                            $err[] = 'titre';
     if (!pnr_is_date($d['date']))                      $err[] = 'date';
@@ -170,6 +274,7 @@ function pnr_validate_single(array $in): array
     if (!pnr_is_time_or_empty($d['fin']))              $err[] = 'fin';
     if ($d['debut'] !== '' && $d['fin'] !== '' && $d['fin'] <= $d['debut']) $err[] = 'fin<=debut';
     if (!in_array($d['domicile'], ['', 'oui', 'non'], true)) $err[] = 'domicile';
+    if (!in_array($d['visibilite'], ['public', 'prive'], true)) $err[] = 'visibilite';
     return [$d, $err];
 }
 
@@ -192,9 +297,12 @@ function pnr_validate_recurrence(array $in): array
         'lieu'      => pnr_clean((string)($in['lieu'] ?? '')),
         'adresse'   => pnr_clean((string)($in['adresse'] ?? '')),
         'type'      => pnr_clean((string)($in['type'] ?? 'Entraînement'), 80),
+        'visibilite' => strtolower(trim((string)($in['visibilite'] ?? ''))),
     ];
+    if ($d['visibilite'] === '') $d['visibilite'] = 'public';
     if (!in_array($d['section'], PNR_SECTIONS, true)) $err[] = 'section';
     if ($d['titre'] === '')                            $err[] = 'titre';
+    if (!in_array($d['visibilite'], ['public', 'prive'], true)) $err[] = 'visibilite';
     if (!$days || array_diff($days, [0,1,2,3,4,5,6])) $err[] = 'days';
     if (!pnr_is_time_or_empty($d['debut']))            $err[] = 'debut';
     if (!pnr_is_time_or_empty($d['fin']))              $err[] = 'fin';

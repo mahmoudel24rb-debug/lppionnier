@@ -3,26 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Calendrier · Pionniers de Touraine</title>
-<meta name="description" content="Calendrier officiel des Pionniers de Touraine : entraînements, matchs et événements du club : football américain et flag football.">
-<link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
-<link rel="icon" href="icon.png" type="image/png" sizes="512x512">
+<meta name="robots" content="noindex, nofollow">
+<title>Calendrier interne · Pionniers de Touraine</title>
+<link rel="icon" href="../favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="../icon.png" type="image/png" sizes="512x512">
 <script>
 if (matchMedia('(min-width: 821px)').matches && !location.search.includes('variant=mobile'))
   location.replace('index.html' + location.search + location.hash);
 </script>
-<link rel="preload" as="font" type="font/ttf" href="assets/fonts/FuturaStd-ExtraBoldCondensed.ttf" crossorigin>
-<link rel="preload" as="font" type="font/ttf" href="assets/fonts/NeuethingSans-RegularSemiExpanded.ttf" crossorigin>
-<link rel="stylesheet" href="assets/calendrier-mobile.css">
+<link rel="preload" as="font" type="font/ttf" href="../assets/fonts/FuturaStd-ExtraBoldCondensed.ttf" crossorigin>
+<link rel="preload" as="font" type="font/ttf" href="../assets/fonts/NeuethingSans-RegularSemiExpanded.ttf" crossorigin>
+<link rel="stylesheet" href="../assets/calendrier-mobile.css">
 </head>
-<body data-variant="mobile">
+<body data-variant="mobile" data-scope="private">
+
+<!-- CONNEXION -->
+<div class="login-wrap" id="loginScreen" style="display:none">
+  <div class="login-box">
+    <div>
+      <div class="login-logo"><span class="brand-avatar"><img src="../assets/emojis/coeur-club.webp" alt=""></span>Pionniers <b>Interne</b></div>
+      <div class="login-sub">Calendrier interne du club. Accès réservé aux responsables et aux membres du bureau.</div>
+    </div>
+    <div class="login-field">
+      <label for="pwInput">Mot de passe</label>
+      <input class="inp" type="password" id="pwInput" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <div class="err-msg" id="loginErr"></div>
+    <button class="btn btn-primary btn-full" id="loginBtn">Connexion</button>
+  </div>
+</div>
+
+<!-- CALENDRIER INTERNE -->
+<div id="calWrap" style="display:none">
 <div class="app">
   <header class="mtop">
     <div class="brand">
-      <span class="brand-avatar"><img src="assets/emojis/coeur-club.webp" alt=""></span>
+      <span class="brand-avatar"><img src="../assets/emojis/coeur-club.webp" alt=""></span>
       <div>
         <div class="brand-name">Pionniers</div>
-        <div class="brand-sub">Touraine</div>
+        <div class="brand-sub">Interne</div>
       </div>
     </div>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -45,23 +64,29 @@ if (matchMedia('(min-width: 821px)').matches && !location.search.includes('varia
     <div class="navgroup">
       <span class="nav-label">Gestion</span>
       <button class="navitem" id="navPrint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Imprimer / PDF</button>
+      <a class="navitem" href="../mobile.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>Calendrier public</a>
     </div>
     <div class="side-spacer"></div>
     <div class="side-card" id="nextTrain">
       <div class="sc-lab">Prochain entraînement</div>
       <div class="sc-sec" id="ntSec"></div>
-      <div class="sc-title" id="ntTitle">-</div>
+      <div class="sc-title" id="ntTitle"></div>
       <div class="sc-when" id="ntWhen"></div>
     </div>
     <div class="side-card" id="nextMatch">
       <div class="sc-lab">Prochain match / tournoi</div>
       <div class="sc-sec" id="nmSec"></div>
-      <div class="sc-title" id="nmTitle">-</div>
+      <div class="sc-title" id="nmTitle"></div>
       <div class="sc-when" id="nmWhen"></div>
     </div>
   </aside>
 
   <div class="main">
+  <div class="private-banner">
+    <span class="pb-tag">Interne</span>
+    <span class="pb-txt">Calendrier interne : contient aussi les événements privés.</span>
+    <button class="pb-out" id="logoutBtn">Déconnexion</button>
+  </div>
   <div class="stickybar">
   <div class="controls">
     <button class="today-btn" id="todayBtn">Aujourd'hui</button>
@@ -70,7 +95,7 @@ if (matchMedia('(min-width: 821px)').matches && !location.search.includes('varia
       <span class="navpair-sep"></span>
       <button class="iconbtn" id="next" aria-label="Période suivante">›</button>
     </div>
-    <span class="monthlabel" id="periodLabel">-</span>
+    <span class="monthlabel" id="periodLabel"></span>
     <span class="tb-season"><span id="saisonLabel"></span></span>
     <div class="viewtoggle" role="group" aria-label="Choix de la vue" style="display:none">
       <button id="viewMois" aria-pressed="false">Mois</button>
@@ -89,6 +114,7 @@ if (matchMedia('(min-width: 821px)').matches && !location.search.includes('varia
     <div id="calRoot"></div>
   </div>
 
+  </div>
 </div>
 
 <nav class="tabbar" id="tabbar" aria-label="Vues du calendrier">
@@ -108,13 +134,14 @@ if (matchMedia('(min-width: 821px)').matches && !location.search.includes('varia
     </div>
     <div class="modal-body" id="mBody"></div>
     <div class="modal-actions">
-      <a class="btn btn-primary" id="mGcal" target="_blank" rel="noopener"><img src="assets/emojis/calendrier.webp" alt="" style="width:18px;height:18px">Google Agenda</a>
+      <a class="btn btn-primary" id="mGcal" target="_blank" rel="noopener"><img src="../assets/emojis/calendrier.webp" alt="" style="width:18px;height:18px">Google Agenda</a>
       <button class="btn btn-ghost" id="mIcs">⬇ .ics</button>
       <button class="btn btn-ghost" id="mShare">🔗 Partager</button>
     </div>
   </div>
 </div>
-<script src="assets/jours-speciaux.js" defer></script>
-<script src="assets/calendrier.js" defer></script>
+</div>
+<script src="../assets/jours-speciaux.js" defer></script>
+<script src="../assets/calendrier.js" defer></script>
 </body>
 </html>
