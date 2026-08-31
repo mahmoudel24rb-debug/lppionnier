@@ -136,8 +136,8 @@ const FLAG_REJOINDRE: Node = {
       offers: [{
         id: 'flag-rej-jeunes-o', titre: 'Youth Section ·\nFlag Football',
         punchline: 'Join our Flag Football\nyouth section.',
-        paragraphs: ['Your child will grow in an environment built around progression, the joy of playing and the values of team sport.'],
-        sections: [sec('What we offer', 'Coaching tailored to each player', 'Athletic development', 'Learning the team game', 'Games and competitions throughout the season')],
+        paragraphs: ['Our youth section welcomes children from U7 to U18. Your child will grow in an environment built around progression, the joy of playing and the values of team sport.'],
+        sections: [sec('What we offer', 'Coaching tailored to each player', 'Athletic development', 'Learning the team game', 'Games and competitions throughout the season', 'Regional and national youth leagues and NFL FLAG')],
         tag: 'Youth annual license', icon: 'flag',
       }],
     },

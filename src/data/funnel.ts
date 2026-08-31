@@ -169,8 +169,8 @@ const FLAG_REJOINDRE: Node = {
       offers: [{
         id: 'flag-rej-jeunes-o', titre: 'Section Jeune ·\nFlag Football',
         punchline: 'Rejoignez notre section jeune\nFlag Football.',
-        paragraphs: ["Votre enfant évoluera dans un environnement favorisant la progression, le plaisir de jouer et l'apprentissage des valeurs du sport collectif."],
-        sections: [sec('Ce que nous proposons', 'Encadrement adapté', 'Développement des qualités athlétiques', 'Apprentissage du jeu collectif', 'Participation aux rencontres et compétitions')],
+        paragraphs: ["Notre section jeune accueille les enfants de U7 à U18. Votre enfant évoluera dans un environnement favorisant la progression, le plaisir de jouer et l'apprentissage des valeurs du sport collectif."],
+        sections: [sec('Ce que nous proposons', 'Encadrement adapté', 'Développement des qualités athlétiques', 'Apprentissage du jeu collectif', 'Participation aux rencontres et compétitions', 'Championnats jeunes régionaux, nationaux et NFL FLAG')],
         tag: 'Licence annuelle Jeune', icon: 'flag',
       }],
     },
