@@ -123,7 +123,7 @@ const UI = {
   },
 };
 
-export default function ImmersiveTunnel({ onClose, initialOfferId }: { onClose: () => void; initialOfferId?: string }) {
+export default function ImmersiveTunnel({ onClose, initialOfferId, initialAll }: { onClose: () => void; initialOfferId?: string; initialAll?: boolean }) {
   const { lang } = useLang();
   const ui = UI[lang];
   const root = lang === 'en' ? TUNNEL_EN : TUNNEL;
@@ -144,13 +144,14 @@ export default function ImmersiveTunnel({ onClose, initialOfferId }: { onClose: 
 
   // La langue ne peut changer que tunnel fermé (le toggle est sous l'overlay),
   // mais on resynchronise la racine par sécurité. Le deep-link (résultat du
-  // quiz) survit au reset : l'offre est re-résolue dans l'arbre de la langue
-  // courante (ids identiques FR/EN).
+  // quiz ou hash #offre-<id> / #offres) survit au reset : l'offre est
+  // re-résolue dans l'arbre de la langue courante (ids identiques FR/EN),
+  // et `initialAll` réouvre le job board « Toutes les offres ».
   useEffect(() => {
     setPath([root]);
     setDetail(initialOfferId ? getAllOffers(root).find((o) => o.id === initialOfferId) ?? null : null);
     setFormOpen(false);
-    setShowAll(false);
+    setShowAll(!!initialAll);
     setSent(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
