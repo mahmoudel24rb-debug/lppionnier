@@ -344,6 +344,21 @@ const VIDEASTE: Offer = {
   tag: 'Bénévolat',
 };
 
+const BROADCAST: Offer = {
+  id: 'broadcast-regie', titre: 'Équipe Broadcast\nFFFA TV',
+  punchline: "Les matchs des Pionniers se diffusent\ndésormais sur la FFFA TV.",
+  paragraphs: [
+    "La fédération ouvre désormais la diffusion des matchs à tous les clubs sur la FFFA TV. Les rencontres des Pionniers peuvent ainsi être suivies en direct, bien au-delà des tribunes.",
+    "Le club constitue l'équipe de bénévoles qui fait vivre ce direct : le tournage et la régie de transmission les jours de match à domicile, en football américain comme en flag. Aucune expérience n'est exigée, tout s'apprend sur place.",
+  ],
+  sections: [
+    sec('Tes missions', 'Filmer le match', 'Tenir la régie de transmission pendant le direct', "Participer à l'installation et au démontage du dispositif les jours de match et d'événement"),
+    sec('Ce que tu y gagnes', 'Une place au coeur du match', 'Le broadcast sportif en conditions réelles', "L'ambiance des jours de match aux côtés des équipes"),
+  ],
+  quote: "Chaque match diffusé, c'est le club qui dépasse les tribunes de la Chambrerie.",
+  tag: 'Bénévolat',
+};
+
 const WEB: Offer = {
   id: 'web', titre: 'Référent Digital & Web',
   punchline: 'Faites évoluer la vitrine numérique\ndu club.',
@@ -547,7 +562,7 @@ export const TUNNEL: Node = {
           desc: 'Je peux mettre\nmon expertise\nau service du club.',
           question: 'Quelle expertise souhaitez-vous apporter ?',
           children: [
-            { id: 'com-creation', label: 'Communication\n& Création', icon: 'com', desc: 'Faire rayonner le club auprès\ndu public et des futurs\nlicenciés.', offers: [GRAPHISTE, PHOTOGRAPHE, CM, VIDEASTE, WEB, MERCH] },
+            { id: 'com-creation', label: 'Communication\n& Création', icon: 'com', desc: 'Faire rayonner le club auprès\ndu public et des futurs\nlicenciés.', offers: [GRAPHISTE, PHOTOGRAPHE, CM, VIDEASTE, BROADCAST, WEB, MERCH] },
             { id: 'gestion', label: 'Gestion & Administration', icon: 'gestion', desc: "Structurer l'organisation\net préparer l'avenir du club.", offers: [GESTION] },
             { id: 'finance', label: 'Réseau, Commerce & Financement', icon: 'finance', desc: 'Trouver les ressources\nqui permettront au projet\nde grandir.', offers: [PARTENARIATS_PRIVES, TERRITOIRE, PILOTAGE_FIN] },
             { id: 'sante', label: 'Santé &\nbien-être', icon: 'sante', desc: "Contribuez à la sécurité\net à l'accompagnement\ndes pratiquants.", offers: [SANTE_PARTENAIRE, SANTE_SECOURS] },

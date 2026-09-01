@@ -49,6 +49,7 @@ $offres = [
     'photographe' => 'Photographe',
     'cm' => 'Community Manager',
     'videaste' => 'Vidéaste / Monteur',
+    'broadcast-regie' => 'Équipe Broadcast · FFFA TV',
     'web' => 'Référent Digital & Web',
     'merch' => 'Responsable Merchandising & Identité de Marque',
     'gestion' => 'Équipe Gestion & Administration',

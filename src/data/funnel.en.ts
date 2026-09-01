@@ -296,6 +296,21 @@ const VIDEASTE: Offer = {
   tag: 'Volunteering',
 };
 
+const BROADCAST: Offer = {
+  id: 'broadcast-regie', titre: 'Broadcast Crew\nFFFA TV',
+  punchline: 'Pionniers games are now shown\non FFFA TV.',
+  paragraphs: [
+    'The federation now lets every club broadcast its games on FFFA TV. Pionniers fixtures can be followed live, far beyond the stands.',
+    'The club is putting together the crew of volunteers who make that live show happen: filming and running the broadcast desk on home game days, in American football as much as in flag. No experience required, everything is learned on site.',
+  ],
+  sections: [
+    sec('Your missions', 'Film the game', 'Run the broadcast desk during the live show', 'Help set up and pack away the setup on game days and event days'),
+    sec('What you will gain', 'A place at the heart of the game', 'Sports broadcasting in real conditions', 'The buzz of game days alongside the teams'),
+  ],
+  quote: 'Every game we broadcast takes the club beyond the stands of la Chambrerie.',
+  tag: 'Volunteering',
+};
+
 const WEB: Offer = {
   id: 'web', titre: 'Digital & Web Lead',
   punchline: 'Grow the digital front door\nof the club.',
@@ -496,7 +511,7 @@ export const TUNNEL_EN: Node = {
           desc: 'I can put\nmy expertise\nat the service of the club.',
           question: 'What expertise would you like to bring?',
           children: [
-            { id: 'com-creation', label: 'Communication\n& Creative', icon: 'com', desc: 'Put the club on the map with\nthe public and our future\nplayers.', offers: [GRAPHISTE, PHOTOGRAPHE, CM, VIDEASTE, WEB, MERCH] },
+            { id: 'com-creation', label: 'Communication\n& Creative', icon: 'com', desc: 'Put the club on the map with\nthe public and our future\nplayers.', offers: [GRAPHISTE, PHOTOGRAPHE, CM, VIDEASTE, BROADCAST, WEB, MERCH] },
             { id: 'gestion', label: 'Management & Administration', icon: 'gestion', desc: 'Structure the organization\nand prepare the future of the club.', offers: [GESTION] },
             { id: 'finance', label: 'Network, Business & Funding', icon: 'finance', desc: 'Find the resources\nthat will let the project\nkeep growing.', offers: [PARTENARIATS_PRIVES, TERRITOIRE, PILOTAGE_FIN] },
             { id: 'sante', label: 'Health &\nwell-being', icon: 'sante', desc: 'Contribute to the safety\nand care\nof our players.', offers: [SANTE_PARTENAIRE, SANTE_SECOURS] },
