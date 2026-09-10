@@ -17,16 +17,63 @@ import { asset } from '@/lib/asset';
 // prod. Prod o2switch : indexable, avec canonical sur le sous-domaine officiel.
 const IS_DEMO = (process.env.NEXT_PUBLIC_BASE_PATH ?? '/lppionnier') !== '/';
 
+const SITE = 'https://recrutement.pionniersdetouraine.fr';
+const TITRE = 'Rejoins les Pionniers de Touraine à Tours · Foot US et flag';
+const DESCRIPTION =
+  "Rejoins les Pionniers de Touraine : football américain, flag football, coaching, arbitrage et plus. Trouve ta place et engage-toi.";
+
 export const metadata: Metadata = {
-  title: 'Pionniers de Touraine · Football Américain & Flag | Nous rejoindre',
-  description:
-    "Rejoins les Pionniers de Touraine : football américain, flag football, coaching, arbitrage et plus. Trouve ta place et engage-toi.",
+  title: TITRE,
+  description: DESCRIPTION,
   ...(IS_DEMO
     ? { robots: { index: false, follow: false } }
     : {
-        metadataBase: new URL('https://recrutement.pionniersdetouraine.fr'),
+        metadataBase: new URL(SITE),
         alternates: { canonical: '/' },
+        openGraph: {
+          type: 'website',
+          locale: 'fr_FR',
+          siteName: 'Pionniers de Touraine',
+          title: TITRE,
+          description: DESCRIPTION,
+          url: '/',
+          images: [{ url: `${SITE}/assets/refonte/fond-hero.webp` }],
+        },
       }),
+};
+
+// Le sous-domaine décrit la MÊME entité que le site principal : on réutilise
+// son `@id` d'organisation pour que Google ne voie qu'un seul club.
+const JSON_LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SportsClub',
+      '@id': 'https://pionniersdetouraine.fr/#organization',
+      name: 'Pionniers de Touraine',
+      url: 'https://pionniersdetouraine.fr',
+      foundingDate: '1987',
+      sport: ['American Football', 'Flag Football'],
+      telephone: '+33787018026',
+      email: 'recrutement@pionniersdetouraine.fr',
+      logo: 'https://pionniersdetouraine.fr/assets/refonte/logo-pionniers.svg',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Stade de la Chambrerie, Rue Tartifume',
+        postalCode: '37100',
+        addressLocality: 'Tours',
+        addressRegion: 'Centre-Val de Loire',
+        addressCountry: 'FR',
+      },
+      hasMap: 'https://maps.app.goo.gl/cnVghabaHrhx9qaQA',
+      sameAs: [
+        'https://www.facebook.com/p/Pionniers-de-Touraine-61578271450029/',
+        'https://www.instagram.com/pionniersdetouraine/',
+        'https://www.tiktok.com/@pionniersdetouraine',
+        'https://maps.app.goo.gl/cnVghabaHrhx9qaQA',
+      ],
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -37,6 +84,13 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
+        {/* Données structurées : le club, même @id que le site principal (prod uniquement). */}
+        {IS_DEMO ? null : (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+          />
+        )}
         {/* Préchargements LCP : fond du hero + polices (les <link> preload sont
             valides dans <body> et traités immédiatement par le navigateur). */}
         <link rel="preload" as="image" href={asset('/assets/refonte/fond-hero.webp')} />

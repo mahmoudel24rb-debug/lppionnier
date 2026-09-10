@@ -15,8 +15,16 @@ const STADE: [number, number] = [47.417, 0.7104]; // centre du complexe (OSM)
 /** Terrain d'entraînement actuel des Pionniers : pitch sud du complexe. */
 const TERRAIN: [number, number] = [47.416252, 0.710804];
 
-const GOOGLE_MAPS =
-  'https://www.google.com/maps/search/?api=1&query=Stade+de+la+Chambrerie+Rue+Tartifume+37100+Tours';
+/** Fiche Google Business du club (et non une recherche Maps). */
+const GOOGLE_MAPS = 'https://maps.app.goo.gl/cnVghabaHrhx9qaQA';
+
+/** Adresse affichée : forme actuelle, à confirmer sur la fiche Google. */
+const ADRESSE_AFFICHEE = '2-4 Rue de Tartifume, 37100 Tours';
+
+const LIBELLE_ITINERAIRE = {
+  fr: 'Itinéraire vers le stade de la Chambrerie',
+  en: 'Directions to Stade de la Chambrerie',
+};
 
 export default function StadeMap() {
   const { lang } = useLang();
@@ -66,7 +74,7 @@ export default function StadeMap() {
             L.marker(TERRAIN, { icon: ballon, alt: 'Stade de la Chambrerie' })
               .addTo(map)
               .bindPopup(
-                `<strong>Stade de la Chambrerie</strong><br>2-4 Rue de Tartifume, 37100 Tours<br><a href="${GOOGLE_MAPS}" target="_blank" rel="noopener noreferrer">${document.documentElement.lang === "en" ? "Directions" : "Itinéraire"} →</a>`,
+                `<strong>Stade de la Chambrerie</strong><br>${ADRESSE_AFFICHEE}<br><a href="${GOOGLE_MAPS}" target="_blank" rel="noopener noreferrer">${document.documentElement.lang === 'en' ? LIBELLE_ITINERAIRE.en : LIBELLE_ITINERAIRE.fr} →</a>`,
               );
           }));
         }
@@ -87,8 +95,14 @@ export default function StadeMap() {
       <div ref={containerRef} className="sc-map-canvas" />
       <span className="sc-map-address">
         <strong>Stade de la Chambrerie</strong>
-        <a href={GOOGLE_MAPS} target="_blank" rel="noopener noreferrer">
-          2-4 Rue de Tartifume, 37100 Tours
+        <a
+          href={GOOGLE_MAPS}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={LIBELLE_ITINERAIRE[lang]}
+          title={LIBELLE_ITINERAIRE[lang]}
+        >
+          {ADRESSE_AFFICHEE}
         </a>
       </span>
     </div>

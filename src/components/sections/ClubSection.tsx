@@ -42,7 +42,7 @@ export default function ClubSection() {
         <div data-reveal>
           <p className="sc-eyebrow">{t.eyebrow}</p>
           <h2 className="sc-title">
-            {t.title1}
+            {t.title1}{' '}
             <br />
             {t.title2}
           </h2>

@@ -16,6 +16,32 @@ const NAV: { href: string; fr: string; en: string; external?: boolean }[] = [
   { href: 'quel-poste-football-americain/', fr: 'Quel poste jouer ?', en: 'Which position?' },
 ];
 
+// Liens rendus vers le site principal : le sous-domaine reçoit ses liens, il
+// doit aussi en renvoyer (une seule entité, deux domaines).
+const SITE_PRINCIPAL: { href: string; fr: string; en: string }[] = [
+  {
+    href: 'https://pionniersdetouraine.fr/football-americain/',
+    fr: 'Football américain à Tours',
+    en: 'American football in Tours',
+  },
+  {
+    href: 'https://pionniersdetouraine.fr/flag-football/',
+    fr: 'Flag football à Tours',
+    en: 'Flag football in Tours',
+  },
+  {
+    href: 'https://pionniersdetouraine.fr/ecole-de-flag/',
+    fr: 'École de flag',
+    en: 'Youth flag school',
+  },
+  {
+    href: 'https://pionniersdetouraine.fr/blog/postes-football-americain/',
+    fr: 'Les postes expliqués',
+    en: 'Positions explained',
+  },
+  { href: 'https://pionniersdetouraine.fr/le-club/', fr: 'Le club', en: 'The club' },
+];
+
 const BADGES = [
   { src: '/assets/refonte/badge-1-footus.webp', alt: 'Foot US & Flag' },
   { src: '/assets/refonte/badge-2-olympique.webp', alt: 'Sport Olympique · JO de Los Angeles 2028' },
@@ -33,6 +59,7 @@ const T = {
     lieu: 'Tours, Touraine (37)',
     droits: 'Tous droits réservés.',
     mentions: 'Mentions légales',
+    siteClub: 'Le site du club',
   },
   en: {
     tagline: 'American football & flag football in Tours since 1987. On the field or by our side, find your place with the Pionniers.',
@@ -42,6 +69,7 @@ const T = {
     lieu: 'Tours, Touraine, France',
     droits: 'All rights reserved.',
     mentions: 'Legal notice',
+    siteClub: 'The club website',
   },
 };
 
@@ -71,6 +99,16 @@ export default function SiteFooter() {
             {NAV.map((l) => (
               // Ancres préfixées par la home : fonctionnent aussi depuis /mentions-legales.
               <a key={l.href} href={l.external ? l.href : `${asset('/')}${l.href}`}>
+                {lang === 'en' ? l.en : l.fr}
+              </a>
+            ))}
+          </nav>
+          <h3 className="sc-footer-h" style={{ marginTop: 26 }}>
+            {t.siteClub}
+          </h3>
+          <nav className="sc-footer-links">
+            {SITE_PRINCIPAL.map((l) => (
+              <a key={l.href} href={l.href}>
                 {lang === 'en' ? l.en : l.fr}
               </a>
             ))}

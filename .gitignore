@@ -31,3 +31,9 @@ next-env.d.ts
 
 # projet frère (repo séparé : homepage pionniersdetouraine.fr)
 /homepagepnr/
+
+seotracker/
+
+# cles de compte de service Google (jamais versionnees)
+flowing-banner-*.json
+*.iam.gserviceaccount.json

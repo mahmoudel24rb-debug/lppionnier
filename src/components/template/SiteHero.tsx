@@ -17,7 +17,7 @@ const BADGES = [
 const T = {
   fr: {
     season: 'SAISON 2026/2027',
-    title: 'Rejoins les Pionniers de Touraine',
+    title: 'Rejoins les Pionniers de Touraine à Tours',
     sub1: 'Football Américain & Flag Football\nà Tours depuis 1987.',
     sub2: 'Choisis ta voie en quelques clics, sur le terrain ou à nos côtés pour faire vivre le club.',
     cta: 'Commencer le parcours',
@@ -26,7 +26,7 @@ const T = {
   },
   en: {
     season: 'SEASON 2026/2027',
-    title: 'Join the Pionniers de Touraine',
+    title: 'Join the Pionniers de Touraine in Tours',
     sub1: 'American Football & Flag Football\nin Tours since 1987.',
     sub2: 'Pick your path in a few clicks, on the field or by our side to keep the club going.',
     cta: 'Start the journey',

@@ -2,14 +2,16 @@ import type { Metadata } from 'next';
 import SiteHeader from '@/components/template/SiteHeader';
 import SiteFooter from '@/components/sections/SiteFooter';
 
+// Cible de build : démo GitHub Pages (basePath non vide) ou prod o2switch.
+const IS_DEMO = (process.env.NEXT_PUBLIC_BASE_PATH ?? '/lppionnier') !== '/';
+
 export const metadata: Metadata = {
   title: 'Mentions légales · Pionniers de Touraine',
   description:
     'Mentions légales du site des Pionniers de Touraine : éditeur, hébergement, propriété intellectuelle et données personnelles.',
+  // En démo, pas de canonical (le layout passe déjà la page en noindex).
+  ...(IS_DEMO ? {} : { alternates: { canonical: '/mentions-legales/' } }),
 };
-
-// Cible de build : démo GitHub Pages (basePath non vide) ou prod o2switch.
-const IS_DEMO = (process.env.NEXT_PUBLIC_BASE_PATH ?? '/lppionnier') !== '/';
 
 export default function MentionsLegalesPage() {
   return (

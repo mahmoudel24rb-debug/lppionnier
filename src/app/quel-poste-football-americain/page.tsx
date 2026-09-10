@@ -8,17 +8,24 @@ import '@/components/quiz/hero.css';
 const IS_DEMO = (process.env.NEXT_PUBLIC_BASE_PATH ?? '/lppionnier') !== '/';
 const SITE = 'https://recrutement.pionniersdetouraine.fr';
 
+// Le test est un outil, pas un article de fond : l'explication des rôles vit
+// sur le site principal (article de référence), le quiz garde l'intention outil.
+const TITRE = 'Test : quel poste jouer ? | Pionniers de Touraine';
+const DESCRIPTION =
+  '8 questions sur ta taille, ton poids et ta vitesse : découvre le poste de football américain ou de flag qui te correspond, puis viens l’essayer à Tours.';
+const ARTICLE_POSTES = 'https://pionniersdetouraine.fr/blog/postes-football-americain/';
+
 export const metadata: Metadata = {
-  title: 'Quel poste jouer au football américain ? Fais le test',
-  description:
-    'Taille, poids, vitesse, rapport au contact : réponds à 8 questions et découvre ton poste idéal au football américain ou au flag, calibré sur les profils NFL et NCAA.',
+  title: TITRE,
+  description: DESCRIPTION,
   ...(IS_DEMO
     ? {}
     : {
+        robots: { index: true, follow: true },
         alternates: { canonical: '/quel-poste-football-americain/' },
         openGraph: {
           type: 'website',
-          title: 'Quel poste jouer au football américain ? Fais le test',
+          title: TITRE,
           description:
             'Un test de scouting en 8 questions pour trouver ton poste idéal, en foot US ou en flag football.',
           url: `${SITE}/quel-poste-football-americain/`,
@@ -29,19 +36,60 @@ export const metadata: Metadata = {
       }),
 };
 
+// Même entité que le site principal : `isPartOf` pointe sur son organisation.
+const JSON_LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${SITE}/quel-poste-football-americain/#page`,
+      url: `${SITE}/quel-poste-football-americain/`,
+      name: 'Test : quel poste jouer ?',
+      inLanguage: 'fr-FR',
+      isPartOf: { '@id': 'https://pionniersdetouraine.fr/#organization' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${SITE}/quel-poste-football-americain/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${SITE}/` },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Test de poste',
+          item: `${SITE}/quel-poste-football-americain/`,
+        },
+      ],
+    },
+  ],
+};
+
 export default function QuizPage() {
   return (
     <>
+      {IS_DEMO ? null : (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        />
+      )}
       <SiteHeader />
       <main>
         <section className="blogc-hero" style={{ paddingBottom: 'clamp(24px, 3vw, 40px)' }}>
           <div className="blogc-hero-inner">
             <p className="sc-eyebrow">Le test des Pionniers</p>
-            <h1 className="sc-title">Quel poste jouer au football américain ?</h1>
+            <h1 className="sc-title">Fais le test de poste en 8 questions</h1>
             <p className="sc-lead" style={{ margin: '18px auto 0' }}>
               Chaque gabarit a un poste où il devient une arme. Réponds à 8 questions et notre
               algorithme de scouting, calibré sur les gabarits réels des joueurs NFL et NCAA,
               te propose le tien, en foot US comme en flag.
+            </p>
+            <p className="sc-lead" style={{ margin: '12px auto 0' }}>
+              Tu veux d’abord comprendre les rôles ? Lis{' '}
+              <a href={ARTICLE_POSTES} style={{ color: 'var(--rf-amber)' }}>
+                les postes au football américain expliqués
+              </a>
+              , puis reviens faire le test.
             </p>
           </div>
         </section>
@@ -58,7 +106,7 @@ export default function QuizPage() {
           <div className="sc-wrap">
             <p className="sc-eyebrow">Comprendre les postes</p>
             <h2 className="sc-title" style={{ fontSize: 'clamp(30px, 3.6vw, 48px)' }}>
-              11 joueurs, 11 métiers différents
+              Les postes en bref
             </h2>
             <div className="sc-cards">
               <div className="sc-card" style={{ cursor: 'default' }}>
@@ -104,7 +152,12 @@ export default function QuizPage() {
                 style={{ color: 'var(--rf-amber)' }}
               >
                 le flag football
-              </a>.
+              </a>
+              , et pour le détail poste par poste,{' '}
+              <a href={ARTICLE_POSTES} style={{ color: 'var(--rf-amber)' }}>
+                le guide complet des postes
+              </a>
+              .
             </p>
           </div>
         </section>
