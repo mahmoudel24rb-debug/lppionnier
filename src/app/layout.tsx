@@ -66,6 +66,8 @@ const JSON_LD = {
         addressCountry: 'FR',
       },
       hasMap: 'https://maps.app.goo.gl/cnVghabaHrhx9qaQA',
+      // Coordonnees relevees sur la fiche Google Business du club (10/09/2026).
+      geo: { '@type': 'GeoCoordinates', latitude: 47.4167151, longitude: 0.7102265 },
       sameAs: [
         'https://www.facebook.com/p/Pionniers-de-Touraine-61578271450029/',
         'https://www.instagram.com/pionniersdetouraine/',
