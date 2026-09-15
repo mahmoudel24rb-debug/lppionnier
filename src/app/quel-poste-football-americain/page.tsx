@@ -87,7 +87,7 @@ export default function QuizPage() {
             <p className="sc-lead" style={{ margin: '12px auto 0' }}>
               Tu veux d’abord comprendre les rôles ? Lis{' '}
               <a href={ARTICLE_POSTES} style={{ color: 'var(--rf-amber)' }}>
-                les postes au football américain expliqués
+                quel poste jouer au football américain ?
               </a>
               , puis reviens faire le test.
             </p>
